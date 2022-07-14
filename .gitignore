@@ -130,3 +130,6 @@ tags.temp
 
 # Backup files.
 *.bk
+
+# Legacy Visual Basic files, not compatible  with license.
+*.bas
