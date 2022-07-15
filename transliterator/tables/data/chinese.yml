@@ -19,18 +19,22 @@ script_to_roman:
     #Place of publication not identified=Place of publication not identified_
     #publisher not identified=publisher not identified_
 
-    ## Begin Script2Roman Dictionary ##
+    # Multi-character transliteration.
+    #
+    # These should be kept at the beginning of the mapping for readability,
+    # however the software will rearrange them internally after parsing the
+    # config file, so the longest strings are searched for first.
     # Q: Separate whole names from the rest? We'll see when we implement the
     # logic maybe.
-    "\u4E2D\u56FD": Zhongguo_
-    "\u5317\u4EAC": Beijing_
+    "\u4E2D\u56FD": "Zhongguo "
+    "\u5317\u4EAC": "Beijing "
 
-    # Single syllable transliteration.
+    # Single character transliteration.
     "\u2018": "'"
     "\u2019": "'"
     "\u201C": "\""
     "\u201D": "\""
-    "\u3000": 
+    "\u3000": ""
     "\u3001": ", " # Underscores are replaced by spaces directly in config.
     "\u3002": ". "
     "\u3007": "ling "
@@ -40,7 +44,7 @@ script_to_roman:
     "\u300B": "\" "
     "\u300C": "\""
     "\u300D": "\" "
-    "\u30FB": 
+    "\u30FB": ""
     "\u4E00": "yi "
     "\u4E01": "ding "
     "\u4E03": "qi "
