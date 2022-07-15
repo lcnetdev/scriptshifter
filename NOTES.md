@@ -43,8 +43,13 @@ such as `publisher not identified=publisher not identified`.
 
 Q: Shall spaces around the `=` sign be ignored?
 
+A (RB): Very likely yes, spaces are represented in the legacy files by
+underscores.
+
 Q: What are the `_` at the end of some mappings, e.g. `U+4E00=yi_` for Chinese?
 Are they supposed to add a space where the underscore appears?
+
+A (RB): Yes.
 
 ## `ReRomanizeRecord.bas`
 
@@ -55,9 +60,14 @@ Q: Is it possible (and desirable) to determine the S2R/R2S direction from user
 prompt rather than guessing it from the text as the legacy software seems to
 be doing?
 
+A (RB): Yes.
+
 Q: The software seems to take multi-line directives in the configuration into
 account. Is it possible to avoid these for simplicity, or is there a need to
 express some mapping in multiple lines?
+
+A (RB): Long lines may be needed. (SC) This would be moot in YAML that supports
+multi-line strings via folding.
 
 Detailed breakdown of individual functions follows.
 
@@ -197,10 +207,14 @@ This is the logic of the romanization process by character or syllable.
 
 #### `EvaluateFirstCharacter`
 
-This determines if the translation is R2V or V2R. Does this work reliably and
+This determines if the translation is R2S or S2R. Does this work reliably and
 independently of any external directive? Could there be some strings in foreign
 scripts that start with Latin characters (e.g. numbers or Western terms), and
 lead to unexpected results?
+
+A (RB): Some non-Latin scripts may start with Latin characters. (SC) Let's use
+an explicit direction option from the user. The logic would be too complicated
+and flimsy.
 
 (Also the translation is supposedly purpose-driven, as the user should have a
 specific direction in mind and wouldn't want the software to decide for them.)
@@ -209,6 +223,9 @@ specific direction in mind and wouldn't want the software to decide for them.)
 #### `ReRomanizeTextDetailsReplaceApostrophes`
 
 Replace apostrophe characters with glyphs supported by foeign script?
+
+Coment (RB): More clarity is needed around Latin and non-Latin punctuation to
+be used. (SC): TODO More to be discussed via conf call.
 
 
 #### Field- and UI-related functions
@@ -232,6 +249,11 @@ Q: It seems like several characters are parsed and added to the text to denote
 MARC markers. Do we need to deal with these manually as indicators related to
 the script/language handled, or shall we expect any text string input in the
 new Transliterator to be clean from MARC flags? 
+
+A (RB): Most  MARC markers are obsolete; but there may be other  markers that
+are not easily transliterated, e.g. BIBFRAME markers. More discussion is needed
+on this point. (SC) Need feedback from KF + MM about what to expect from input
+and output string in this regard.
 
 #### `RomanizeConvertDecimalChars`
 
