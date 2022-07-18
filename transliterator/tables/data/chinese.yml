@@ -34,6 +34,8 @@ script_to_roman:
     "\u2019": "'"
     "\u201C": "\""
     "\u201D": "\""
+    # NOTE \u3000 is an ideographic space; shouldn't this translate into a
+    # space?
     "\u3000": ""
     "\u3001": ", " # Underscores are replaced by spaces directly in config.
     "\u3002": ". "
@@ -4131,7 +4133,7 @@ script_to_roman:
     "\u94C9": "Xuan "
     "\u94DB": "dang "
     "\u94DC": "tong "
-    "\u94DD": "lu¨ "
+    "\u94DD": "l\u00FC "
     "\u94E8": "quan "
     "\u94ED": "ming "
     "\u94EE": "zheng "
