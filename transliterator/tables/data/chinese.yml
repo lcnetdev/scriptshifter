@@ -11,7 +11,11 @@ script_to_roman:
     #subfields_always_excluded: uvxy0123456789
     #other_subfields_excluded_by_tag: 100/e 110/e 111/j 246/i 260/c 264/c 650/a 700/e 700/i 710/e 710/i 711/i 711/j 730/i
     #uppercase_first_character_in_subfield: 260/b
-    personal_name_handling: true
+    # personal_name_handling: true  # This is handled by the text scanner.
+    # Capitalize the first letter of the string only;
+    # TODO Implement a list that includes all punctuation marks that want the
+    # following letter capitalized.
+    capitalize: true
   map: # Mapping section.
     # RDA boilerplate phrases not transliterated.
     # All characters not found in the mapping are copid verbatim. No need for
@@ -28,6 +32,7 @@ script_to_roman:
     # logic maybe.
     "\u4E2D\u56FD": "Zhongguo "
     "\u5317\u4EAC": "Beijing "
+    "\u9808\u5F4C": "Xumi "
 
     # Single character transliteration.
     "\u2018": "'"
