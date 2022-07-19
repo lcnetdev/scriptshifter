@@ -78,6 +78,6 @@ def transliterate(src, script, lang, s2r=True):
     logger.info(f"Output list: {dest_ls}")
     dest = "".join(dest_ls)
 
-    dest = re.sub(MULTI_WS_RE, ' ', dest)
+    dest = re.sub(MULTI_WS_RE, ' ', dest.strip())
 
     return dest

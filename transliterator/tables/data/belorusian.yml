@@ -1,0 +1,24 @@
+general:
+  name: Belorusian
+  inherits: _cyrillic_base
+
+script_to_roman:
+  map:
+    "\u0401": "I\uFE20O\uFE21"
+    "\u0406": "I"
+    "\u040E": "U\u0306"
+    "\u0413": "H"
+    "\u0416": "Z\uFE20H\uFE21"
+    "\u0426": "TS"
+    "\u042B": "Y"
+    "\u042D": "E\u0307"
+    "\u0433": "h"
+    "\u0436": "z\uFE20h\uFE21"
+    "\u0446": "ts"
+    "\u044B": "y"
+    "\u044D": "e\u0307"
+    "\u0451": "i\uFE20o\uFE21"
+    "\u0456": "i"
+    "\u045E": "u\u0306"
+    "\u0490": "G"
+    "\u0491": "g"
