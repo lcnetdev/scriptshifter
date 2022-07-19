@@ -1,6 +1,11 @@
 import logging
+import re
 
 from transliterator.tables import load_table
+
+
+# Match multiple spaces.
+MULTI_WS_RE = re.compile(r"\s{2,}")
 
 
 logger = logging.getLogger(__name__)
@@ -67,11 +72,12 @@ def transliterate(src, script, lang, s2r=True):
             dest_ls.append(src[i])
             i += 1
 
-    breakpoint()
     if langsec_dir.get("capitalize", False):
         dest_ls[0] = dest_ls[0].capitalize()
 
     logger.info(f"Output list: {dest_ls}")
     dest = "".join(dest_ls)
+
+    dest = re.sub(MULTI_WS_RE, ' ', dest)
 
     return dest
