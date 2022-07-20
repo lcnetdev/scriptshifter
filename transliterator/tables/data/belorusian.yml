@@ -2,6 +2,46 @@ general:
   name: Belorusian
   inherits: _cyrillic_base
 
+roman_to_script:
+  map:
+    "H": "\u0413"
+    "h": "\u0433"
+    "G": "\u0490"
+    "g": "\u0491"
+    "E\u0307": "\u042D"
+    "e\u0307": "\u044D"
+    "e": "\u0435"
+    "Z\uFE20H\uFE21": "\u0416"
+    # this conversion shouldn't be needed, but does no harm
+    "Z\uFE20h\uFE21": "\u0416"
+    "z\uFE20h\uFE21": "\u0436"
+    "z": "\u0437"
+    "I\uFE20O\uFE21": "\u0401"
+    # this conversion shouldn't be needed, but does no harm
+    "I\uFE20o\uFE21": "\u0401"
+    "I": "\u0406"
+    "i\uFE20o\uFE21": "\u0451"
+    "i": "\u0456"
+    # this conversion shouldn't be needed, but does no harm
+    # Obsolete form.
+    #"SHCH": "\u0429"
+    # Obsolete form.
+    #"Shch": "\u0429"
+    "SHCH": "\u0428\u0447"
+    "Shch": "\u0428\u0447"
+    # Obsolete form.
+    # "shch": "\u0449"
+    "shch": "\u0448\u0447"
+    # this conversion shouldn't be needed, but does no harm
+    "TS": "\u0426"
+    "Ts": "\u0426"
+    "ts": "\u0446"
+    "U\u0306": "\u040E"
+    "u\u0306": "\u045E"
+    "Y": "\u042B"
+    "y": "\u044B"
+    "\u0027": "\u044C"
+
 script_to_roman:
   map:
     "\u0401": "I\uFE20O\uFE21"

@@ -2,6 +2,42 @@ general:
   name: Ukrainian
   inherits: _cyrillic_base
 
+roman_to_script:
+  map:
+    "H": "\u0413"
+    "h": "\u0433"
+    "G": "\u0490"
+    "g": "\u0491"
+    "E": "\u0415"
+    "Z\uFE20H\uFE21": "\u0416"
+    # this conversion shouldn't be needed, but does no harm
+    "Z\uFE20h\uFE21": "\u0416"
+    "Z": "\u0417"
+    "z\uFE20h\uFE21": "\u0436"
+    "Y": "\u0418"
+    "y": "\u0438"
+    "I\u0308": "\u0407"
+    "I\uFE20E\uFE21": "\u0404"
+    # this conversion shouldn't be needed, but does no harm
+    "I\uFE20e\uFE21": "\u0404"
+    "I\uFE20O\uFE21": "\u0401"
+    # this conversion shouldn't be needed, but does no harm
+    "I\uFE20o\uFE21": "\u0401"
+    "I": "\u0406"
+    "i\u0308": "\u0457"
+    "i\uFE20e\uFE21": "\u0454"
+    "i\uFE20o\uFE21": "\u0451"
+    "i": "\u0456"
+    # this conversion shouldn't be needed, but does no harm
+    "SHCH": "\u0429"
+    "Shch": "\u0429"
+    "shch": "\u0449"
+    # this conversion shouldn't be needed, but does no harm
+    "T\uFE20S\uFE21": "\u0426"
+    # this conversion shouldn't be needed, but does no harm
+    "T\uFE20s\uFE21": "\u0426"
+    "t\uFE20s\uFE21": "\u0446"
+
 script_to_roman:
   map:
     "\u0401": "I\uFE20O\uFE21"
