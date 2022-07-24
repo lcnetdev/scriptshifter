@@ -7,11 +7,14 @@ from transliterator.trans import transliterate
 
 
 def create_app():
+    flask_env = environ.get("TXL_APP_MODE", "production")
     app = Flask(__name__)
     app.config.update({
-        "ENV": environ.get("TXL_APP_MODE", "production"),
+        "ENV": flask_env,
         "SECRET_KEY": environ["TXL_FLASK_SECRET"],
-        "USE_X_SENDFILE": True,
+        # Prod requires the application to be behind Nginx, or static files
+        # won't be served directly by Flask using this option.
+        "USE_X_SENDFILE": flask_env == "production",
         "JSON_AS_ASCII": False,
         "JSONIFY_PRETTYPRINT_REGULAR": True,
     })
