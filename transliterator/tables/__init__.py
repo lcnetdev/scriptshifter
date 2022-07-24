@@ -24,7 +24,7 @@ TABLE_DIR = path.join(path.dirname(path.realpath(__file__)), "data")
 logger = logging.getLogger(__name__)
 
 
-class Token:
+class Token(str):
     """
     Token class: minimal unit of text parsing.
 
@@ -62,6 +62,9 @@ class Token:
 
         # If the root strings are different, perform a normal comparison.
         return self.content < other.content
+
+    def __hash__(self):
+        return hash(self.content)
 
 
 @cache
