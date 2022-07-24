@@ -1,6 +1,6 @@
 from os import environ
 
-from flask import Flask, Response, jsonify, request
+from flask import Flask, Response, jsonify, render_template, request
 
 from transliterator.tables import list_tables, load_table
 from transliterator.trans import transliterate
@@ -22,6 +22,11 @@ def create_app():
 app = create_app()
 
 
+@app.route("/", methods=["GET"])
+def index():
+    return render_template("index.html", languages=list_tables())
+
+
 @app.route("/health", methods=["GET"])
 def health_check():
     return "I'm alive!\n"
@@ -40,13 +45,20 @@ def dump_table(lang):
     return jsonify(load_table(lang))
 
 
-@app.route("/trans/<lang>/r2s", methods=["POST"], defaults={"s2r": False})
+@app.route("/transliterate", methods=["POST"])
+def transliterate_form():
+    """ UI version of the `trans` endpoint. Passes everything via form. """
+    return transliterate_req(
+            request.form["lang"], request.form.get("r2s", False))
+
+
+@app.route("/trans/<lang>/r2s", methods=["POST"], defaults={"r2s": True})
 @app.route("/trans/<lang>", methods=["POST"])
-def transliterate_req(lang, s2r=True):
+def transliterate_req(lang, r2s=False):
     in_txt = request.form["text"]
     if not len(in_txt):
         return ("No input text provided! ", 400)
 
     return Response(
-            transliterate(in_txt, lang, s2r),
+            transliterate(in_txt, lang, r2s),
             content_type="text/plain")

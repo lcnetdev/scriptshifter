@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{ title }} — LoC Transliterator</title>
+        <link rel="stylesheet"
+                href="{{ url_for('static', filename='normalize.css') }}">
+        <link rel="stylesheet"
+                href="{{ url_for('static', filename='milligram.min.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <main class="wrapper">
+          <section class="section">
+            <div class="container">
+            {% block header %}
+                <h1 class="title is-1">{{ title }}</h1>
+            {% endblock %}
+                <div class="content">
+                {% block body %}{% endblock %}
+                </div>
+            </div>
+          </section>
+        </main>
+    </body>
+</html>

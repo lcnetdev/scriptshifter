@@ -11,7 +11,7 @@ MULTI_WS_RE = re.compile(r"\s{2,}")
 logger = logging.getLogger(__name__)
 
 
-def transliterate(src, lang, s2r=True):
+def transliterate(src, lang, r2s=False):
     """
     Transliterate a single string.
 
@@ -21,16 +21,16 @@ def transliterate(src, lang, s2r=True):
         lang (str): Language name.
 
     Keyword args:
-        s2r (bool): If True (the default), the source is considered to be a
+        r2s (bool): If False (the default), the source is considered to be a
         non-latin script in the language and script specified, and the output
-        the Romanization thereof; if False, the source is considered to be
+        the Romanization thereof; if True, the source is considered to be
         romanized text to be transliterated into the specified script/language.
 
     Return:
         str: The transliterated string.
     """
-    source_str = "Latin" if s2r else lang
-    target_str = lang if s2r else "Latin"
+    source_str = "Latin" if r2s else lang
+    target_str = lang if r2s else "Latin"
     logger.info(f"Transliteration is from {source_str} to {target_str}.")
 
     cfg = load_table(lang)
@@ -39,22 +39,22 @@ def transliterate(src, lang, s2r=True):
     # General directives.
     # general_dir = cfg.get("directives", {})
 
-    if s2r and "script_to_roman" not in cfg:
+    if not r2s and "script_to_roman" not in cfg:
         raise NotImplementedError(
             f"Script-to-Roman transliteration not yet supported for {lang}."
         )
-    elif not s2r and "roman_to_script" not in cfg:
+    elif r2s and "roman_to_script" not in cfg:
         raise NotImplementedError(
             f"Roman-to-script transliteration not yet supported for {lang}."
         )
 
-    langsec = cfg["script_to_roman"] if s2r else cfg["roman_to_script"]
+    langsec = cfg["script_to_roman"] if not r2s else cfg["roman_to_script"]
     langsec_dir = langsec.get("directives", {})
 
     i = 0
     dest_ls = []
-    # Loop through source characters. The increment of each loop depends on the
-    # length of the token that eventually matches.
+    # Loop through source characters. The increment of each loop depends on
+    # the length of the token that eventually matches.
     ignore_list = langsec.get("ignore", [])  # Only present in R2S
     while i < len(src):
         # Check ignore list first. Find as many subsequent ignore tokens
