@@ -1,7 +1,6 @@
 import logging
 
 from functools import cache
-# from glob import glob
 from os import path, access, R_OK
 
 from yaml import load
@@ -66,9 +65,20 @@ class Token:
 
 
 @cache
+def list_tables():
+    """
+    List all the available tables.
+    """
+    with open(path.join(TABLE_DIR, "index.yml")) as fh:
+        tdata = load(fh, Loader=Loader)
+
+    return tdata
+
+
+@cache
 def load_table(tname):
     """
-    Load one transliteration table.
+    Load one transliteration table and possible parent.
 
     The table file is parsed into an in-memory configuration that contains
     the language & script metadata and parsing rules.
@@ -81,10 +91,21 @@ def load_table(tname):
     with open(fname) as fh:
         tdata = load(fh, Loader=Loader)
 
+    # NOTE Only one level of inheritance. No need for recursion for now.
+    parent = tdata.get("general", {}).get("inherits", None)
+    if parent:
+        parent_tdata = load_table(parent)
+
     if "script_to_roman" in tdata:
         tokens = {
                 Token(k): v
                 for k, v in tdata["script_to_roman"].get("map", {}).items()}
+        if parent:
+            # Merge (and override) parent values.
+            tokens = {
+                Token(k): v for k, v in parent_tdata.get(
+                        "script_to_roman", {}).get("map", {})
+            } | tokens
         tdata["script_to_roman"]["map"] = tuple(
                 (k.content, tokens[k]) for k in sorted(tokens))
 
@@ -92,7 +113,28 @@ def load_table(tname):
         tokens = {
                 Token(k): v
                 for k, v in tdata["roman_to_script"].get("map", {}).items()}
+        if parent:
+            # Merge (and override) parent values.
+            tokens = {
+                Token(k): v for k, v in parent_tdata.get(
+                        "roman_to_script", {}).get("map", {})
+            } | tokens
         tdata["roman_to_script"]["map"] = tuple(
                 (k.content, tokens[k]) for k in sorted(tokens))
+
+        if parent:
+            p_ignore = {
+                    Token(t) for t in parent_tdata.get(
+                            "roman_to_script", {}).get("ignore", [])}
+        else:
+            p_ignore = set()
+
+        ignore = {
+            Token(t)
+            for t in tdata["roman_to_script"].get("ignore", [])
+        } | p_ignore
+
+        tdata["roman_to_script"]["ignore"] = [
+                t.content for t in sorted(ignore)]
 
     return tdata

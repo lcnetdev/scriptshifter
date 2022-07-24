@@ -11,7 +11,7 @@ MULTI_WS_RE = re.compile(r"\s{2,}")
 logger = logging.getLogger(__name__)
 
 
-def transliterate(src, script, lang, s2r=True):
+def transliterate(src, lang, s2r=True):
     """
     Transliterate a single string.
 
@@ -19,8 +19,6 @@ def transliterate(src, script, lang, s2r=True):
         src (str): Source string.
 
         lang (str): Language name.
-
-        script (str): Name of the script that the language is encoded in.
 
     Keyword args:
         s2r (bool): If True (the default), the source is considered to be a
@@ -31,12 +29,16 @@ def transliterate(src, script, lang, s2r=True):
     Return:
         str: The transliterated string.
     """
-    # TODO script is ignored at the moment.
+    source_str = "Latin" if s2r else lang
+    target_str = lang if s2r else "Latin"
+    logger.info(f"Transliteration is from {source_str} to {target_str}.")
+
     cfg = load_table(lang)
+    logger.info(f"Loaded table for {lang}.")
+
     # General directives.
     # general_dir = cfg.get("directives", {})
 
-    # We could be clever here but let's give the users a precise message.
     if s2r and "script_to_roman" not in cfg:
         raise NotImplementedError(
             f"Script-to-Roman transliteration not yet supported for {lang}."
@@ -53,7 +55,24 @@ def transliterate(src, script, lang, s2r=True):
     dest_ls = []
     # Loop through source characters. The increment of each loop depends on the
     # length of the token that eventually matches.
+    ignore_list = langsec.get("ignore", [])  # Only present in R2S
     while i < len(src):
+        # Check ignore list first. Find as many subsequent ignore tokens
+        # as possible before moving on to looking for match tokens.
+        while True:
+            ignoring = False
+            for tk in ignore_list:
+                step = len(tk)
+                if tk == src[i:i + step]:
+                    logger.info(f"Ignored token: {tk}")
+                    dest_ls.append(tk)
+                    i += step
+                    ignoring = True
+                    break
+            # We looked through all ignore tokens, not found any. Move on.
+            if not ignoring:
+                break
+
         match = False
         for src_tk, dest_tk in langsec["map"]:
             # Longer tokens should be guaranteed to be scanned before their
@@ -66,8 +85,9 @@ def transliterate(src, script, lang, s2r=True):
                 match = True
                 i += step
                 break
+
         if not match:
-            # Copy non-mapped character (one at a time).
+            # No match found. Copy non-mapped character (one at a time).
             logger.info(f"Token {src[i]} at position {i} is not mapped.")
             dest_ls.append(src[i])
             i += 1
@@ -75,7 +95,7 @@ def transliterate(src, script, lang, s2r=True):
     if langsec_dir.get("capitalize", False):
         dest_ls[0] = dest_ls[0].capitalize()
 
-    logger.info(f"Output list: {dest_ls}")
+    logger.debug(f"Output list: {dest_ls}")
     dest = "".join(dest_ls)
 
     dest = re.sub(MULTI_WS_RE, ' ', dest.strip())

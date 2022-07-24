@@ -1,6 +1,9 @@
 from os import environ
 
-from flask import Flask, request
+from flask import Flask, Response, jsonify, request
+
+from transliterator.tables import list_tables, load_table
+from transliterator.trans import transliterate
 
 
 def create_app():
@@ -26,19 +29,24 @@ def health_check():
 
 @app.route("/languages", methods=["GET"])
 def list_languages():
-    return "TODO list of supported languages goes here."
+    return jsonify(list_tables())
 
 
-@app.route("/scripts")
-@app.route("/scripts/<lang>")
-def list_scripts(lang=None):
-    lang_str = f"for {lang}" if lang else "for all languages"
-    return f"TODO list of supported scripts {lang_str} go here."
+@app.route("/table/<lang>")
+def dump_table(lang):
+    """
+    Dump parsed transliteration table for a language.
+    """
+    return jsonify(load_table(lang))
 
 
-@app.route("/trans/<script>/<lang>/<dir>", methods=["POST"])
-def transliterate(script, lang, dir):
+@app.route("/trans/<lang>/r2s", methods=["POST"], defaults={"s2r": False})
+@app.route("/trans/<lang>", methods=["POST"])
+def transliterate_req(lang, s2r=True):
     in_txt = request.form["text"]
-    return (
-            f"TODO transliterate text {in_txt}, language {lang}, "
-            f"script {script}, direction {dir}")
+    if not len(in_txt):
+        return ("No input text provided! ", 400)
+
+    return Response(
+            transliterate(in_txt, lang, s2r),
+            content_type="text/plain")
