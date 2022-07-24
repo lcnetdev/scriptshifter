@@ -59,6 +59,9 @@ def transliterate_req(lang, r2s=False):
     if not len(in_txt):
         return ("No input text provided! ", 400)
 
-    return Response(
+    rsp = Response(
             transliterate(in_txt, lang, r2s),
-            content_type="text/plain")
+            mimetype="text/plain")
+    rsp.headers["Content-Type"] = "text/plain; charset=utf-8"
+
+    return rsp
