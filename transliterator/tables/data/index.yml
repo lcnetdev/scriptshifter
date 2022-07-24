@@ -1,0 +1,16 @@
+# Map index file.
+#
+# Add all mapping files meant to be used in the app here.
+#
+# The entry key is the file name without the `.yml` extension, and the `name`
+# key within the entry is the human-readable label that can be used in a
+# multiple-choice menu.
+
+belarusian:
+  name: Belarusian
+chinese:
+  name: Chinese
+russian:
+  name: Russian
+ukrainian:
+  name: Ukrainian

@@ -17,4 +17,4 @@ class TestScriptToRoman(unittest.TestCase):
                 "Zhuang dao Xumi : Han chuan Fo jiao qing nian xue zhe lun "
                 "tan lun wen ji ")
 
-        assert transliterate(src) == dest
+        assert transliterate(src, "chinese") == dest
