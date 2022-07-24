@@ -20,6 +20,7 @@ roman_to_script:
     # dedicated U+2160÷U+216F (uppercase Roman
     # numerals) and/or U+2170÷U+217F (lower case Roman
     # numerals) ranges to avoid this ambiguity.
+    # TODO implement regular expressions for ignore patterns.
     #- re: "I{2,3}"
     #- re: "I(V|X)"
     #- re: "LI{,3}"

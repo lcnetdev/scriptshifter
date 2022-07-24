@@ -12,8 +12,8 @@ def create_app():
     app.config.update({
         "ENV": flask_env,
         "SECRET_KEY": environ["TXL_FLASK_SECRET"],
-        # Prod requires the application to be behind Nginx, or static files
-        # won't be served directly by Flask using this option.
+        # Prod requires the application to be behind a web server, or static
+        # files won't be served directly by Flask using this option.
         "USE_X_SENDFILE": flask_env == "production",
         "JSON_AS_ASCII": False,
         "JSONIFY_PRETTYPRINT_REGULAR": True,
@@ -62,9 +62,12 @@ def transliterate_req(lang, r2s=False):
     if not len(in_txt):
         return ("No input text provided! ", 400)
 
-    rsp = Response(
-            transliterate(in_txt, lang, r2s),
-            mimetype="text/plain")
+    try:
+        out = transliterate(in_txt, lang, r2s)
+    except (NotImplementedError, ValueError) as e:
+        return (str(e), 400)
+
+    rsp = Response(out, mimetype="text/plain")
     rsp.headers["Content-Type"] = "text/plain; charset=utf-8"
 
     return rsp
