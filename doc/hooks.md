@@ -33,6 +33,7 @@ happens:
    application must be restarted in order for it to parse the updated rules.
    See [`config.md`](./config.md) for a complete guide on the configuration
    structure.
+
    a. If the table is designated as inheriting another table (e.g. `russian`
       inheriting the `_cyrillic_base` table), the parent's tokens in the `map`
       sections under `roman_to_script` and/or `script_to_roman` are first read
@@ -40,6 +41,7 @@ happens:
       present in both tables, the "child" table token overrides the parent. The
       same thing happens with the "ignore" list in the `roman_to_script`
       section.
+
    b. Each of the tokens are rearranged so that longer tokens are
       sorted before shorter ones that are completely contained in the beginning
       part of the former. E.g. a list of tokens such as `['A', 'B', 'AB',
@@ -56,8 +58,10 @@ happens:
 3. For Roman-to-script transliteration, tokens in the `ignore` list are first
    compared against the text at the cursor position. The amount of
    characters compared is equal to the length of each token in the ignore list.
+
    a. If there is a match, the matching token is added to the output list and
       the cursor advanced by the number of characters in the token.
+
    b. If all ignore tokens are scanned and there is no match, the application
       proceeds with the next step at the same cursor position.
 4. Tokens in the relevant `map` of the transliteration table are compared, one
