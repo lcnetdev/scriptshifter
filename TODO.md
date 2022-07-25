@@ -10,8 +10,12 @@ discussion, etc.); *X* = not implementing.
 - *D* Basic transliteration in both directions
 - *D* Basic REST API
 - *D* Basic UI
-- *P* Life cycle hooks for plugins
-- *P* API documentation
+- *W* Life cycle hooks for plugins
+- *P* Regular expressions in ignore lists
+- *P* Word boundaries (design)
+- *D* API documentation
+- *P* Config file documentation
+- *W* Hooks documentation
 - *W* Complete conversion of existing tables to YAML
   - *P* Arabic
   - *P* Armenian
