@@ -11,6 +11,27 @@ MULTI_WS_RE = re.compile(r"\s{2,}")
 logger = logging.getLogger(__name__)
 
 
+class Context:
+    """
+    Context used within the transliteration and passed to hook functions.
+    """
+    cur = 0  # Input text cursor.
+    dest_ls = []  # Token list making up the output string.
+
+    def __init__(self, src, general, langsec):
+        """
+        Initialize a context.
+
+        Args:
+            src (str): The original text. This is meant to never change.
+            general (dict): general section of the current config.
+            langsec (dict): Language configuration section being used.
+        """
+        self.src = src
+        self.general = general
+        self.langsec = langsec
+
+
 def transliterate(src, lang, r2s=False):
     """
     Transliterate a single string.
@@ -37,7 +58,7 @@ def transliterate(src, lang, r2s=False):
     logger.info(f"Loaded table for {lang}.")
 
     # General directives.
-    # general_dir = cfg.get("directives", {})
+    general = cfg.get("general", {})
 
     if not r2s and "script_to_roman" not in cfg:
         raise NotImplementedError(
@@ -50,54 +71,122 @@ def transliterate(src, lang, r2s=False):
 
     langsec = cfg["script_to_roman"] if not r2s else cfg["roman_to_script"]
     langsec_dir = langsec.get("directives", {})
+    langsec_hooks = langsec.get("hooks", {})
 
-    i = 0
-    dest_ls = []
+    ctx = Context(src, general, langsec)
+
+    _run_hook("post_config", ctx, langsec_hooks)
+
     # Loop through source characters. The increment of each loop depends on
     # the length of the token that eventually matches.
     ignore_list = langsec.get("ignore", [])  # Only present in R2S
-    while i < len(src):
+    while ctx.cur < len(src):
+        # This hook may skip the parsing of the current
+        # token or exit the scanning loop altogether.
+        hret = _run_hook("begin_input_token", ctx, langsec_hooks)
+        if hret == "break":
+            break
+        if hret == "continue":
+            continue
         # Check ignore list first. Find as many subsequent ignore tokens
         # as possible before moving on to looking for match tokens.
         while True:
-            ignoring = False
+            ctx.ignoring = False
             for tk in ignore_list:
+                hret = _run_hook("pre_ignore_token", ctx, langsec_hooks)
+                if hret == "break":
+                    break
+                if hret == "continue":
+                    continue
+
                 step = len(tk)
-                if tk == src[i:i + step]:
+                if tk == src[ctx.i:ctx.i + step]:
+                    hret = _run_hook("on_ignore_match", ctx, langsec_hooks)
+                    if hret == "break":
+                        break
+                    if hret == "continue":
+                        continue
+
                     logger.info(f"Ignored token: {tk}")
-                    dest_ls.append(tk)
-                    i += step
-                    ignoring = True
+                    ctx.dest_ls.append(tk)
+                    ctx.i += step
+                    ctx.ignoring = True
                     break
             # We looked through all ignore tokens, not found any. Move on.
-            if not ignoring:
+            if not ctx.ignoring:
                 break
 
-        match = False
+        ctx.match = False
         for src_tk, dest_tk in langsec["map"]:
+            hret = _run_hook("pre_tx_token", ctx, langsec_hooks)
+            if hret == "break":
+                break
+            if hret == "continue":
+                continue
+
             # Longer tokens should be guaranteed to be scanned before their
             # substrings at this point.
             step = len(src_tk)
-            if src_tk == src[i:i + step]:
+            if src_tk == src[ctx.i:ctx.i + step]:
+                # This hook may skip this token or break out of the token
+                # lookup for the current position.
+                hret = _run_hook("on_tx_token_match", ctx, langsec_hooks)
+                if hret == "break":
+                    break
+                if hret == "continue":
+                    continue
+
                 # A match is found. Stop scanning tokens, append result, and
                 # proceed scanning the source.
-                dest_ls.append(dest_tk)
-                match = True
-                i += step
+                ctx.dest_ls.append(dest_tk)
+                ctx.match = True
+                ctx.i += step
                 break
 
-        if not match:
+        if not ctx.match:
+            hret = _run_hook("on_no_tx_token_match", ctx, langsec_hooks)
+            if hret == "break":
+                break
+            if hret == "continue":
+                continue
+
             # No match found. Copy non-mapped character (one at a time).
-            logger.info(f"Token {src[i]} at position {i} is not mapped.")
-            dest_ls.append(src[i])
-            i += 1
+            logger.info(
+                    f"Token {src[ctx.i]} at position {ctx.i} is not mapped.")
+            ctx.dest_ls.append(src[ctx.i])
+            ctx.i += 1
 
     if langsec_dir.get("capitalize", False):
-        dest_ls[0] = dest_ls[0].capitalize()
+        ctx.dest_ls[0] = ctx.dest_ls[0].capitalize()
 
-    logger.debug(f"Output list: {dest_ls}")
-    dest = "".join(dest_ls)
+    # This hook may take care of the assembly and cause the function to return
+    # its own return value.
+    hret = _run_hook("pre_assembly", ctx, langsec_hooks)
+    if hret is not None:
+        return hret
 
-    dest = re.sub(MULTI_WS_RE, ' ', dest.strip())
+    logger.debug(f"Output list: {ctx.dest_ls}")
+    ctx.dest = "".join(ctx.dest_ls)
 
-    return dest
+    # This hook may manipulate the output string and cause the function to
+    # return that.
+    hret = _run_hook("post_assembly", ctx, langsec_hooks)
+    if hret is not None:
+        return hret
+
+    # Strip multiple spaces and leading/trailing whitespace.
+    ctx.dest = re.sub(MULTI_WS_RE, ' ', ctx.dest.strip())
+
+    return ctx.dest
+
+
+def _run_hook(hname, ctx, hooks):
+    for hook_def in hooks.get(hname, []):
+        kwargs = hook_def[1] if len(hook_def > 1) else {}
+        ret = hook_def[0](ctx.src, ctx.cur, ctx.dest_ls, **kwargs)
+        if ret in ("break", "cont"):
+            # This will stop parsing hooks functions and tell the caller to
+            # break out of the outer loop or skip iteration.
+            return ret
+
+    return ret

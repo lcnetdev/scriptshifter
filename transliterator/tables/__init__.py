@@ -20,8 +20,26 @@ language (or language and script? TBD)
 
 TABLE_DIR = path.join(path.dirname(path.realpath(__file__)), "data")
 
+# Available hook names.
+HOOKS = (
+    "post_config",
+    "begin_input_token",
+    "pre_ignore_token",
+    "on_ignore_match",
+    "pre_tx_token",
+    "on_tx_token_match",
+    "on_no_tx_token_match",
+    "pre_assembly",
+    "post_assembly",
+)
+# Package path where hook functions are kept.
+HOOK_PKG_PATH = "transliterator.hooks"
 
 logger = logging.getLogger(__name__)
+
+
+class ConfigError(Exception):
+    """ Raised when a malformed configuration is detected. """
 
 
 class Token(str):
@@ -112,6 +130,10 @@ def load_table(tname):
         tdata["script_to_roman"]["map"] = tuple(
                 (k.content, tokens[k]) for k in sorted(tokens))
 
+        if "hooks" in tdata["script_to_roman"]:
+            tdata["script_to_roman"]["hooks"] = load_hook_fn(
+                    tdata["script_to_roman"]["hooks"])
+
     if "roman_to_script" in tdata:
         tokens = {
                 Token(k): v
@@ -140,4 +162,45 @@ def load_table(tname):
         tdata["roman_to_script"]["ignore"] = [
                 t.content for t in sorted(ignore)]
 
+        if "hooks" in tdata["roman_to_script"]:
+            tdata["roman_to_script"]["hooks"] = load_hook_fn(
+                    tdata["roman_to_script"]["hooks"])
+
     return tdata
+
+
+def load_hook_fn(cname, sec):
+    """
+    Load hook functions from configuration file.
+
+    Args:
+        lang (str): The language key for the configuration.
+
+        sec (dict): The `script_to_roman` or `roman_to_script` section
+        that may contain the `hooks` key to be parsed.
+
+    Return:
+        dict: Dictionary of hook name and list of hook functions pairs.
+    """
+    hook_fn = {}
+    for cfg_hook, cfg_hook_fns in sec.get("hooks", {}):
+        if cfg_hook not in HOOKS:
+            raise ConfigError(f"{cfg_hook} is not a valid hook name!")
+
+        hook_fn[cfg_hook] = []
+        # There may be more than one function in each hook. They are
+        # executed in the order they are found.
+        for cfg_hook_fn in cfg_hook_fns:
+            modname, fnname = path.splitext(cfg_hook_fn)
+            fnname = fnname.lstrip(".")
+            try:
+                fn = import_module(
+                        "." + modname, HOOK_PKG_PATH).getattr(fnname)
+            except NameError:
+                raise ConfigError(
+                    f"Hook function {fnname} defined in {cname} configuration "
+                    f"not found in module {HOOK_PKG_PATH}.{modname}!"
+                )
+            hook_fn[cfg_hook].append(fn)
+
+    return hook_fn
