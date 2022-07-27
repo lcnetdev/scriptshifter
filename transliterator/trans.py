@@ -151,7 +151,10 @@ def transliterate(src, lang, r2s=False):
                 ctx.cur += step
                 break
 
+        delattr(ctx, "src_tk")
+        delattr(ctx, "dest_tk")
         if ctx.match is False:
+            delattr(ctx, "match")
             hret = _run_hook("on_no_tx_token_match", ctx, langsec_hooks)
             if hret == "break":
                 break
@@ -164,10 +167,9 @@ def transliterate(src, lang, r2s=False):
             )
             ctx.dest_ls.append(src[ctx.cur])
             ctx.cur += 1
+        else:
+            delattr(ctx, "match")
 
-    delattr(ctx, "src_tk")
-    delattr(ctx, "dest_tk")
-    delattr(ctx, "match")
     delattr(ctx, "cur")
 
     # This hook may take care of the assembly and cause the function to return

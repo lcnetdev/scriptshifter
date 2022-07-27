@@ -228,7 +228,7 @@ Run when a transliteration token matches the input.
 - `ctx.general`: Configuration general options.
 - `ctx.langsec`: language section (S2R or R2S) of configuration.
 - `ctx.src_tk`: the matching input token.
-- `ctx.dest_tk`: the transliterated sting to be added to the output.
+- `ctx.dest_tk`: the transliterated string to be added to the output.
 - `ctx.match`: whether there was a match. If set to `False`, the rest of the
   workflow will assume a non-match.
 
@@ -250,10 +250,6 @@ been found.
 - `ctx.dest_ls`: destination token list.
 - `ctx.general`: Configuration general options.
 - `ctx.langsec`: language section (S2R or R2S) of configuration.
-- `ctx.src_tk`: the matching input token.
-- `ctx.dest_tk`: the transliterated sting to be added to the output.
-- `ctx.match`: whether there was a match. This is always `False` here and will
-  have no consequence if changed.
 
 #### Output
 
