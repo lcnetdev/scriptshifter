@@ -14,9 +14,9 @@ yet versatile enough to work with the vast majority of scripts; and to enable
 script- or language-specific extensions that can be managd by subject matter
 experts so that it's easy to isolate those specific features.
 
-This is implemented life cycle hooks, which are "ports" where additional logic
-can be executed to change the outcome of a transliteration at certain stages
-of the process.
+This is implemented by using life cycle hooks, which are "ports" into the
+transliteration workflow where additional logic can be executed to change the
+outcome of a transliteration at certain stages of the process.
 
 
 ## Overview of the transliteration process
@@ -64,13 +64,15 @@ happens:
 
    b. If all ignore tokens are scanned and there is no match, the application
    proceeds with the next step at the same cursor position.
-4. Tokens in the relevant `map` of the transliteration table are compared, one
-   by one in the order established in 1.b, with the string at the cursor
-   position. The amount of characters compared is equal to the length of the
-   token.
+4. Tokens in the relevant `map` section of the transliteration table are
+   compared, one by one in the order established in 1.b, with the string at the
+   cursor position. The amount of characters compared is equal to the length of
+   the token.
+
    a. If there is a match, the transliteration indicated in the token is added
       to the output list, and the cursor advanced by the number of characters
       in the token.
+
    b. If there is no match, the next token is tried. If all the tokens have
       been tried and still no match results, the single character at the
       current position is added verbatim to the output list, and the cursor
@@ -95,9 +97,10 @@ paramters.
 Hook functions may be defined for each language/script in the corresponding
 configuration file. See [`config.md`](./config.md) for details.
 
-The function name takes the form of `<module name>/<function name>` and must
+The function name takes the form of `<module name>.<function name>` and must
 correspond to an existing module and function under the `transliterator.hooks`
-package.
+package. Check the [`rot3.yml`](../transliterator/tables/data/rot3.yml) test
+configuration and the referred functions for a working example.
 
 Each hook requires some arguments to be defined in each function associated
 with it: `ctx`, an instance of `transliterator.trans.Context` which carries
@@ -119,17 +122,33 @@ challenges arise.
 This hook is run after the whole configuration is parsed and possibly merged
 with a parent configuration.
 
+#### Available context members
+
+- `ctx.src`: Source text. It should not be reassigned.
+- `ctx.cur`: cursor position. It should be 0 at this point.
+- `ctx.dest_ls`: destination token list. It should be empty at this point.
+- `ctx.general`: Configuration general options.
+- `ctx.langsec`: language section (S2R or R2S) of configuration.
+
 #### Return
 
-`None`.
+`None`
 
 ### `begin_input_token`
 
 This hook is run at the beginning of each iteration of the input parsing loop.
 
+#### Available context members
+
+- `ctx.src`: Source text. It should not be reassigned.
+- `ctx.cur`: cursor position.
+- `ctx.dest_ls`: destination token list.
+- `ctx.general`: Configuration general options.
+- `ctx.langsec`: language section (S2R or R2S) of configuration.
+
 #### Return
 
-(str | None) Possible values are `"cont"`, `"break"`, or `None`. If `None` is
+Possible values are `"cont"`, `"break"`, or `None`. If `None` is
 returned, the parsing proceeds as normal. `"cont"` causes the application to
 skip the parsing of the current token. `"break"` interrupts the text scanning
 and proceeds directly to handling the result list for output. **CAUTION**: when
@@ -140,9 +159,17 @@ so that the loop doesn't become an infinite one.
 
 Run before each ignore token is compared with the input.
 
+#### Available context members
+
+- `ctx.src`: Source text. It should not be reassigned.
+- `ctx.cur`: cursor position.
+- `ctx.dest_ls`: destination token list.
+- `ctx.general`: Configuration general options.
+- `ctx.langsec`: language section (S2R or R2S) of configuration.
+
 #### Output
 
-(str | None) `"cont"`, `"break"`, or `None`. `"cont"` skips the checks on the
+`"cont"`, `"break"`, or `None`. `"cont"` skips the checks on the
 current ignore token. `"break"` stops looking up ignore tokens for the current
 position. This function can return `"cont"` without advancing the cursor and
 without causing an infinite loop.
@@ -151,9 +178,20 @@ without causing an infinite loop.
 
 Run when an ignore token matches.
 
+#### Available context members
+
+- `ctx.src`: Source text. It should not be reassigned.
+- `ctx.cur`: cursor position.
+- `ctx.dest_ls`: destination token list.
+- `ctx.general`: Configuration general options.
+- `ctx.langsec`: language section (S2R or R2S) of configuration.
+- `ctx.tk`: matching ignore token.
+- `ctx.ignoring`: whether an ignore token matched. If set to `False`, the rest
+  of the workflow will assume a non-match.
+
 #### Output
 
-(str | None) `"cont"`, `"break"`, or `None`. `"cont"` voids the match and keeps
+`"cont"`, `"break"`, or `None`. `"cont"` voids the match and keeps
 on looking up the ignore list. `"break"` stops looking up ignore tokens for the
 current position. See cautionary note on `begin_input_token`.
 
@@ -161,9 +199,19 @@ current position. See cautionary note on `begin_input_token`.
 
 Run before comparing each transliteration token with the current text.
 
+#### Available context member
+
+- `ctx.src`: Source text. It should not be reassigned.
+- `ctx.cur`: cursor position.
+- `ctx.dest_ls`: destination token list.
+- `ctx.general`: Configuration general options.
+- `ctx.langsec`: language section (S2R or R2S) of configuration.
+- `ctx.src_tk`: the input token being looked up.
+- `ctx.dest_tk`: the transliterated string associated with the current token.
+
 #### Output
 
-(str | None) `"cont"`, `"break"`, or `None`. `"cont"` skips the checks on the
+`"cont"`, `"break"`, or `None`. `"cont"` skips the checks on the
 current token. `"break"` stops looking up all tokens for the current
 position. See cautionary note on `begin_input_token`.
 
@@ -171,9 +219,22 @@ position. See cautionary note on `begin_input_token`.
 
 Run when a transliteration token matches the input.
 
+#### Available context members
+
+- `ctx.src`: Source text. It should not be reassigned.
+- `ctx.cur`: cursor position.
+- `ctx.dest_ls`: destination token list. The matching token will be added to it
+  after this hook is run.
+- `ctx.general`: Configuration general options.
+- `ctx.langsec`: language section (S2R or R2S) of configuration.
+- `ctx.src_tk`: the matching input token.
+- `ctx.dest_tk`: the transliterated sting to be added to the output.
+- `ctx.match`: whether there was a match. If set to `False`, the rest of the
+  workflow will assume a non-match.
+
 #### Output
 
-(str | None) `"cont"`, `"break"`, or `None`. `"cont"` voids the match and keeps
+`"cont"`, `"break"`, or `None`. `"cont"` voids the match and keeps
 on looking up the token list. `"break"` stops looking up tokens for the
 current position and effectively reports a non-match.
 
@@ -182,9 +243,21 @@ current position and effectively reports a non-match.
 Run after all tokens for the current position have been tried and no match has
 been found.
 
+#### Available context members
+
+- `ctx.src`: Source text. It should not be reassigned.
+- `ctx.cur`: cursor position.
+- `ctx.dest_ls`: destination token list.
+- `ctx.general`: Configuration general options.
+- `ctx.langsec`: language section (S2R or R2S) of configuration.
+- `ctx.src_tk`: the matching input token.
+- `ctx.dest_tk`: the transliterated sting to be added to the output.
+- `ctx.match`: whether there was a match. This is always `False` here and will
+  have no consequence if changed.
+
 #### Output
 
-(str | None) `"cont"`, `"break"`, or `None`. `"cont"` skips to the next
+`"cont"`, `"break"`, or `None`. `"cont"` skips to the next
 position in the input text. Int his case, the function **must** advance the
 cursor. `"break"` stops all text parsing and proceeds to the assembly of the
 output.
@@ -196,20 +269,35 @@ capitalized and assembled into a string. This function may manipulate the token
 list and/or handle the assembly itself, in which case it can return the
 assembled string and bypass any further output handling.
 
+#### Available context members
+
+- `ctx.src`: Source text. It should not be reassigned.
+- `ctx.dest_ls`: destination token list.
+- `ctx.general`: Configuration general options.
+- `ctx.langsec`: language section (S2R or R2S) of configuration.
+
 #### Output
 
-(str | None) If the output is a string, the transliteration function returns
-this string immediately; otherwise it proceeds with standard adjustments and
-assembly of the output list.
+A string or `None`. If the output is a string, the transliteration function
+returns this string immediately; otherwise it proceeds with standard
+adjustments and assembly of the output list.
 
 ### `post_assembly`
 
+#### Available context members
+
+- `ctx.src`: Source text. It should not be reassigned.
+- `ctx.cur`: cursor position.
+- `ctx.dest_ls`: destination token list.
+- `ctx.general`: Configuration general options.
+- `ctx.langsec`: language section (S2R or R2S) of configuration.
+- `ctx.dest`: output string.
+
 Run after the output has been assembled into a string, before whitespace is
-stripped off. This function can access and manipulate `ctx.dest` which is
-the output string.
+stripped off.
 
 #### Output
 
-(str | None) If the output is a string, the transliteration function returns
-this string immediately; otherwise it proceeds with standard adjustments of the
-output string.
+`"ret"` or `None`. If `"ret"`, the transliteration function returns `ctx.dest`
+immediately; otherwise it proceeds with standard adjustments of the output
+string before returning.

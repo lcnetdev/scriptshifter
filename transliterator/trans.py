@@ -90,34 +90,42 @@ def transliterate(src, lang, r2s=False):
             continue
         # Check ignore list first. Find as many subsequent ignore tokens
         # as possible before moving on to looking for match tokens.
+        ctx.tk = None
         while True:
             ctx.ignoring = False
-            for tk in ignore_list:
+            for ctx.tk in ignore_list:
                 hret = _run_hook("pre_ignore_token", ctx, langsec_hooks)
                 if hret == "break":
                     break
                 if hret == "continue":
                     continue
 
-                step = len(tk)
-                if tk == src[ctx.i:ctx.i + step]:
+                step = len(ctx.tk)
+                if ctx.tk == src[ctx.cur:ctx.cur + step]:
+                    # The position matches an ignore token.
                     hret = _run_hook("on_ignore_match", ctx, langsec_hooks)
                     if hret == "break":
                         break
                     if hret == "continue":
                         continue
 
-                    logger.info(f"Ignored token: {tk}")
-                    ctx.dest_ls.append(tk)
-                    ctx.i += step
+                    logger.info(f"Ignored token: {ctx.tk}")
+                    ctx.dest_ls.append(ctx.tk)
+                    ctx.cur += step
                     ctx.ignoring = True
                     break
             # We looked through all ignore tokens, not found any. Move on.
             if not ctx.ignoring:
                 break
+            # Otherwise, if we found a match, check if the next position may be
+            # ignored as well.
 
+        delattr(ctx, "tk")
+        delattr(ctx, "ignoring")
+
+        # Begin transliteration token lookup.
         ctx.match = False
-        for src_tk, dest_tk in langsec["map"]:
+        for ctx.src_tk, ctx.dest_tk in langsec["map"]:
             hret = _run_hook("pre_tx_token", ctx, langsec_hooks)
             if hret == "break":
                 break
@@ -126,8 +134,9 @@ def transliterate(src, lang, r2s=False):
 
             # Longer tokens should be guaranteed to be scanned before their
             # substrings at this point.
-            step = len(src_tk)
-            if src_tk == src[ctx.i:ctx.i + step]:
+            step = len(ctx.src_tk)
+            if ctx.src_tk == src[ctx.cur:ctx.cur + step]:
+                ctx.match = True
                 # This hook may skip this token or break out of the token
                 # lookup for the current position.
                 hret = _run_hook("on_tx_token_match", ctx, langsec_hooks)
@@ -138,12 +147,11 @@ def transliterate(src, lang, r2s=False):
 
                 # A match is found. Stop scanning tokens, append result, and
                 # proceed scanning the source.
-                ctx.dest_ls.append(dest_tk)
-                ctx.match = True
-                ctx.i += step
+                ctx.dest_ls.append(ctx.dest_tk)
+                ctx.cur += step
                 break
 
-        if not ctx.match:
+        if ctx.match is False:
             hret = _run_hook("on_no_tx_token_match", ctx, langsec_hooks)
             if hret == "break":
                 break
@@ -152,12 +160,15 @@ def transliterate(src, lang, r2s=False):
 
             # No match found. Copy non-mapped character (one at a time).
             logger.info(
-                    f"Token {src[ctx.i]} at position {ctx.i} is not mapped.")
-            ctx.dest_ls.append(src[ctx.i])
-            ctx.i += 1
+                f"Token {src[ctx.cur]} at position {ctx.cur} is not mapped."
+            )
+            ctx.dest_ls.append(src[ctx.cur])
+            ctx.cur += 1
 
-    if langsec_dir.get("capitalize", False):
-        ctx.dest_ls[0] = ctx.dest_ls[0].capitalize()
+    delattr(ctx, "src_tk")
+    delattr(ctx, "dest_tk")
+    delattr(ctx, "match")
+    delattr(ctx, "cur")
 
     # This hook may take care of the assembly and cause the function to return
     # its own return value.
@@ -165,14 +176,17 @@ def transliterate(src, lang, r2s=False):
     if hret is not None:
         return hret
 
+    if langsec_dir.get("capitalize", False):
+        ctx.dest_ls[0] = ctx.dest_ls[0].capitalize()
+
     logger.debug(f"Output list: {ctx.dest_ls}")
     ctx.dest = "".join(ctx.dest_ls)
 
-    # This hook may manipulate the output string and cause the function to
-    # return that.
+    # This hook may reassign the output string and/or cause the function to
+    # return it immediately.
     hret = _run_hook("post_assembly", ctx, langsec_hooks)
-    if hret is not None:
-        return hret
+    if hret == "ret":
+        return ctx.dest
 
     # Strip multiple spaces and leading/trailing whitespace.
     ctx.dest = re.sub(MULTI_WS_RE, ' ', ctx.dest.strip())
@@ -183,7 +197,7 @@ def transliterate(src, lang, r2s=False):
 def _run_hook(hname, ctx, hooks):
     for hook_def in hooks.get(hname, []):
         kwargs = hook_def[1] if len(hook_def > 1) else {}
-        ret = hook_def[0](ctx.src, ctx.cur, ctx.dest_ls, **kwargs)
+        ret = hook_def[0](ctx, **kwargs)
         if ret in ("break", "cont"):
             # This will stop parsing hooks functions and tell the caller to
             # break out of the outer loop or skip iteration.
