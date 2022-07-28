@@ -197,6 +197,7 @@ def transliterate(src, lang, r2s=False):
 
 
 def _run_hook(hname, ctx, hooks):
+    ret = None
     for hook_def in hooks.get(hname, []):
         kwargs = hook_def[1] if len(hook_def > 1) else {}
         ret = hook_def[0](ctx, **kwargs)
