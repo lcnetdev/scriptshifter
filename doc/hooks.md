@@ -148,12 +148,12 @@ This hook is run at the beginning of each iteration of the input parsing loop.
 
 #### Return
 
-Possible values are `"cont"`, `"break"`, or `None`. If `None` is
-returned, the parsing proceeds as normal. `"cont"` causes the application to
-skip the parsing of the current token. `"break"` interrupts the text scanning
-and proceeds directly to handling the result list for output. **CAUTION**: when
-returning "cont", it is the responsibility of the function to advance `ctx.cur`
-so that the loop doesn't become an infinite one. 
+Possible values are `"continue"`, `"break"`, or `None`. If `None` is returned,
+the parsing proceeds as normal. `"continue"` causes the application to skip the
+parsing of the current token. `"break"` interrupts the text scanning and
+proceeds directly to handling the result list for output. **CAUTION**: when
+returning "continue", it is the responsibility of the function to advance
+`ctx.cur` so that the loop doesn't become an infinite one. 
 
 ### `pre_ignore_token`
 
@@ -169,9 +169,9 @@ Run before each ignore token is compared with the input.
 
 #### Output
 
-`"cont"`, `"break"`, or `None`. `"cont"` skips the checks on the
+`"continue"`, `"break"`, or `None`. `"continue"` skips the checks on the
 current ignore token. `"break"` stops looking up ignore tokens for the current
-position. This function can return `"cont"` without advancing the cursor and
+position. This function can return `"continue"` without advancing the cursor and
 without causing an infinite loop.
 
 ### `on_ignore_match`
@@ -191,7 +191,7 @@ Run when an ignore token matches.
 
 #### Output
 
-`"cont"`, `"break"`, or `None`. `"cont"` voids the match and keeps
+`"continue"`, `"break"`, or `None`. `"continue"` voids the match and keeps
 on looking up the ignore list. `"break"` stops looking up ignore tokens for the
 current position. See cautionary note on `begin_input_token`.
 
@@ -211,7 +211,7 @@ Run before comparing each transliteration token with the current text.
 
 #### Output
 
-`"cont"`, `"break"`, or `None`. `"cont"` skips the checks on the
+`"continue"`, `"break"`, or `None`. `"continue"` skips the checks on the
 current token. `"break"` stops looking up all tokens for the current
 position. See cautionary note on `begin_input_token`.
 
@@ -234,7 +234,7 @@ Run when a transliteration token matches the input.
 
 #### Output
 
-`"cont"`, `"break"`, or `None`. `"cont"` voids the match and keeps
+`"continue"`, `"break"`, or `None`. `"continue"` voids the match and keeps
 on looking up the token list. `"break"` stops looking up tokens for the
 current position and effectively reports a non-match.
 
@@ -253,7 +253,7 @@ been found.
 
 #### Output
 
-`"cont"`, `"break"`, or `None`. `"cont"` skips to the next
+`"continue"`, `"break"`, or `None`. `"continue"` skips to the next
 position in the input text. Int his case, the function **must** advance the
 cursor. `"break"` stops all text parsing and proceeds to the assembly of the
 output.

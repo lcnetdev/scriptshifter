@@ -15,9 +15,6 @@ class Context:
     """
     Context used within the transliteration and passed to hook functions.
     """
-    cur = 0  # Input text cursor.
-    dest_ls = []  # Token list making up the output string.
-
     def __init__(self, src, general, langsec):
         """
         Initialize a context.
@@ -30,6 +27,7 @@ class Context:
         self.src = src
         self.general = general
         self.langsec = langsec
+        self.dest_ls = []
 
 
 def transliterate(src, lang, r2s=False):
@@ -80,14 +78,18 @@ def transliterate(src, lang, r2s=False):
     # Loop through source characters. The increment of each loop depends on
     # the length of the token that eventually matches.
     ignore_list = langsec.get("ignore", [])  # Only present in R2S
+    ctx.cur = 0
     while ctx.cur < len(src):
         # This hook may skip the parsing of the current
         # token or exit the scanning loop altogether.
         hret = _run_hook("begin_input_token", ctx, langsec_hooks)
         if hret == "break":
+            logger.debug("Breaking text scanning from hook signal.")
             break
         if hret == "continue":
+            logger.debug("Skipping scanning iteration from hook signal.")
             continue
+
         # Check ignore list first. Find as many subsequent ignore tokens
         # as possible before moving on to looking for match tokens.
         ctx.tk = None
@@ -151,8 +153,6 @@ def transliterate(src, lang, r2s=False):
                 ctx.cur += step
                 break
 
-        delattr(ctx, "src_tk")
-        delattr(ctx, "dest_tk")
         if ctx.match is False:
             delattr(ctx, "match")
             hret = _run_hook("on_no_tx_token_match", ctx, langsec_hooks)
@@ -199,7 +199,7 @@ def transliterate(src, lang, r2s=False):
 def _run_hook(hname, ctx, hooks):
     ret = None
     for hook_def in hooks.get(hname, []):
-        kwargs = hook_def[1] if len(hook_def > 1) else {}
+        kwargs = hook_def[1] if len(hook_def) > 1 else {}
         ret = hook_def[0](ctx, **kwargs)
         if ret in ("break", "cont"):
             # This will stop parsing hooks functions and tell the caller to

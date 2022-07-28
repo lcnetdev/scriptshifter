@@ -1,3 +1,4 @@
+from copy import deepcopy
 from os import environ
 
 from flask import Flask, Response, jsonify, render_template, request
@@ -45,7 +46,14 @@ def dump_table(lang):
     """
     Dump parsed transliteration table for a language.
     """
-    return jsonify(load_table(lang))
+    tbl = deepcopy(load_table(lang))
+    for sec_name in ("roman_to_script", "script_to_roman"):
+        if sec_name in tbl:
+            for hname, fn_defs in tbl[sec_name].get("hooks", {}).items():
+                tbl[sec_name]["hooks"][hname] = [
+                        (fn.__name__, kw) for (fn, kw) in fn_defs]
+
+    return jsonify(tbl)
 
 
 @app.route("/transliterate", methods=["POST"])

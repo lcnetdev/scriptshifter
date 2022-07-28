@@ -1,6 +1,7 @@
 import logging
 
 from functools import cache
+from importlib import import_module
 from os import path, access, R_OK
 
 from yaml import load
@@ -132,7 +133,7 @@ def load_table(tname):
 
         if "hooks" in tdata["script_to_roman"]:
             tdata["script_to_roman"]["hooks"] = load_hook_fn(
-                    tdata["script_to_roman"]["hooks"])
+                    tname, tdata["script_to_roman"])
 
     if "roman_to_script" in tdata:
         tokens = {
@@ -164,7 +165,7 @@ def load_table(tname):
 
         if "hooks" in tdata["roman_to_script"]:
             tdata["roman_to_script"]["hooks"] = load_hook_fn(
-                    tdata["roman_to_script"]["hooks"])
+                    tname, tdata["script_to_roman"])
 
     return tdata
 
@@ -183,7 +184,7 @@ def load_hook_fn(cname, sec):
         dict: Dictionary of hook name and list of hook functions pairs.
     """
     hook_fn = {}
-    for cfg_hook, cfg_hook_fns in sec.get("hooks", {}):
+    for cfg_hook, cfg_hook_fns in sec.get("hooks", {}).items():
         if cfg_hook not in HOOKS:
             raise ConfigError(f"{cfg_hook} is not a valid hook name!")
 
@@ -191,16 +192,17 @@ def load_hook_fn(cname, sec):
         # There may be more than one function in each hook. They are
         # executed in the order they are found.
         for cfg_hook_fn in cfg_hook_fns:
-            modname, fnname = path.splitext(cfg_hook_fn)
+            modname, fnname = path.splitext(cfg_hook_fn[0])
             fnname = fnname.lstrip(".")
+            fn_kwargs = cfg_hook_fn[1]
             try:
-                fn = import_module(
-                        "." + modname, HOOK_PKG_PATH).getattr(fnname)
+                fn = getattr(import_module(
+                        "." + modname, HOOK_PKG_PATH), fnname)
             except NameError:
                 raise ConfigError(
                     f"Hook function {fnname} defined in {cname} configuration "
                     f"not found in module {HOOK_PKG_PATH}.{modname}!"
                 )
-            hook_fn[cfg_hook].append(fn)
+            hook_fn[cfg_hook].append((fn, fn_kwargs))
 
     return hook_fn
