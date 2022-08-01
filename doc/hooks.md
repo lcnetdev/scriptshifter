@@ -111,7 +111,8 @@ defined in the configuration.
 Each function must also return an output that the process is able to handle as
 expected. the output may instruct the application to make a specific decision
 after the hook function is executed. Possible return values are defined below
-for each hook.
+for each hook. Some special return values, such as `BREAK` and `CONT`, are
+registered as constants under `transliterator.exceptions`.
 
 **[TODO]** These hooks are being implemented in a vacuum, without much of a
 real-world use case. Modifications to these capabilities may change as actual
@@ -121,6 +122,10 @@ challenges arise.
 
 This hook is run after the whole configuration is parsed and possibly merged
 with a parent configuration.
+
+This hook can be used to completely override the transliteration process by
+devising an entirely different logic and/or calling a third party library
+or REST API.
 
 #### Available context members
 
@@ -132,11 +137,18 @@ with a parent configuration.
 
 #### Return
 
-`None`
+`None` or `BREAK`. In the former case the application proceeds to the usual
+translteration process; in the latter case, it returns the value of
+`ctx.dest`, which the hook function should have set.
 
 ### `begin_input_token`
 
 This hook is run at the beginning of each iteration of the input parsing loop.
+
+Functions implemented here can be used to override the default behavior for
+each iteration of the input text scan, e.g. when special conditions must be
+applied to detect word boundaries or punctuation, or handling the interaction
+of multiple symbols based on logical rules rather than a dictionary.
 
 #### Available context members
 
@@ -148,16 +160,19 @@ This hook is run at the beginning of each iteration of the input parsing loop.
 
 #### Return
 
-Possible values are `"continue"`, `"break"`, or `None`. If `None` is returned,
-the parsing proceeds as normal. `"continue"` causes the application to skip the
-parsing of the current token. `"break"` interrupts the text scanning and
+Possible values are `CONT`, `BREAK`, or `None`. If `None` is returned,
+the parsing proceeds as normal. `CONT` causes the application to skip the
+parsing of the current token. `BREAK` interrupts the text scanning and
 proceeds directly to handling the result list for output. **CAUTION**: when
-returning "continue", it is the responsibility of the function to advance
+returning CONT, it is the responsibility of the function to advance
 `ctx.cur` so that the loop doesn't become an infinite one. 
 
 ### `pre_ignore_token`
 
 Run before each ignore token is compared with the input.
+
+Functions implementing this hook can change the behavior for detecting an
+ignore term and when or when not to trigger a match.
 
 #### Available context members
 
@@ -169,14 +184,19 @@ Run before each ignore token is compared with the input.
 
 #### Output
 
-`"continue"`, `"break"`, or `None`. `"continue"` skips the checks on the
-current ignore token. `"break"` stops looking up ignore tokens for the current
-position. This function can return `"continue"` without advancing the cursor and
+`CONT`, `BREAK`, or `None`. `CONT` skips the checks on the
+current ignore token. `BREAK` stops looking up ignore tokens for the current
+position. This function can return `CONT` without advancing the cursor and
 without causing an infinite loop.
 
 ### `on_ignore_match`
 
 Run when an ignore token matches.
+
+Functions implementing this hook can change the behavior of the process after
+an ignore token has matched. Actions may include skipping or redefining the
+ignore step, which by default copies the matching token verbatim and keeps
+scanning for more ignore tokens past the match.
 
 #### Available context members
 
@@ -191,13 +211,19 @@ Run when an ignore token matches.
 
 #### Output
 
-`"continue"`, `"break"`, or `None`. `"continue"` voids the match and keeps
-on looking up the ignore list. `"break"` stops looking up ignore tokens for the
+`CONT`, `BREAK`, or `None`. `CONT` voids the match and keeps
+on looking up the ignore list. `BREAK` stops looking up ignore tokens for the
 current position. See cautionary note on `begin_input_token`.
 
 ### `pre_tx_token`
 
 Run before comparing each transliteration token with the current text.
+
+Functions implementing this hook can change the behavior of how a character is
+matched, e.g. by injecting additional conditions based on logical rules, which
+may take a broader context into consideration. They may also take over the
+substitution step for the current position, skip the scanning for an arbitrary
+number of characters, and/or exit the text scanning loop altogether.
 
 #### Available context member
 
@@ -211,13 +237,18 @@ Run before comparing each transliteration token with the current text.
 
 #### Output
 
-`"continue"`, `"break"`, or `None`. `"continue"` skips the checks on the
-current token. `"break"` stops looking up all tokens for the current
+`CONT`, `BREAK`, or `None`. `CONT` skips the checks on the
+current token. `BREAK` stops looking up all tokens for the current
 position. See cautionary note on `begin_input_token`.
 
 ### `on_tx_token_match`
 
 Run when a transliteration token matches the input.
+
+Functions implementing this hook can override how the transliterated
+character(s) are added to the result token list once a match is found. They can
+also inject additional conditions and logic for the match, and revoke the
+"match" status, which would prevent the transliteration step from running.
 
 #### Available context members
 
@@ -234,14 +265,19 @@ Run when a transliteration token matches the input.
 
 #### Output
 
-`"continue"`, `"break"`, or `None`. `"continue"` voids the match and keeps
-on looking up the token list. `"break"` stops looking up tokens for the
+`CONT`, `BREAK`, or `None`. `CONT` voids the match and keeps
+on looking up the token list. `BREAK` stops looking up tokens for the
 current position and effectively reports a non-match.
 
 ### `on_no_tx_token_match`
 
 Run after all tokens for the current position have been tried and no match has
 been found.
+
+Functions implementing this hook can perform additional actions after the
+current position has not been matched by any of the available tokens. They can
+also override the default logic which is adding the single character at the
+cursor position to the destination list, verbatim.
 
 #### Available context members
 
@@ -253,17 +289,18 @@ been found.
 
 #### Output
 
-`"continue"`, `"break"`, or `None`. `"continue"` skips to the next
-position in the input text. Int his case, the function **must** advance the
-cursor. `"break"` stops all text parsing and proceeds to the assembly of the
-output.
+`CONT`, `BREAK`, or `None`. `CONT` skips to the next position in the input
+text. Int his case, the function **must** advance the cursor. `BREAK` stops all
+text parsing and proceeds to the assembly of the output.
 
 ### `pre_assembly`
 
 Run after the whole text has been scanned, before the output list is
-capitalized and assembled into a string. This function may manipulate the token
-list and/or handle the assembly itself, in which case it can return the
-assembled string and bypass any further output handling.
+capitalized and assembled into a string.
+
+Functions implementing this hook can manipulate the token list and/or handle
+the assembly itself, in which case they can return the assembled string and
+bypass any further output handling.
 
 #### Available context members
 
@@ -280,6 +317,12 @@ adjustments and assembly of the output list.
 
 ### `post_assembly`
 
+Run after the output has been assembled into a string, before whitespace is
+stripped off.
+
+Functions implementing this hook can manipulate and reassign the output string,
+and return it before any further default processing is done.
+
 #### Available context members
 
 - `ctx.src`: Source text. It should not be reassigned.
@@ -288,9 +331,6 @@ adjustments and assembly of the output list.
 - `ctx.general`: Configuration general options.
 - `ctx.langsec`: language section (S2R or R2S) of configuration.
 - `ctx.dest`: output string.
-
-Run after the output has been assembled into a string, before whitespace is
-stripped off.
 
 #### Output
 
