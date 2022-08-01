@@ -1,0 +1,55 @@
+general:
+  name: Bulgarian
+  inherits: _cyrillic_base
+
+roman_to_script:
+  map:
+    "G": "\u0413"
+    "g": "\u0433"
+    # this conversion shouldn't be needed, but does no harm
+    "ZH": "\u0416"
+    "Zh": "\u0416"
+    "zh": "\u0436"
+    "I\uFE20E\uFE21": "\u0462"
+    # this conversion shouldn't be needed, but does no harm
+    "I\uFE20e\uFE21": "\u0462"
+    # this conversion shouldn't be needed, but does no harm
+    # this conversion shouldn't be needed, but does no harm
+    "I": "\u0418"
+    "i\uFE20e\uFE21": "\u0463"
+    "i": "\u0438"
+    # this conversion shouldn't be needed, but does no harm
+    "SHT": "\u0429"
+    "Sht": "\u0429"
+    "sht": "\u0449"
+    "T\uFE20S\uFE21": "\u0426"
+    # this conversion shouldn't be needed, but does no harm
+    "T\uFE20s\uFE21": "\u0426"
+    "t\uFE20s\uFE21": "\u0446"
+    "U\u0310": "\u046A"
+    "u\u0306": "\u044A"
+    "u\u0310": "\u046B"
+    # this conversion is ambiguous - \u042A is also theoretically possible
+    "\u02BA": "\u044A"
+
+script_to_roman:
+  map:
+    "\u044C": ""
+    "\u042C": ""
+    "\u044A": ""
+    "\u042A%": "u\u0306"
+    "\u042A": ""
+    "\u0413": "G"
+    "\u0433": "g"
+    "\u0416": "Zh"
+    "\u0436": "zh"
+    "\u0462": "I\uFE20E\uFE21"
+    "\u0418": "I"
+    "\u0463": "i\uFE20e\uFE21"
+    "\u0438": "i"
+    "\u0429": "Sht"
+    "\u0449": "sht"
+    "\u0426": "T\uFE20S\uFE21"
+    "\u0446": "t\uFE20s\uFE21"
+    "\u046A": "U\u0310"
+    "\u046B": "u\u0310"

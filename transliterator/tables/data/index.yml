@@ -1,16 +1,29 @@
 # Map index file.
 #
-# Add all mapping files meant to be used in the app here.
+# Configurations not listed here will not show in the UI drop-down menu or
+# in the `/languages` endpoint, but can still be used in the `trans` endpoint.
 #
 # The entry key is the file name without the `.yml` extension, and the `name`
 # key within the entry is the human-readable label that can be used in a
 # multiple-choice menu.
 
+asian_cyrillic:
+  name: Asian Cyrillic
+  description: >
+    Multi-purpose transliteration for non-Slavic Cyrillic script: Abaza, Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar, Bashkir, Buryat, Chechen, Chukchi, Chuvash, Dargwa, Dungan, Eskimo, Even, Evenki, Gagauz, Ingush, Inuit, Kabardian, Kalmyk, Karachay, Karachay-Balkar, Karakalpak, Karelian, Kazakh, Khakass, Khanty, Komi, Komi-Permyak, Koryak, Kumyk, Kyrgyz, Lak, Lapp, Lezghian, Lithuanian, Mansi, Mari, Moldovan, Molodstov, Mongolian, Mordvin, Nanai, Nenets, Nivkh, Nogai, Ossetic, Permyak, Romanian, Romany, Selkup, Shor, Tabasaran, Tajik, Tat, Tatar, Turkmen, Tuva, Udekhe, Udmurt, Uzbek, Yakut.
 belarusian:
   name: Belarusian
+bulgarian:
+  name: Bulgarian
 chinese:
   name: Chinese (Hanzi)
+church_slavonic:
+  name: Church Slavonic
+greek:
+  name: Greek (classic)
 russian:
   name: Russian
+serbian_macedonian:
+  name: Serbian and Macedonian
 ukrainian:
   name: Ukrainian

@@ -163,8 +163,8 @@ def transliterate(src, lang, r2s=False):
 
             # No match found. Copy non-mapped character (one at a time).
             logger.info(
-                f"Token {src[ctx.cur]} at position {ctx.cur} is not mapped."
-            )
+                    f"Token {src[ctx.cur]} (\\u{hex(ord(src[ctx.cur]))[2:]})"
+                    f"at position {ctx.cur} is not mapped.")
             ctx.dest_ls.append(src[ctx.cur])
             ctx.cur += 1
         else:
