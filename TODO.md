@@ -10,22 +10,22 @@ discussion, etc.); *X* = not implementing.
 - *D* Basic transliteration in both directions
 - *D* Basic REST API
 - *D* Basic UI
-- *W* Life cycle hooks for plugins
+- *D* Life cycle hooks for plugins
 - *P* Regular expressions in ignore lists
 - *P* Word boundaries (design)
 - *D* API documentation
 - *P* Config file documentation
-- *W* Hooks documentation
+- *D* Hooks documentation
 - *W* Complete conversion of existing tables to YAML
   - *P* Arabic
   - *P* Armenian
   - *P* Azerbajani
   - *D* Belarusian
-  - *P* Bulgarian
+  - *D* Bulgarian
   - *D* Chinese
   - *P* Ethiopic
   - *P* Georgian
-  - *P* Greek
+  - *W* Greek
   - *P* Hebrew and Yiddish
   - *X* Japanese
   - *P* Kazakh
@@ -35,8 +35,8 @@ discussion, etc.); *X* = not implementing.
   - *P* Persian
   - *P* Pushto
   - *D* Russian
-  - *P* Serbian
-  - *P* Slavonic
+  - *D* Serbian + Macedonic
+  - *D* Slavonic
   - *P* Tajik
   - *P* Tatar
   - *P* Thaana

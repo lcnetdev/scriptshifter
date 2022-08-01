@@ -1,6 +1,7 @@
 import logging
 import re
 
+from transliterator.exceptions import BREAK, CONT
 from transliterator.tables import load_table
 
 
@@ -73,7 +74,10 @@ def transliterate(src, lang, r2s=False):
 
     ctx = Context(src, general, langsec)
 
-    _run_hook("post_config", ctx, langsec_hooks)
+    # This hook may take over the whole transliteration process or delegate it
+    # to some external process, and return the output string directly.
+    if _run_hook("post_config", ctx, langsec_hooks) == BREAK:
+        return getattr(ctx, "dest", "")
 
     # Loop through source characters. The increment of each loop depends on
     # the length of the token that eventually matches.
@@ -83,10 +87,10 @@ def transliterate(src, lang, r2s=False):
         # This hook may skip the parsing of the current
         # token or exit the scanning loop altogether.
         hret = _run_hook("begin_input_token", ctx, langsec_hooks)
-        if hret == "break":
+        if hret == BREAK:
             logger.debug("Breaking text scanning from hook signal.")
             break
-        if hret == "continue":
+        if hret == CONT:
             logger.debug("Skipping scanning iteration from hook signal.")
             continue
 
@@ -97,18 +101,18 @@ def transliterate(src, lang, r2s=False):
             ctx.ignoring = False
             for ctx.tk in ignore_list:
                 hret = _run_hook("pre_ignore_token", ctx, langsec_hooks)
-                if hret == "break":
+                if hret == BREAK:
                     break
-                if hret == "continue":
+                if hret == CONT:
                     continue
 
                 step = len(ctx.tk)
                 if ctx.tk == src[ctx.cur:ctx.cur + step]:
                     # The position matches an ignore token.
                     hret = _run_hook("on_ignore_match", ctx, langsec_hooks)
-                    if hret == "break":
+                    if hret == BREAK:
                         break
-                    if hret == "continue":
+                    if hret == CONT:
                         continue
 
                     logger.info(f"Ignored token: {ctx.tk}")
@@ -129,9 +133,9 @@ def transliterate(src, lang, r2s=False):
         ctx.match = False
         for ctx.src_tk, ctx.dest_tk in langsec["map"]:
             hret = _run_hook("pre_tx_token", ctx, langsec_hooks)
-            if hret == "break":
+            if hret == BREAK:
                 break
-            if hret == "continue":
+            if hret == CONT:
                 continue
 
             # Longer tokens should be guaranteed to be scanned before their
@@ -142,9 +146,9 @@ def transliterate(src, lang, r2s=False):
                 # This hook may skip this token or break out of the token
                 # lookup for the current position.
                 hret = _run_hook("on_tx_token_match", ctx, langsec_hooks)
-                if hret == "break":
+                if hret == BREAK:
                     break
-                if hret == "continue":
+                if hret == CONT:
                     continue
 
                 # A match is found. Stop scanning tokens, append result, and
@@ -156,9 +160,9 @@ def transliterate(src, lang, r2s=False):
         if ctx.match is False:
             delattr(ctx, "match")
             hret = _run_hook("on_no_tx_token_match", ctx, langsec_hooks)
-            if hret == "break":
+            if hret == BREAK:
                 break
-            if hret == "continue":
+            if hret == CONT:
                 continue
 
             # No match found. Copy non-mapped character (one at a time).
@@ -201,7 +205,7 @@ def _run_hook(hname, ctx, hooks):
     for hook_def in hooks.get(hname, []):
         kwargs = hook_def[1] if len(hook_def) > 1 else {}
         ret = hook_def[0](ctx, **kwargs)
-        if ret in ("break", "cont"):
+        if ret in (BREAK, CONT):
             # This will stop parsing hooks functions and tell the caller to
             # break out of the outer loop or skip iteration.
             return ret

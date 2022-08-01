@@ -10,6 +10,8 @@ try:
 except ImportError:
     from yaml import Loader
 
+from transliterator.exceptions import ConfigError
+
 
 __doc__ = """
 Transliteration tables.
@@ -37,10 +39,6 @@ HOOKS = (
 HOOK_PKG_PATH = "transliterator.hooks"
 
 logger = logging.getLogger(__name__)
-
-
-class ConfigError(Exception):
-    """ Raised when a malformed configuration is detected. """
 
 
 class Token(str):
