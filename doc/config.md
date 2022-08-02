@@ -70,7 +70,7 @@ gets added, so that the resulting rule set becomes:
   "Z": "Y"
 ```
 
-Thus, it is not critical to write exclusively rules in a parent table for
+Therefore, it is not critical to write exclusively rules in a parent table for
 characters that are in ALL the implemented languages. Some rules may be common
 to most languages, and the few exceptions can be overridden in the relevant
 specific tables. It is up to the language table maintainer to decide how to
@@ -130,7 +130,7 @@ characters. The comparison is case-insensitive. If it's a key value pair it can
 take several forms:
 
 - `cs: "Ignore this"`: the comparison is case-sensitive.
-- `re: "Ignore th[iu]s": the comparison is done on a case-sensitive regular
+- `re: "Ignore th[iu]s"`: the comparison is done on a case-sensitive regular
   expression. [TODO implement]
 
 The order in which these rules are listed is only partly relevant. The rules
@@ -167,7 +167,7 @@ rules dscribed above for the ignore list.
 
 Type: key-value pairs
 
-Life cycle hooks. See [`hooks.md`](./hooks.md) for general concepts.
+Life cycle hooks. See [hook documentation](./hooks.md) for general concepts.
 
 Each key in this section is one of the predefined hook names and is paired with
 a list of functions that shall be run when the life cycle point designated for
@@ -175,9 +175,9 @@ the hook is reached. Each function definition is a list of one or two elements.
 The first is the function path including the path, relative to the
 `transliterator.hooks` package. The second, optional element, is a map of
 key-value pairs provding additional keyword arguments for the function. These
-arguments are fixed for all the calls to this function within this hook.
+arguments are fixed for all the calls to this function made by this hook.
 
-Thus, the following section:
+Thus, the following section (note the indentation):
 
 ```yaml
 script_to_roman:
@@ -205,7 +205,7 @@ described for `roman_to_script`. The `ignore` section is… ignored.
 
 ##  Index file
 
-The index file is a map of key-vlue pairs, where the keys are the
+The index file is a map of key-value pairs, where the keys are the
 transliteration table key names as described previously, and the values are
 key-value pairs which can have arbitrary contents. These contents are displayed
 to the user in the `/languages` API endpoint.
