@@ -1,0 +1,24 @@
+# Test file for inheritance.
+
+general:
+  name: Test inheritance base 3
+
+roman_to_script:
+  ignore:
+    - "Fritter my wig"
+
+  map:
+    "M": "m"
+    "N": "n"
+    "O": "o"
+    "P": "p"
+    "Q": "q"
+    "R": "r"
+    "S": "s"
+
+script_to_roman:
+  map:
+    "a": "5"
+    "b": "6"
+    "c": "7"
+    "d": "8"

@@ -1,6 +1,7 @@
 general:
   name: Church Slavonic
-  inherits: _cyrillic_base
+  parents:
+    - _cyrillic_base
 
 roman_to_script:
   map:

@@ -5,7 +5,10 @@ discussion, etc.); *X* = not implementing.
 
 - *D* Basic table loading & parsing
 - *D* Table inheritance
-- *P* Multiple inheritance (not recursive)
+- *W* Multiple recursive inheritance
+  - *D* Inherit map
+  - *D* Inherit ignore
+  - *P* Inherit hooks
 - *D* Ignore list (R2S)
 - *D* Basic transliteration in both directions
 - *D* Basic REST API

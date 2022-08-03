@@ -1,0 +1,25 @@
+# Test file for inheritance.
+
+general:
+  name: Test inheritance leaf file
+  parents:
+    - _test_base2
+    - _test_base3
+
+roman_to_script:
+  ignore:
+    - "Thing-um-a-jig"
+
+  map:
+    "T": "t"
+    "U": "u"
+    "V": "v"
+    "W": "w"
+    "X": "x"
+    "Y": "y"
+    "Z": "z"
+
+script_to_roman:
+  map:
+    "a": "9"
+    "b": "0"

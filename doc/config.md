@@ -30,13 +30,10 @@ testing purposes. See below for more details about inhritance.
 
 ## Inheritance
 
-A configuration file may inherit rules from another file. Currently, only one
-level of inheritance is allowed (i.e. a table can only inherit from another
-table, and no further lookup is done if the other table inherits from yet
-another one).
+A configuration file may inherit rules from one or more other files.
 
 Inheritance means that, for each section (`script_to_roman` and
-`roman_to_script`) in the parent table, the child table uses all the rule
+`roman_to_script`) in the parent table, the child table uses all the rules
 found in that section, and may add to or replace them.  This is used for
 Cyrillic languages for example, which share a broad base of common characters,
 but each language has its own variations on certain characters, or adds
@@ -44,6 +41,12 @@ characters that are not present in other languages.
 
 This has the obvious advantage of avoiding repetition and copying entire tables
 for just slight variations of each language.
+ 
+ The `parent` key indicates a list of tables that the current table inherits
+ from.  Inheritance is recursive, i.e. if table A inherits from B and B from C,
+ table A presents the combined results of the three tables. If multiple parents
+ are specified, the ones listed later override the earlier ones. The child
+ values override all the parents'.
 
 Overriding of transliteration rules is applied on the left-hand side of
 the mapping. I.e., if a parent table has the following rules: 
@@ -75,6 +78,12 @@ characters that are in ALL the implemented languages. Some rules may be common
 to most languages, and the few exceptions can be overridden in the relevant
 specific tables. It is up to the language table maintainer to decide how to
 organize these rules.
+
+Elements that are inherited in a configuration are:
+
+- Transliteration maps (both S2R and R2S)
+- Ignore lists
+- Hooks [TODO]
 
 
 ## Configuration file structure
@@ -110,6 +119,13 @@ Type: string
 Informational field containing notes, mostly aimed at maintainers. The
 application doesn't use this field. For information meant for the end  user,
 use the `description` field in the index file.
+
+#### `general.parents`
+
+Type: list
+
+A list of parents that the configuration inherits from. See "Inheritance"
+above.
 
 ### `roman_to_script`
 

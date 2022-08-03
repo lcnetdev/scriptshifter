@@ -1,6 +1,7 @@
 general:
   name: Serbian and Macedonian
-  inherits: _cyrillic_base
+  parents:
+    - _cyrillic_base
 
 roman_to_script:
   map:

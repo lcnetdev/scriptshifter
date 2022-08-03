@@ -98,7 +98,7 @@ def list_tables():
 @cache
 def load_table(tname):
     """
-    Load one transliteration table and possible parent.
+    Load one transliteration table and possible parents.
 
     The table file is parsed into an in-memory configuration that contains
     the language & script metadata and parsing rules.
@@ -112,20 +112,21 @@ def load_table(tname):
         tdata = load(fh, Loader=Loader)
 
     # NOTE Only one level of inheritance. No need for recursion for now.
-    parent = tdata.get("general", {}).get("inherits", None)
-    if parent:
-        parent_tdata = load_table(parent)
+    parents = tdata.get("general", {}).get("parents", [])
 
     if "script_to_roman" in tdata:
-        tokens = {
-                Token(k): v
-                for k, v in tdata["script_to_roman"].get("map", {}).items()}
-        if parent:
-            # Merge (and override) parent values.
-            tokens = {
+        tokens = {}
+        for parent in parents:
+            parent_tdata = load_table(parent)
+            # Merge parent tokens. Child overrides parents, and a parent listed
+            # later override ones listed earlier.
+            tokens |= {
                 Token(k): v for k, v in parent_tdata.get(
                         "script_to_roman", {}).get("map", {})
-            } | tokens
+            }
+        tokens |= {
+                Token(k): v
+                for k, v in tdata["script_to_roman"].get("map", {}).items()}
         tdata["script_to_roman"]["map"] = tuple(
                 (k.content, tokens[k]) for k in sorted(tokens))
 
@@ -134,29 +135,33 @@ def load_table(tname):
                     tname, tdata["script_to_roman"])
 
     if "roman_to_script" in tdata:
-        tokens = {
-                Token(k): v
-                for k, v in tdata["roman_to_script"].get("map", {}).items()}
-        if parent:
-            # Merge (and override) parent values.
-            tokens = {
+        tokens = {}
+        for parent in parents:
+            parent_tdata = load_table(parent)
+            # Merge parent tokens. Child overrides parents, and a parent listed
+            # later override ones listed earlier.
+            tokens |= {
                 Token(k): v for k, v in parent_tdata.get(
                         "roman_to_script", {}).get("map", {})
-            } | tokens
+            }
+        tokens |= {
+            Token(k): v
+            for k, v in tdata["roman_to_script"].get("map", {}).items()
+        }
         tdata["roman_to_script"]["map"] = tuple(
                 (k.content, tokens[k]) for k in sorted(tokens))
-
-        if parent:
-            p_ignore = {
-                    Token(t) for t in parent_tdata.get(
-                            "roman_to_script", {}).get("ignore", [])}
-        else:
-            p_ignore = set()
 
         ignore = {
             Token(t)
             for t in tdata["roman_to_script"].get("ignore", [])
-        } | p_ignore
+        }
+        for parent in parents:
+            parent_tdata = load_table(parent)
+            # No overriding occurs with the ignore list, only de-duplication.
+            ignore |= {
+                Token(t) for t in parent_tdata.get(
+                        "roman_to_script", {}).get("ignore", [])
+            }
 
         tdata["roman_to_script"]["ignore"] = [
                 t.content for t in sorted(ignore)]
