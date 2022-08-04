@@ -21,6 +21,8 @@ chinese:
   name: Chinese (Hanzi)
 church_slavonic:
   name: Church Slavonic
+ethiopic:
+  name: Ethiopic (Amharic)
 greek:
   name: Greek (classic)
 russian:
