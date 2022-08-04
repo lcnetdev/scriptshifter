@@ -7,6 +7,8 @@
 # key within the entry is the human-readable label that can be used in a
 # multiple-choice menu.
 
+armenian:
+  name: Armenian
 asian_cyrillic:
   name: Asian Cyrillic
   description: >
