@@ -1,0 +1,280 @@
+general:
+  name: Armenian
+
+roman_to_script:
+  map:
+    "A": "\u0531"
+    "a": "\u0561"
+    "B": "\u0532"
+    "b": "\u0562"
+    # GH combination
+    "GH": "\u0542"
+    # Gh combination
+    "Gh": "\u0542"
+    # gh combination
+    "gh": "\u0572"
+    "G": "\u0533"
+    "g": "\u0563"
+    # DZ combination
+    "DZ": "\u0541\u0566"
+    # Dz combination
+    "Dz": "\u0541\u0566"
+    # dz combination
+    "dz": "\u0571\u0566"
+    "D": "\u0534"
+    "d": "\u0564"
+    # E uppercase with macron
+    "E\u0304": "\u0537"
+    # e lowercase with macron
+    "e\u0304": "\u0567"
+    # E uppercase with caron
+    "E\u030C": "\u0538"
+    # e lowercase with caron
+    "e\u030C": "\u0568"
+    # EW combination
+    "EW": "\u0535\u0582"
+    # Ew combination
+    "Ew": "\u0535\u0582"
+    # ew combination
+    "ew": "\u0565\u0582"
+    # EV combination
+    "EV": "\u0565\u057E"
+    # Ev combination
+    "Ev": "\u0565\u057E"
+    # ev combination
+    "ev": "\u0565\u057E"
+    "E": "\u0535"
+    "e": "\u0565"
+    # T uppercase with ayn
+    "T\u02BB": "\u0539"
+    # t lowercase with ayn
+    "t\u02BB": "\u0569"
+    # ZH combination
+    "ZH": "\u053A"
+    # Zh combination
+    "Zh": "\u053A"
+    # zh combination
+    "zh": "\u056A"
+    "Z": "\u0536"
+    "z": "\u0566"
+    "I": "\u053B"
+    "i": "\u056B"
+    "L": "\u053C"
+    "l": "\u056C"
+    # KH combination
+    "KH": "\u053D"
+    # Kh combination
+    "Kh": "\u053D"
+    # kh combination
+    "kh": "\u056D"
+    # TS + ayn combination
+    "TS\u02BB": "\u0551"
+    # Ts + ayn combination
+    "Ts\u02BB": "\u0551"
+    # ts + ayn combination
+    "ts\u02BB": "\u0581"
+    # TS combination
+    "TS": "\u053E"
+    # Ts combination
+    "Ts": "\u053E"
+    # ts combination
+    "ts": "\u056E"
+    # K + ayn
+    "K\u02BB": "\u0554"
+    # k + ayn
+    "k\u02BB": "\u0584"
+    "K": "\u053F"
+    "k": "\u056F"
+    # CH + ayn combination 
+    "CH\u02BB": "\u0549"
+    # Ch + ayn combination
+    "Ch\u02BB": "\u0549"
+    # ch + ayn combination
+    "ch\u02BB": "\u0579"
+    # CH combination
+    "CH": "\u0543"
+    # Ch combination
+    "Ch": "\u0543"
+    # ch combination
+    "ch": "\u0573"
+    "M": "\u0544"
+    "m": "\u0574"
+    "Y": "\u0545"
+    "y": "\u0575"
+    "N": "\u0546"
+    "n": "\u0576"
+    # SH combinatiomn
+    "SH": "\u0547"
+    # Sh combination
+    "Sh": "\u0547"
+    #sh combination
+    "sh": "\u0577"
+    "H": "\u0540"
+    "h": "\u0570"
+    # O uppercase with combining macron
+    "O\u0304": "\u0555"
+    # o lowercase with combining macron
+    "o\u0304": "\u0585"
+    "O": "\u0548"
+    "o": "\u0578"
+    # P uppercase + ayn
+    "P\u02BB": "\u0553"
+    # p lowercase + ayn
+    "p\u02BB": "\u0583"
+    "J": "\u054B"
+    "j": "\u057B"
+    # R uppercase with combining dot below
+    "R\u0323": "\u054C"
+    # r lowercase with combining dot below
+    "r\u0323": "\u057C"
+    "S": "\u054D"
+    "s": "\u057D"
+    "V": "\u054E"
+    "v": "\u057E"
+    "T": "\u054F"
+    "t": "\u057F"
+    "R": "\u0550"
+    "r": "\u0580"
+    "W": "\u0552"
+    "w": "\u0582"
+    "U": "\u0548\u0582"
+    "u": "\u0578\u0582"
+    "F": "\u0556"
+    "f": "\u0586"
+    "\u02B9": ""
+
+script_to_roman:
+  map:
+    "\u053F\u0540": "K\u02B9H"
+    "\u053F\u0570": "K\u02B9h"
+    "\u056F\u0570": "k\u02B9h"
+    "\u0536\u0540": "Z\u02B9H"
+    "\u0536\u0570": "Z\u02B9h"
+    "\u0566\u0570": "z\u02B9h"
+    "\u054F\u054D": "T\u02B9S"
+    "\u054F\u057D": "T\u02B9s"
+    "\u057F\u057D": "t\u02B9s"
+    "\u0534\u0536": "D\u02B9Z"
+    "\u0534\u0566": "D\u02B9z"
+    "\u0564\u0566": "d\u02B9z"
+    "\u0533\u0540": "G\u02B9H"
+    "\u0533\u0570": "G\u02B9h"
+    "\u0563\u0570": "g\u02B9h"
+    "\u054D\u0540": "S\u02B9H"
+    "\u054D\u0570": "S\u02B9h"
+    "\u057D\u0570": "s\u02B9h"
+    "\u0531": "A"
+    "\u0561": "a"
+    "\u0532": "B"
+    "\u0562": "b"
+    # Gh combination
+    "\u0542": "Gh"
+    # gh combination
+    "\u0572": "gh"
+    "\u0533": "G"
+    "\u0563": "g"
+    # Dz combination
+    "\u0541\u0566": "Dz"
+    # dz combination
+    "\u0571\u0566": "dz"
+    "\u0534": "D"
+    "\u0564": "d"
+    # E uppercase with macron
+    "\u0537": "E\u0304"
+    # e lowercase with macron
+    "\u0567": "e\u0304"
+    # E uppercase with caron
+    "\u0538": "E\u030C"
+    # e lowercase with caron
+    "\u0568": "e\u030C"
+    # Ew combination
+    "\u0535\u0582": "Ew"
+    # ew combination
+    "\u0565\u0582": "ew"
+    # Ev combination
+    "\u0565\u057E": "Ev"
+    # ev combination
+    "\u0565\u057E": "ev"
+    "\u0535": "E"
+    "\u0565": "e"
+    # T uppercase with ayn
+    "\u0539": "T\u02BB"
+    # t lowercase with ayn
+    "\u0569": "t\u02BB"
+    # Zh combination
+    "\u053A": "Zh"
+    # zh combination
+    "\u056A": "zh"
+    "\u0536": "Z"
+    "\u0566": "z"
+    "\u053B": "I"
+    "\u056B": "i"
+    "\u053C": "L"
+    "\u056C": "l"
+    # Kh combination
+    "\u053D": "Kh"
+    # kh combination
+    "\u056D": "kh"
+    # Ts + ayn combination
+    "\u0551": "Ts\u02BB"
+    # ts + ayn combination
+    "\u0581": "ts\u02BB"
+    # Ts combination
+    "\u053E": "Ts"
+    # ts combination
+    "\u056E": "ts"
+    # K + ayn
+    "\u0554": "K\u02BB"
+    # k + ayn
+    "\u0584": "k\u02BB"
+    "\u053F": "K"
+    "\u056F": "k"
+    # Ch + ayn combination
+    "\u0549": "Ch\u02BB"
+    # ch + ayn combination
+    "\u0579": "ch\u02BB"
+    # Ch combination
+    "\u0543": "Ch"
+    # ch combination
+    "\u0573": "ch"
+    "\u0544": "M"
+    "\u0574": "m"
+    "\u0545": "Y"
+    "\u0575": "y"
+    "\u0546": "N"
+    "\u0576": "n"
+    # Sh combination
+    "\u0547": "Sh"
+    # sh combination
+    "\u0577": "sh"
+    "\u0540": "H"
+    "\u0570": "h"
+    # O uppercase with combining macron
+    "\u0555": "O\u0304"
+    # o lowercase with combining macron
+    "\u0585": "o\u0304"
+    "\u0548": "O"
+    "\u0578": "o"
+    # P uppercase + ayn
+    "\u0553": "P\u02BB"
+    # p lowercase + ayn
+    "\u0583": "p\u02BB"
+    "\u054B": "J"
+    "\u057B": "j"
+    # R uppercase with combining dot below
+    "\u054C": "R\u0323"
+    # r lowercase with combining dot below
+    "\u057C": "r\u0323"
+    "\u054D": "S"
+    "\u057D": "s"
+    "\u054E": "V"
+    "\u057E": "v"
+    "\u054F": "T"
+    "\u057F": "t"
+    "\u0550": "R"
+    "\u0580": "r"
+    "\u0552": "W"
+    "\u0582": "w"
+    "\u0556": "F"
+    "\u0586": "f"
+
