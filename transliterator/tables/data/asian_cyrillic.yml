@@ -53,8 +53,8 @@ roman_to_script:
 
     "Gh": "\u0492"
     "GH": "\u0492"
-    "gH": "U=0493"
-    "gh": "U=0493"
+    "gH": "\u0493"
+    "gh": "\u0493"
 
     # DE-ACTIVATED CONVERSION OF YAKUT "A" WITH DIAERSIS DUE TO CONFLICTING ROMANIZATION
     #"Gh": "\u0494"
@@ -320,7 +320,7 @@ script_to_roman:
     "\u0474": "V\u0307"
     "\u0475": "v\u0307"
     "\u0492": "Gh"
-    "U": "0493=gh"
+    "\u0493": "gh"
     # DE-ACTIVATED CONVERSION OF YAKUT "A" WITH DIAERSIS DUE TO CONFLICTING ROMANIZATION
     "\u0494": "Gh"
     # DE-ACTIVATED CONVERSION OF YAKUT "a" WITH DIAERSIS DUE TO CONFLICTING ROMANIZATION
