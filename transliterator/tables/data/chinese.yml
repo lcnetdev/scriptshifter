@@ -1,35 +1,16 @@
 general: # Section names and other keywords are all snake_cased.
   name: Chinese
-  #allow_define_button: true # Probably not a relevant section.
-
-# roman_to_script: Empty section removed.
+  parents:
+    - _ignore_base
 
 script_to_roman:
   directives: # Directives section.
-    # Irrelevant settings removed.
-    #fields_included: 100 110 111 130 240 245 246 250 260 264 440 490 505 600 610 611 630 651 700 710 711 730 740 800 830
-    #subfields_always_excluded: uvxy0123456789
-    #other_subfields_excluded_by_tag: 100/e 110/e 111/j 246/i 260/c 264/c 650/a 700/e 700/i 710/e 710/i 711/i 711/j 730/i
-    #uppercase_first_character_in_subfield: 260/b
-    # personal_name_handling: true  # This is handled by the text scanner.
-    # Capitalize the first letter of the string only;
-    # TODO Implement a list that includes all punctuation marks that want the
-    # following letter capitalized.
+    # Capitalize the first letter of the string only; TODO
+    # Implement a list that includes all punctuation marks that
+    # want the following letter capitalized.
     capitalize: true
   map: # Mapping section.
-    # RDA boilerplate phrases not transliterated.
-    # All characters not found in the mapping are copid verbatim. No need for
-    # a "copy verbatim" section.
-    #Place of publication not identified=Place of publication not identified_
-    #publisher not identified=publisher not identified_
-
-    # Multi-character transliteration.
-    #
-    # These should be kept at the beginning of the mapping for readability,
-    # however the software will rearrange them internally after parsing the
-    # config file, so the longest strings are searched for first.
-    # Q: Separate whole names from the rest? We'll see when we implement the
-    # logic maybe.
+    # Whole words.
     "\u4E2D\u56FD": "Zhongguo "
     "\u5317\u4EAC": "Beijing "
     "\u9808\u5F4C": "Xumi "
