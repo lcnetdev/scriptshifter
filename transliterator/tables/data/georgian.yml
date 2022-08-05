@@ -17,17 +17,17 @@ roman_to_script:
     "B": "\u10D1"
     "b": "\u10D1"
     # C uppercase with combining caron above + ayn
-    "C\u030C\u02BB": "\u"
+    "C\u030C\u02BB": "\u10E9"
     # c lowercase with combining caron above + ayn
-    "c\u030C\u02BB": "\u"
+    "c\u030C\u02BB": "\u10E9"
     # C uppercase with combining caron above
-    "C\u030C": "\u"
+    "C\u030C": "\u10ED"
     # C lowercase with combining caron above
-    "c\u030C": "\u"
+    "c\u030C": "\u10ED"
     # C uppercase with ayn
-    "C\u02BB": "\u"
+    "C\u02BB": "\u10EA"
     # C lowercase with ayn
-    "c\u02BB": "\u"
+    "c\u02BB": "\u10EA"
     "C": "\u10EC"
     "c": "\u10EC"
     "D": "\u10D3"
@@ -124,9 +124,51 @@ roman_to_script:
     "z\u0323": "\u10EB"
     "Z": "\u10D6"
     "z": "\u10D6"
-    
+    "\u02BB": "\u10F8"
+
 script_to_roman:
   map:
+    # Khutsuri (capital) letters; not used in modern Georgian
+    "\u10A0": "A"
+    "\u10A1": "B"
+    "\u10A2": "G"
+    "\u10A3": "D"
+    "\u10A4": "E"
+    "\u10A5": "V"
+    "\u10A6": "Z"
+    "\u10A7": "T\u02BB"
+    "\u10A8": "I"
+    "\u10A9": "K"
+    "\u10AA": "L"
+    "\u10AB": "M"
+    "\u10AC": "N"
+    "\u10AD": "O"
+    "\u10AE": "P"
+    "\u10AF": "Z\u030C"
+    "\u10B0": "R"
+    "\u10B1": "S"
+    "\u10B2": "T"
+    "\u10B3": "U"
+    "\u10B4": "P\u030C"
+    "\u10B5": "K\u030C"
+    "\u10B6": "G\u0307"
+    "\u10B7": "Q"
+    "\u10B8": "S\u030C"
+    "\u10B9": "C\u030C\u02BB"
+    "\u10BA": "C\u02BB"
+    "\u10BB": "Z\u0307"
+    "\u10BC": "C"
+    "\u10BD": "C\u030C"
+    "\u10BE": "X"
+    "\u10BF": "J"
+    "\u10C0": "H"
+    "\u10C1": "E\u0304"
+    "\u10C2": "Y"
+    "\u10C3": "W"
+    "\u10C4": "X\u0323"
+    "\u10C5": "O\u0304"
+
+    # Mkhedruli (lowercase) letters
     "\u10D0": "a"
     "\u10D1": "b"
     "\u10D2": "g"
@@ -168,3 +210,12 @@ script_to_roman:
     "\u10F6": "f"
     "\u10F7": "e\u0306"
     "\u10F8": "\u02BB"
+    # Elifi (ayn)
+    "\u10F8": "\u02BB"
+    # Turned gan with dot above
+    "\u10F9": "g\u0307"
+    # Georgian ayn
+    "\u10FA": "\u02BB"
+    "\u10FB": "?"
+    "\u10FC": "?"
+  
