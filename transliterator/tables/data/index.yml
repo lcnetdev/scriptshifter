@@ -23,6 +23,8 @@ church_slavonic:
   name: Church Slavonic
 ethiopic:
   name: Ethiopic (Amharic)
+georgian:
+  name: Georgian
 greek:
   name: Greek (classic)
 russian:

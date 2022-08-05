@@ -1,0 +1,170 @@
+general:
+  name: Georgian
+  parents:
+    - _ignore_base
+
+roman_to_script:
+    # \u0304 combining macron above
+    # \u0306 combining breve above
+    # \u0307 combining dot above
+    # \u030C combining caron above
+    # \u0323 combining dot below
+    # \u02BB ayn
+
+  map:
+    "A": "\u10D0"
+    "a": "\u10D0"
+    "B": "\u10D1"
+    "b": "\u10D1"
+    # C uppercase with combining caron above + ayn
+    "C\u030C\u02BB": "\u"
+    # c lowercase with combining caron above + ayn
+    "c\u030C\u02BB": "\u"
+    # C uppercase with combining caron above
+    "C\u030C": "\u"
+    # C lowercase with combining caron above
+    "c\u030C": "\u"
+    # C uppercase with ayn
+    "C\u02BB": "\u"
+    # C lowercase with ayn
+    "c\u02BB": "\u"
+    "C": "\u10EC"
+    "c": "\u10EC"
+    "D": "\u10D3"
+    "d": "\u10D3"
+    # E uppercase with macron above
+    "E\u0304": "\u10F1"
+    # e lowercase with macron above
+    "e\u0304": "\u10F1"
+    # E uppercase with breve above
+    "E\u0306": "\u10F7"
+    # e lowercase with breve above
+    "e\u0306": "\u10F7"
+    "E": "\u10D4"
+    "e": "\u10D4"
+    "F": "\u10F6"
+    "f": "\u10F6"
+    # G uppercase with dot above
+    "G\u0307": "\u10E6"
+    # g lowercase with dot above
+    "g\u0307": "\u10E6"
+    "G": "\u10D2"
+    "g": "\u10D2"
+    "H": "\u10F0"
+    "h": "\u10F0"
+    "I": "\u10D8"
+    "i": "\u10D8"
+    "J": "\u10EF"
+    "j": "\u10EF"
+    # K uppercase with ayn
+    "K\u02BB": "\u10E5"
+    # k lowercase with ayn
+    "k\u02BB": "\u10E5"
+    "K": "\u10D9"
+    "k": "\u10D9"
+    "L": "\u10DA"
+    "l": "\u10DA"
+    "M": "\u10DB"
+    "m": "\u10DB"
+    "N": "\u10DC"
+    "n": "\u10DC"
+    # O uppercase with combining macron
+    "O\u0304": "\u10F5"
+    # o lowercase with combining macron
+    "o\u0304": "\u10F5"
+    "O": "\u10DD"
+    "o": "\u10DD"
+    # P uppercase with ayn
+    "P\u02BB": "\u10E4"
+    # p lowercase with ayn
+    "p\u02BB": "\u10E4"
+    "P": "\u10DE"
+    "p": "\u10DE"
+    "Q": "\u10E7"
+    "q": "\u10E7"
+    "R": "\u10E0"
+    "r": "\u10E0"
+    # S uppercase with combining caron above
+    "S\u030C": "\u10E8"
+    # s lowercase with combining caron above
+    "s\u030C": "\u10E8"
+    "S": "\u10E1"
+    "s": "\u10E1"
+    # T uppercase with ayn
+    "T\u02BB": "\u10D7"
+    # t lowervase with ayn
+    "t\u02BB": "\u10D7"
+    "T": "\u10E2"
+    "t": "\u10E2"
+    # U uppercase with breve above
+    "U\u0306": "\u10E3"
+    # u lowercase with breve above
+    "u\u0306": "\u10E3"
+    "U": "\u10E3"
+    "u": "\u10E3"
+    "V": "\u10D5"
+    "v": "\u10D5"
+    "W": "\u10F3"
+    "w": "\u10F3"
+    # X uppercase with combining dot below
+    "X\u0323": "\u10F4"
+    # x lowercase with combining dot below
+    "x\u0323": "\u10F4"
+    "X": "\u10EE"
+    "x": "\u10EE"
+    "Y": "\u10F2"
+    "y": "\u10F2"
+    # Z uppercase with combining caron above
+    "Z\u030C": "\u10DF"
+    # z lowercase with combining caron above
+    "z\u030C": "\u10DF"
+    # Z uppercase with combining dot above
+    "Z\u0323": "\u10EB"
+    # z lowercase with combining dot above
+    "z\u0323": "\u10EB"
+    "Z": "\u10D6"
+    "z": "\u10D6"
+    
+script_to_roman:
+  map:
+    "\u10D0": "a"
+    "\u10D1": "b"
+    "\u10D2": "g"
+    "\u10D3": "d"
+    "\u10D4": "e"
+    "\u10D5": "v"
+    "\u10D6": "z"
+    "\u10D7": "t\u02BB"
+    "\u10D8": "i"
+    "\u10D9": "k"
+    "\u10DA": "l"
+    "\u10DB": "m"
+    "\u10DC": "n"
+    "\u10DD": "o"
+    "\u10DE": "p"
+    "\u10DF": "z\u030C"
+    "\u10E0": "r"
+    "\u10E1": "s"
+    "\u10E2": "t"
+    "\u10E3": "u"
+    "\u10E4": "p\u030C"
+    "\u10E5": "k\u030C"
+    "\u10E6": "g\u0307"
+    "\u10E7": "q"
+    "\u10E8": "s\u030C"
+    "\u10E9": "c\u030C\u02BB"
+    "\u10EA": "c\u02BB"
+    "\u10EB": "z\u0307"
+    "\u10EC": "c"
+    "\u10ED": "c\u030C"
+    "\u10EE": "x"
+    "\u10EF": "j"
+    "\u10F0": "h"
+    "\u10F1": "e\u0304"
+    "\u10F2": "y"
+    "\u10F3": "w"
+    "\u10F4": "x\u0323"
+    "\u10F5": "o\u0304"
+    "\u10F6": "f"
+    "\u10F7": "e\u0306"
+    "\u10F8": "\u02BB"
