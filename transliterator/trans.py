@@ -7,7 +7,13 @@ from transliterator.tables import load_table
 
 # Match multiple spaces.
 MULTI_WS_RE = re.compile(r"\s{2,}")
+# Default characters defining a word boundary. TODO Make this configurable
+# per-table.
+WORD_BOUNDARY = " \n\t:;.,\"'"
 
+# Cursor flags.
+CUR_BOW = 1
+CUR_EOW = 2
 
 logger = logging.getLogger(__name__)
 
@@ -84,6 +90,19 @@ def transliterate(src, lang, r2s=False):
     ignore_list = langsec.get("ignore", [])  # Only present in R2S
     ctx.cur = 0
     while ctx.cur < len(src):
+        # Reset cursor position flags.
+        ctx.cur_flags = 0
+
+        # Look for a word boundary and flag word beginning/end it if found.
+        if ctx.cur == 0 or src[ctx.cur - 1] in WORD_BOUNDARY:
+            # Beginning of word.
+            logger.debug(f"Beginning of word at position {ctx.cur}.")
+            ctx.cur_flags |= CUR_BOW
+        if ctx.cur == len(src) - 1 or src[ctx.cur + 1] in WORD_BOUNDARY:
+            # End of word.
+            logger.debug(f"End of word at position {ctx.cur}.")
+            ctx.cur_flags |= CUR_EOW
+
         # This hook may skip the parsing of the current
         # token or exit the scanning loop altogether.
         hret = _run_hook("begin_input_token", ctx, langsec_hooks)
@@ -94,7 +113,7 @@ def transliterate(src, lang, r2s=False):
             logger.debug("Skipping scanning iteration from hook signal.")
             continue
 
-        # Check ignore list first. Find as many subsequent ignore tokens
+        # Check ignore list. Find as many subsequent ignore tokens
         # as possible before moving on to looking for match tokens.
         ctx.tk = None
         while True:
@@ -173,6 +192,7 @@ def transliterate(src, lang, r2s=False):
             ctx.cur += 1
         else:
             delattr(ctx, "match")
+        delattr(ctx, "cur_flags")
 
     delattr(ctx, "cur")
 

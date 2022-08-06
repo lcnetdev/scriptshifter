@@ -154,6 +154,8 @@ of multiple symbols based on logical rules rather than a dictionary.
 
 - `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
+- `ctx.cur_flags`: flags associated with the current position. They are reset
+  at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list.
 - `ctx.general`: Configuration general options.
 - `ctx.langsec`: language section (S2R or R2S) of configuration.
@@ -178,6 +180,8 @@ ignore term and when or when not to trigger a match.
 
 - `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
+- `ctx.cur_flags`: flags associated with the current position. They are reset
+  at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list.
 - `ctx.general`: Configuration general options.
 - `ctx.langsec`: language section (S2R or R2S) of configuration.
@@ -202,6 +206,8 @@ scanning for more ignore tokens past the match.
 
 - `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
+- `ctx.cur_flags`: flags associated with the current position. They are reset
+  at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list.
 - `ctx.general`: Configuration general options.
 - `ctx.langsec`: language section (S2R or R2S) of configuration.
@@ -229,6 +235,8 @@ number of characters, and/or exit the text scanning loop altogether.
 
 - `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
+- `ctx.cur_flags`: flags associated with the current position. They are reset
+  at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list.
 - `ctx.general`: Configuration general options.
 - `ctx.langsec`: language section (S2R or R2S) of configuration.
@@ -254,6 +262,8 @@ also inject additional conditions and logic for the match, and revoke the
 
 - `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
+- `ctx.cur_flags`: flags associated with the current position. They are reset
+  at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list. The matching token will be added to it
   after this hook is run.
 - `ctx.general`: Configuration general options.
@@ -283,6 +293,8 @@ cursor position to the destination list, verbatim.
 
 - `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
+- `ctx.cur_flags`: flags associated with the current position. They are reset
+  at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list.
 - `ctx.general`: Configuration general options.
 - `ctx.langsec`: language section (S2R or R2S) of configuration.
@@ -337,3 +349,18 @@ and return it before any further default processing is done.
 `"ret"` or `None`. If `"ret"`, the transliteration function returns `ctx.dest`
 immediately; otherwise it proceeds with standard adjustments of the output
 string before returning.
+
+## Cursor flags
+
+At certain points of the processing, some boolean flags are associated with
+the current cursor position. These flags are available under `ctx.cur_flags`.
+The following flags are currently supported:
+
+- `CUR_BOW`: Beginning of word.
+- `CUR_EOW`: End of word.
+
+The beginning and end of word flags are useful for hooks to manipulate the
+transliteration where letters take different shapes based on their position
+within a word. Either, both, or neither flag may be set at any position. If
+both are set, the letter is standalone. If neither is set, the letter is
+medial.

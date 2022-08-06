@@ -15,19 +15,25 @@ discussion, etc.); *X* = not implementing.
 - *D* Basic UI
 - *D* Life cycle hooks for plugins
 - *P* Regular expressions in ignore lists
-- *P* Word boundaries (design)
+- *W* Word boundaries (design)
+  - *W* Define word boundary characters
+  - *D* Mark end-of-word and beginning-of-word characters
+- *P* Optimize token lookup
+  - *P* Break loop based on alphabetical order
+  - *P* Ignore space
 - *D* API documentation
 - *P* Config file documentation
 - *D* Hooks documentation
 - *W* Complete conversion of existing tables to YAML
   - *P* Arabic
   - *P* Armenian
+  - *D* Asian Cyrillic
   - *P* Azerbajani
   - *D* Belarusian
   - *D* Bulgarian
   - *D* Chinese
-  - *P* Ethiopic
-  - *P* Georgian
+  - *D* Ethiopic
+  - *D* Georgian
   - *W* Greek
   - *P* Hebrew and Yiddish
   - *X* Japanese
