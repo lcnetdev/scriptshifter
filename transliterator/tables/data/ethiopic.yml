@@ -790,7 +790,7 @@ roman_to_script:
     "k": "\u12AD"
     "x": "\u12BD"
     "w": "\u12CD"
-    "u+02BBE": "\u12D5"
+    "\u2BBE": "\u12D5"
     "z\u030C": "\u12E5"
     "z": "\u12DD"
     "y": "\u12ED"
