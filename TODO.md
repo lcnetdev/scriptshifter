@@ -8,19 +8,19 @@ discussion, etc.); *X* = not implementing.
 - *W* Multiple recursive inheritance
   - *D* Inherit map
   - *D* Inherit ignore
-  - *P* Inherit hooks
+  - *B* Inherit hooks
 - *D* Ignore list (R2S)
 - *D* Basic transliteration in both directions
 - *D* Basic REST API
 - *D* Basic UI
 - *D* Life cycle hooks for plugins
-- *P* Regular expressions in ignore lists
+- *W* Regular expressions in ignore lists
 - *W* Word boundaries (design)
-  - *W* Define word boundary characters
+  - *B* Define word boundary characters
   - *D* Mark end-of-word and beginning-of-word characters
 - *P* Optimize token lookup
-  - *P* Break loop based on alphabetical order
-  - *P* Ignore space
+  - *P* Break loop early based on alphabetical order
+  - *P* Ignore word break characters
 - *D* API documentation
 - *P* Config file documentation
 - *D* Hooks documentation
