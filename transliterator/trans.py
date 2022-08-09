@@ -11,7 +11,7 @@ MULTI_WS_RE = re.compile(r"\s{2,}")
 # per-table.
 WORD_BOUNDARY = " \n\t:;.,\"'"
 
-# Cursor flags.
+# Cursor bitwise flags.
 CUR_BOW = 1
 CUR_EOW = 2
 
@@ -157,9 +157,20 @@ def transliterate(src, lang, r2s=False):
             if hret == CONT:
                 continue
 
+            step = len(ctx.src_tk)
+
+            # If the first character of the token is greater (= higher code
+            # point value) than the current character, then break the loop
+            # without a match, because we know there won't be any more match
+            # due to the alphabetical ordering.
+            if ctx.src_tk[0] > src[ctx.cur]:
+                logger.debug(
+                        f"{ctx.src_tk} is after {src[ctx.cur:ctx.cur + step]}."
+                        " Breaking loop.")
+                break
+
             # Longer tokens should be guaranteed to be scanned before their
             # substrings at this point.
-            step = len(ctx.src_tk)
             if ctx.src_tk == src[ctx.cur:ctx.cur + step]:
                 ctx.match = True
                 # This hook may skip this token or break out of the token
@@ -186,7 +197,7 @@ def transliterate(src, lang, r2s=False):
 
             # No match found. Copy non-mapped character (one at a time).
             logger.info(
-                    f"Token {src[ctx.cur]} (\\u{hex(ord(src[ctx.cur]))[2:]})"
+                    f"Token {src[ctx.cur]} (\\u{hex(ord(src[ctx.cur]))[2:]}) "
                     f"at position {ctx.cur} is not mapped.")
             ctx.dest_ls.append(src[ctx.cur])
             ctx.cur += 1

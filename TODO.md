@@ -14,16 +14,20 @@ discussion, etc.); *X* = not implementing.
 - *D* Basic REST API
 - *D* Basic UI
 - *D* Life cycle hooks for plugins
-- *W* Regular expressions in ignore lists
+- *B* Regular expressions in ignore lists
 - *W* Word boundaries (design)
   - *B* Define word boundary characters
   - *D* Mark end-of-word and beginning-of-word characters
-- *P* Optimize token lookup
-  - *P* Break loop early based on alphabetical order
-  - *P* Ignore word break characters
+- *B* Optimize token lookup
+  - *D* Break loop early based on alphabetical order
+  - *B* Ignore word break characters
 - *D* API documentation
-- *P* Config file documentation
+- *D* Config file documentation
 - *D* Hooks documentation
+- *P* Tests
+  - *P* Config parsing
+  - *P* Transliteration
+  - *P* REST API
 - *W* Complete conversion of existing tables to YAML
   - *P* Arabic
   - *P* Armenian
