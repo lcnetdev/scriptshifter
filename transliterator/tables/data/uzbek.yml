@@ -1,0 +1,35 @@
+general:
+  name: uzbek (Cyrillic)
+  parents:
+    - _cyrillic_base
+    - _ignore_base
+
+roman_to_script:
+  map:
+    # Included to handle typos
+    "GH": "\u0492"
+    "Gh": "\u0492"
+    "gh": "\u0493"
+    # Included to handle typos
+    "gH": "\u0493"
+    "Q": "\u049A"
+    "q": "\u049B"
+    "U\u0306": "\u040E"
+    "u\u0306": "\u045E"
+    "H\u0307": "\u04B2"
+    "h\u0307": "\u04B3"
+
+script_to_roman:
+  map:
+    "\u0492": "Gh"
+    "\u0493": "gh"
+    "\u049A": "Q"
+    "\u049B": "q"
+    # Included to normalize alternate character
+    "\u04C3": "Q"
+    # Included to normalize alternate character
+    "\u04C4": "q"
+    "\u040E": "U\u0306"
+    "\u045E": "u\u0306"
+    "\u04B2": "H\u0307"
+    "\u04B3": "h\u0307"

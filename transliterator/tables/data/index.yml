@@ -9,10 +9,12 @@
 
 armenian:
   name: Armenian
+azerbaijani:
+  name: Azerbaijani (Cyrillic)
 asian_cyrillic:
   name: Asian Cyrillic
   description: >
-    Multi-purpose transliteration for non-Slavic Cyrillic scripts: Abaza, Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar, Bashkir, Buryat, Chechen, Chukchi, Chuvash, Dargwa, Dungan, Eskimo, Even, Evenki, Gagauz, Ingush, Inuit, Kabardian, Kalmyk, Karachay, Karachay-Balkar, Karakalpak, Karelian, Kazakh, Khakass, Khanty, Komi, Komi-Permyak, Koryak, Kumyk, Kyrgyz, Lak, Lapp, Lezghian, Lithuanian, Mansi, Mari, Moldovan, Molodstov, Mongolian, Mordvin, Nanai, Nenets, Nivkh, Nogai, Ossetic, Permyak, Romanian, Romany, Selkup, Shor, Tabasaran, Tajik, Tat, Tatar, Turkmen, Tuva, Udekhe, Udmurt, Uzbek, Yakut.
+    Multi-purpose transliteration for non-Slavic Cyrillic scripts: Abaza, Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar, Bashkir, Buryat, Chechen, Chukchi, Chuvash, Dargwa, Dungan, Eskimo, Even, Evenki, Gagauz, Ingush, Inuit, Kabardian, Kalmyk, Karachay, Karachay-Balkar, Karakalpak, Karelian, Khakass, Khanty, Komi, Komi-Permyak, Koryak, Kumyk, Lak, Lapp, Lezghian, Lithuanian, Mansi, Mari, Moldovan, Molodstov, Mordvin, Nanai, Nenets, Nivkh, Nogai, Ossetic, Permyak, Romanian, Romany, Selkup, Shor, Tabasaran, Tat, Tuva, Udekhe, Udmurt, Yakut.
 belarusian:
   name: Belarusian
 bulgarian:
@@ -27,9 +29,23 @@ georgian:
   name: Georgian
 greek:
   name: Greek (classic)
+kazakh:
+  name: Kazakh (Cyrillic)
+kyrgyz:
+  name: Kyrgyz (Cyrillic)
+mongolian:
+  name: Mongolian (Cyrillic)
 russian:
   name: Russian
 serbian_macedonian:
   name: Serbian and Macedonian
+tajik:
+  name: Tajik (Cyrillic)
+tatar:
+  name: Tatar (Cyrillic)
+turkmen:
+  name: Turkmen (Cyrillic)
 ukrainian:
   name: Ukrainian
+uzbek:
+  name: Uzbek (Cyrillic)
