@@ -1,8 +1,9 @@
 import logging
+import re
 
 from functools import cache
 from importlib import import_module
-from os import path, access, R_OK
+from os import environ, path, access, R_OK
 
 from yaml import load
 try:
@@ -21,7 +22,9 @@ language (or language and script? TBD)
 """
 
 
-TABLE_DIR = path.join(path.dirname(path.realpath(__file__)), "data")
+DEFAULT_TABLE_DIR = path.join(path.dirname(path.realpath(__file__)), "data")
+# Can be overridden for tests.
+TABLE_DIR = environ.get("TXL_CONFIG_TABLE_DIR", DEFAULT_TABLE_DIR)
 
 # Available hook names.
 HOOKS = (
@@ -151,6 +154,22 @@ def load_table(tname):
         tdata["roman_to_script"]["map"] = tuple(
                 (k.content, tokens[k]) for k in sorted(tokens))
 
+        # Ignore regular expression patterns.
+        # Patterns are evaluated in the order they are listed in the config.
+        ignore_ptn = [
+                re.compile(ptn)
+                for ptn in tdata["roman_to_script"].get("ignore_ptn", [])]
+        for parent in parents:
+            parent_tdata = load_table(parent)
+            # NOTE: duplicates are not removed.
+            ignore_ptn = [
+                re.compile(ptn)
+                for ptn in parent_tdata.get(
+                        "roman_to_script", {}).get("ignore_ptn", [])
+            ] + ignore_ptn
+        tdata["roman_to_script"]["ignore_ptn"] = ignore_ptn
+
+        # Ignore plain strings.
         ignore = {
             Token(t)
             for t in tdata["roman_to_script"].get("ignore", [])
@@ -162,10 +181,10 @@ def load_table(tname):
                 Token(t) for t in parent_tdata.get(
                         "roman_to_script", {}).get("ignore", [])
             }
-
         tdata["roman_to_script"]["ignore"] = [
                 t.content for t in sorted(ignore)]
 
+        # Hooks.
         if "hooks" in tdata["roman_to_script"]:
             tdata["roman_to_script"]["hooks"] = load_hook_fn(
                     tname, tdata["script_to_roman"])

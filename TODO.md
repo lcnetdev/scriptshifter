@@ -21,11 +21,15 @@ discussion, etc.); *X* = not implementing.
 - *B* Optimize token lookup
   - *D* Break loop early based on alphabetical order
   - *B* Ignore word break characters
+  - *P* Capitalization
+    - *P* Separate capitalization function
+    - *P* Capitalize ligated letters (e.g. Cyrillic T͡͡S)
+    - *P* Option for capitalizing first word, all words, none, unchanged
 - *D* API documentation
 - *D* Config file documentation
 - *D* Hooks documentation
-- *P* Tests
-  - *P* Config parsing
+- *W* Tests
+  - *W* Config parsing
   - *P* Transliteration
   - *P* REST API
 - *W* Complete conversion of existing tables to YAML

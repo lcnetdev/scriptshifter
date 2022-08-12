@@ -1,5 +1,7 @@
 import logging
 
+from transliterator.exceptions import CONT
+
 
 __doc__ = """ Test hook functions. """
 
@@ -19,7 +21,7 @@ def rotate(ctx, n):
     """
     uc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     lc = uc.lower()
-    logger.debug(f"cursor: {ctx.cur}")
+    logger.debug(f"cursor before ROT: {ctx.cur}")
 
     ch = ctx.src[ctx.cur]
     if ch in uc:
@@ -30,9 +32,9 @@ def rotate(ctx, n):
         dest_ch = lc[(idx + n) % len(lc)]
     else:
         dest_ch = ch
-    logger.debug(f"ROT {n}: {ch} -> {dest_ch}")
+    logger.debug(f"ROT{n}: {ch} -> {dest_ch}")
 
     ctx.dest_ls.append(dest_ch)
     ctx.cur += 1
 
-    return "continue"
+    return CONT

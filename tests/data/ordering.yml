@@ -1,0 +1,14 @@
+# Test configuration for token ordering.
+general:
+  name: Token ordering test
+
+roman_to_script:
+  map:
+    "B": ""
+    "BCD": ""
+    "BCDE": ""
+    "BEFGH": ""
+    "A": ""
+    "AB": ""
+    "ABCD": ""
+
