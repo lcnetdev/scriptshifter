@@ -9,7 +9,7 @@ from transliterator.tables import load_table
 MULTI_WS_RE = re.compile(r"\s{2,}")
 # Default characters defining a word boundary. TODO Make this configurable
 # per-table.
-WORD_BOUNDARY = " \n\t:;.,\"'"
+WORD_BOUNDARY = " \n\t:;.,\"'-()[]{}"
 
 # Cursor bitwise flags.
 CUR_BOW = 1

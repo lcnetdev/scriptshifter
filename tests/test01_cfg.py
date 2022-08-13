@@ -3,7 +3,7 @@ from unittest import TestCase
 from importlib import reload
 from os import environ
 
-from tests import TEST_CONFIG_DIR
+from tests import TEST_DATA_DIR
 import transliterator.tables
 
 
@@ -11,7 +11,7 @@ class TestConfig(TestCase):
     """ Test configuration parsing. """
 
     def test_ordering(self):
-        environ["TXL_CONFIG_TABLE_DIR"] = TEST_CONFIG_DIR
+        environ["TXL_CONFIG_TABLE_DIR"] = TEST_DATA_DIR
         reload(transliterator.tables)  # Reload new config dir.
         from transliterator import tables
         tables.list_tables.cache_clear()
