@@ -32,8 +32,10 @@ class TestTrans(TestCase):
         This function name won't start with `test_` otherwise will be
         automatically run without parameters.
         """
-        txl = transliterate(self.script, self.tbl)
-        self.assertEqual(txl, self.roman)
+        config = transliterator.tables.load_table(self.tbl)
+        if "script_to_roman" in config:
+            txl = transliterate(self.script, self.tbl)
+            self.assertEqual(txl, self.roman)
 
     def sample_r2s(self):
         """
@@ -42,8 +44,10 @@ class TestTrans(TestCase):
         This function name won't start with `test_` otherwise will be
         automatically run without parameters.
         """
-        txl = transliterate(self.roman, self.tbl, r2s=True)
-        self.assertEqual(txl, self.script)
+        config = transliterator.tables.load_table(self.tbl)
+        if "roman_to_script" in config:
+            txl = transliterate(self.roman, self.tbl, r2s=True)
+            self.assertEqual(txl, self.script)
 
 
 def make_suite():

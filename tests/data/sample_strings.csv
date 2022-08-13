@@ -1,105 +1,146 @@
-Language,Script,Table key (if implemented),Original ,Romanized,Reading dir.,Errors,Comments
-Arabic,Arabic,,نظام الحكم في عمان : من إمامة الإنتخاب الى السلطنة الوراثية,Niẓām al-ḥukm fī ʻUmān : min imāmat al-intikhāb ilá al-salṭanah al-wirāthīyah ,R-L,,Hans Wehr's Dictionary for modern written Arabic is the current reference used for proper vocalization
-Arabic,Arabic,,ندوة علاقات مصر بدول حوض النيل في ظل رئاسة مصر للاتحاد الإفريقي‏,Nadwat ʻAlāqāt Miṣr bi-Duwal Ḥawḍ al-Nīl fī ẓill Riʼāsat Miṣr lil-Ittiḥād al-Ifrīqī,R-L ,,
-Arabic,Arabic,,تهذيب البيان والجمع في الفرق بين التكليف والوضع,Tahdhīb al-bayān wa-al-jamʻ fī al-farq bayna al-taklīf wa-al-waḍʻ,R-L ,,
-ABAZIN,Cyrillic,,,,L-R ,,
-ABKHAZ,Cyrillic,,,,L-R ,,
-ADYGEI,Cyrillic,,,,L-R ,,
-ALTAY,Cyrilllic,,,,L-R ,,
-Armenian,Armenian,armenian,Մեդիա իրավունք : (ուսումնական ձեռնարկ),Media iravunkʻ : (usumnakan dzeṛnark),L-R ,S2R: ձ (\u571) is not mapped.,
-Assamese,Assamese,,আগবাৰীত  ফুলিলে  সোনে  মোৰ  চম্পা,Āgabārīta phulile soṇe mora campā,R-L ,,
-AVARIC,Cyrillic,,,,L-R ,,
-Azerbaijani (North),Latin,,Milli dövlətçilik hərəkatının yüksəlişi və Xalq Cümhuriyyəti dövründə Azərbaycançılıq ideyası,Milli dövlätçilik häräkatının yüksälişi vä Xalq Cümhuriyyäti dövründä azärbaycançılıq ideyası ,L-R ,,
-Azerbaijani (South),Arabic,,مجنون مجنون دوشون منى  شعر توپلوسو ,Macnūn macnūn düşün manī : şiʻr toplūsū,L-R ,,
-Azerbaijani ,Cyrillic,azerbaijani,Ҝениш коммунизм гуруҹулуғу дөврүндә Азәрбајҹан тарихинин бәьзи мәсәләләринә даир С. Ағамалы Оғлу адына Азәрбајҹан Кәнд Тәсәррүфаты Институтунун Низами адына Кировабад Дөвләт Тарих-Өлкәшунаслыг Музеји илә бирҝә кечирәҹәји елми конфрансын материаллары,Ġenish kommunizm gurujulughu dȯvru̇ndă Azărbai̐jan tarikhinin băʹzi măsălălărină dair S. Aghamaly Oghlu adyna Azărbai̐jan Kănd Tăsărru̇faty Institutunun Nizami adyna Kirovabad Dȯvlăt Tarikh-Ȯlkăshunaslyg Muzei̐i ilă birġă kechirăjăi̐i elmi konfransyn materiallary,L-R ,,
-BALKAR,Cyrillic,,,,L-R ,,
-Baluchi,Arabic,,درداں گریتگ زار جتک,Dardān̲ grītag zār jatak,R-L ,,
-BASHKIR,Cyrillic,,,,L-R ,,
-Belarusian,Cyrillic,belarusian,Пётр Клімук : жыццё і подзвіг касманаўта,Pi︠o︡tr Klimuk : z︠h︡ytstsi︠o︡ i podzvih kasmanaŭta,L-R ,,
-Bengali,Bengali,,উনিশ-বিশ শতকে  পুরোনো  ঢাকার  সমাজ  ও  সংষ্কৃতি  ,Uniśa-Biśa śatake purono Ḍhākāra samāja o saṃskr̥ti ,R-L ,,
-Brahui,Arabic,,پام کروسن,Pām karosan,R-L ,,
-Bulgarian,Cyrillic,bulgarian,Нова книга за руската емиграция в България,Nova kniga za ruskata emigrat︠s︡ii︠a︡ v Bŭlgarii︠a︡,L-R ,"S2R: ""Blgarii︠a︡""; expected: ""Bŭlgarii︠a︡""",
-Buryat,Cyrillic,,"Хоёр үндэрэй хормойдо : очеркнууд, публицистическе статьянууд = У подножия двух ундуров / Бата-Мүнхэ Жигжитов.","Khoër u̇ndėrėĭ khormoĭdo : ocherknuud, publit︠s︡isticheske statʹi︠a︡nuud  = U podnozhii︠a︡ dvukh undurov / Bata-Mu̇nkhė Zhigzhitov.",L-R ,,
-Burmese,Burmese,,ရခိုင်မဟာရာဇဝင်တော်ကြီး,Rakhuiṅʻ mahā rājavaṅʻ toʻ krīʺ,L-R ,,
-Central Asian languages,Cyrillic,,,,L-R ,,
-CHECHEN,Cyrillic,,,,L-R ,,
-Chinese,Hanzi,chinese,撞倒須彌 : 漢傳佛教青年學者論壇論文集,Zhuang dao Xumi : Han chuan Fo jiao qing nian xue zhe lun tan lun wen ji ,L-R ,"S2R: 漢 (""han"") is not capitalized; expected: ""Han""",
-CHUVASH,Cyrillic,,,,L-R ,,
-Church Slavonic,Cyrillic,,,,L-R ,,[SC] Placeholder: need samples for testing 
-CIRCASSIAN,Cyrillic,,,,L-R ,,
-DAGESTANI,Cyrillic,,,,L-R ,,
-DARGWA,Cyrillic,,,,L-R ,,
-Ethiopic,Amharic,ethiopic,,,,,[SC] Placeholder: need samples for testing 
-GAGAUZ,Cyrillic,,,,L-R ,,
-Georgian,"Asomtavruli, Nuskhuri, Mkhedruli",georgian,ადგილობრივი თვითმმართველობის კოდექსი : საქართველოს ორგანული კანონი; 2018 წლის 7 სექტებრის მდგომარეობით.,Adgilobrivi tʻvitʻmmartʻvelobis kodekʻsi : Sakʻartʻvelos organuli kanoni; 2018 clis 7 sekʻtembris mdgomareobitʻ.,,"S2R: ""saǩartʻvelos""; expected: ""Sakʻartʻvelos"" (note capitalization and ""ǩ"")",Modern Georgian is really only written in the mkhedruli script. The other two scripts are its historical predecessors. 
-Greek (Ancient),Greek,greek,καὶ ἀπεγαλάκτισεν τὴν Οὐκ-ἠλεημένην καὶ συνέλαβεν ἔτι καὶ ἔτεκεν υἱόν,kai apegalaktisen tēn ouk ēleēmenēn kai synelaben eti kai eteken huion ,L-R ,Most if not all accented letters are not mapped.,
-Greek (Modern),Greek,,"Η ΑΕΚ θα καλύψει όλο το συμβόλαιο του Μεξικανού παίχτη, πολλά χρήματα δηλαδή","Hē AEK tha kalypsei holo to symvolaio tou Mexikanou paichtē, polla chrēmata dēladē",L-R ,,
-Gujarati,Gujarati,,વીરપસલી અને અન્ય વાર્તાઓ,Vīrapasalī ane anya vārtāo,L-R ,,
-Hebrew,Hebrew,,אבות לבנים,Avot le-vanim,R-L ,,
-Hebrew,Hebrew with the diacritics in Roman,,בנוסח עדות המזרח ונוסח אשכנז,be-nusaḥ ʻadot ha-Mizraḥ ṿe-nusaḥ Ashkenaz,R-L ,,
-Hindi,Devanagari,,परमहंस की पीड़ा : महान क्रांतिकारी रामप्रसाद बिस्मिल के जीवन पर आधारित उपन्यास,Paramahaṃsa kī pīṛā : mahāna krāntikārī Rāmaprasāda Bismila ke jīvana para ādhārita upanyāsa ,,,"There are several other dialects of Hindi language as well as Rajasthani language and its dialects, all are written in Devanagari script."
-INGUSH,Cyrillic,,,,L-R ,,
-Japanese,"Hiragana, Katakana, Kanji(Chinese character)",,小学校における包括的自己成長プログラムの開発,Shōgakkō ni okeru hōkatsuteki jiko seichō puroguramu no kaihatsu ,L-R ,,
-KABARDIAN,Cyrillic,,,,L-R ,,
-KALMYK,Cyrillic,,,,L-R ,,
-Kannada,Kannada,,ಹರಪನಹಳ್ಳಿ  ಭೀಮವ್ವನವರ  ಕೀರ್ತನೆಗಳು  ,Harapanahaḷḷi Bhīmavvanavara kīrtanegaḷu,L-R ,,
-KARACAY-BALKAR,Cyrillic,,,,L-R ,,
-KARAKALPAK,Cyrillic,,,,L-R ,,
+Language,Script,Table key (if implemented),Original ,Romanized,Reading dir.,Test results (S2R),Test results (R2S),Comments
+Arabic,Arabic,,نظام الحكم في عمان : من إمامة الإنتخاب الى السلطنة الوراثية,Niẓām al-ḥukm fī ʻUmān : min imāmat al-intikhāb ilá al-salṭanah al-wirāthīyah ,R-L,,,Hans Wehr's Dictionary for modern written Arabic is the current reference used for proper vocalization
+Arabic,Arabic,,ندوة علاقات مصر بدول حوض النيل في ظل رئاسة مصر للاتحاد الإفريقي‏,Nadwat ʻAlāqāt Miṣr bi-Duwal Ḥawḍ al-Nīl fī ẓill Riʼāsat Miṣr lil-Ittiḥād al-Ifrīqī,R-L ,,,
+Arabic,Arabic,,تهذيب البيان والجمع في الفرق بين التكليف والوضع,Tahdhīb al-bayān wa-al-jamʻ fī al-farq bayna al-taklīf wa-al-waḍʻ,R-L ,,,
+ABAZIN,Cyrillic,,,,L-R ,,,
+ABKHAZ,Cyrillic,,,,L-R ,,,
+ADYGEI,Cyrillic,,,,L-R ,,,
+ALTAY,Cyrilllic,,,,L-R ,,,
+Armenian,Armenian,armenian,Մեդիա իրավունք : (ուսումնական ձեռնարկ),Media iravunkʻ : (usumnakan dzeṛnark),L-R ,ձ (\u571) is not mapped.,"Result: ""[…]ձզեռնարկ""; expected: ""[…]ձեռնարկ""",
+Assamese,Assamese,,আগবাৰীত  ফুলিলে  সোনে  মোৰ  চম্পা,Āgabārīta phulile soṇe mora campā,R-L ,,,
+AVARIC,Cyrillic,,,,L-R ,,,
+Azerbaijani (North),Latin,,Milli dövlətçilik hərəkatının yüksəlişi və Xalq Cümhuriyyəti dövründə Azərbaycançılıq ideyası,Milli dövlätçilik häräkatının yüksälişi vä Xalq Cümhuriyyäti dövründä azärbaycançılıq ideyası ,L-R ,,,
+Azerbaijani (South),Arabic,,مجنون مجنون دوشون منى  شعر توپلوسو ,Macnūn macnūn düşün manī : şiʻr toplūsū,L-R ,,,
+Azerbaijani ,Cyrillic,azerbaijani,Ҝениш коммунизм гуруҹулуғу дөврүндә Азәрбајҹан тарихинин бәьзи мәсәләләринә даир С. Ағамалы Оғлу адына Азәрбајҹан Кәнд Тәсәррүфаты Институтунун Низами адына Кировабад Дөвләт Тарих-Өлкәшунаслыг Музеји илә бирҝә кечирәҹәји елми конфрансын материаллары,Ġenish kommunizm gurujulughu dȯvru̇ndă Azărbai̐jan tarikhinin băʹzi măsălălărină dair S. Aghamaly Oghlu adyna Azărbai̐jan Kănd Tăsărru̇faty Institutunun Nizami adyna Kirovabad Dȯvlăt Tarikh-Ȯlkăshunaslyg Muzei̐i ilă birġă kechirăjăi̐i elmi konfransyn materiallary,L-R ,"И (\u418) is not mapped.
+г (\u433) is not mapped.
+и (\u438) is not mapped.
+ы (\u44b) is not mapped.","I (\u49) is not mapped.
+g (\u67) is not mapped.
+i (\u69) is not mapped.
+y (\u79) is not mapped.",
+BALKAR,Cyrillic,,,,L-R ,,,
+Baluchi,Arabic,,درداں گریتگ زار جتک,Dardān̲ grītag zār jatak,R-L ,,,
+BASHKIR,Cyrillic,,,,L-R ,,,
+Belarusian,Cyrillic,belarusian,Пётр Клімук : жыццё і подзвіг касманаўта,Pi︠o︡tr Klimuk : z︠h︡ytstsi︠o︡ i podzvih kasmanaŭta,L-R ,OK,OK,
+Bengali,Bengali,,উনিশ-বিশ শতকে  পুরোনো  ঢাকার  সমাজ  ও  সংষ্কৃতি  ,Uniśa-Biśa śatake purono Ḍhākāra samāja o saṃskr̥ti ,R-L ,,,
+Brahui,Arabic,,پام کروسن,Pām karosan,R-L ,,,
+Bulgarian,Cyrillic,bulgarian,Нова книга за руската емиграция в България,Nova kniga za ruskata emigrat︠s︡ii︠a︡ v Bŭlgarii︠a︡,L-R ,"""Blgarii︠a︡""; expected: ""Bŭlgarii︠a︡""",OK,
+Buryat,Cyrillic,,"Хоёр үндэрэй хормойдо : очеркнууд, публицистическе статьянууд = У подножия двух ундуров / Бата-Мүнхэ Жигжитов.","Khoër u̇ndėrėĭ khormoĭdo : ocherknuud, publit︠s︡isticheske statʹi︠a︡nuud  = U podnozhii︠a︡ dvukh undurov / Bata-Mu̇nkhė Zhigzhitov.",L-R ,,,
+Burmese,Burmese,,ရခိုင်မဟာရာဇဝင်တော်ကြီး,Rakhuiṅʻ mahā rājavaṅʻ toʻ krīʺ,L-R ,,,
+Central Asian languages,Cyrillic,,,,L-R ,,,
+CHECHEN,Cyrillic,,,,L-R ,,,
+Chinese,Hanzi,chinese,撞倒須彌 : 漢傳佛教青年學者論壇論文集,Zhuang dao Xumi : Han chuan Fo jiao qing nian xue zhe lun tan lun wen ji ,L-R ,"漢 (""han"") is not capitalized; expected: ""Han""",No table,
+CHUVASH,Cyrillic,,,,L-R ,,,
+Church Slavonic,Cyrillic,church_slavonic,,,L-R ,,,[SC] Need samples for testing 
+CIRCASSIAN,Cyrillic,,,,L-R ,,,
+DAGESTANI,Cyrillic,,,,L-R ,,,
+DARGWA,Cyrillic,,,,L-R ,,,
+Ethiopic,Amharic,ethiopic,,,,,,[SC] Need samples for testing 
+GAGAUZ,Cyrillic,,,,L-R ,,,
+Georgian,"Asomtavruli, Nuskhuri, Mkhedruli",georgian,ადგილობრივი თვითმმართველობის კოდექსი : საქართველოს ორგანული კანონი; 2018 წლის 7 სექტებრის მდგომარეობით.,Adgilobrivi tʻvitʻmmartʻvelobis kodekʻsi : Sakʻartʻvelos organuli kanoni; 2018 clis 7 sekʻtembris mdgomareobitʻ.,,"""saǩartʻvelos""; expected: ""Sakʻartʻvelos"" (note capitalization and ""ǩ"")","Result: ""სექტემბრის""; expected: ""სექტებრის""",Modern Georgian is really only written in the mkhedruli script. The other two scripts are its historical predecessors. 
+Greek (Ancient),Greek,greek,καὶ ἀπεγαλάκτισεν τὴν Οὐκ-ἠλεημένην καὶ συνέλαβεν ἔτι καὶ ἔτεκεν υἱόν,kai apegalaktisen tēn ouk ēleēmenēn kai synelaben eti kai eteken huion ,L-R ,Most if not all accented letters are not mapped.,Same issue with accented letters.,
+Greek (Modern),Greek,,"Η ΑΕΚ θα καλύψει όλο το συμβόλαιο του Μεξικανού παίχτη, πολλά χρήματα δηλαδή","Hē AEK tha kalypsei holo to symvolaio tou Mexikanou paichtē, polla chrēmata dēladē",L-R ,,,
+Gujarati,Gujarati,,વીરપસલી અને અન્ય વાર્તાઓ,Vīrapasalī ane anya vārtāo,L-R ,,,
+Hebrew,Hebrew,,אבות לבנים,Avot le-vanim,R-L ,,,
+Hebrew,Hebrew with the diacritics in Roman,,בנוסח עדות המזרח ונוסח אשכנז,be-nusaḥ ʻadot ha-Mizraḥ ṿe-nusaḥ Ashkenaz,R-L ,,,
+Hindi,Devanagari,,परमहंस की पीड़ा : महान क्रांतिकारी रामप्रसाद बिस्मिल के जीवन पर आधारित उपन्यास,Paramahaṃsa kī pīṛā : mahāna krāntikārī Rāmaprasāda Bismila ke jīvana para ādhārita upanyāsa ,,,,"There are several other dialects of Hindi language as well as Rajasthani language and its dialects, all are written in Devanagari script."
+INGUSH,Cyrillic,,,,L-R ,,,
+Japanese,"Hiragana, Katakana, Kanji(Chinese character)",,小学校における包括的自己成長プログラムの開発,Shōgakkō ni okeru hōkatsuteki jiko seichō puroguramu no kaihatsu ,L-R ,,,
+KABARDIAN,Cyrillic,,,,L-R ,,,
+KALMYK,Cyrillic,,,,L-R ,,,
+Kannada,Kannada,,ಹರಪನಹಳ್ಳಿ  ಭೀಮವ್ವನವರ  ಕೀರ್ತನೆಗಳು  ,Harapanahaḷḷi Bhīmavvanavara kīrtanegaḷu,L-R ,,,
+KARACAY-BALKAR,Cyrillic,,,,L-R ,,,
+KARAKALPAK,Cyrillic,,,,L-R ,,,
 Kazakh,Cyrillic/moving to Latin,kazakh,"Дәуірдің жарық жұлдызы : ‡b халқымыздың көрнекті саяси қайраткері М. Тынышбаевқа арналады / ‡c [бас редакторлары, Қ.С. Алдажұманов, Д.М. Тынышбаев (Шейх-Али)].
-","Dăuīrdīn︠g︡ zharyq zhūldyzy : khalqymyzdyn︠g︡ kȯrnektī sai︠a︡si qaĭratkerī M. Tynyshbaevqa arnalady / [bas redaktorlary, Q.S. Aldazhūmanov, D.M. Tynyshbaev (Sheĭkh-Ali)].",L-R ,,
-KHAKAS,Cyrillic,,,,L-R ,,
-KOMI/KIMI-PERMYAK,Cyrillic,,,,L-R ,,
-Konkani,Devanagari,,श्रीज्ञानेश्वर : अलोकीक व्यक्तीमत्व ,Śrījñāneśvara : alokīka vyaktīmatva ,L-R ,,
-Konkani,Kannada,,ಚಂದ್ರ ಅನಿ ತಾರಾಂ,Candr ani tārāṃ,L-R ,,
-Korean,Hangul,,민주화 이후 국정 운영,Minjuhwa ihu kukchŏng unyŏng,L-R ,,
-Korean,Hancha only,,曉城　趙　明基　博士　追慕　佛教　史學　論文集,Hyosŏng Cho Myŏng-gi Paksa ch'umo Pulgyo sahak nonmunjip,,,Not Chinese
-Korean ,Hangul +Hancha,,民法　과　法學　의　重要　問題,Minpŏp kwa pŏphak ŭi chungyo munje,,,Not Chinese
-KUMYK,Cyrillic,,,,,,
-Kurdish (Kurmanji),Cyrillic,,Ә'франдинед нвиск'аред к'öрдед Әрмәнистанейә Советие,E'frandinêd nvîsk'arêd k'urdêd Ermenîstanêye Sovêtiê,L-R ,,
-Kurdish (Sorani),Arabic,,کەس خۆى بۆ تەرک ناکرێ,Kes xoy bo terk nakrê,R-L ,,
-Kyrgyz,Cyrillic,kyrgyz,"Uchkul sȯzdȯr, chechen sȯzdȯr, tamsilder, myskyldar ",Kyrgyzstandyn tarykhy : baĭyrky mezgilden bukungu kungȯ cheĭin : u̇ch tomduk / bashky red. A. Dzhumanaliev [and nine others].,L-R ,,
-LAK,Cyrillic,,,,L-R ,,
-Lao,Lao,,ປະຫວັດສາດປະເທດລາວແລະວັດທະນະທຳ,Pavatsāt Pathēt Lāo læ vatthanatham,L-R ,,
-LEZGIAN,Cyrillic,,,,L-R ,,
-Macedonian,Cyrillic,serbian_macedonian,Облици на моќ : вистината за Македонија / Георги (Џорџ) Бранов,Oblici na moḱ : vistinata za Makedonija / Georgi (D︠ž︡ord︠ž︡) Branov,L-R ,"S2R: ""Džordž""; expected: ""D︠ž︡ord︠ž︡""",
-Malayalam,Malayalam,,കേരളപാണിനീയം,Kēralapāninīyam,L-R ,,
-Marathi,Devanagari,,निवडक शाहीर अमरशेख ,Nivaḍaka Śāhīra Amaraśekha,L-R ,,
-MARI,Cyrillic,,,,L-R ,,
-?,Gurmukhi,,ਪੰਜਾਬੀ ਲੋਕ-ਸਾਹਿਤ ਵਿਚ ਸੈਨਿਕ,Pañjābī loka-sāhita wica sainika,R-L ,,
-Mongolian,Cyrillic,,Дайчин гүрний үеийн олон хэлний үсэг хавсарсан сурвалж бичгийн судлал.Тываның төөгүзү / Салчак Тока. Лодон багшын дэбтэрһээ.,Daĭchin gu̇rniĭ u̇eiĭn olon khėlniĭ u̇sėg khavsarsan survalzh bichgiĭn sudlal. Tyvanyn︠g︡ tȯȯgu̇zu̇ / Salchak Toka. Lodon bagshyn dėbtėrḣėė.,L-R ,,
-Mongolian,Mongolian,mongolian,ᠳᠠᠶᠢᠴᠢᠩ ᠭᠦᠷᠦᠨ ᠦ ᠦᠶ ᠡ ᠶᠢᠨ ᠥᠯᠠᠨ ᠺᠡᠯᠡᠨ ᠦ ᠦᠰᠦᠭ ᠬᠠᠪᠰᠸᠷᠸᠭᠰᠠᠨ ᠰᠸᠷᠪᠸᠯᠵᠢ ᠪᠢᠴᠢᠭ ᠦᠨ ᠰᠸᠳᠸᠯᠸᠯ,Dayicing gu̇ru̇n-u̇ u̇y-e-yin olan kelen-u̇ u̇su̇g qabsuruġsan surbulji bicig-u̇n sudulul,L-R ,,Originally T-D Script but displayed as L-R
-MORDVIN,Cyrillic,,,,L-R ,,
-Nepali,Devanagari,,थोपै थोपा : उपन्यास,Thopai thopa : upanayāsa,L-R ,,
-Newari,Devanagari,,बुनाः त्याः पि : नियात्रा ,Bunāḥ tyāḥ pi : niyātrā,L-R ,,
-NOGAI,Cyrillic,,,,L-R ,,
-OSSETIC,Cyrillic,,,,L-R ,,
-Panjabi,Gurmukhi,,ਪੰਜਾਬੀ ਲੋਕ-ਸਾਹਿਤ ਵਿਚ ਸੈਨਿਕ,Pañjābī loka-sāhita wica sainika,R-L ,,
-Panjabi,Arabic,,پنجابی وچ 20 ہندی کہانیاں,Panjābiī vic 20 Hindī kahāniyān̲,R-L ,,
-Persian,Arabic,,‏جامعه ايران در دوران رضا شاه,Jāmiʻah-i Īrān dar dawrān-i Riz̤ā Shāh,R-L ,,
-Persian,Arabic,,بچه‌هاى بد,Bachchahʹhā-yi bad,R-L ,,
-Pushto,Arabic,,چې لاس دې نه راکاوه,Che lās de nah rākāwah,R-L ,,
-Russian,Cyrillic,russian,"Священный мусор : поднимаясь по лестнице Якова : [рассказы, эссе, интервью]","Svi︠a︡shchennyĭ musor : podnimai︠a︡sʹ po lestnit︠s︡e I︠A︡kova : [rasskazy, ėsse, intervʹi︠u︡]",L-R ,,
-Sanskrit,Devanagari,,संस्कृतानिबन्धञ्जलिः,Saṃskr̥tanibandhāñjaliḥ ,L-R ,,
-Serbian,Cyrillic,,,,L-R ,,[SC] Placeholder: need samples for testing 
-Sindhi,Arabic,,انسائيڪلوپيڊيا سنڌيانا,Insāʼiklopīḍiyā Sindhiyānā,R-L ,,
-Sinhalese,Sinhalese,,රාවන හිනාව,Rāvaṇa hināva,L-R ,,
-Syriac,Syriac,,ܠܫܢܝ ܒܐܘܪܚܐ ܚܕܬܐ,Lešāní b-ʼúrḥā ḥadtā,R-L ,,
-TABASARAN,Cyrillic,,,,L-R ,,
-Tajik,Cyrillic,tajik,Farḣangi zaboni tojikī va durnamoi farḣangnigorī dar Tojikiston,Фарҳанги забони тоҷикӣ ва дурнамои фарҳангнигорӣ дар Тоҷикистон ,L-R ,,
-Tamil,Tamil,,திருக்குறள் தெளிவுரை,Tirukkur̲aḷ teḷivurai /,R-L ,,
-Tatar,Cyrillic,tatar,"Татар халкы 1552 елдан соң : ‡b югалтулар һәм табышлар : фәнни-гамәли конференция материаллары : Казан шәһәре, 2002 елның 4 октябре / ‡c [жаваплы мөхәррир Р.Р. Хайретдинов]","Tatar khalky 1552 eldan son︠g︡ : i︠u︡galtular ḣăm tabyshlar : fănni-gamăli konferent︠s︡ii︠a︡ materiallary : Kazan shăḣăre, 2002 elnyn︠g︡ 4 okti︠a︡bre / [zhavaply mȯkhărrir R.R. Khaĭretdinov].",L-R ,,
-Telugu,Telugu,,తెలంగాణ ఉద్యమపాట ప్రాదేశిక విమర్శ,Telaṅgāṇa udyamapāṭa prādēśika vimarśa,L-R ,,
-Thai,Thai,,แนวคิด รูปแบบ และกระบวนการสร้างสรรค์,Nǣokhit rūpbǣp læ krabūankān sāngsan,L-R ,,
-Tibetan,Tibetan,,དབུས་འགྱུར་གྱི་གདན་ས་ཆེན་པོ་སེ་ར་ཐེག་ཆེན་གླིང་གི་གདན་རབས་ངོ་མཚར་ནོར་བུའི་ཕྲེང་བ།,Dbus 'gyur gyi gdan sa chen po se ra theg chen gling gi gdan rabs ngo mtshar nor bu'i phreng ba,L-R ,,
-Turkmen,Modified variant of Latin																							,,Türkmenistanyň Prezidenti Gurbanguly Berdimuhamedowyň ýrdy täzeden galkyndyrmak baradaky syýasaty ,Türkmenistanyň Prezidenti Gurbanguly Berdimuhamedowyň ýurdy täzeden galkyndyrmak baradaky syýasaty,L-R ,,
-Turkmen,Cyrillic,turkmen,"Түркмен халкының гелип чыкышының дүнйә яйрайшының ве онуң дөвлетиниң тарыхының проблемалары : халкара ылмы конференцияның докладларының ве хабарларының тезислери, Ашгабат, 1993 й. 25-26 октябрь / редакторлар, Б.О. Шыхмырадов ... [et al.].","Tu̇rkmen khalkynyn︠g︡ gelip chykyshynyn︠g︡ du̇nĭă i︠a︡ĭraĭshynyn︠g︡ ve onun︠g︡ dȯvletinin︠g︡ tarykhynyn︠g︡ problemalary : khalkara ylmy konferent︠s︡ii︠a︡nyn︠g︡ dokladlarynyn︠g︡ ve khabarlarynyn︠g︡ tezisleri, Ashgabat, 1993 ĭ. 25-26 okti︠a︡brʹ / redaktorlar, B.O. Shykhmyradov ... [et al.].",,,
-TUVAN,Cyrillic,,,,L-R ,,
-UDMURT,Cyrillic,,,,L-R ,,
-Ukrainian,Cyrillic,ukrainian,Децентралізація в Україні та її вплив на соціально-економічний розвиток територій,Det︠s︡entralizat︠s︡ii︠a︡ v Ukraïni ta ïï vplyv na sot︠s︡ialʹno-ekonomichnyĭ rozvytok terytoriĭ,L-R ,"S2R: ""ekonomichnyy̆ […] terytoriy̆""; expected: ""ekonomichnyĭ […] terytoriĭ""",
-Urdu,Arabic,,   گلگت سے هندور تک,Gilgit se Hundūr tak,R-L ,,
-Urdu,Arabic,,قصّه ميرے سفر کا,Qiṣṣah mere safar kā,R-L ,,
-Urdu,Arabic,,نور جهاں، دليپ اور دوسرے فلمى ستارے,"Nūr Jihān̲, Dalīp aur dūsare filmī sitāre",R-L ,,
-UYGUR,Cyrillic,,,,L-R ,,
-Uzbek,Cyrillic,uzbek,Темур ва Улуғбек : даври тарихи / [бош муһаррир Аһмадали Асқаров ; масъул муһаррир Оқилхон Одилхон]. Тошкент : Қомуслар бош таһририяти,"Temur va Ulughbek : davri tarikhi / [bosh muḣarrir Aḣmadali Asqarov ; masʺul muḣarrir Oqilkhon Odilkhon]. Toshkent : Qomuslar bosh taḣririi︠a︡ti, [1996].",L-R ,,
-YAKUTIAN,Cyrillic,,,,L-R ,,
-Yiddish,Hebrew,,מעשיות אויף שבת,Mayśes̀ af Shabes̀,R-L ,,
+","Dăuīrdīn︠g︡ zharyq zhūldyzy : khalqymyzdyn︠g︡ kȯrnektī sai︠a︡si qaĭratkerī M. Tynyshbaevqa arnalady / [bas redaktorlary, Q.S. Aldazhūmanov, D.M. Tynyshbaev (Sheĭkh-Ali)].",L-R ,"ж (\u436) is not mapped.
+и (\u438) is not mapped.
+ы (\u44b) is not mapped.
+і (\u456) is not mapped.
+‡ (\u2021) is not mapped.
+Note \u2021 + letter are MARC control characters.","h (\u68) is not mapped.
+i (\u69) is not mapped.
+y (\u79) is not mapped.",
+KHAKAS,Cyrillic,,,,L-R ,,,
+KOMI/KIMI-PERMYAK,Cyrillic,,,,L-R ,,,
+Konkani,Devanagari,,श्रीज्ञानेश्वर : अलोकीक व्यक्तीमत्व ,Śrījñāneśvara : alokīka vyaktīmatva ,L-R ,,,
+Konkani,Kannada,,ಚಂದ್ರ ಅನಿ ತಾರಾಂ,Candr ani tārāṃ,L-R ,,,
+Korean,Hangul,,민주화 이후 국정 운영,Minjuhwa ihu kukchŏng unyŏng,L-R ,,,
+Korean,Hancha only,,曉城　趙　明基　博士　追慕　佛教　史學　論文集,Hyosŏng Cho Myŏng-gi Paksa ch'umo Pulgyo sahak nonmunjip,,,,Not Chinese
+Korean ,Hangul +Hancha,,民法　과　法學　의　重要　問題,Minpŏp kwa pŏphak ŭi chungyo munje,,,,Not Chinese
+KUMYK,Cyrillic,,,,,,,
+Kurdish (Kurmanji),Cyrillic,,Ә'франдинед нвиск'аред к'öрдед Әрмәнистанейә Советие,E'frandinêd nvîsk'arêd k'urdêd Ermenîstanêye Sovêtiê,L-R ,,,
+Kurdish (Sorani),Arabic,,کەس خۆى بۆ تەرک ناکرێ,Kes xoy bo terk nakrê,R-L ,,,
+Kyrgyz,Cyrillic,kyrgyz,"Uchkul sȯzdȯr, chechen sȯzdȯr, tamsilder, myskyldar ",Kyrgyzstandyn tarykhy : baĭyrky mezgilden bukungu kungȯ cheĭin : u̇ch tomduk / bashky red. A. Dzhumanaliev [and nine others].,L-R ,Script and roman sample do not seem to correspond.,Script and roman sample do not seem to correspond.,
+LAK,Cyrillic,,,,L-R ,,,
+Lao,Lao,,ປະຫວັດສາດປະເທດລາວແລະວັດທະນະທຳ,Pavatsāt Pathēt Lāo læ vatthanatham,L-R ,,,
+LEZGIAN,Cyrillic,,,,L-R ,,,
+Macedonian,Cyrillic,serbian_macedonian,Облици на моќ : вистината за Македонија / Георги (Џорџ) Бранов,Oblici na moḱ : vistinata za Makedonija / Georgi (D︠ž︡ord︠ž︡) Branov,L-R ,"""Džordž""; expected: ""D︠ž︡ord︠ž︡""","Result: ""Джордж""; expected: ""Џорџ""",
+Malayalam,Malayalam,,കേരളപാണിനീയം,Kēralapāninīyam,L-R ,,,
+Marathi,Devanagari,,निवडक शाहीर अमरशेख ,Nivaḍaka Śāhīra Amaraśekha,L-R ,,,
+MARI,Cyrillic,,,,L-R ,,,
+?,Gurmukhi,,ਪੰਜਾਬੀ ਲੋਕ-ਸਾਹਿਤ ਵਿਚ ਸੈਨਿਕ,Pañjābī loka-sāhita wica sainika,R-L ,,,
+Mongolian,Cyrillic,mongolian,Дайчин гүрний үеийн олон хэлний үсэг хавсарсан сурвалж бичгийн судлал.Тываның төөгүзү / Салчак Тока. Лодон багшын дэбтэрһээ.,Daĭchin gu̇rniĭ u̇eiĭn olon khėlniĭ u̇sėg khavsarsan survalzh bichgiĭn sudlal. Tyvanyn︠g︡ tȯȯgu̇zu̇ / Salchak Toka. Lodon bagshyn dėbtėrḣėė.,L-R ,"г (\u433) is not mapped.
+ж (\u436) is not mapped.
+и (\u438) is not mapped.
+ы (\u44b) is not mapped.
+э (\u44d) is not mapped.","g (\u67) is not mapped.
+h (\u68) is not mapped.
+i (\u69) is not mapped.
+y (\u79) is not mapped.",
+Mongolian,Mongolian,,ᠳᠠᠶᠢᠴᠢᠩ ᠭᠦᠷᠦᠨ ᠦ ᠦᠶ ᠡ ᠶᠢᠨ ᠥᠯᠠᠨ ᠺᠡᠯᠡᠨ ᠦ ᠦᠰᠦᠭ ᠬᠠᠪᠰᠸᠷᠸᠭᠰᠠᠨ ᠰᠸᠷᠪᠸᠯᠵᠢ ᠪᠢᠴᠢᠭ ᠦᠨ ᠰᠸᠳᠸᠯᠸᠯ,Dayicing gu̇ru̇n-u̇ u̇y-e-yin olan kelen-u̇ u̇su̇g qabsuruġsan surbulji bicig-u̇n sudulul,L-R ,,,Originally T-D Script but displayed as L-R
+MORDVIN,Cyrillic,,,,L-R ,,,
+Nepali,Devanagari,,थोपै थोपा : उपन्यास,Thopai thopa : upanayāsa,L-R ,,,
+Newari,Devanagari,,बुनाः त्याः पि : नियात्रा ,Bunāḥ tyāḥ pi : niyātrā,L-R ,,,
+NOGAI,Cyrillic,,,,L-R ,,,
+OSSETIC,Cyrillic,,,,L-R ,,,
+Panjabi,Gurmukhi,,ਪੰਜਾਬੀ ਲੋਕ-ਸਾਹਿਤ ਵਿਚ ਸੈਨਿਕ,Pañjābī loka-sāhita wica sainika,R-L ,,,
+Panjabi,Arabic,,پنجابی وچ 20 ہندی کہانیاں,Panjābiī vic 20 Hindī kahāniyān̲,R-L ,,,
+Persian,Arabic,,‏جامعه ايران در دوران رضا شاه,Jāmiʻah-i Īrān dar dawrān-i Riz̤ā Shāh,R-L ,,,
+Persian,Arabic,,بچه‌هاى بد,Bachchahʹhā-yi bad,R-L ,,,
+Pushto,Arabic,,چې لاس دې نه راکاوه,Che lās de nah rākāwah,R-L ,,,
+Russian,Cyrillic,russian,"Священный мусор : поднимаясь по лестнице Якова : [рассказы, эссе, интервью]","Svi︠a︡shchennyĭ musor : podnimai︠a︡sʹ po lestnit︠s︡e I︠A︡kova : [rasskazy, ėsse, intervʹi︠u︡]",L-R ,OK,The resulting string has U+0439 (й) and the expected string has U+0438 + U+0306 (и + combining breve). Are they equivalent?,"Shall we normalize the R2S output (as well as the expected test strings) so that we consistently output either only pre-combined characters, or only combining characters separated?"
+Sanskrit,Devanagari,,संस्कृतानिबन्धञ्जलिः,Saṃskr̥tanibandhāñjaliḥ ,L-R ,,,
+Serbian,Cyrillic,serbian_macedonian,,,L-R ,,,[SC] Need samples for testing 
+Sindhi,Arabic,,انسائيڪلوپيڊيا سنڌيانا,Insāʼiklopīḍiyā Sindhiyānā,R-L ,,,
+Sinhalese,Sinhalese,,රාවන හිනාව,Rāvaṇa hināva,L-R ,,,
+Syriac,Syriac,,ܠܫܢܝ ܒܐܘܪܚܐ ܚܕܬܐ,Lešāní b-ʼúrḥā ḥadtā,R-L ,,,
+TABASARAN,Cyrillic,,,,L-R ,,,
+Tajik,Cyrillic,tajik,Фарҳанги забони тоҷикӣ ва дурнамои фарҳангнигорӣ дар Тоҷикистон ,Farḣangi zaboni tojikī va durnamoi farḣangnigorī dar Tojikiston,L-R ," (\u304) is not mapped.
+г (\u433) is not mapped.
+и (\u438) is not mapped.","g (\u67) is not mapped.
+i (\u69) is not mapped.",
+Tamil,Tamil,,திருக்குறள் தெளிவுரை,Tirukkur̲aḷ teḷivurai /,R-L ,,,
+Tatar,Cyrillic,tatar,"Татар халкы 1552 елдан соң : ‡b югалтулар һәм табышлар : фәнни-гамәли конференция материаллары : Казан шәһәре, 2002 елның 4 октябре / ‡c [жаваплы мөхәррир Р.Р. Хайретдинов]","Tatar khalky 1552 eldan son︠g︡ : i︠u︡galtular ḣăm tabyshlar : fănni-gamăli konferent︠s︡ii︠a︡ materiallary : Kazan shăḣăre, 2002 elnyn︠g︡ 4 okti︠a︡bre / [zhavaply mȯkhărrir R.R. Khaĭretdinov].",L-R ,"г (\u433) is not mapped.
+ж (\u436) is not mapped.
+и (\u438) is not mapped.
+ц (\u446) is not mapped.
+ы (\u44b) is not mapped.
+‡ (\u2021) is not mapped.
+Note \u2021 + letter are MARC control characters.","g (\u67) is not mapped.
+h (\u68) is not mapped.
+i (\u69) is not mapped.
+y (\u79) is not mapped.",
+Telugu,Telugu,,తెలంగాణ ఉద్యమపాట ప్రాదేశిక విమర్శ,Telaṅgāṇa udyamapāṭa prādēśika vimarśa,L-R ,,,
+Thai,Thai,,แนวคิด รูปแบบ และกระบวนการสร้างสรรค์,Nǣokhit rūpbǣp læ krabūankān sāngsan,L-R ,,,
+Tibetan,Tibetan,,དབུས་འགྱུར་གྱི་གདན་ས་ཆེན་པོ་སེ་ར་ཐེག་ཆེན་གླིང་གི་གདན་རབས་ངོ་མཚར་ནོར་བུའི་ཕྲེང་བ།,Dbus 'gyur gyi gdan sa chen po se ra theg chen gling gi gdan rabs ngo mtshar nor bu'i phreng ba,L-R ,,,
+Turkmen,Modified variant of Latin																							,,Türkmenistanyň Prezidenti Gurbanguly Berdimuhamedowyň ýrdy täzeden galkyndyrmak baradaky syýasaty ,Türkmenistanyň Prezidenti Gurbanguly Berdimuhamedowyň ýurdy täzeden galkyndyrmak baradaky syýasaty,L-R ,,,
+Turkmen,Cyrillic,turkmen,"Түркмен халкының гелип чыкышының дүнйә яйрайшының ве онуң дөвлетиниң тарыхының проблемалары : халкара ылмы конференцияның докладларының ве хабарларының тезислери, Ашгабат, 1993 й. 25-26 октябрь / редакторлар, Б.О. Шыхмырадов ... [et al.].","Tu̇rkmen khalkynyn︠g︡ gelip chykyshynyn︠g︡ du̇nĭă i︠a︡ĭraĭshynyn︠g︡ ve onun︠g︡ dȯvletinin︠g︡ tarykhynyn︠g︡ problemalary : khalkara ylmy konferent︠s︡ii︠a︡nyn︠g︡ dokladlarynyn︠g︡ ve khabarlarynyn︠g︡ tezisleri, Ashgabat, 1993 ĭ. 25-26 okti︠a︡brʹ / redaktorlar, B.O. Shykhmyradov ... [et al.].",,"г (\u433) is not mapped.
+и (\u438) is not mapped.
+ц (\u446) is not mapped.
+ы (\u44b) is not mapped.","g (\u67) is not mapped.
+i (\u69) is not mapped.
+y (\u79) is not mapped.",
+TUVAN,Cyrillic,,,,L-R ,,,
+UDMURT,Cyrillic,,,,L-R ,,,
+Ukrainian,Cyrillic,ukrainian,Децентралізація в Україні та її вплив на соціально-економічний розвиток територій,Det︠s︡entralizat︠s︡ii︠a︡ v Ukraïni ta ïï vplyv na sot︠s︡ialʹno-ekonomichnyĭ rozvytok terytoriĭ,L-R ,"""ekonomichnyy̆ […] terytoriy̆""; expected: ""ekonomichnyĭ […] terytoriĭ""
+Note that the combining breve (\u306) is not mapped.",Same issue with combining breve as with Russian.,
+Urdu,Arabic,,   گلگت سے هندور تک,Gilgit se Hundūr tak,R-L ,,,
+Urdu,Arabic,,قصّه ميرے سفر کا,Qiṣṣah mere safar kā,R-L ,,,
+Urdu,Arabic,,نور جهاں، دليپ اور دوسرے فلمى ستارے,"Nūr Jihān̲, Dalīp aur dūsare filmī sitāre",R-L ,,,
+UYGUR,Cyrillic,,,,L-R ,,,
+Uzbek,Cyrillic,uzbek,Темур ва Улуғбек : даври тарихи / [бош муһаррир Аһмадали Асқаров ; масъул муһаррир Оқилхон Одилхон]. Тошкент : Қомуслар бош таһририяти,"Temur va Ulughbek : davri tarikhi / [bosh muḣarrir Aḣmadali Asqarov ; masʺul muḣarrir Oqilkhon Odilkhon]. Toshkent : Qomuslar bosh taḣririi︠a︡ti, [1996].",L-R ,"и (\u438) is not mapped.
+ъ (\u44a) is not mapped.
+һ (\u4bb) is not mapped.","i (\u69) is not mapped.
+Result: ""муҳаррiр"", expected: ""муһаррир"" (note ҳ vs.һ)",
+YAKUTIAN,Cyrillic,,,,L-R ,,,
+Yiddish,Hebrew,,מעשיות אויף שבת,Mayśes̀ af Shabes̀,R-L ,,,
