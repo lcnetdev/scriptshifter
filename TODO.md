@@ -36,7 +36,7 @@ discussion, etc.); *X* = not implementing.
   - *P* Arabic
   - *P* Armenian
   - *D* Asian Cyrillic
-  - *P* Azerbajani
+  - *D* Azerbajani
   - *D* Belarusian
   - *D* Bulgarian
   - *D* Chinese
@@ -45,22 +45,22 @@ discussion, etc.); *X* = not implementing.
   - *W* Greek
   - *P* Hebrew and Yiddish
   - *X* Japanese
-  - *P* Kazakh
+  - *D* Kazakh
   - *P* Korean
-  - *P* Kyrgyz
-  - *P* Mongolian
+  - *D* Kyrgyz
+  - *D* Mongolian
   - *P* Persian
   - *P* Pushto
   - *D* Russian
   - *D* Serbian + Macedonic
   - *D* Slavonic
-  - *P* Tajik
-  - *P* Tatar
+  - *D* Tajik
+  - *D* Tatar
   - *P* Thaana
-  - *P* Turkmen
+  - *D* Turkmen
   - *D* Ukrainian
   - *P* Urdu
-  - *P* Uzbek
+  - *D* Uzbek
 - *P* Additional languages not in legacy tables, but in other software
   - *B* Arabic S2R (ArabicTransliterator)
   - *B* Japanese (?)
