@@ -35,6 +35,8 @@ kyrgyz:
   name: Kyrgyz (Cyrillic)
 mongolian:
   name: Mongolian (Cyrillic)
+mongolian_mongol_bichig:
+  name: Mongolian (Mongol bichig)
 russian:
   name: Russian
 serbian_macedonian:

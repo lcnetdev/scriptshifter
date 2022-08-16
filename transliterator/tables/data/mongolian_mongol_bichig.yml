@@ -1,0 +1,221 @@
+general:
+  name: Mongolian (Mongol bichig)
+
+roman_to_script:
+  map:
+    "A": "\u0531"
+    "\u002DA": "\u180E\u1820"
+    "\u002Da": "\u180E\u1820"
+    "A": "\u1820"
+    "a": "\u1820"
+    "\u002DE": "\u180E\u1821"
+    "\u002De": "\u180E\u1821"
+    "\u002D": "\u202F"
+    "E\u0307": "\u1827"
+    "e\u0307": "\u1827"
+    "E": "\u1821"
+    "e": "\u1821"
+    "I": "\u1822"
+    "i": "\u1822"
+    "O\u0307": "\u1825"
+    "o\u0307": "\u1825"
+    "O": "\u1823"
+    "o": "\u1823"
+    "U\u0307": "\u1826"
+    "u\u0307": "\u1826"
+    "U": "\u1824"
+    "u": "\u1824"
+    "NG": "\u1829"
+    # this conversion should not be needed, but does no harm
+    "nG": "\u1829"
+    "ng": "\u1829"
+    "N": "\u1828"
+    "n": "\u1828"
+    "B": "\u182A"
+    "b": "\u182A"
+    "P": "\u182B"
+    "p": "\u182B"
+    "Q": "\u182C"
+    "q": "\u182C"
+    "KH": "\u183B"
+    "Kh": "\u183B"
+    # this conversion should not be needed, but does no harm
+    "kH": "\u183B"
+    "kh": "\u183B"
+    "K\u0307": "\u183A"
+    "k\u0307": "\u183A"
+    "K": "\u182C"
+    "k": "\u182C"
+    "G\u0307": "\u182D"
+    "g\u0307": "\u182D"
+    "G": "\u182D"
+    "g": "\u182D"
+    "M": "\u182E"
+    "m": "\u182E"
+    "LH": "\u1840"
+    "Lh": "\u1840"
+    # this conversion should not be needed, but does no harm
+    "lH": "\u1840"
+    "lh": "\u1840"
+    "L": "\u182F"
+    "l": "\u182F"
+    "TS\u0307": "\u183C"
+    # this conversion should not be needed, but does no harm
+    "Ts\u0307": "\u183C"
+    # this conversion should not be needed, but does no harm
+    "tS\u0307": "\u183C"
+    "ts\u0307": "\u183C"
+    "S\u0301": "\u1831"
+    "s\u0301": "\u1831"
+    "S": "\u1830"
+    "s": "\u1830"
+    "T": "\u1832"
+    "t": "\u1832"
+    "D": "\u1833"
+    "d": "\u1833"
+    "C": "\u1834"
+    "c": "\u1834"
+    "J": "\u1835"
+    "j": "\u1835"
+    "Y": "\u1836"
+    "y": "\u1836"
+    "R": "\u1837"
+    "r": "\u1837"
+    "V": "\u1838"
+    "v": "\u1838"
+    "W": "\u1838"
+    "w": "\u1838"
+    "F": "\u1839"
+    "f": "\u1839"
+    "ZR": "\u183F"
+    # this conversion should not be needed, but does no harm
+    "Zr": "\u183F"
+    # this conversion should not be needed, but does no harm
+    "zR": "\u183F"
+    "zr": "\u183F"
+    "ZH": "\u1841"
+    "Zh": "\u1841"
+    # this conversion should not be needed, but does no harm
+    "zH": "\u1841"
+    "zh": "\u1841"
+    "CH": "\u1842"
+    "Ch": "\u1842"
+    # this conversion should not be needed, but does no harm
+    "cH": "\u1842"
+    "ch": "\u1842"
+    "H": "\u183E"
+    "h": "\u183E"
+    "-": "\u180E"
+
+script_to_roman:
+  map:
+    # g followed by vowel a
+    "\u182D\u1820": "g\u0307a"
+    # g followed by vowel o
+    "\u182D\u1823": "g\u0307o"
+    # g followed by vowel u
+    "\u182D\u1824": "g\u0307u"
+    # g preceded by vowel a
+    "\u1820\u182D": "ag\u0307"
+    # g preceded by vowel o
+    "\u1823\u182D": "og\u0307"
+    # g preceded by vowel u
+    "\u1824\u182D": "ug\u0307"
+    # g followed by vowel e
+    "\u182D\u1821": "ge"
+    # g followed by vowel i
+    "\u182D\u1822": "gi"
+    # g followed by vowel oe
+    "\u182D\u1825": "go\u0307"
+    # g followed by vowel ue
+    "\u182D\u1826": "gu\u0307"
+    # g followed by vowel ee
+    "\u182D\u1827": "ge\u0307"
+    # g preceded by vowel e
+    "\u1821\u182D": "eg"
+    # g preceded by vowel i
+    "\u1822\u182D": "ig"
+    # g preceded by vowel oe
+    "\u1825\u182D": "o\u0307g"
+    # g preceded by vowel ue
+    "\u1826\u182D": "u\u0307g"
+    # g preceded by vowel ee
+    "\u1827\u182D": "e\u0307g"
+    # q followed by vowel a
+    "\u182C\u1820": "q\u0307a"
+    # q followed by vowel o
+    "\u182C\u1823": "q\u0307o"
+    # q followed by vowel u
+    "\u182C\u1824": "q\u0307u"
+    # q preceded by vowel a (should not occur)
+    "\u1820\u182C": "q\u0307a"
+    # q preceded by vowel o (should not occur)
+    "\u1823\u182C": "q\u0307o"
+    # q preceded by vowel u (should not occur)
+    "\u1824\u182C": "q\u0307u"
+    # k followed by vowel e
+    "\u182C\u1821": "ke"
+    # k followed by vowel i
+    "\u182C\u1822": "ki"
+    # k followed by vowel oe
+    "\u182C\u1825": "ko\u0307"
+    # k followed by vowel ue
+    "\u182C\u1826": "ko\u0307"
+    # k followed by vowel ee
+    "\u182C\u1827": "ke\u0307"
+    # k preceded by vowel e (should not occur)
+    "\u1821\u182C": "ke"
+    # k preceded by vowel i (should not occur)
+    "\u1822\u182C": "ki"
+    # k preceded by vowel oe (should not occur)
+    "\u1825\u182C": "ko\u0307"
+    # k preceded by vowel ue (should not occur)
+    "\u1826\u182C": "ko\u0307"
+    # k preceded by vowel ee (should not occur)
+    "\u1827\u182C": "ke\u0307"
+    # non-connecting vowel a
+    "\u180E\u1820": "\u002Da"
+    # non-connecting vowel e
+    "\u180E\u1821": "\u002De"
+    # Other Mongolian vowel separators to hyphen
+    "\u180E": "\u002De"
+    # Narrow no-break space to hyphen
+    "\u202F": "\u002D"
+    # Other Mongolian vowel NOT associated with g or k/q
+    "\u1820": "a"
+    "\u1823": "o"
+    "\u1826": "u"
+    "\u1821": "e"
+    "\u1822": "i"
+    "\u1825": "o\u0307"
+    "\u1823": "o"
+    "\u1824": "u"
+    "\u1826": "u\u0307"
+    "\u1827": "e\u0307"
+    "\u1829": "ng"
+    "\u1828": "n"
+    "\u182A": "b"
+    "\u182B": "p"
+    "\u182C": "q"
+    "\u183B": "kh"
+    "\u183A": "k\u0307"
+    "\u182C": "k"
+    "\u182D": "g\u0307"
+    "\u182E": "m"
+    "\u1840": "lh"
+    "\u182F": "l"
+    "\u183C": "ts\u0307"
+    "\u1831": "s\u0301"
+    "\u1830": "s"
+    "\u1832": "t"
+    "\u1833": "d"
+    "\u1834": "c"
+    "\u1835": "j"
+    "\u1836": "y"
+    "\u1837": "r"
+    "\u1838": "v"
+    "\u1839": "f"
+    "\u183F": "zr"
+    "\u1841": "zh"
+    "\u1842": "ch"
+    "\u183E": "h\u0307"
