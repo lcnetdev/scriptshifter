@@ -44,6 +44,7 @@ discussion, etc.); *X* = not implementing.
   - *D* Georgian
   - *W* Greek
   - *P* Hebrew and Yiddish
+  - *W* Hindi
   - *X* Japanese
   - *D* Kazakh
   - *P* Korean

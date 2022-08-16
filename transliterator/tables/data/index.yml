@@ -29,6 +29,8 @@ georgian:
   name: Georgian
 greek:
   name: Greek (classic)
+hindi:
+  name:Hindi (Devanagari)
 kazakh:
   name: Kazakh (Cyrillic)
 kyrgyz:
