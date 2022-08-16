@@ -67,11 +67,12 @@ def transliterate_form():
 @app.route("/trans/<lang>", methods=["POST"])
 def transliterate_req(lang, r2s=False):
     in_txt = request.form["text"]
+    capitalize = request.form.get("capitalize", False)
     if not len(in_txt):
         return ("No input text provided! ", 400)
 
     try:
-        out = transliterate(in_txt, lang, r2s)
+        out = transliterate(in_txt, lang, r2s, capitalize)
     except (NotImplementedError, ValueError) as e:
         return (str(e), 400)
 

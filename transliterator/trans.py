@@ -37,7 +37,7 @@ class Context:
         self.dest_ls = []
 
 
-def transliterate(src, lang, r2s=False):
+def transliterate(src, lang, r2s=False, capitalize=False):
     """
     Transliterate a single string.
 
@@ -75,7 +75,7 @@ def transliterate(src, lang, r2s=False):
         )
 
     langsec = cfg["script_to_roman"] if not r2s else cfg["roman_to_script"]
-    langsec_dir = langsec.get("directives", {})
+    # langsec_dir = langsec.get("directives", {})
     langsec_hooks = langsec.get("hooks", {})
 
     ctx = Context(src, general, langsec)
@@ -183,7 +183,15 @@ def transliterate(src, lang, r2s=False):
 
                 # A match is found. Stop scanning tokens, append result, and
                 # proceed scanning the source.
-                ctx.dest_ls.append(ctx.dest_tk)
+                tk = ctx.dest_tk
+                # Capitalization.
+                if (
+                    (capitalize == "first" and ctx.cur == 0)
+                    or
+                    (capitalize == "all" and ctx.cur_flags & CUR_BOW)
+                ):
+                    tk = tk.capitalize()
+                ctx.dest_ls.append(tk)
                 ctx.cur += step
                 break
 
@@ -212,9 +220,6 @@ def transliterate(src, lang, r2s=False):
     hret = _run_hook("pre_assembly", ctx, langsec_hooks)
     if hret is not None:
         return hret
-
-    if langsec_dir.get("capitalize", False):
-        ctx.dest_ls[0] = ctx.dest_ls[0].capitalize()
 
     logger.debug(f"Output list: {ctx.dest_ls}")
     ctx.dest = "".join(ctx.dest_ls)

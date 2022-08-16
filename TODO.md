@@ -21,10 +21,10 @@ discussion, etc.); *X* = not implementing.
 - *B* Optimize token lookup
   - *D* Break loop early based on alphabetical order
   - *B* Ignore word break characters
-  - *P* Capitalization
+  - *W* Capitalization
     - *P* Separate capitalization function
     - *P* Capitalize ligated letters (e.g. Cyrillic T͡͡S)
-    - *P* Option for capitalizing first word, all words, none, unchanged
+    - *D* Option for capitalizing first word, all words, none, unchanged
 - *D* API documentation
 - *D* Config file documentation
 - *D* Hooks documentation

@@ -11,8 +11,27 @@
                     <option value="{{ k }}">{{ v["name"] }}</option>
                 {% endfor %}
             </select>
-            <label class="label-inline" for="r2s">Roman to Script</label>
-            <input type="checkbox" id="r2s" name="r2s">
+            <div>
+                <label class="label-inline" for="r2s">Roman to Script</label>
+                <input type="checkbox" id="r2s" name="r2s">
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Capitalize</legend>
+            <div>
+                <label class="label-inline" for="no-change">No change</label>
+                <input
+                        type="radio" id="no-change" name="capitalize"
+                                                     value="no_change" checked>
+            </div>
+            <div>
+                <label class="label-inline" for="first">First word</label>
+                <input type="radio" id="first" name="capitalize" value="first">
+            </div>
+            <div>
+                <label class="label-inline" for="all">All words</label>
+                <input type="radio" id="all" name="capitalize" value="all">
+            </div>
         </fieldset>
         <fieldset>
             <input class="button-primary" type="submit" value="Transliterate!">
