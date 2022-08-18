@@ -30,7 +30,7 @@ discussion, etc.); *X* = not implementing.
 - *D* Hooks documentation
 - *W* Tests
   - *W* Config parsing
-  - *P* Transliteration
+  - *W* Transliteration
   - *P* REST API
 - *W* Complete conversion of existing tables to YAML
   - *P* Arabic

@@ -92,13 +92,17 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     while ctx.cur < len(src):
         # Reset cursor position flags.
         ctx.cur_flags = 0
+        cur_char = src[ctx.cur]
 
         # Look for a word boundary and flag word beginning/end it if found.
-        if ctx.cur == 0 or src[ctx.cur - 1] in WORD_BOUNDARY:
+        if (ctx.cur == 0 or src[ctx.cur - 1] in WORD_BOUNDARY) and (
+                cur_char not in WORD_BOUNDARY):
             # Beginning of word.
             logger.debug(f"Beginning of word at position {ctx.cur}.")
             ctx.cur_flags |= CUR_BOW
-        if ctx.cur == len(src) - 1 or src[ctx.cur + 1] in WORD_BOUNDARY:
+        if (ctx.cur == len(src) - 1 or src[ctx.cur + 1] in WORD_BOUNDARY) and (
+                cur_char not in WORD_BOUNDARY):
+            # Beginning of word.
             # End of word.
             logger.debug(f"End of word at position {ctx.cur}.")
             ctx.cur_flags |= CUR_EOW
@@ -163,7 +167,7 @@ def transliterate(src, lang, r2s=False, capitalize=False):
             # point value) than the current character, then break the loop
             # without a match, because we know there won't be any more match
             # due to the alphabetical ordering.
-            if ctx.src_tk[0] > src[ctx.cur]:
+            if ctx.src_tk[0] > cur_char:
                 logger.debug(
                         f"{ctx.src_tk} is after {src[ctx.cur:ctx.cur + step]}."
                         " Breaking loop.")
@@ -205,9 +209,9 @@ def transliterate(src, lang, r2s=False, capitalize=False):
 
             # No match found. Copy non-mapped character (one at a time).
             logger.info(
-                    f"Token {src[ctx.cur]} (\\u{hex(ord(src[ctx.cur]))[2:]}) "
+                    f"Token {cur_char} (\\u{hex(ord(cur_char))[2:]}) "
                     f"at position {ctx.cur} is not mapped.")
-            ctx.dest_ls.append(src[ctx.cur])
+            ctx.dest_ls.append(cur_char)
             ctx.cur += 1
         else:
             delattr(ctx, "match")
