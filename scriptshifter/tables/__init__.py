@@ -11,7 +11,7 @@ try:
 except ImportError:
     from yaml import Loader
 
-from transliterator.exceptions import ConfigError
+from scriptshifter.exceptions import ConfigError
 
 
 __doc__ = """
@@ -39,7 +39,7 @@ HOOKS = (
     "post_assembly",
 )
 # Package path where hook functions are kept.
-HOOK_PKG_PATH = "transliterator.hooks"
+HOOK_PKG_PATH = "scriptshifter.hooks"
 
 logger = logging.getLogger(__name__)
 

@@ -7,8 +7,8 @@ from importlib import reload
 from os import environ, path
 
 from tests import TEST_DATA_DIR
-from transliterator.trans import transliterate
-import transliterator.tables
+from scriptshifter.trans import transliterate
+import scriptshifter.tables
 
 
 logger = logging.getLogger(__name__)
@@ -32,7 +32,7 @@ class TestTrans(TestCase):
         This function name won't start with `test_` otherwise will be
         automatically run without parameters.
         """
-        config = transliterator.tables.load_table(self.tbl)
+        config = scriptshifter.tables.load_table(self.tbl)
         if "script_to_roman" in config:
             txl = transliterate(self.script, self.tbl)
             self.assertEqual(txl, self.roman)
@@ -44,7 +44,7 @@ class TestTrans(TestCase):
         This function name won't start with `test_` otherwise will be
         automatically run without parameters.
         """
-        config = transliterator.tables.load_table(self.tbl)
+        config = scriptshifter.tables.load_table(self.tbl)
         if "roman_to_script" in config:
             txl = transliterate(self.roman, self.tbl, r2s=True)
             self.assertEqual(txl, self.script)
@@ -76,6 +76,6 @@ def make_suite():
 
 if "TXL_CONFIG_TABLE_DIR" in environ:
     del environ["TXL_CONFIG_TABLE_DIR"]
-    reload(transliterator.tables)
+    reload(scriptshifter.tables)
 
 TextTestRunner().run(make_suite())

@@ -1,4 +1,4 @@
-from transliterator.rest_api import app
+from scriptshifter.rest_api import app
 
 
 if __name__ == "__main__":

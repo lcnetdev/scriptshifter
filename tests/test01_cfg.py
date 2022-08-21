@@ -4,7 +4,7 @@ from importlib import reload
 from os import environ
 
 from tests import TEST_DATA_DIR
-import transliterator.tables
+import scriptshifter.tables
 
 
 class TestConfig(TestCase):
@@ -12,8 +12,8 @@ class TestConfig(TestCase):
 
     def test_ordering(self):
         environ["TXL_CONFIG_TABLE_DIR"] = TEST_DATA_DIR
-        reload(transliterator.tables)  # Reload new config dir.
-        from transliterator import tables
+        reload(scriptshifter.tables)  # Reload new config dir.
+        from scriptshifter import tables
         tables.list_tables.cache_clear()
         tables.load_table.cache_clear()
 

@@ -1,4 +1,4 @@
-# Transliterator configuration file format
+# ScriptShifter configuration file format
 
 Language transliteration is made according to set of rules contained in static
 files. Generally, each file represents one script and one language, but there
@@ -6,7 +6,7 @@ may be exception to this rule in cases of multiple languages sharing the same
 script.
 
 Configuration files, also called transliteration tables, are contained in the
-[`/transliterator/tables/data`](../transliterator/tables/data) directory.
+[`/scriptshifter/tables/data`](../scriptshifter/tables/data) directory.
 
 ## Types of configuration files
 
@@ -189,7 +189,7 @@ Each key in this section is one of the predefined hook names and is paired with
 a list of functions that shall be run when the life cycle point designated for
 the hook is reached. Each function definition is a list of one or two elements.
 The first is the function path including the path, relative to the
-`transliterator.hooks` package. The second, optional element, is a map of
+`scriptshifter.hooks` package. The second, optional element, is a map of
 key-value pairs provding additional keyword arguments for the function. These
 arguments are fixed for all the calls to this function made by this hook.
 
@@ -207,7 +207,7 @@ script_to_roman:
 ```
 
 runs the function `myfn(ctx, x=32, y="hello")` in
-`transliterator.hooks.my_module` (`ctx` is always provided by the application)
+`scriptshifter.hooks.my_module` (`ctx` is always provided by the application)
 for the `pre_tx_token` hook.
 
 ### `script_to_roman`

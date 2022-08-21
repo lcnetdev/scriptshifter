@@ -1,4 +1,4 @@
-# Transliterator REST API
+# ScriptShifter REST API
 
 ## `GET /health`
 

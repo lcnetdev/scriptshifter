@@ -3,7 +3,7 @@
 ## `.cfg` files
 
 The `.cfg` format seems to follow a INI-like syntax that is ad-hoc-parsed by
-the Transliterator.
+the ScriptShifter.
 
 Unicode points are expressed as `U+????` rather than `\x????` of the standard
 INI syntax.
@@ -54,7 +54,7 @@ A (RB): Yes.
 ## `ReRomanizeRecord.bas`
 
 Much of the code deals with MARC records. No need to concern about that since
-the new Transliterator is meant to convert text strings to text strings.
+the new ScriptShifter is meant to convert text strings to text strings.
 
 Q: Is it possible (and desirable) to determine the S2R/R2S direction from user
 prompt rather than guessing it from the text as the legacy software seems to
@@ -248,7 +248,7 @@ HTML or Markdown, so this may need to be taken into account.)
 Q: It seems like several characters are parsed and added to the text to denote
 MARC markers. Do we need to deal with these manually as indicators related to
 the script/language handled, or shall we expect any text string input in the
-new Transliterator to be clean from MARC flags? 
+new ScriptShifter to be clean from MARC flags? 
 
 A (RB): Most  MARC markers are obsolete; but there may be other  markers that
 are not easily transliterated, e.g. BIBFRAME markers. More discussion is needed

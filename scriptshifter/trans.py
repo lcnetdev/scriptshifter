@@ -1,8 +1,8 @@
 import logging
 import re
 
-from transliterator.exceptions import BREAK, CONT
-from transliterator.tables import load_table
+from scriptshifter.exceptions import BREAK, CONT
+from scriptshifter.tables import load_table
 
 
 # Match multiple spaces.

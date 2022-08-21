@@ -1,4 +1,4 @@
-# Transliterator life cycle hooks
+# ScriptShifter life cycle hooks
 
 This is a guide for language specialists with some Python development skills,
 or who can partner with Python developers to create new, complex
@@ -98,12 +98,12 @@ Hook functions may be defined for each language/script in the corresponding
 configuration file. See [`config.md`](./config.md) for details.
 
 The function name takes the form of `<module name>.<function name>` and must
-correspond to an existing module and function under the `transliterator.hooks`
-package. Check the [`rot3.yml`](../transliterator/tables/data/rot3.yml) test
+correspond to an existing module and function under the `scriptshifter.hooks`
+package. Check the [`rot3.yml`](../scriptshifter/tables/data/rot3.yml) test
 configuration and the referred functions for a working example.
 
 Each hook requires some arguments to be defined in each function associated
-with it: `ctx`, an instance of `transliterator.trans.Context` which carries
+with it: `ctx`, an instance of `scriptshifter.trans.Context` which carries
 information about the current scanner status and can be manipulated by the hook
 function; and `**kw`, optional keyword-only arguments, whose values can be
 defined in the configuration.
@@ -112,7 +112,7 @@ Each function must also return an output that the process is able to handle as
 expected. the output may instruct the application to make a specific decision
 after the hook function is executed. Possible return values are defined below
 for each hook. Some special return values, such as `BREAK` and `CONT`, are
-registered as constants under `transliterator.exceptions`.
+registered as constants under `scriptshifter.exceptions`.
 
 **[TODO]** These hooks are being implemented in a vacuum, without much of a
 real-world use case. Modifications to these capabilities may change as actual

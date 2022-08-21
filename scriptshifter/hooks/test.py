@@ -1,6 +1,6 @@
 import logging
 
-from transliterator.exceptions import CONT
+from scriptshifter.exceptions import CONT
 
 
 __doc__ = """ Test hook functions. """

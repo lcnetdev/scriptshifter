@@ -1,8 +1,8 @@
 #!/bin/sh
 
 export PYTHONPATH=$PYTHONPATH:.
-export WEBAPP_PIDFILE="/run/transliterator_webapp.pid"
-export FLASK_APP="transliterator.rest_api"
+export WEBAPP_PIDFILE="/run/scriptshifter_webapp.pid"
+export FLASK_APP="scriptshifter.rest_api"
 if [ "${TXL_APP_MODE}" == "development" ]; then
     export FLASK_ENV="development"
 else

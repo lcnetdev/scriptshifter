@@ -3,8 +3,8 @@ from os import environ
 
 from flask import Flask, Response, jsonify, render_template, request
 
-from transliterator.tables import list_tables, load_table
-from transliterator.trans import transliterate
+from scriptshifter.tables import list_tables, load_table
+from scriptshifter.trans import transliterate
 
 
 def create_app():
