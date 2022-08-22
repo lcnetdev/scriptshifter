@@ -40,6 +40,8 @@ HOOKS = (
 )
 # Package path where hook functions are kept.
 HOOK_PKG_PATH = "scriptshifter.hooks"
+# Default characters defining a word boundary. This is configurable per-table.
+WORD_BOUNDARY = " \n\t:;.,\"'-()[]{}"
 
 logger = logging.getLogger(__name__)
 

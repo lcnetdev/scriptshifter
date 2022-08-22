@@ -1,6 +1,6 @@
 # Brief TODO list
 
-*P* = pengding; *W* = working no it; *D* = done; *B* = blocked (needs
+*P* = pending; *W* = working no it; *D* = done; *B* = blocked (needs
 discussion, etc.); *X* = not implementing.
 
 - *D* Basic table loading & parsing
@@ -14,20 +14,21 @@ discussion, etc.); *X* = not implementing.
 - *D* Basic REST API
 - *D* Basic UI
 - *D* Life cycle hooks for plugins
-- *B* Regular expressions in ignore lists
-- *W* Word boundaries (design)
-  - *B* Define word boundary characters
+- *X* Regular expressions in ignore lists
+- *D* Word boundaries
+  - *D* Define word boundary characters per config
   - *D* Mark end-of-word and beginning-of-word characters
 - *B* Optimize token lookup
   - *D* Break loop early based on alphabetical order
   - *B* Ignore word break characters
   - *W* Capitalization
     - *P* Separate capitalization function
-    - *P* Capitalize ligated letters (e.g. Cyrillic T͡͡S)
+    - *B* Capitalize ligated letters (e.g. Cyrillic T͡͡S)
     - *D* Option for capitalizing first word, all words, none, unchanged
 - *D* API documentation
 - *D* Config file documentation
 - *D* Hooks documentation
+- *D* Rebranding (ScriptShifter)
 - *W* Tests
   - *W* Config parsing
   - *W* Transliteration

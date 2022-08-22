@@ -2,14 +2,11 @@ import logging
 import re
 
 from scriptshifter.exceptions import BREAK, CONT
-from scriptshifter.tables import load_table
+from scriptshifter.tables import WORD_BOUNDARY, load_table
 
 
 # Match multiple spaces.
 MULTI_WS_RE = re.compile(r"\s{2,}")
-# Default characters defining a word boundary. TODO Make this configurable
-# per-table.
-WORD_BOUNDARY = " \n\t:;.,\"'-()[]{}"
 
 # Cursor bitwise flags.
 CUR_BOW = 1
@@ -89,19 +86,22 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     # the length of the token that eventually matches.
     ignore_list = langsec.get("ignore", [])  # Only present in R2S
     ctx.cur = 0
+    word_boundary = langsec.get("word_boundary", WORD_BOUNDARY)
     while ctx.cur < len(src):
         # Reset cursor position flags.
         ctx.cur_flags = 0
         cur_char = src[ctx.cur]
 
         # Look for a word boundary and flag word beginning/end it if found.
-        if (ctx.cur == 0 or src[ctx.cur - 1] in WORD_BOUNDARY) and (
-                cur_char not in WORD_BOUNDARY):
+        if (ctx.cur == 0 or src[ctx.cur - 1] in word_boundary) and (
+                cur_char not in word_boundary):
             # Beginning of word.
             logger.debug(f"Beginning of word at position {ctx.cur}.")
             ctx.cur_flags |= CUR_BOW
-        if (ctx.cur == len(src) - 1 or src[ctx.cur + 1] in WORD_BOUNDARY) and (
-                cur_char not in WORD_BOUNDARY):
+        if (
+            ctx.cur == len(src) - 1
+            or src[ctx.cur + 1] in word_boundary
+        ) and (cur_char not in word_boundary):
             # Beginning of word.
             # End of word.
             logger.debug(f"End of word at position {ctx.cur}.")
@@ -218,6 +218,7 @@ def transliterate(src, lang, r2s=False, capitalize=False):
         delattr(ctx, "cur_flags")
 
     delattr(ctx, "cur")
+    delattr(ctx, "word_boundary")
 
     # This hook may take care of the assembly and cause the function to return
     # its own return value.
