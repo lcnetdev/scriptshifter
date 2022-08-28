@@ -3,7 +3,10 @@ import logging
 from scriptshifter.exceptions import CONT
 
 
-__doc__ = """ Test hook functions. """
+__doc__ = """ Test hook functions.
+
+Do not remove. Used in unit tests.
+"""
 
 
 logger = logging.getLogger(__name__)

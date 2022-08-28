@@ -1,0 +1,6 @@
+inherited:
+  name: Test inherited table
+ordering:
+  name: Test ordering
+rot3:
+  name: Test ROT3 hooks

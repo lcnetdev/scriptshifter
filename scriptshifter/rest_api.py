@@ -1,5 +1,8 @@
+import logging
+
+from base64 import b64encode
 from copy import deepcopy
-from os import environ
+from os import environ, urandom
 
 from flask import Flask, Response, jsonify, render_template, request
 
@@ -7,12 +10,15 @@ from scriptshifter.tables import list_tables, load_table
 from scriptshifter.trans import transliterate
 
 
+logger = logging.getLogger(__name__)
+
+
 def create_app():
     flask_env = environ.get("TXL_APP_MODE", "production")
     app = Flask(__name__)
     app.config.update({
         "ENV": flask_env,
-        "SECRET_KEY": environ["TXL_FLASK_SECRET"],
+        "SECRET_KEY": environ.get("TXL_FLASK_SECRET", b64encode(urandom(64))),
         # Prod requires the application to be behind a web server, or static
         # files won't be served directly by Flask using this option.
         "USE_X_SENDFILE": flask_env == "production",

@@ -3,8 +3,8 @@
 general:
   name: Test inheritance leaf file
   parents:
-    - _test_base2
-    - _test_base3
+    - _base2
+    - _base3
 
 roman_to_script:
   ignore:

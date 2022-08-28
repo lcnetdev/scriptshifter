@@ -3,10 +3,9 @@ import logging
 from unittest import TestCase, TestSuite, TextTestRunner
 from csv import reader
 
-from importlib import reload
 from os import environ, path
 
-from tests import TEST_DATA_DIR
+from tests import TEST_DATA_DIR, reload_tables
 from scriptshifter.trans import transliterate
 import scriptshifter.tables
 
@@ -18,11 +17,10 @@ class TestTrans(TestCase):
     """
     Test S2R transliteration.
 
+    Modified test case class to run independent tests for each CSV row.
+
     TODO use a comprehensive sample table and report errors for unsupported
     languages.
-    """
-    """
-    Modified test case class to run independent tests for each CSV row.
     """
 
     def sample_s2r(self):
@@ -35,7 +33,9 @@ class TestTrans(TestCase):
         config = scriptshifter.tables.load_table(self.tbl)
         if "script_to_roman" in config:
             txl = transliterate(self.script, self.tbl)
-            self.assertEqual(txl, self.roman)
+            self.assertEqual(
+                    txl, self.roman,
+                    f"S2R transliteration error for {self.tbl}!")
 
     def sample_r2s(self):
         """
@@ -47,13 +47,19 @@ class TestTrans(TestCase):
         config = scriptshifter.tables.load_table(self.tbl)
         if "roman_to_script" in config:
             txl = transliterate(self.roman, self.tbl, r2s=True)
-            self.assertEqual(txl, self.script)
+            self.assertEqual(
+                    txl, self.script,
+                    f"R2S transliteration error for {self.tbl}!")
 
 
 def make_suite():
     """
     Build parametrized test cases.
     """
+    if "TXL_CONFIG_TABLE_DIR" in environ:
+        del environ["TXL_CONFIG_TABLE_DIR"]
+    reload_tables()
+
     suite = TestSuite()
     with open(
             path.join(TEST_DATA_DIR, "sample_strings.csv"),
@@ -73,9 +79,5 @@ def make_suite():
 
     return suite
 
-
-if "TXL_CONFIG_TABLE_DIR" in environ:
-    del environ["TXL_CONFIG_TABLE_DIR"]
-    reload(scriptshifter.tables)
 
 TextTestRunner().run(make_suite())

@@ -194,6 +194,7 @@ def transliterate(src, lang, r2s=False, capitalize=False):
                     or
                     (capitalize == "all" and ctx.cur_flags & CUR_BOW)
                 ):
+                    logger.info("Capitalizing token.")
                     tk = tk.capitalize()
                 ctx.dest_ls.append(tk)
                 ctx.cur += step
@@ -218,7 +219,6 @@ def transliterate(src, lang, r2s=False, capitalize=False):
         delattr(ctx, "cur_flags")
 
     delattr(ctx, "cur")
-    delattr(ctx, "word_boundary")
 
     # This hook may take care of the assembly and cause the function to return
     # its own return value.

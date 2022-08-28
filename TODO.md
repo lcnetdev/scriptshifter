@@ -29,10 +29,10 @@ discussion, etc.); *X* = not implementing.
 - *D* Config file documentation
 - *D* Hooks documentation
 - *D* Rebranding (ScriptShifter)
-- *W* Tests
-  - *W* Config parsing
-  - *W* Transliteration
-  - *P* REST API
+- *D* Tests
+  - *D* Config parsing
+  - *D* Transliteration
+  - *D* REST API
 - *W* Complete conversion of existing tables to YAML
   - *P* Arabic
   - *P* Armenian

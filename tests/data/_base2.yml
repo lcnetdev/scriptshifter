@@ -3,7 +3,7 @@
 general:
   name: Test inheritance base 2
   parents:
-    - _test_base1
+    - _base1
 
 roman_to_script:
   ignore:
