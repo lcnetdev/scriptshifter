@@ -5,10 +5,11 @@ discussion, etc.); *X* = not implementing.
 
 - *D* Basic table loading & parsing
 - *D* Table inheritance
-- *W* Multiple recursive inheritance
+- *D* Multiple recursive inheritance
   - *D* Inherit map
   - *D* Inherit ignore
-  - *B* Inherit hooks
+  - *D* Inherit double cap configuration
+  - *X* Inherit hooks
 - *D* Ignore list (R2S)
 - *D* Basic transliteration in both directions
 - *D* Basic REST API
@@ -18,13 +19,13 @@ discussion, etc.); *X* = not implementing.
 - *D* Word boundaries
   - *D* Define word boundary characters per config
   - *D* Mark end-of-word and beginning-of-word characters
-- *B* Optimize token lookup
+- *D* Optimize token lookup
   - *D* Break loop early based on alphabetical order
-  - *B* Ignore word break characters
-  - *W* Capitalization
-    - *P* Separate capitalization function
-    - *B* Capitalize ligated letters (e.g. Cyrillic T͡͡S)
-    - *D* Option for capitalizing first word, all words, none, unchanged
+  - *X* Ignore word break characters
+- *D* Capitalization
+  - *X* Separate capitalization function
+  - *D* Capitalize ligated letters (e.g. Cyrillic T͡͡S)
+  - *D* Option for capitalizing first word, all words, unchanged
 - *D* API documentation
 - *D* Config file documentation
 - *D* Hooks documentation

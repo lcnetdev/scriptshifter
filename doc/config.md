@@ -218,6 +218,28 @@ an error if a S2R transliteration is attempted on this language.
 This section may have the `hooks` and `map` sections, that behave exactly as
 described for `roman_to_script`. The `ignore` section is… ignored.
 
+#### `script_to_roman.double_cap`
+
+Type: list
+
+This is only a valid subsection of S2R. It is inherited from a parent and adds
+items to it.
+
+Each item in the list indicates a group of letters that, when encountered at
+the beginning of a word and slated for capitalization, are capitalized
+together, rather than only the first letter. This is the case in several
+ligated letter groups.
+
+Each rule must indicate the letters together as a group, romanized, and all
+lowercase. E.g. to capitalize "z︠h︡", that string must be entered verbatim. In
+that case, it is capitalized as "Z︠H︡", otherwise as "Z︠h︡".
+
+#### `script_to_roman.no_double_cap`
+
+Type: list
+
+This is only a valid subsection of S2R. It removes double capitalization rules
+from the inherited list.
 
 ##  Index file
 
