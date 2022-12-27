@@ -8,6 +8,7 @@ script_to_roman:
     - "z\uFE20h\uFE21"
   map:
     # From Belarusian
+    "\u0432": "v"
     "\u0433": "h"
     "\u0436": "z\uFE20h\uFE21" # ж → z︠h︡
     "\u0437": "z"

@@ -135,9 +135,11 @@ def load_table(tname):
             }
             # Merge and/or remove double cap rules.
             tdata["script_to_roman"]["double_cap"] = tuple((
-                set(parent_tdata["script_to_roman"].get("double_cap", {})) |
-                set(tdata["script_to_roman"].get("double_cap", {}))
-            ) - set(tdata["script_to_roman"].get("no_double_cap", {})))
+                set(parent_tdata.get(
+                    "script_to_roman", {}
+                ).get("double_cap", set())) |
+                set(tdata["script_to_roman"].get("double_cap", set()))
+            ) - set(tdata["script_to_roman"].get("no_double_cap", set())))
         if "no_double_cap" in tdata["script_to_roman"]:
             del tdata["script_to_roman"]["no_double_cap"]
 
