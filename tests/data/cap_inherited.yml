@@ -1,0 +1,11 @@
+# Test double capitalization.
+general:
+  name: Test ligature capitalization working file
+  parents:
+    - cap_base2
+
+script_to_roman:
+  no_double_cap:
+    # Remove ligated i︠o︡ capitalization.
+    - "i\uFE20o\uFE21"
+

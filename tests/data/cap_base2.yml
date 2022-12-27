@@ -1,0 +1,11 @@
+# Test double capitalization.
+general:
+  name: Test ligature capitalization base 2
+  parents:
+    - cap_base1
+
+script_to_roman:
+  double_cap:
+    # This capitalizes ligated i︠o︡
+    - "i\uFE20o\uFE21"
+

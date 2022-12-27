@@ -120,6 +120,10 @@ def load_table(tname):
     parents = tdata.get("general", {}).get("parents", [])
 
     if "script_to_roman" in tdata:
+        if "double_cap" in tdata["script_to_roman"]:
+            tdata["script_to_roman"]["double_cap"] = tuple(
+                    tdata["script_to_roman"]["double_cap"])
+
         tokens = {}
         for parent in parents:
             parent_tdata = load_table(parent)
@@ -129,6 +133,14 @@ def load_table(tname):
                 Token(k): v for k, v in parent_tdata.get(
                         "script_to_roman", {}).get("map", {})
             }
+            # Merge and/or remove double cap rules.
+            tdata["script_to_roman"]["double_cap"] = tuple((
+                set(parent_tdata["script_to_roman"].get("double_cap", {})) |
+                set(tdata["script_to_roman"].get("double_cap", {}))
+            ) - set(tdata["script_to_roman"].get("no_double_cap", {})))
+        if "no_double_cap" in tdata["script_to_roman"]:
+            del tdata["script_to_roman"]["no_double_cap"]
+
         tokens |= {
                 Token(k): v
                 for k, v in tdata["script_to_roman"].get("map", {}).items()}

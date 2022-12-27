@@ -116,3 +116,30 @@ class TestHooks(TestCase):
                         (scriptshifter.hooks.test.rotate, {"n": -3})
                     ]
                 })
+
+
+class TestDoubleCaps(TestCase):
+    """ Test double capitalization configuration. """
+    def setUp(self):
+        environ["TXL_CONFIG_TABLE_DIR"] = TEST_DATA_DIR
+        self.tables = reload_tables()
+
+    def test_dcaps_base1(self):
+        cap_base1 = self.tables.load_table("cap_base1")
+        assert "z︠h︡" in cap_base1["script_to_roman"]["double_cap"]
+
+    def test_dcaps_base2(self):
+        cap_base2 = self.tables.load_table("cap_base2")
+        dcap = cap_base2["script_to_roman"]["double_cap"]
+
+        assert len(dcap) == 2
+        assert "z︠h︡" in dcap
+        assert "i︠o︡" in dcap
+
+    def test_dcaps_inherited(self):
+        cap_inherited = self.tables.load_table("cap_inherited")
+        dcap = cap_inherited["script_to_roman"]["double_cap"]
+
+        assert len(dcap) == 1
+        assert "z︠h︡" in dcap
+        assert "i︠o︡" not in dcap

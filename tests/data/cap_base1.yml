@@ -1,0 +1,18 @@
+# Test double capitalization.
+general:
+  name: Test ligature capitalization base 1
+
+script_to_roman:
+  double_cap:
+    # This capitalizes ligated z︠h︡
+    - "z\uFE20h\uFE21"
+  map:
+    # From Belarusian
+    "\u0433": "h"
+    "\u0436": "z\uFE20h\uFE21" # ж → z︠h︡
+    "\u0437": "z"
+    "\u043E": "o"
+    "\u0451": "i\uFE20o\uFE21" # ё → i︠o︡
+    "\u0456": "i"
+    "\u045E": "u\u0306"
+    "\u0491": "g"
