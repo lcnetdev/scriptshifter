@@ -9,8 +9,8 @@ from scriptshifter.tables import WORD_BOUNDARY, load_table
 MULTI_WS_RE = re.compile(r"\s{2,}")
 
 # Cursor bitwise flags.
-CUR_BOW = 1
-CUR_EOW = 2
+CUR_BOW = 1 << 0
+CUR_EOW = 1 << 1
 
 logger = logging.getLogger(__name__)
 
@@ -89,6 +89,7 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     word_boundary = langsec.get("word_boundary", WORD_BOUNDARY)
     while ctx.cur < len(src):
         # Reset cursor position flags.
+        # Carry over extended "beginning of word" flag.
         ctx.cur_flags = 0
         cur_char = src[ctx.cur]
 
@@ -187,7 +188,6 @@ def transliterate(src, lang, r2s=False, capitalize=False):
 
                 # A match is found. Stop scanning tokens, append result, and
                 # proceed scanning the source.
-                tk = ctx.dest_tk
                 # Capitalization.
                 if (
                     (capitalize == "first" and ctx.cur == 0)
@@ -195,8 +195,16 @@ def transliterate(src, lang, r2s=False, capitalize=False):
                     (capitalize == "all" and ctx.cur_flags & CUR_BOW)
                 ):
                     logger.info("Capitalizing token.")
-                    tk = tk.capitalize()
-                ctx.dest_ls.append(tk)
+                    double_cap = False
+                    for dcap_rule in ctx.langsec.get("double_cap", []):
+                        if ctx.dest_tk == dcap_rule:
+                            ctx.dest_tk = ctx.dest_tk.upper()
+                            double_cap = True
+                            break
+                    if not double_cap:
+                        ctx.dest_tk = ctx.dest_tk.capitalize()
+
+                ctx.dest_ls.append(ctx.dest_tk)
                 ctx.cur += step
                 break
 

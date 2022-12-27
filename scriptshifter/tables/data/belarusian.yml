@@ -44,6 +44,9 @@ roman_to_script:
     "\u0027": "\u044C"
 
 script_to_roman:
+  double_cap:
+    - "i\uFE20o\uFE21"
+    - "z\uFE20h\uFE21"
   map:
     "\u0401": "I\uFE20O\uFE21"
     "\u0406": "I"
