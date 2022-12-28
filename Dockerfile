@@ -13,7 +13,6 @@ COPY entrypoint.sh uwsgi.ini wsgi.py ./
 COPY ext ./ext/
 RUN pip install ext/arabic_transliterator
 
-
 COPY scriptshifter ./scriptshifter/
 RUN chmod +x ./entrypoint.sh
 RUN addgroup -S www && adduser -S www -G www
