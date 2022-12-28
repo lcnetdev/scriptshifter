@@ -1,0 +1,12 @@
+# Arabic S2R using the 3rd-party ArabicTransliterator library:
+# https://github.com/MTG/ArabicTransliterator
+
+general:
+  name: Arabic (ArabicTransliterator)
+  description: Arabic S2R using a 3rd party library.
+
+script_to_roman:
+  hooks:
+    post_config:
+      -
+        - arabic_ext.s2r_post_config

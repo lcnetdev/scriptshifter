@@ -7,6 +7,9 @@
 # key within the entry is the human-readable label that can be used in a
 # multiple-choice menu.
 
+arabic_ext:
+  name: Arabic (S2R)
+  description: Arabic-to-Roman transliterator using the ArabicTransliterator external library.
 armenian:
   name: Armenian
 azerbaijani:

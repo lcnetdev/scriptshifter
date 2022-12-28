@@ -232,7 +232,7 @@ def load_hook_fn(cname, sec):
         for cfg_hook_fn in cfg_hook_fns:
             modname, fnname = path.splitext(cfg_hook_fn[0])
             fnname = fnname.lstrip(".")
-            fn_kwargs = cfg_hook_fn[1]
+            fn_kwargs = cfg_hook_fn[1] if len(cfg_hook_fn) > 1 else {}
             try:
                 fn = getattr(import_module(
                         "." + modname, HOOK_PKG_PATH), fnname)

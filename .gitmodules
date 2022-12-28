@@ -1,0 +1,3 @@
+[submodule "ext/arabic_transliterator"]
+	path = ext/arabic_transliterator
+	url = git@github.com:MTG/ArabicTransliterator.git

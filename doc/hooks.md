@@ -99,7 +99,7 @@ configuration file. See [`config.md`](./config.md) for details.
 
 The function name takes the form of `<module name>.<function name>` and must
 correspond to an existing module and function under the `scriptshifter.hooks`
-package. Check the [`rot3.yml`](../scriptshifter/tables/data/rot3.yml) test
+package. Check the [`rot3.yml`](../tests/data/rot3.yml) test
 configuration and the referred functions for a working example.
 
 Each hook requires some arguments to be defined in each function associated

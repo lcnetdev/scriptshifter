@@ -35,7 +35,7 @@ discussion, etc.); *X* = not implementing.
   - *D* Transliteration
   - *D* REST API
 - *W* Complete conversion of existing tables to YAML
-  - *P* Arabic
+  - *X* Arabic
   - *P* Armenian
   - *D* Asian Cyrillic
   - *D* Azerbajani
@@ -65,6 +65,6 @@ discussion, etc.); *X* = not implementing.
   - *P* Urdu
   - *D* Uzbek
 - *P* Additional languages not in legacy tables, but in other software
-  - *B* Arabic S2R (ArabicTransliterator)
+  - *D* Arabic S2R (ArabicTransliterator)
   - *B* Japanese (?)
   - *B* Korean (K-romanizer)
