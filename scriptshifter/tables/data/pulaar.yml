@@ -5,7 +5,7 @@ roman_to_script:
   hooks:
     post_assembly:
       -
-        - adlam_hooks.strip_nyondal
+        - adlam_hooks.r2s_post
 
   map:
     # Non-Nyondal Cases
@@ -428,7 +428,6 @@ roman_to_script:
     "\u00BF": "𞥟"
     "\u201C": "\u201D"
     "\u201D": "\u201C"
-    "\u007C": "𞥋"
 
 
 
@@ -436,7 +435,7 @@ script_to_roman:
   hooks:
     post_assembly:
       -
-        - adlam_hooks.scrub_nasal
+        - adlam_hooks.s2r_post
         
   map:
     # Medial nyondal Cases
