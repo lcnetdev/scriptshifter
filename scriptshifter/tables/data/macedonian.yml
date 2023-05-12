@@ -1,5 +1,5 @@
 general:
-  name: Serbian and Macedonian
+  name: Macedonian
   parents:
     - _cyrillic_base
 
@@ -81,3 +81,7 @@ script_to_roman:
     "\u0447": "c\u030C"
     "\u040F": "Dz\u030C"
     "\u045F": "dz\u030C"
+    "\u1029": "D\uFE20Z\uFE21"
+    "\u0455": "d\uFE20z\uFE21"
+    "\u040F": "D\uFE20Z\u030C\uFE21"
+    "\u045F": "d\uFE20z\u030C\uFE21"
