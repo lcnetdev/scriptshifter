@@ -203,7 +203,7 @@ def load_table(tname):
         # Hooks.
         if "hooks" in tdata["roman_to_script"]:
             tdata["roman_to_script"]["hooks"] = load_hook_fn(
-                    tname, tdata["script_to_roman"])
+                    tname, tdata["roman_to_script"])
 
     return tdata
 

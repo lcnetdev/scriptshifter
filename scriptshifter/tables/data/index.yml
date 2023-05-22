@@ -48,6 +48,8 @@ russian:
   name: Russian
 serbian_macedonian:
   name: Serbian and Macedonian
+pulaar:
+  name: Pulaar (Adlam)
 tajik:
   name: Tajik (Cyrillic)
 tatar:
