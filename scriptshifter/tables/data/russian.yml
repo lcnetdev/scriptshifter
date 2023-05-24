@@ -58,6 +58,8 @@ roman_to_script:
     "\u0027": "\u044C"
     # this conversion is ambiguous - \u044C is also theoretically possible
     "\u02BA": "\u044A"
+    "\u201F": "\u00AB"
+    "\u201D": "\u00BB"
 
 script_to_roman:
   map:
@@ -93,3 +95,5 @@ script_to_roman:
     "\u04BB": "h\u0307"
     "\u04E8": "O\u0307"
     "\u04E9": "o\u0307"
+    "\u00AB": "\u0022"
+    "\u00BB": "\u0022"
