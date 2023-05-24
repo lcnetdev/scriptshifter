@@ -44,8 +44,10 @@ mongolian_mongol_bichig:
   name: Mongolian (Mongol bichig)
 russian:
   name: Russian
-serbian_macedonian:
-  name: Serbian and Macedonian
+macedonian:
+  name: Macedonian
+serbian:
+  name: Serbian
 pulaar:
   name: Pulaar (Adlam)
 tajik:
