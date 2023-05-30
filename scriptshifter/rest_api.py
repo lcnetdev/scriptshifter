@@ -21,6 +21,7 @@ def create_app():
         "SECRET_KEY": environ.get("TXL_FLASK_SECRET", b64encode(urandom(64))),
         "JSON_AS_ASCII": False,
         "JSONIFY_PRETTYPRINT_REGULAR": True,
+
     })
 
     return app
