@@ -19,9 +19,6 @@ def create_app():
     app.config.update({
         "ENV": flask_env,
         "SECRET_KEY": environ.get("TXL_FLASK_SECRET", b64encode(urandom(64))),
-        # Prod requires the application to be behind a web server, or static
-        # files won't be served directly by Flask using this option.
-        "USE_X_SENDFILE": flask_env == "production",
         "JSON_AS_ASCII": False,
         "JSONIFY_PRETTYPRINT_REGULAR": True,
     })
