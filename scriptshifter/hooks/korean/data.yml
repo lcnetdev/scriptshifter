@@ -847,7 +847,29 @@ fkr041:
   - " ㅎ ": " 히읗 "
 
 fkr045:
-# TODO clarify LL985-1076
+  - " Kyŏnggi ": "" # Handle special case of empty string
+  - " Kyŏngsang ": "• kyŏngsang, IF 경상 is NOT :慶尙 (Province)"
+  - " Kyŏngju ": "• kyŏngju, IF 경주 is NOT :慶州 (City)"
+  - " Koryŏ ": "• koryŏ, IF 고려 is NOT :高麗 (Country)"
+  - " lidŏ ": "• ridŏ, IF 리더 is : reader"
+  - " lingk'ŭ ": "• ringk'ŭ, IF 링크 is : rink"
+  - " sŏnjo ": "• Sŏnjo, IF 선조 is NOT :宣祖 (King of Korea)"
+  - " sudan ": "• Sudan, IF 수단 is : Sudan (Country)"
+  - " sunjong ": "• Sunjong, IF 순종 is : 純宗 (King of Korea)"
+  - " anda ": "• anta, IF 안다 is : to embrace"
+  - " Yŏsu ": "• yŏsu, IF 여수 is NOT :麗水 (City)"
+  - " oman ": "• Oman, IF 오만 is : Oman (Country)"
+  - " iran ": "• Iran, IF 이란 is : Iran (Country)"
+  - " indo ": "• Indo, IF 인도 is : India (Country)"
+  - " Injo ": "• injo, IF 인조 is NOT :仁祖 (King of Korea)"
+  - " chamjari ": "• chamchari, IF 잠자리 is : bed"
+  - " Chŏlla ": "• chŏlla, IF 전라 is NOT :全羅 (Province)"
+  - " Chŏnju ": "• chŏnju, IF 전주 is NOT :全州 (City)"
+  - " Cheju ": "• cheju, IF 제주 is NOT :濟州 (Province)"
+  - " Chejudo ": "• Cheju-do, IF 제주도 is : 濟州道 (Province)"
+  - " Chosŏn ": "• chosŏn, IF 조선 is NOT :朝鮮 (Country)"
+  - " ch'ŏngsalli ": "• Ch'ŏngsan-ni, IF 청산리 is : 靑山里"
+  - " P'yŏngan ": "• p'yŏngan, IF 평안 is NOT :平安 (Province)"
 
 fkr047:
   # NOTE these rules appear before the FKR047 label, LL1118-1126
