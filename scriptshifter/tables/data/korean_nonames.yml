@@ -1,0 +1,11 @@
+general:
+  name: Korean (Nnon-names)
+  description: Korean S2R.
+
+script_to_roman:
+  hooks:
+    post_config:
+      -
+        - korean.romanizer.s2r_nonames_post_config
+
+

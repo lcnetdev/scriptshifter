@@ -1,0 +1,10 @@
+general:
+  name: Korean (Names)
+  description: Korean names S2R.
+
+script_to_roman:
+  hooks:
+    post_config:
+      -
+        - korean.romanizer.s2r_names_post_config
+

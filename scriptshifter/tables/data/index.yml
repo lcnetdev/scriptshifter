@@ -34,8 +34,12 @@ hindi:
   name: Hindi (Devanagari)
 kazakh:
   name: Kazakh (Cyrillic)
-korean:
+korean_nonames:
   name: Korean
+  description: Korean S2R for strings NOT containing any personal names.
+korean_names:
+  name: Korean (names only)
+  description: Korean S2R for strings ONLY containing personal names. Separate multiple names with a comma or a center-dot (U+00B7).
 kyrgyz:
   name: Kyrgyz (Cyrillic)
 mongolian:
