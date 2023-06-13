@@ -163,3 +163,32 @@ def kor_rom(data):
             rom_niun_b = rom_niun_b.replace("i11#m2", "i2#m2")
 
     return data
+
+
+def marc8_hancha(data):
+    # FKR142
+    logger.debug("Applying FKR142")
+    return data.replace(KCONF["fkr142"])
+
+
+def hancha2hangul(data):
+    data = " " + data.replace("\n", "\n ")
+
+    # FKR143-170
+    for i in range(143, 171):
+        logger.debug(f"Applying FKR{i}")
+        data = data.replace(KCONF[f"fkr{i}"])
+
+    # FKR171
+    if "不" in data:
+        ct = data.count("不")
+        data = data.replace("不", "X")
+        for i in range(ct):
+            pass
+    # FKR172-179
+
+    # FKR180
+    logger.debug("Applying FKR180")
+    data = data.replace(KCONF["fkr180"])
+
+    return re.sub("\W{2,}", " ", data.strip())
