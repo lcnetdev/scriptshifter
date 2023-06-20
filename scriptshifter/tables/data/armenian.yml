@@ -18,11 +18,11 @@ roman_to_script:
     "G": "\u0533"
     "g": "\u0563"
     # DZ combination
-    "DZ": "\u0541\u0566"
+    "DZ": "\u0541"
     # Dz combination
-    "Dz": "\u0541\u0566"
+    "Dz": "\u0541"
     # dz combination
-    "dz": "\u0571\u0566"
+    "dz": "\u0571"
     "D": "\u0534"
     "d": "\u0564"
     # E uppercase with macron
@@ -123,6 +123,8 @@ roman_to_script:
     "P\u02BB": "\u0553"
     # p lowercase + ayn
     "p\u02BB": "\u0583"
+    "P": "\u054A"
+    "p": "\u057A"
     "J": "\u054B"
     "j": "\u057B"
     # R uppercase with combining dot below
@@ -176,9 +178,9 @@ script_to_roman:
     "\u0533": "G"
     "\u0563": "g"
     # Dz combination
-    "\u0541\u0566": "Dz"
+    "\u0541": "Dz"
     # dz combination
-    "\u0571\u0566": "dz"
+    "\u0571": "dz"
     "\u0534": "D"
     "\u0564": "d"
     # E uppercase with macron
@@ -265,6 +267,8 @@ script_to_roman:
     "\u0553": "P\u02BB"
     # p lowercase + ayn
     "\u0583": "p\u02BB"
+    "\u054A": "P"
+    "\u057A": "p"
     "\u054B": "J"
     "\u057B": "j"
     # R uppercase with combining dot below

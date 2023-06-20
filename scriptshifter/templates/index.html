@@ -1,7 +1,31 @@
 {% extends "layout.html" %}
-{% set title ='Transliterate string' %}
+{% set title ='BIBFRAME ScriptShifter' %}
 {% block body %}
-    <form action="/transliterate" method="POST">
+
+    <style>
+
+        body{
+            font-family: Avenir,Helvetica,Arial,sans-serif;
+        }
+
+        textarea{
+            width: 99%;
+            height: 15vh;
+            padding: 0.5em;
+        }
+        #results{
+            font-size: 1.25em;
+            background-color: whitesmoke;
+            margin-top: 1em;
+            padding: 1em;
+        }
+
+    </style>
+
+
+
+
+    <form id="transliterate" action="/transliterate" method="POST">
         <fieldset>
             <label for="text">Input text</label>
             <textarea id="text" name="text"></textarea>
@@ -37,5 +61,99 @@
             <input class="button-primary" type="submit" value="Transliterate!">
         </fieldset>
     </form>
+
+    <div id="results">
+        Results will appear here.
+    </div>
+
+    <script type="text/javascript">
+        document.getElementById('transliterate').addEventListener('submit',(event)=>{
+
+
+
+            const data = new URLSearchParams();
+
+            let capitalize = Array.from(document.getElementsByName("capitalize")).find(r => r.checked).value;
+
+
+            data.append('text',document.getElementById('text').value)
+            data.append('lang',document.getElementById('lang').value)
+
+            if (document.getElementById('r2s').checked){
+                data.append('r2s','on')
+            }
+
+            data.append('capitalize',capitalize)
+
+
+            fetch('/transliterate', {
+                method: 'post',
+                body: data,
+            })
+            .then(response=>response.text())
+            .then((text)=>{
+
+                document.getElementById('results').innerText = text
+
+            }).catch((error) => {
+              alert("Error:\n" + error)
+            });
+
+
+
+
+
+
+
+            event.preventDefault()
+            return false
+
+        })
+
+
+
+    </script>
+
+
+<!-- 
+    <form action="/transliterate" method="POST">
+        <fieldset>
+            <label for="text">Input text</label>
+            <textarea id="text" name="text"></textarea>
+            <label for="lang">Language</label>
+            <select id="lang" name="lang">
+                {% for k, v in languages.items() %}
+                    <option value="{{ k }}">{{ v["name"] }}</option>
+                {% endfor %}
+            </select>
+            <div>
+                <label class="label-inline" for="r2s">Roman to Script</label>
+                <input type="checkbox" id="r2s" name="r2s">
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Capitalize</legend>
+            <div>
+                <label class="label-inline" for="no-change">No change</label>
+                <input
+                        type="radio" id="no-change" name="capitalize"
+                                                     value="no_change" checked>
+            </div>
+            <div>
+                <label class="label-inline" for="first">First word</label>
+                <input type="radio" id="first" name="capitalize" value="first">
+            </div>
+            <div>
+                <label class="label-inline" for="all">All words</label>
+                <input type="radio" id="all" name="capitalize" value="all">
+            </div>
+        </fieldset>
+        <fieldset>
+            <input class="button-primary" type="submit" value="Transliterate!">
+        </fieldset>
+    </form> -->
+
+
+
     </div>
 {% endblock %}
