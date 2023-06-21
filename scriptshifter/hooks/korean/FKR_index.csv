@@ -1,0 +1,181 @@
+,코드,메모,Note
+,FKR001,"성 한자 변환 (金, 李 문제)","Conversion, Family names in Chinese (dealing with 金 and 李)"
+,FKR002,성 두음 법칙,"Family names, Initial sound law"
+,FKR003,이름 한자 변환,"First name, Chinese Character Conversion"
+,FKR004,왼쪽 두 글자 중에서 두 글자 성 확인,Check first two characters. Two-syllable family name or not?
+,FKR005,일곱 자 초과는  에러처리,Error if more than 7 syllables
+,FKR006,스페이스 두 개 초과는 에러처리,Error if more than 2 spaces
+,FKR007,스페이스 두 개 (성이 두 개),2 spaces (two family names)
+,FKR008,스페이스 한 개 (두 번째 자리),1 space (2nd position)
+,FKR009,스페이스 한 개 (세 번재 자리),1 space (3rd position)
+,FKR010,띄어쓰기 없을 때,When there is no space
+,FKR011,한글이름 판정 종성,"Check native Korean name, by coda"
+,FKR012,한글이름 판정 중성+종성,"Check native Korean name, by vowel & coda"
+,FKR013,한글이름 판정 모음 ㅢ,"Check native Korean name, by ㅢ"
+,FKR014,자음동화 ㄱ,Consonant assimilation ㄱ
+,FKR015,자음동화 ㄲ,Consonant assimilation ㄲ
+,FKR016,자음동화 ㄴ,Consonant assimilation ㄴ
+,FKR017,자음동화 ㄷ,Consonant assimilation ㄷ
+,FKR018,자음동화 ㄹ,Consonant assimilation ㄹ
+,FKR019,자음동화 ㅁ,Consonant assimilation ㅁ
+,FKR020,자음동화 ㅂ,Consonant assimilation ㅂ
+,FKR021,자음동화 ㅅ,Consonant assimilation ㅅ
+,FKR022,자음동화 ㅆ,Consonant assimilation ㅆ
+,FKR023,자음동화 ㅇ,Consonant assimilation ㅇ
+,FKR024,자음동화 ㅈ,Consonant assimilation ㅈ
+,FKR025,자음동화 ㅊ,Consonant assimilation ㅊ
+,FKR026,자음동화 ㅎ,Consonant assimilation ㅎ
+,FKR027,말음법칙,Final sound law
+,FKR028,"유성음화1 (ㄹ+ㄷ, ㄹ+ㅈ 제외) 유성음+무성음","Vocalization 1 (except ㄹ+ㄷ, ㄹ+ㅈ): voiced+unvoiced"
+,FKR029,유성음화2 무성음+유성음,Vocalization 2 unvoiced+voiced
+,FKR030,나머지 변환,Convert everything else
+,FKR031,"ㄹ + 모음/ㅎ/ㄹ [""l-r"",""l-l""] does not work USE alternative","ㄹ + vowels/ㅎ/ㄹ [""l-r"",""l-l""] does not work USE alternative"
+,FKR032,대문자 ,Capitalization
+,FKR033,순한글 2음절 이름 하이픈 제거,Remove hyphen in bisyllabic native Korean first name
+,FKR034,이름 두음법칙,"First name, initial sound law"
+,FKR035,알려진 이름 바꾸기,Replace established names
+,FKR036,로마나이저 Functions Start,K-Romanizer Function Start
+,FKR037,Ambiguities 리스트,List of ambiguities
+,FKR038,한자 => 한글 변환,Convert Chinese characters to Hangul
+,FKR039,띄어쓰는 고유명사 미리 교체,Replace Proper name with spaces in advance
+,FKR040,하이픈  고유명사 미리 교체,Replace Proper name with a hyphen in advance
+,FKR041,자음 이름 미리교체 (니은 & 리을 은 미리 로마자화),Romanize names of Hangul consonants
+,FKR042,전부 대문자,Capitalize all first letters
+,FKR043,첫글자만 대문자,Capitalize the first first letter
+,FKR044,Ambiguities,Ambiguities
+,FKR045,모호한 경우 경고문 시작,Starts Warning for ambiguities
+,FKR046,모호한 경우 경고문 끝,Ends Warning for ambiguities
+,FKR047,대문자,Capitalization
+,FKR048,두음법칙,Initial sound law
+,FKR049,"소리변화리스트, 행정구역, 기호사전처리","Sound change exception word list, jurisdiction, symbols, etc."
+,FKR050,기호 사전처리,Starts preprocessing symbol 
+,FKR051,기호 사전처리 끝,Ends preprocessing symbol 
+,FKR052,제+숫자 미리 교체,Replace Che+number
+,FKR053,ㄴ첨가 단어 리스트,n-addition word list
+,FKR054,경음화 단어 리스트 zero+자음,glotalization word list:  no coda+consonant
+,FKR055,경음화 단어 리스트 ㄴ+자음,glotalization word list:  [n]+consonant
+,FKR056,경음화 단어 리스트 ㄹ+자음,glotalization word list:  [l]+consonant
+,FKR057,경음화 단어 리스트 ㅁ+자음,glotalization word list:  [m]+consonant
+,FKR058,경음화 단어 리스트 ㅇ+자음,glotalization word list:  [ng]+consonant
+,FKR059,경음화 실현,Apply glottalization
+,FKR060,숫자 + -년/-년도/-년대 처리,Process number + -년/-년도/-년대
+,FKR061,행정구역 (시),Jurisdiction (시)
+,FKR062,"행정구역 (국,도,군,구)","Jurisdiction (국,도,군,구)"
+,FKR063,"왕명 (조/종 제외, 태후/세자 등 포함)","Temple names of Kings, Queens, etc. (except 조/종)"
+,FKR064,빈출 인명,Frequent historical names
+,FKR065,자동 처리 불가능 단어,Word list (automation not applicable)
+,FKR066,기호 재삽입,Starts restore symbols
+,FKR067,기호 재삽입 끝,Ends restore symbols
+,FKR068,"예외발음, 두음법칙 예외, 고유명사","Exceptions, Exceptions to initial sound law, Proper names"
+,FKR069,예외 발음,Irregular sound change list
+,FKR070,ㄴ음 첨가 위치 표시 - +,[n] insertion position mark +
+,FKR071,ㄴ 첨가현상,[n] insertion
+,FKR072,ㄴ+ㄹ > ㄴ+ㄴ으로 되는 경우,[n]+[l] >[l] + [l]
+,FKR073,"구개음화: ㄷ+이,ㄷ+여,ㄷ+히,ㄷ+혀","Palatalization: ㄷ+이,ㄷ+여,ㄷ+히,ㄷ+혀"
+,FKR074,"구개음화: ㅌ+이,ㅌ+히,ㅌ+히,ㅌ+혀","Palatalization: ㅌ+이,ㅌ+히,ㅌ+히,ㅌ+혀"
+,FKR075,자음동화 ㄱ,Consonant assimilation ㄱ
+,FKR076,자음동화 ㄲ,Consonant assimilation ㄲ
+,FKR077,"자음동화 ㄳ : ㄱ,ㄴ,ㄹ,ㅁ,ㅇ","Consonant assimilation ㄳ : ㄱ,ㄴ,ㄹ,ㅁ,ㅇ"
+,FKR078,자음동화 ㄴ,Consonant assimilation ㄴ
+,FKR079,"자음동화 ㄵ: ㄱ,ㄴ,ㄷ,ㅈ","Consonant assimilation ㄵ: ㄱ,ㄴ,ㄷ,ㅈ"
+,FKR080,"자음동화 ㄶ : ㄱ,ㄴ,ㄷ,ㅈ","Consonant assimilation ㄶ : ㄱ,ㄴ,ㄷ,ㅈ"
+,FKR081,자음동화 ㄷ,Consonant assimilation ㄷ
+,FKR082,자음동화 ㄹ,Consonant assimilation ㄹ
+,FKR083,"자음동화 ㄺ : ㄱ,ㄴ,ㄷ,ㅈ","Consonant assimilation ㄺ : ㄱ,ㄴ,ㄷ,ㅈ"
+,FKR084,"자음동화 ㄻ : ㄱ,ㄴ,ㄷ,ㅈ","Consonant assimilation ㄻ : ㄱ,ㄴ,ㄷ,ㅈ"
+,FKR085,"자음동화 ㄼ : ㄱ,ㄴ,ㄷ,ㅈ","Consonant assimilation ㄼ : ㄱ,ㄴ,ㄷ,ㅈ"
+,FKR086,"자음동화 ㄾ : ㄱ,ㄴ,ㄷ,ㅈ","Consonant assimilation ㄾ : ㄱ,ㄴ,ㄷ,ㅈ"
+,FKR087,"자음동화 ㄿ : ㄱ,ㄴ,ㄷ,ㅈ","Consonant assimilation ㄿ : ㄱ,ㄴ,ㄷ,ㅈ"
+,FKR088,"자음동화 ㅀ : ㄱ,ㄴ,ㄷ,ㅈ","Consonant assimilation ㅀ : ㄱ,ㄴ,ㄷ,ㅈ"
+,FKR089,자음동화 ㅁ,Consonant assimilation ㅁ
+,FKR090,자음동화 ㅂ,Consonant assimilation ㅂ
+,FKR091,자음동화 ㅄ,Consonant assimilation ㅄ
+,FKR092,자음동화 ㅅ,Consonant assimilation ㅅ
+,FKR093,자음동화 ㅆ,Consonant assimilation ㅆ
+,FKR094,자음동화 ㅇ,Consonant assimilation ㅇ
+,FKR095,자음동화 ㅈ,Consonant assimilation ㅈ
+,FKR096,자음동화 ㅊ,Consonant assimilation ㅊ
+,FKR097,자음동화 ㅋ,Consonant assimilation ㅋ
+,FKR098,자음동화 ㅌ,Consonant assimilation ㅌ
+,FKR099,자음동화 ㅍ,Consonant assimilation ㅍ
+,FKR100,자음동화 ㅎ,Consonant assimilation ㅎ
+,FKR101,"겹받침 + ㅇ: ㄵ,ㄶ,ㄺ,ㄻ,ㄼ,ㄽ,ㄾ,ㄿ,ㅀ","digraphic coda + ㅇ: ㄵ,ㄶ,ㄺ,ㄻ,ㄼ,ㄽ,ㄾ,ㄿ,ㅀ"
+,FKR102,"겹받침 + ㅎ: ㄵ,ㄶ,ㄺ,ㄻ,ㄼ,(ㄽ),ㄾ,ㄿ,ㅀ","digraphic coda + ㅎ: ㄵ,ㄶ,ㄺ,ㄻ,ㄼ,(ㄽ),ㄾ,ㄿ,ㅀ"
+,FKR103,"유성음화1 (ㄹ+ㄷ, ㄹ+ㅈ 제외) 유성음+무성음","Vocalization 1 (except ㄹ+ㄷ, ㄹ+ㅈ 제외) voiced + unvoiced"
+,FKR104,유성음화2 무성음+유성음,"Vocalization 2 (except ㄹ+ㄷ, ㄹ+ㅈ 제외) unvoiced + voiced"
+,FKR105,"유성음화3 (ㄹ+ㄷ, ㄹ+ㅈ)","Vocalization 3 (ㄹ+ㄷ, ㄹ+ㅈ)"
+,FKR106,말음법칙,Final sound law
+,FKR107,예외 자음표기 '쉬' = shi,Exception for '쉬' = shi
+,FKR108,예외 자음군 표기 'ㄴㄱ'= n'g,Exception for 'ㄴㄱ'= n'g
+,FKR109,나머지 변환,Conver everything else
+,FKR110,기호 변환,Convert symbols
+,FKR111,"ㄹ + 모음/ㅎ/ㄹ, [""lr"",""ll""] 는 반드시 맨 끝에 둘 것","ㄹ + 모음/ㅎ/ㄹ, [""lr"",""ll""] 는 반드시 맨 끝에 둘 것"
+,FKR112,두음법칙 예외,Exceptions to initial sound law
+,FKR113,첫 글자로 외래어 판정,Check loan words by the first 1 letter
+,FKR114,두 글자로 외래어 판정,Check loan words by the first 2 letters
+,FKR115,세 글자로 외래어 판정,Check loan words by the first 3 letters
+,FKR116,두음법칙 예외 - 조사,Exceptions to initial sound law - particles
+,FKR117,고유명사 _StringPoper Does not work because of breves,Proper names _StringPoper Does not work because of breves
+,FKR118,고유명사 조/종 왕명,Temple names: 조/종
+,FKR119,고유명사 국명,Country names
+,FKR120,고유명사 기타,Proper names: etc.
+,FKR121,L로 시작하는 외래어 변환,Loan words beginning with L
+,FKR122,END 로마나이저,END K-Romanizer
+,FKR123,예일 로마자 규칙,Yale Romanizatition => No need for Script Shifter
+,FKR124,예일 한자 => 한글 변환,Yale Romanizatition => No need for Script Shifter
+,FKR125,예일 자음 이름 미리교체,Yale Romanizatition => No need for Script Shifter
+,FKR126,예일 초성변환,Yale Romanizatition => No need for Script Shifter
+,FKR127,예일 중성변환,Yale Romanizatition => No need for Script Shifter
+,FKR128,예일 종성변환,Yale Romanizatition => No need for Script Shifter
+,FKR129,예일 나머지변환,Yale Romanizatition => No need for Script Shifter
+,FKR130,예일 END 예일 로마자 규칙,END Yale Romanization => No need for Script Shifter
+,FKR131,ISO/TR 11941 로마자 규칙,ISO/TR 11941  => No need for Script Shifter
+,FKR132,ISO/TR 11941 한자 => 한글 변환,ISO/TR 11941  => No need for Script Shifter
+,FKR133,ISO/TR 11941 자음 이름 미리교체,ISO/TR 11941  => No need for Script Shifter
+,FKR134,ISO/TR 11941 초성변환,ISO/TR 11941  => No need for Script Shifter
+,FKR135,ISO/TR 11941 중성변환,ISO/TR 11941  => No need for Script Shifter
+,FKR136,ISO/TR 11941 종성변환,ISO/TR 11941  => No need for Script Shifter
+,FKR137,ISO/TR 11941 나머지변환,ISO/TR 11941  => No need for Script Shifter
+,FKR138,ISO/TR 11941 END ISO/TR 11941 로마자 규칙,ISO/TR 11941  => No need for Script Shifter
+,FKR139,한자음이 여러개일 경우,Chinese characters with multiple readings
+,FKR140,樂은 그대로 둘것,Leave 樂 as it is
+,FKR141,엑셀에서 복사,Chinese character list
+,FKR142,한자 MARC8한자로 통일,Conver to MARC8 characters
+,FKR143,한자 예외 한자어 변환 먼저,Process exceptions first
+,FKR144,"한자 두음법칙 처리 (제외: 列, 烈, 裂, 劣)","Apply initial sound law (Except: 列, 烈, 裂, 劣)"
+,FKR145,"한자 약자, 이체자","Simplified characters, variants"
+,FKR146,한자 확장 한자,Some characters from expanded list
+,FKR147,한자 1-250 車=차,Chinese characters 1-250 車=차
+,FKR148,한자 501-750 串=관,Chinese characters 501-750 串=관
+,FKR149,"한자 751-1000 金=금, 娘=랑","Chinese characters 751-1000 金=금, 娘=랑"
+,FKR150,한자 1001-1250,Chinese characters 1001-1250
+,FKR151,"한자 1251-1500 제외: 列, 烈, 裂, 劣","Chinese characters 1251-1500 제외: 列, 烈, 裂, 劣"
+,FKR152,"한자 1501-1750 제외: 律, 率, 栗, 慄","Chinese characters 1501-1750 제외: 律, 率, 栗, 慄"
+,FKR153,한자 1751-2000,Chinese characters 1751-2000
+,FKR154,한자 2001-2250 제외: 不,Chinese characters 2001-2250 제외: 不
+,FKR155,한자 2251-2500 塞=색,Chinese characters 2251-2500 塞=색
+,FKR156,한자 2501-2750,Chinese characters 2501-2750
+,FKR157,한자 2751-3000,Chinese characters 2751-3000
+,FKR158,한자 3001-2250,Chinese characters 3001-2250
+,FKR159,한자 3251-3500,Chinese characters 3251-3500
+,FKR160,한자 3501-3750,Chinese characters 3501-3750
+,FKR161,한자 3751-4000,Chinese characters 3751-4000
+,FKR162,한자 4001-4250,Chinese characters 4001-4250
+,FKR163,한자 4251-4500,Chinese characters 4251-4500
+,FKR164,한자 4501-4750,Chinese characters 4501-4750
+,FKR165,한자 4751-5000,Chinese characters 4751-5000
+,FKR166,한자 5001-5250,Chinese characters 5001-5250
+,FKR167,한자 5251-5500,Chinese characters 5251-5500
+,FKR168,한자 5501-5750,Chinese characters 5501-5750
+,FKR169,한자 5751-5978,Chinese characters 5751-5978
+,FKR170,한자 일본한자,Chinese characters 일본Chinese characters
+,FKR171,한자 不(부)의 발음 처리,Chinese characters 不(부)의 발음 처리
+,FKR172,한자 列(렬)의 발음 처리,Chinese characters 列(렬)의 발음 처리
+,FKR173,한자 烈(렬)의 발음 처리,Chinese characters 烈(렬)의 발음 처리
+,FKR174,한자 裂(렬)의 발음 처리,Chinese characters 裂(렬)의 발음 처리
+,FKR175,한자 劣(렬)의 발음 처리,Chinese characters 劣(렬)의 발음 처리
+,FKR176,한자 律(률)의 발음 처리,Chinese characters 律(률)의 발음 처리
+,FKR177,한자 率(률)의 발음 처리,Chinese characters 率(률)의 발음 처리
+,FKR178,한자 慄(률)의 발음 처리,Chinese characters 慄(률)의 발음 처리
+,FKR179,한자 栗(률)의 발음 처리,Chinese characters 栗(률)의 발음 처리
+,FKR180,,Katakana
