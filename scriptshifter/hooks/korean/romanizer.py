@@ -27,12 +27,14 @@ from scriptshifter.exceptions import BREAK
 from scriptshifter.hooks.korean import KCONF
 
 
+CP_MIN = 44032
+
 logger = logging.getLogger(__name__)
 
 
 def s2r_nonames_post_config(ctx):
     """ Romanize a regular string NOT containing personal names. """
-    ctx.dest = _romanize_nonames(ctx.src)
+    ctx.dest, ctx.warnings = _romanize_nonames(ctx.src)
 
     return BREAK
 
@@ -44,14 +46,15 @@ def s2r_names_post_config(ctx):
     One or more names can be transcribed. A comma or middle dot (U+00B7) is
     to be used as separator for multiple names.
     """
-    ctx.dest = _romanize_names(ctx.src)
+    ctx.dest, ctx.warnings = _romanize_names(ctx.src)
 
     return BREAK
 
 
-def _romanize_nonames(src):
+def _romanize_nonames(src, hancha=False):
     # FKR038
-    # TODO Address Marc8Hancha() and Hancha2Hangul() (both defs missing)
+    if hancha:
+        src = _hancha2hangul(_marc8_hancha(src))
 
     data = f" {src} "
 
@@ -63,10 +66,36 @@ def _romanize_nonames(src):
     # NOTE This is slightly different from LL 929-930 in that it doesn't
     # result in double spaces.
     data = data.replace("\r\n", " ").replace("\r", " ").replace("\n", " ")
+    # This is more compact but I'm unsure if the replacement order is kept.
+    # data = data.replace({"\r\n": " ", "\r": " ", "\n": " "})
 
     data = _romanize_oclc_auto(data)
 
-    return data
+    # FKR042
+    if capitalize = "all":
+        data = data.title()
+    # FKR043
+    elif capitalize = "first":
+        data = data.capitalize()
+
+    # FKR044
+    ambi = re.sub("[,.\";: ]+", " ", data)
+
+    # TODO See https://github.com/lcnetdev/scriptshifter/issues/20
+    no_oclc_breve = False
+
+    if no_oclc_breve:
+        data = data.replace({"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
+
+    # TODO Decide what to do with these. There is no facility for outputting
+    # warnings or notes to the user yet.
+    warnings = []
+    for exp, warn in KCONF["fkr045"].items():
+        if exp in ambi:
+            warnings.append(ambi if warn == "" else warn)
+
+
+    return data, warnings
 
 
 def _romanize_names(src):
@@ -85,7 +114,7 @@ def _romanize_oclc_auto(data):
     if re.match(" 제[0-9]", data):
         data = data.replace(" 제", " 제 ")
     # NOTE: Maybe this was meant:
-    #data = re.sub(" 제([0-9])", "제 \\1", data):
+    # data = re.sub(" 제([0-9])", "제 \\1", data):
 
     # FKR052
     for rname, rule in KCONF["fkr052"].items():
@@ -93,7 +122,7 @@ def _romanize_oclc_auto(data):
         data = data.replace(rule)
 
     # Strip end and multiple whitespace.
-    data = re.sub("\W{2,}", " ", data.strip())
+    data = re.sub("\\W{2,}", " ", data.strip())
 
     data = data.replace("^", " GLOTTAL ")
 
@@ -109,9 +138,9 @@ def _romanize_oclc_auto(data):
     # TODO Add leading whitespace as per L1221? L1202 already added one.
     data = data.replace(KCONF["fkr060"])
 
-    data = re.sub("\W{2,}", " ", f" {data.strip()} ")
+    data = re.sub("\\W{2,}", " ", f" {data.strip()} ")
 
-    #FKR061 FKR063 FKR064 FKR065
+    # FKR061 FKR063 FKR064 FKR065
     logger.debug("Applying FKR062-065")
     data = data.replace(KCONF["fkr061"]).replace(KCONF["fkr063"]).replace(
             KCONF["fkr064"]).replace(KCONF["fkr065"])
@@ -121,12 +150,12 @@ def _romanize_oclc_auto(data):
         logger.debug(f"Applying FKR066[{rname}]")
         data = data.replace(rule)
 
-    data = re.sub("\W{2,}", " ", data.strip())
+    data = re.sub("\\W{2,}", " ", data.strip())
 
     return data
 
 
-def kor_rom(data):
+def _kor_rom(data):
     # FKR069
     data = data.replace(KCONF["fkr069"])
 
@@ -137,15 +166,14 @@ def kor_rom(data):
         orig = data
 
     non_kor = 0
-    CP_MIN = 44032
     cpoints = tuple(ord(c) for c in data)
     for cp in cpoints:
         if cp < CP_MIN:
-            data = data[1:] # TODO Really?
+            non_kor += 1
+            data = data[1:]
 
     rom_ls = []
-    # TODO verify cap to 9
-    for i in range(min(9,len(data))):
+    for i in range(len(data)):
         cp = cpoints[i] - CP_MIN
         ini = "i" + str(cp // 588)
         med = "m" + str((cp // 28) % 21)
@@ -155,23 +183,41 @@ def kor_rom(data):
 
     # FKR071
     if niun:
-        niun_loc = rom.find("~")
-        rom_niun_a = rom[:niun_loc - 1]
-        rom_niun_b = rom[niun_loc:]
+        rom_niun_a, rom_niun_b = rom.split("~", 1)
+        if re.match("ill#m(?:2|6|12|17|20)", rom_niun_b):
+            logger.debug("Applying FKR071")
+            rom_niun_b = rom_niun_b.replace("i11#m", "i2#m", 1)
 
-        if "i11#m2" in rom_niun_b:
-            rom_niun_b = rom_niun_b.replace("i11#m2", "i2#m2")
+        # FKR072
+        if rom_niun_b.startswith("i5#") and rom_niun_a.endswith("f4"):
+            logger.debug("Applying FKR072")
+            rom_niun_b = rom_niun_b.replace("i5#", "i2", 1)
+
+        rom = f"{rom_niun_a}~{rom_niun_b}"
+
+    # FKR073-100
+    fkr_i = 73
+    for k, cmap in KCONF["fkr073-100"].items():
+        if k in rom:
+            logger.debug(f"Applying FKR{fkr_i:03}")
+            rom.replace(cmap)
+        fkr_i += 1
+
+    # FKR101-108
+    for fkr_i in range(101, 109):
+        logger.debug(f"Applying FKR{fkr_i:03}")
+        rom = rom.replace(KCONF[f"fkr{fkr_i:03}"])
 
     return data
 
 
-def marc8_hancha(data):
+def _marc8_hancha(data):
     # FKR142
     logger.debug("Applying FKR142")
     return data.replace(KCONF["fkr142"])
 
 
-def hancha2hangul(data):
+def _hancha2hangul(data):
     data = " " + data.replace("\n", "\n ")
 
     # FKR143-170
@@ -180,15 +226,27 @@ def hancha2hangul(data):
         data = data.replace(KCONF[f"fkr{i}"])
 
     # FKR171
-    if "不" in data:
-        ct = data.count("不")
-        data = data.replace("不", "X")
-        for i in range(ct):
-            pass
+    # Write down indices of occurrences of "不"
+    idx = [i for i, item in enumerate(data) if item == "不"]
+    for i in idx:
+        val = ord(data[i + 1])
+        if (val > 45795 and val < 46384) or (val > 51087 and val < 51676):
+            data = data.replace("不", "부", 1)
+        else:
+            data = data.replace("不", "불", 1)
     # FKR172-179
+    for char in KCONF["fkr172-179"]:
+        idx = [i for i, item in enumerate(data) if item == char]
+        for i in idx:
+            val = ord(data[i + 1])
+            coda_value = (val - CP_MIN) % 28
+            if coda_value == 1 or coda_value == 4 or val < 100:  # TODO verify
+                data = data.replace(char, "열", 1)
+            else:
+                data = data.replace(char, "렬", 1)
 
     # FKR180
     logger.debug("Applying FKR180")
     data = data.replace(KCONF["fkr180"])
 
-    return re.sub("\W{2,}", " ", data.strip())
+    return re.sub("\\W{2,}", " ", data.strip())

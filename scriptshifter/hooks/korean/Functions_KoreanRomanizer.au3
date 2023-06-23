@@ -1298,7 +1298,7 @@ Func KorRom() ; FKR068
    EndIf
 
    $NonKor = 0
-   $NonKorCount = 0
+   $NonKorCount = 0 ; UNUSED
    Local $aArray = StringToASCIIArray ($TargetKor)
 
    Sleep (100)
@@ -1476,7 +1476,7 @@ If StringInStr($Rom,"f4~")>0 Then
 EndIf
 
 ;FKR079
-$CountNC = "0"
+$CountNC = "0" ; This never changes
 If StringInStr($Rom,"f5~")>0 Then
    Local $Rule1[4][2] = [["f5~i0#","n~k"],["f5~i2#","n~n"],["f5~i3#","n~t"],["f5~i12#","n~ch"]]
    For $i = 0 To Ubound($Rule1, 1) - 1
@@ -1509,7 +1509,7 @@ If StringInStr($Rom,"f8~")>0 Then
 EndIf
 
 ;FKR083
-$CountLK = "0"
+$CountLK = "0" ; This never changes
 If StringInStr($Rom,"f9~")>0 Then
    Local $Rule1[4][2] = [["f9~i0#","l~k"],["f9~i2#","ng~n"],["f9~i3#","k~t"],["f9~i12#","k~ch"]]
    For $i = 0 To Ubound($Rule1, 1) - 1
@@ -1518,7 +1518,7 @@ If StringInStr($Rom,"f9~")>0 Then
 EndIf
 
 ;FKR084
-$CountLM = "0"
+$CountLM = "0" ; This never changes
 If StringInStr($Rom,"f10~")>0 Then
    Local $Rule1[4][2] = [["f10~i0#","m~k"],["f10~i2#","m~n"],["f10~i3#","m~t"],["f10~i12#","m~ch"]]
    For $i = 0 To Ubound($Rule1, 1) - 1
@@ -1527,7 +1527,7 @@ If StringInStr($Rom,"f10~")>0 Then
 EndIf
 
 ;FKR085
-$CountLP = "0"
+$CountLP = "0" ; This never changes
 If StringInStr($Rom,"f11~")>0 Then
    Local $Rule1[4][2] = [["f11~i0#","l~k"],["f11~i2#","m~n"],["f11~i3#","l~t"],["f11~i12#","l~ch"]]
    For $i = 0 To Ubound($Rule1, 1) - 1
@@ -1536,7 +1536,7 @@ If StringInStr($Rom,"f11~")>0 Then
 EndIf
 
 ;FKR086
-$CountLTH = "0"
+$CountLTH = "0" ; This never changes
 If StringInStr($Rom,"f13~")>0 Then
    Local $Rule1[4][2] = [["f13~i0#","l~k"],["f13~i2#","l~l"],["f13~i3#","l~t"],["f13~i12#","l~ch"]]
    For $i = 0 To Ubound($Rule1, 1) - 1
@@ -1545,7 +1545,7 @@ If StringInStr($Rom,"f13~")>0 Then
 EndIf
 
 ;FKR087
-$CountLPH = "0"
+$CountLPH = "0" ; This never changes
 If StringInStr($Rom,"f14~")>0 Then
    Local $Rule1[4][2] = [["f14~i0#","p~k"],["f14~i2#","m~n"],["f14~i3#","p~t"],["f14~i12#","p~ch"]]
    For $i = 0 To Ubound($Rule1, 1) - 1
@@ -1670,7 +1670,7 @@ EndIf
    Next
 
 ;FKR103
-   If $CountLK+$CountLM+$CountLP+$CountLPH+$CountLTH+$CountNC = "0" Then
+   If $CountLK+$CountLM+$CountLP+$CountLPH+$CountLTH+$CountNC = "0" Then  ; Always true
 	  Local $Rule1[18][2] = [["f0~i0#","~g"],["f0~i3#","~d"],["f0~i7#","~b"],["f0~i12#","~j"],["f4~i0#","n~g"],["f4~i3#","n~d"],["f4~i7#","n~b"],["f4~i12#","n~j"],["f8~i0#","l~g"],["f8~i7#","l~b"],["f16~i0#","m~g"],["f16~i3#","m~d"],["f16~i7#","m~b"],["f16~i12#","m~j"],["f21~i0#","ng~g"],["f21~i3#","ng~d"],["f21~i7#","ng~b"],["f21~i12#","ng~j"]]
 	  For $i = 0 To Ubound($Rule1, 1) - 1
 		 $Rom = StringRegExpReplace($Rom, "\Q" & $Rule1[$i][0] & "\E",$Rule1[$i][1])
@@ -1684,7 +1684,7 @@ EndIf
    Next
 
 ;FKR105
-   If $CountLK+$CountLM+$CountLP+$CountLPH+$CountLTH+$CountNC = "0" Then
+   If $CountLK+$CountLM+$CountLP+$CountLPH+$CountLTH+$CountNC = "0" Then  ; Always true
 	  Local $Rule1[2][2] = [["f8~i3#","l~d"],["f8~i12#","l~j"]]
 	  For $i = 0 To Ubound($Rule1, 1) - 1
 		 $Rom = StringRegExpReplace($Rom, "\Q" & $Rule1[$i][0] & "\E",$Rule1[$i][1])

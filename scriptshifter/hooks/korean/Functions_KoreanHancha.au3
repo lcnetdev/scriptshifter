@@ -224,7 +224,7 @@ Func Hancha2Hangul()
 	  StringReplace($Hangul,"不","X")
 	  $PUL_Count = @Extended
 	  For $i=1 to $PUL_Count
-		 $PUL_Str = StringMid($Hangul,StringInStr($Hangul,"不",0,1)+1,1)
+		 $PUL_Str = StringMid($Hangul,StringInStr($Hangul,"不",0,1)+1,1) ; Get character after "不"
 		 Local $aArray = StringToASCIIArray($PUL_Str)
 		 If $aArray[0]>45795 AND $aArray[0]<46384 Then
 			$Hangul=StringReplace($Hangul,"不","부",1)
