@@ -61,7 +61,7 @@ def _romanize_nonames(src, hancha=False):
     # FKR039, FKR040, FKR041
     for fkrcode in ("fkr039", "fkr040", "fkr041"):
         logger.debug(f"Applying {fkrcode}")
-        data = data.replace(KCONF[fkrcode])
+        data = _replace_map(data, KCONF[fkrcode])
 
     # NOTE This is slightly different from LL 929-930 in that it doesn't
     # result in double spaces.
@@ -85,7 +85,7 @@ def _romanize_nonames(src, hancha=False):
     no_oclc_breve = False
 
     if no_oclc_breve:
-        data = data.replace({"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
+        data = _replace_map(data, {"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
 
     # TODO Decide what to do with these. There is no facility for outputting
     # warnings or notes to the user yet.
@@ -106,7 +106,7 @@ def _romanize_oclc_auto(data):
     # FKR050
     for rname, rule in KCONF["fkr050"].items():
         logger.debug(f"Applying fkr050[{rname}]")
-        data = data.replace(rule)
+        data = _replace_map(data, rule)
 
     # NOTE: Is this memant to replace " 제" followed by a digit with " 제 "?
     # This may not yield the expected results as it could replace all
@@ -119,7 +119,7 @@ def _romanize_oclc_auto(data):
     # FKR052
     for rname, rule in KCONF["fkr052"].items():
         logger.debug(f"Applying fkr052[{rname}]")
-        data = data.replace(rule)
+        data = _replace_map(data, rule)
 
     # Strip end and multiple whitespace.
     data = re.sub("\\W{2,}", " ", data.strip())
@@ -136,19 +136,24 @@ def _romanize_oclc_auto(data):
 
     # FKR060
     # TODO Add leading whitespace as per L1221? L1202 already added one.
-    data = data.replace(KCONF["fkr060"])
+    data = _replace_map(data, KCONF["fkr060"])
 
     data = re.sub("\\W{2,}", " ", f" {data.strip()} ")
 
-    # FKR061 FKR063 FKR064 FKR065
+    # FKR061
+    # FKR063
+    # FKR064
+    # FKR065
     logger.debug("Applying FKR062-065")
-    data = data.replace(KCONF["fkr061"]).replace(KCONF["fkr063"]).replace(
-            KCONF["fkr064"]).replace(KCONF["fkr065"])
+    data = _replace_map(
+            data,
+            KCONF["fkr061"] + KCONF["fkr063"] +
+            KCONF["fkr064"] + KCONF["fkr065"])
 
     # FKR066
     for rname, rule in KCONF["fkr066"].items():
         logger.debug(f"Applying FKR066[{rname}]")
-        data = data.replace(rule)
+        data = _replace_map(data, rule)
 
     data = re.sub("\\W{2,}", " ", data.strip())
 
@@ -156,8 +161,10 @@ def _romanize_oclc_auto(data):
 
 
 def _kor_rom(data):
+    data = re.sub("\\W{2,}", " ", data.strip())
+
     # FKR069
-    data = data.replace(KCONF["fkr069"])
+    data = _replace_map(data, KCONF["fkr069"])
 
     # FKR070
     niun = data.find("+")
@@ -183,7 +190,7 @@ def _kor_rom(data):
 
     # FKR071
     if niun:
-        rom_niun_a, rom_niun_b = rom.split("~", 1)
+        rom_niun_a, rom_niun_b = rom[:niun - 1].split("~", 1)
         if re.match("ill#m(?:2|6|12|17|20)", rom_niun_b):
             logger.debug("Applying FKR071")
             rom_niun_b = rom_niun_b.replace("i11#m", "i2#m", 1)
@@ -200,21 +207,70 @@ def _kor_rom(data):
     for k, cmap in KCONF["fkr073-100"].items():
         if k in rom:
             logger.debug(f"Applying FKR{fkr_i:03}")
-            rom.replace(cmap)
+            _replace_map(rom, cmap)
         fkr_i += 1
 
     # FKR101-108
     for fkr_i in range(101, 109):
         logger.debug(f"Applying FKR{fkr_i:03}")
-        rom = rom.replace(KCONF[f"fkr{fkr_i:03}"])
+        rom = _replace_map(rom, KCONF[f"fkr{fkr_i:03}"])
 
-    return data
+    # FKR109
+    for pos, data in KCONF["fkr109"]
+        logger.debug(f"Applying FKR109[{pos}]")
+        rom = _replace_map(rom, data)
+
+    # FKR110
+    rom = _replace_map(rom, {"#": "", "~": ""})
+
+    if non_kor > 0:
+        rom = f"{orig[:non_kor]}-{rom}"
+
+    # FKR111
+    rom = _replace_map(rom, KCONF["fkr111"])
+
+    # FKR112
+    is_non_kor = False
+    # FKR113
+    # FKR114
+    # FKR115
+    if orig.strip().startswith(tuple(KCONF["fkr113-115"])):
+        is_non_kor = True
+
+    # FKR116
+    is_particle = False
+    if orig.strip().startswith(tuple(KCONF["fkr116"])):
+        is_particle = True
+
+    if len(orig) > 1 and not is_non_kor and not is_particle:
+        rom = _replace_map(rom, KCONF["fkr116a"])
+
+    # FKR117
+    if (
+            # FKR118
+            orig in KCONF["fkr118"] or
+            # FKR119
+            orig in KCONF["fkr119"] or
+            orig.endswith(tuple(KCONF["fkr119_suffix"])):
+            # FKR120
+            orig.endswith(tuple(KCONF["fkr120"])):
+        rom = rom.capitalize()
+
+    # FKR121
+    # TODO Check global $ConvertR2L assigned in L17 and tested in L1849.
+    if f" {orig} " in KCONF["fkr121"]:
+        if rom.startswith("r"):
+            rom = "l" + rom[1:]
+        elif rom.startswith("R"):
+            rom = "L" + rom[1:]
+
+    return rom
 
 
 def _marc8_hancha(data):
     # FKR142
     logger.debug("Applying FKR142")
-    return data.replace(KCONF["fkr142"])
+    return _replace_map(data, KCONF["fkr142"])
 
 
 def _hancha2hangul(data):
@@ -223,7 +279,7 @@ def _hancha2hangul(data):
     # FKR143-170
     for i in range(143, 171):
         logger.debug(f"Applying FKR{i}")
-        data = data.replace(KCONF[f"fkr{i}"])
+        data = _replace_map(data, KCONF[f"fkr{i}"])
 
     # FKR171
     # Write down indices of occurrences of "不"
@@ -247,6 +303,14 @@ def _hancha2hangul(data):
 
     # FKR180
     logger.debug("Applying FKR180")
-    data = data.replace(KCONF["fkr180"])
+    data = _replace_map(data, KCONF["fkr180"])
 
     return re.sub("\\W{2,}", " ", data.strip())
+
+
+def _replace_map(src, rmap):
+    """ Replace occurrences in a string according to a map. """
+    for k, v in rmap:
+        src = src.replace(k, v)
+
+    return src
