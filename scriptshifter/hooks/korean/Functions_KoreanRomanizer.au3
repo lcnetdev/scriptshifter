@@ -1863,677 +1863,677 @@ EndFunc
 
 ; FKR122
 
-Func Sleep4OCLC()
-   If StringInStr(WinGetTitle("[Active]"),"OCLC Connexion")>0 Then
-	  Sleep(50+400)
-   Else
-	  Sleep(50+50)
-   EndIF
-EndFunc
+;Func Sleep4OCLC()  ; Not used in SS
+;   If StringInStr(WinGetTitle("[Active]"),"OCLC Connexion")>0 Then
+;	  Sleep(50+400)
+;   Else
+;	  Sleep(50+50)
+;   EndIF
+;EndFunc
 
-Func Rom245C()
-   $F245C = ClipGet()
-   If StringInStr($F245C,"ǂc")>0 OR StringInStr($F245C,"‡c")>0 Then
-	  $Delimiterc = StringLeft($F245C,3)
-	  $F245C = StringTrimLeft($F245C,3)
-   EndIf
-EndFunc
+;Func Rom245C()  ; Not used in SS
+;   $F245C = ClipGet()
+;   If StringInStr($F245C,"ǂc")>0 OR StringInStr($F245C,"‡c")>0 Then
+;	  $Delimiterc = StringLeft($F245C,3)
+;	  $F245C = StringTrimLeft($F245C,3)
+;   EndIf
+;EndFunc
 
-; FKR123
-Func YaleRomanizer()
-   _CopyEx()
+; FKR123 - Not used in SS
+;Func YaleRomanizer()
+;   _CopyEx()
+;
+;;FKR124
+;   If $ConvertHancha="On" Then
+;	  Sleep(50+20)
+;	  MARC8Hancha()
+;	  Sleep(50+20)
+;	  Hancha2Hangul()
+;	  Sleep(50+20)
+;   EndIf
+;
+;   $RawClip = ClipGet()
+;
+;
+;   ;FKR125
+;   Local $RuleGN[19][2] = [["ㄱ","기역"],["ㄲ","쌍기역"],["ㄴ","니은"],["ㄷ","디귿"],["ㄸ","쌍디귿"],["ㄹ","리을"],["ㅁ","미음"],["ㅂ","비읍"],["ㅃ","쌍비읍"],["ㅅ","시옷"],["ㅆ","쌍시옷"],["ㅇ","이응"],["ㅈ","지읒"],["ㅉ","쌍지읒"],["ㅊ","치읓"],["ㅋ","키읔"],["ㅌ","티읕"],["ㅍ","피읖"],["ㅎ","히읗"]]
+;   For $i = 0 To Ubound($RuleGN, 1) - 1
+;	 $RawClip = StringRegExpReplace($RawClip,$RuleGN[$i][0],$RuleGN[$i][1])
+;   Next
+;
+;   $Input = StringReplace($RawClip,@CR," ")
+;   $Input = StringReplace($Input,@LF," ")
+;   ClipPut($Input)
+;   TrayTip("Processing:","Yale Korean Romanization",15)
+;   Yale()
+;   $Output = ClipGet()
+;
+;   _PasteEx()
+;   If StringInStr($Output," ",0,4)=0 Then
+;	  TrayTip($TT_Title3,@LF & $Input & @LF & " ↓ " & @LF & $Output,10)
+;   Else
+;	  TrayTip($TT_Title3,$TT_Text3,10)
+;   EndIf
+;EndFunc
 
-;FKR124
-   If $ConvertHancha="On" Then
-	  Sleep(50+20)
-	  MARC8Hancha()
-	  Sleep(50+20)
-	  Hancha2Hangul()
-	  Sleep(50+20)
-   EndIf
+;Func Yale()
+;   $NClipB = " " & ClipGet()
+;
+;   $ClipB = StringStripWS($NClipB,1+2+4)
+;   Sleep(50+20)
+;   $Result=""
+;   Local $aArray=StringSplit($ClipB," ")
+;   For $i = 1 To Ubound($aArray, 1)-1
+;	  ClipPut($aArray[$i])
+;	  YaleRom()
+;	  $Result=$Result & " " & ClipGet()
+;   Next
+;   $Result1=StringStripWS($Result,1)
+;   $Result2 = StringReplace($Result1,"  "," ")
+;
+;   ClipPut(StringStripWS($Result2,1+4))
+;EndFunc
 
-   $RawClip = ClipGet()
-
-
-   ;FKR125
-   Local $RuleGN[19][2] = [["ㄱ","기역"],["ㄲ","쌍기역"],["ㄴ","니은"],["ㄷ","디귿"],["ㄸ","쌍디귿"],["ㄹ","리을"],["ㅁ","미음"],["ㅂ","비읍"],["ㅃ","쌍비읍"],["ㅅ","시옷"],["ㅆ","쌍시옷"],["ㅇ","이응"],["ㅈ","지읒"],["ㅉ","쌍지읒"],["ㅊ","치읓"],["ㅋ","키읔"],["ㅌ","티읕"],["ㅍ","피읖"],["ㅎ","히읗"]]
-   For $i = 0 To Ubound($RuleGN, 1) - 1
-	 $RawClip = StringRegExpReplace($RawClip,$RuleGN[$i][0],$RuleGN[$i][1])
-   Next
-
-   $Input = StringReplace($RawClip,@CR," ")
-   $Input = StringReplace($Input,@LF," ")
-   ClipPut($Input)
-   TrayTip("Processing:","Yale Korean Romanization",15)
-   Yale()
-   $Output = ClipGet()
-
-   _PasteEx()
-   If StringInStr($Output," ",0,4)=0 Then
-	  TrayTip($TT_Title3,@LF & $Input & @LF & " ↓ " & @LF & $Output,10)
-   Else
-	  TrayTip($TT_Title3,$TT_Text3,10)
-   EndIf
-EndFunc
-
-Func Yale()
-   $NClipB = " " & ClipGet()
-
-   $ClipB = StringStripWS($NClipB,1+2+4)
-   Sleep(50+20)
-   $Result=""
-   Local $aArray=StringSplit($ClipB," ")
-   For $i = 1 To Ubound($aArray, 1)-1
-	  ClipPut($aArray[$i])
-	  YaleRom()
-	  $Result=$Result & " " & ClipGet()
-   Next
-   $Result1=StringStripWS($Result,1)
-   $Result2 = StringReplace($Result1,"  "," ")
-
-   ClipPut(StringStripWS($Result2,1+4))
-EndFunc
-
-Func YaleRom()
-   $LEN = StringLen(StringStripWS(ClipGet(),1+2+4))
-   $TargetKor = ClipGet()
-   $TargetKorOrig = $TargetKor
-
-   $NonKor = 0
-   Local $aArray = StringToASCIIArray ($TargetKor)
-
-   Sleep (100)
-   For $i=0 to Ubound($aArray, 1)-1
-	  If Number($aArray[$i]) < 44032 Then
-		 $NonKor = $NonKor+1
-		 $TargetKor = StringTrimLeft($TargetKor,1)
-	  EndIf
-   Next
-   Sleep (100)
-   $Rom =""
-
-   Local $aArray = StringToASCIIArray ($TargetKor)
-
-   If StringLen($TargetKor) > 0 Then
-	  $ASCII1 = Number($aArray[0])-44032
-	  $Target = $ASCII1
-	  $Ini1 = "i" & FLOOR(Number($Target)/588)
-	  $Med1 = "m" & MOD(FLOOR(Number($Target)/28),21)
-	  $Fin1 = "f" & MOD(Number($Target),28)
-	  If StringLen($TargetKor) > 1 Then
-		 $ASCII2 = Number($aArray[1])-44032
-		 $Target = $ASCII2
-		 $Ini2 = "i" & FLOOR(Number($Target)/588)
-		 $Med2 = "m" & MOD(FLOOR(Number($Target)/28),21)
-		 $Fin2 = "f" & MOD(Number($Target),28)
-		 If StringLen($TargetKor) > 2 Then
-			$ASCII3 = Number($aArray[2])-44032
-			$Target = $ASCII3
-			$Ini3 = "i" & FLOOR(Number($Target)/588)
-			$Med3 = "m" & MOD(FLOOR(Number($Target)/28),21)
-			$Fin3 = "f" & MOD(Number($Target),28)
-			If StringLen($TargetKor) > 3 Then
-			   $ASCII4 = Number($aArray[3])-44032
-			   $Target = $ASCII4
-			   $Ini4 = "i" & FLOOR(Number($Target)/588)
-			   $Med4 = "m" & MOD(FLOOR(Number($Target)/28),21)
-			   $Fin4 = "f" & MOD(Number($Target),28)
-			   If StringLen($TargetKor) > 4 Then
-				  $ASCII5 = Number($aArray[4])-44032
-				  $Target = $ASCII5
-				  $Ini5 = "i" & FLOOR(Number($Target)/588)
-				  $Med5 = "m" & MOD(FLOOR(Number($Target)/28),21)
-				  $Fin5 = "f" & MOD(Number($Target),28)
-				  If StringLen($TargetKor) > 5 Then
-					 $ASCII6 = Number($aArray[5])-44032
-					 $Target = $ASCII6
-					 $Ini6 = "i" & FLOOR(Number($Target)/588)
-					 $Med6 = "m" & MOD(FLOOR(Number($Target)/28),21)
-					 $Fin6 = "f" & MOD(Number($Target),28)
-					 If StringLen($TargetKor) > 6 Then
-						$ASCII7 = Number($aArray[6])-44032
-						$Target = $ASCII7
-						$Ini7 = "i" & FLOOR(Number($Target)/588)
-						$Med7 = "m" & MOD(FLOOR(Number($Target)/28),21)
-						$Fin7 = "f" & MOD(Number($Target),28)
-						If StringLen($TargetKor) > 7 Then
-						   $ASCII8 = Number($aArray[7])-44032
-						   $Target = $ASCII8
-						   $Ini8 = "i" & FLOOR(Number($Target)/588)
-						   $Med8 = "m" & MOD(FLOOR(Number($Target)/28),21)
-						   $Fin8 = "f" & MOD(Number($Target),28)
-						   If StringLen($TargetKor) > 8 Then
-							  $ASCII9 = Number($aArray[8])-44032
-							  $Target = $ASCII9
-							  $Ini9 = "i" & FLOOR(Number($Target)/588)
-							  $Med9 = "m" & MOD(FLOOR(Number($Target)/28),21)
-							  $Fin9 = "f" & MOD(Number($Target),28)
-							  $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 &  "~" & $Ini7 & "#" & $Med7 & "#" & $Fin7  &  "~" & $Ini8 & "#" & $Med8 & "#" & $Fin8  &  "~" & $Ini9 & "#" & $Med9 & "#" & $Fin9 & "E"
-						   Else
-							  $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 &  "~" & $Ini7 & "#" & $Med7 & "#" & $Fin7  &  "~" & $Ini8 & "#" & $Med8 & "#" & $Fin8 & "E"
-						   EndIf
-						Else
-						   $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 &  "~" & $Ini7 & "#" & $Med7 & "#" & $Fin7 & "E"
-						EndIf
-					 Else
-						$Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 & "E"
-					 EndIf
-				  Else
-					 $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 & "E"
-				  EndIf
-			   Else
-				  $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "E"
-			   EndIf
-			Else
-			   $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "E"
-			EndIf
-		 Else
-			$Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "E"
-		 EndIf
-	  Else
-		 $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "E"
-	  EndIf
-   EndIf
-   $Result = $Rom
-; FKR126
-   Local $Rule[19][2] = [["i10","ss"],["i11",""],["i12","c"],["i13","cc"],["i14","ch"],["i15","kh"],["i16","th"],["i17","ph"],["i18","h"],["i1","kk"],["i2","n"],["i3","t"],["i4","tt"],["i5","l"],["i6","m"],["i7","p"],["i8","pp"],["i9","s"],["i0","k"]]
-   For $i = 0 To Ubound($Rule, 1) - 1
-	  $Result = StringRegExpReplace($Result, "\Q" & $Rule[$i][0] & "\E",$Rule[$i][1])
-   Next
-; FKR127
-   Local $Rule[21][2] = [["m20","i"],["m10","way"],["m11","oy"],["m12","yo"],["m13","wu"],["m14","we"],["m15","wey"],["m16","wi"],["m17","yu"],["m18","u"],["m19","uy"],["m0","a"],["m1","ay"],["m2","ya"],["m3","yay"],["m4","e"],["m5","ey"],["m6","ye"],["m7","yey"],["m8","o"],["m9","wa"]]
-   For $i = 0 To Ubound($Rule, 1) - 1
-	  $Result = StringRegExpReplace($Result, "\Q" & $Rule[$i][0] & "\E",$Rule[$i][1])
-   Next
-; FKR128
-   Local $Rule[28][2] = [["f20","ss"],["f21","ng"],["f22","c"],["f23","ch"],["f24","kh"],["f25","th"],["f26","ph"],["f27","h"],["f10","lm"],["f11","lp"],["f12","ls"],["f13","lth"],["f14","lph"],["f15","lh"],["f16","m"],["f17","p"],["f18","ps"],["f19","s"],["f0",""],["f1","k"],["f2","kk"],["f3","ks"],["f4","n"],["f5","nc"],["f6","nh"],["f7","t"],["f8","l"],["f9","lk"]]
-   For $i = 0 To Ubound($Rule, 1) - 1
-	  $Result = StringRegExpReplace($Result, "\Q" & $Rule[$i][0] & "\E",$Rule[$i][1])
-   Next
-   $Rom = $Result
-
-; FKR129
-   $Rom = StringReplace($Rom,"#","")
-   $Rom = StringReplace($Rom,"~","")
-   $Rom = StringReplace($Rom,"i-75m-17f-26E",".")
-   $Rom = StringReplace($Rom,"i-75m-17",",")
-   $Rom = StringReplace($Rom,",f-14E",":")
-   $Rom = StringReplace($Rom,"i-75m-18f-11E","!")
-   $Rom = StringReplace($Rom,",f-9E","?")
-   $Rom = StringReplace($Rom,"E","",-1,1)
-   If $NonKor > 0 Then
-	  $Rom = StringLeft($TargetKorOrig,$NonKor) & " " & $Rom
-   EndIf
-
-   ClipPut($Rom)
-EndFunc
+;Func YaleRom()
+;   $LEN = StringLen(StringStripWS(ClipGet(),1+2+4))
+;   $TargetKor = ClipGet()
+;   $TargetKorOrig = $TargetKor
+;
+;   $NonKor = 0
+;   Local $aArray = StringToASCIIArray ($TargetKor)
+;
+;   Sleep (100)
+;   For $i=0 to Ubound($aArray, 1)-1
+;	  If Number($aArray[$i]) < 44032 Then
+;		 $NonKor = $NonKor+1
+;		 $TargetKor = StringTrimLeft($TargetKor,1)
+;	  EndIf
+;   Next
+;   Sleep (100)
+;   $Rom =""
+;
+;   Local $aArray = StringToASCIIArray ($TargetKor)
+;
+;   If StringLen($TargetKor) > 0 Then
+;	  $ASCII1 = Number($aArray[0])-44032
+;	  $Target = $ASCII1
+;	  $Ini1 = "i" & FLOOR(Number($Target)/588)
+;	  $Med1 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;	  $Fin1 = "f" & MOD(Number($Target),28)
+;	  If StringLen($TargetKor) > 1 Then
+;		 $ASCII2 = Number($aArray[1])-44032
+;		 $Target = $ASCII2
+;		 $Ini2 = "i" & FLOOR(Number($Target)/588)
+;		 $Med2 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;		 $Fin2 = "f" & MOD(Number($Target),28)
+;		 If StringLen($TargetKor) > 2 Then
+;			$ASCII3 = Number($aArray[2])-44032
+;			$Target = $ASCII3
+;			$Ini3 = "i" & FLOOR(Number($Target)/588)
+;			$Med3 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;			$Fin3 = "f" & MOD(Number($Target),28)
+;			If StringLen($TargetKor) > 3 Then
+;			   $ASCII4 = Number($aArray[3])-44032
+;			   $Target = $ASCII4
+;			   $Ini4 = "i" & FLOOR(Number($Target)/588)
+;			   $Med4 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;			   $Fin4 = "f" & MOD(Number($Target),28)
+;			   If StringLen($TargetKor) > 4 Then
+;				  $ASCII5 = Number($aArray[4])-44032
+;				  $Target = $ASCII5
+;				  $Ini5 = "i" & FLOOR(Number($Target)/588)
+;				  $Med5 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;				  $Fin5 = "f" & MOD(Number($Target),28)
+;				  If StringLen($TargetKor) > 5 Then
+;					 $ASCII6 = Number($aArray[5])-44032
+;					 $Target = $ASCII6
+;					 $Ini6 = "i" & FLOOR(Number($Target)/588)
+;					 $Med6 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;					 $Fin6 = "f" & MOD(Number($Target),28)
+;					 If StringLen($TargetKor) > 6 Then
+;						$ASCII7 = Number($aArray[6])-44032
+;						$Target = $ASCII7
+;						$Ini7 = "i" & FLOOR(Number($Target)/588)
+;						$Med7 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;						$Fin7 = "f" & MOD(Number($Target),28)
+;						If StringLen($TargetKor) > 7 Then
+;						   $ASCII8 = Number($aArray[7])-44032
+;						   $Target = $ASCII8
+;						   $Ini8 = "i" & FLOOR(Number($Target)/588)
+;						   $Med8 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;						   $Fin8 = "f" & MOD(Number($Target),28)
+;						   If StringLen($TargetKor) > 8 Then
+;							  $ASCII9 = Number($aArray[8])-44032
+;							  $Target = $ASCII9
+;							  $Ini9 = "i" & FLOOR(Number($Target)/588)
+;							  $Med9 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;							  $Fin9 = "f" & MOD(Number($Target),28)
+;							  $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 &  "~" & $Ini7 & "#" & $Med7 & "#" & $Fin7  &  "~" & $Ini8 & "#" & $Med8 & "#" & $Fin8  &  "~" & $Ini9 & "#" & $Med9 & "#" & $Fin9 & "E"
+;						   Else
+;							  $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 &  "~" & $Ini7 & "#" & $Med7 & "#" & $Fin7  &  "~" & $Ini8 & "#" & $Med8 & "#" & $Fin8 & "E"
+;						   EndIf
+;						Else
+;						   $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 &  "~" & $Ini7 & "#" & $Med7 & "#" & $Fin7 & "E"
+;						EndIf
+;					 Else
+;						$Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 & "E"
+;					 EndIf
+;				  Else
+;					 $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 & "E"
+;				  EndIf
+;			   Else
+;				  $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "E"
+;			   EndIf
+;			Else
+;			   $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "E"
+;			EndIf
+;		 Else
+;			$Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "E"
+;		 EndIf
+;	  Else
+;		 $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "E"
+;	  EndIf
+;   EndIf
+;   $Result = $Rom
+;; FKR126
+;   Local $Rule[19][2] = [["i10","ss"],["i11",""],["i12","c"],["i13","cc"],["i14","ch"],["i15","kh"],["i16","th"],["i17","ph"],["i18","h"],["i1","kk"],["i2","n"],["i3","t"],["i4","tt"],["i5","l"],["i6","m"],["i7","p"],["i8","pp"],["i9","s"],["i0","k"]]
+;   For $i = 0 To Ubound($Rule, 1) - 1
+;	  $Result = StringRegExpReplace($Result, "\Q" & $Rule[$i][0] & "\E",$Rule[$i][1])
+;   Next
+;; FKR127
+;   Local $Rule[21][2] = [["m20","i"],["m10","way"],["m11","oy"],["m12","yo"],["m13","wu"],["m14","we"],["m15","wey"],["m16","wi"],["m17","yu"],["m18","u"],["m19","uy"],["m0","a"],["m1","ay"],["m2","ya"],["m3","yay"],["m4","e"],["m5","ey"],["m6","ye"],["m7","yey"],["m8","o"],["m9","wa"]]
+;   For $i = 0 To Ubound($Rule, 1) - 1
+;	  $Result = StringRegExpReplace($Result, "\Q" & $Rule[$i][0] & "\E",$Rule[$i][1])
+;   Next
+;; FKR128
+;   Local $Rule[28][2] = [["f20","ss"],["f21","ng"],["f22","c"],["f23","ch"],["f24","kh"],["f25","th"],["f26","ph"],["f27","h"],["f10","lm"],["f11","lp"],["f12","ls"],["f13","lth"],["f14","lph"],["f15","lh"],["f16","m"],["f17","p"],["f18","ps"],["f19","s"],["f0",""],["f1","k"],["f2","kk"],["f3","ks"],["f4","n"],["f5","nc"],["f6","nh"],["f7","t"],["f8","l"],["f9","lk"]]
+;   For $i = 0 To Ubound($Rule, 1) - 1
+;	  $Result = StringRegExpReplace($Result, "\Q" & $Rule[$i][0] & "\E",$Rule[$i][1])
+;   Next
+;   $Rom = $Result
+;
+;; FKR129
+;   $Rom = StringReplace($Rom,"#","")
+;   $Rom = StringReplace($Rom,"~","")
+;   $Rom = StringReplace($Rom,"i-75m-17f-26E",".")
+;   $Rom = StringReplace($Rom,"i-75m-17",",")
+;   $Rom = StringReplace($Rom,",f-14E",":")
+;   $Rom = StringReplace($Rom,"i-75m-18f-11E","!")
+;   $Rom = StringReplace($Rom,",f-9E","?")
+;   $Rom = StringReplace($Rom,"E","",-1,1)
+;   If $NonKor > 0 Then
+;	  $Rom = StringLeft($TargetKorOrig,$NonKor) & " " & $Rom
+;   EndIf
+;
+;   ClipPut($Rom)
+;EndFunc
 
 ; FKR130
 
 ; FKR131
-Func ISORomanizer()
-   _CopyEx()
+;Func ISORomanizer()  ; Not used in SS
+;   _CopyEx()
+;
+;;FKR132
+;   If $ConvertHancha="On" Then
+;	  Sleep(50+20)
+;	  MARC8Hancha()
+;	  Sleep(50+20)
+;	  Hancha2Hangul()
+;	  Sleep(50+20)
+;   EndIf
+;
+;   $RawClip = ClipGet()
+;
+;
+;   ;FKR133
+;   Local $RuleGN[19][2] = [["ㄱ","기역"],["ㄲ","쌍기역"],["ㄴ","니은"],["ㄷ","디귿"],["ㄸ","쌍디귿"],["ㄹ","리을"],["ㅁ","미음"],["ㅂ","비읍"],["ㅃ","쌍비읍"],["ㅅ","시옷"],["ㅆ","쌍시옷"],["ㅇ","이응"],["ㅈ","지읒"],["ㅉ","쌍지읒"],["ㅊ","치읓"],["ㅋ","키읔"],["ㅌ","티읕"],["ㅍ","피읖"],["ㅎ","히읗"]]
+;   For $i = 0 To Ubound($RuleGN, 1) - 1
+;	 $RawClip = StringRegExpReplace($RawClip,$RuleGN[$i][0],$RuleGN[$i][1])
+;   Next
+;
+;   $Input = StringReplace($RawClip,@CR," ")
+;   $Input = StringReplace($Input,@LF," ")
+;   ClipPut($Input)
+;   TrayTip("Processing:","ISO Korean Romanization",15)
+;   ISO()
+;   $Output = ClipGet()
+;
+;   _PasteEx()
+;   If StringInStr($Output," ",0,4)=0 Then
+;	  TrayTip($TT_Title3,@LF & $Input & @LF & " ↓ " & @LF & $Output,10)
+;   Else
+;	  TrayTip($TT_Title3,$TT_Text3,10)
+;   EndIf
+;EndFunc
 
-;FKR132
-   If $ConvertHancha="On" Then
-	  Sleep(50+20)
-	  MARC8Hancha()
-	  Sleep(50+20)
-	  Hancha2Hangul()
-	  Sleep(50+20)
-   EndIf
+;Func ISO()  ; Not used in SS
+;   $NClipB = " " & ClipGet()
+;
+;   $ClipB = StringStripWS($NClipB,1+2+4)
+;   Sleep(50+20)
+;   $Result=""
+;   Local $aArray=StringSplit($ClipB," ")
+;   For $i = 1 To Ubound($aArray, 1)-1
+;	  ClipPut($aArray[$i])
+;	  ISORom()
+;	  $Result=$Result & " " & ClipGet()
+;   Next
+;   $Result1=StringStripWS($Result,1)
+;   $Result2 = StringReplace($Result1,"  "," ")
+;
+;   ClipPut(StringStripWS($Result2,1+4))
+;EndFunc
 
-   $RawClip = ClipGet()
-
-
-   ;FKR133
-   Local $RuleGN[19][2] = [["ㄱ","기역"],["ㄲ","쌍기역"],["ㄴ","니은"],["ㄷ","디귿"],["ㄸ","쌍디귿"],["ㄹ","리을"],["ㅁ","미음"],["ㅂ","비읍"],["ㅃ","쌍비읍"],["ㅅ","시옷"],["ㅆ","쌍시옷"],["ㅇ","이응"],["ㅈ","지읒"],["ㅉ","쌍지읒"],["ㅊ","치읓"],["ㅋ","키읔"],["ㅌ","티읕"],["ㅍ","피읖"],["ㅎ","히읗"]]
-   For $i = 0 To Ubound($RuleGN, 1) - 1
-	 $RawClip = StringRegExpReplace($RawClip,$RuleGN[$i][0],$RuleGN[$i][1])
-   Next
-
-   $Input = StringReplace($RawClip,@CR," ")
-   $Input = StringReplace($Input,@LF," ")
-   ClipPut($Input)
-   TrayTip("Processing:","ISO Korean Romanization",15)
-   ISO()
-   $Output = ClipGet()
-
-   _PasteEx()
-   If StringInStr($Output," ",0,4)=0 Then
-	  TrayTip($TT_Title3,@LF & $Input & @LF & " ↓ " & @LF & $Output,10)
-   Else
-	  TrayTip($TT_Title3,$TT_Text3,10)
-   EndIf
-EndFunc
-
-Func ISO()
-   $NClipB = " " & ClipGet()
-
-   $ClipB = StringStripWS($NClipB,1+2+4)
-   Sleep(50+20)
-   $Result=""
-   Local $aArray=StringSplit($ClipB," ")
-   For $i = 1 To Ubound($aArray, 1)-1
-	  ClipPut($aArray[$i])
-	  ISORom()
-	  $Result=$Result & " " & ClipGet()
-   Next
-   $Result1=StringStripWS($Result,1)
-   $Result2 = StringReplace($Result1,"  "," ")
-
-   ClipPut(StringStripWS($Result2,1+4))
-EndFunc
-
-Func ISORom()
-   $LEN = StringLen(StringStripWS(ClipGet(),1+2+4))
-   $TargetKor = ClipGet()
-   $TargetKorOrig = $TargetKor
-
-   $NonKor = 0
-   Local $aArray = StringToASCIIArray ($TargetKor)
-
-   Sleep (100)
-   For $i=0 to Ubound($aArray, 1)-1
-	  If Number($aArray[$i]) < 44032 Then
-		 $NonKor = $NonKor+1
-		 $TargetKor = StringTrimLeft($TargetKor,1)
-	  EndIf
-   Next
-   Sleep (100)
-   $Rom =""
-
-   Local $aArray = StringToASCIIArray ($TargetKor)
-
-   If StringLen($TargetKor) > 0 Then
-	  $ASCII1 = Number($aArray[0])-44032
-	  $Target = $ASCII1
-	  $Ini1 = "i" & FLOOR(Number($Target)/588)
-	  $Med1 = "m" & MOD(FLOOR(Number($Target)/28),21)
-	  $Fin1 = "f" & MOD(Number($Target),28)
-	  If StringLen($TargetKor) > 1 Then
-		 $ASCII2 = Number($aArray[1])-44032
-		 $Target = $ASCII2
-		 $Ini2 = "i" & FLOOR(Number($Target)/588)
-		 $Med2 = "m" & MOD(FLOOR(Number($Target)/28),21)
-		 $Fin2 = "f" & MOD(Number($Target),28)
-		 If StringLen($TargetKor) > 2 Then
-			$ASCII3 = Number($aArray[2])-44032
-			$Target = $ASCII3
-			$Ini3 = "i" & FLOOR(Number($Target)/588)
-			$Med3 = "m" & MOD(FLOOR(Number($Target)/28),21)
-			$Fin3 = "f" & MOD(Number($Target),28)
-			If StringLen($TargetKor) > 3 Then
-			   $ASCII4 = Number($aArray[3])-44032
-			   $Target = $ASCII4
-			   $Ini4 = "i" & FLOOR(Number($Target)/588)
-			   $Med4 = "m" & MOD(FLOOR(Number($Target)/28),21)
-			   $Fin4 = "f" & MOD(Number($Target),28)
-			   If StringLen($TargetKor) > 4 Then
-				  $ASCII5 = Number($aArray[4])-44032
-				  $Target = $ASCII5
-				  $Ini5 = "i" & FLOOR(Number($Target)/588)
-				  $Med5 = "m" & MOD(FLOOR(Number($Target)/28),21)
-				  $Fin5 = "f" & MOD(Number($Target),28)
-				  If StringLen($TargetKor) > 5 Then
-					 $ASCII6 = Number($aArray[5])-44032
-					 $Target = $ASCII6
-					 $Ini6 = "i" & FLOOR(Number($Target)/588)
-					 $Med6 = "m" & MOD(FLOOR(Number($Target)/28),21)
-					 $Fin6 = "f" & MOD(Number($Target),28)
-					 If StringLen($TargetKor) > 6 Then
-						$ASCII7 = Number($aArray[6])-44032
-						$Target = $ASCII7
-						$Ini7 = "i" & FLOOR(Number($Target)/588)
-						$Med7 = "m" & MOD(FLOOR(Number($Target)/28),21)
-						$Fin7 = "f" & MOD(Number($Target),28)
-						If StringLen($TargetKor) > 7 Then
-						   $ASCII8 = Number($aArray[7])-44032
-						   $Target = $ASCII8
-						   $Ini8 = "i" & FLOOR(Number($Target)/588)
-						   $Med8 = "m" & MOD(FLOOR(Number($Target)/28),21)
-						   $Fin8 = "f" & MOD(Number($Target),28)
-						   If StringLen($TargetKor) > 8 Then
-							  $ASCII9 = Number($aArray[8])-44032
-							  $Target = $ASCII9
-							  $Ini9 = "i" & FLOOR(Number($Target)/588)
-							  $Med9 = "m" & MOD(FLOOR(Number($Target)/28),21)
-							  $Fin9 = "f" & MOD(Number($Target),28)
-							  $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 &  "~" & $Ini7 & "#" & $Med7 & "#" & $Fin7  &  "~" & $Ini8 & "#" & $Med8 & "#" & $Fin8  &  "~" & $Ini9 & "#" & $Med9 & "#" & $Fin9 & "E"
-						   Else
-							  $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 &  "~" & $Ini7 & "#" & $Med7 & "#" & $Fin7  &  "~" & $Ini8 & "#" & $Med8 & "#" & $Fin8 & "E"
-						   EndIf
-						Else
-						   $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 &  "~" & $Ini7 & "#" & $Med7 & "#" & $Fin7 & "E"
-						EndIf
-					 Else
-						$Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 & "E"
-					 EndIf
-				  Else
-					 $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 & "E"
-				  EndIf
-			   Else
-				  $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "E"
-			   EndIf
-			Else
-			   $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "E"
-			EndIf
-		 Else
-			$Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "E"
-		 EndIf
-	  Else
-		 $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "E"
-	  EndIf
-   EndIf
-   $Result = $Rom
-; FKR134
-   Local $Rule[19][2] = [["i10","ss"],["i11",""],["i12","j"],["i13","jj"],["i14","c"],["i15","k"],["i16","t"],["i17","p"],["i18","h"],["i1","gg"],["i2","n"],["i3","d"],["i4","dd"],["i5","l"],["i6","m"],["i7","b"],["i8","bb"],["i9","s"],["i0","g"]]
-   For $i = 0 To Ubound($Rule, 1) - 1
-	  $Result = StringRegExpReplace($Result, "\Q" & $Rule[$i][0] & "\E",$Rule[$i][1])
-   Next
-; FKR135
-   Local $Rule[21][2] = [["m20","i"],["m10","wae"],["m11","oe"],["m12","yo"],["m13","u"],["m14","weo"],["m15","we"],["m16","wi"],["m17","yu"],["m18","eu"],["m19","yi"],["m0","a"],["m1","ae"],["m2","ya"],["m3","yae"],["m4","eo"],["m5","e"],["m6","yeo"],["m7","ye"],["m8","o"],["m9","wa"]]
-   For $i = 0 To Ubound($Rule, 1) - 1
-	  $Result = StringRegExpReplace($Result, "\Q" & $Rule[$i][0] & "\E",$Rule[$i][1])
-   Next
-; FKR136
-   Local $Rule[28][2] = [["f20","ss"],["f21","ng"],["f22","j"],["f23","c"],["f24","k"],["f25","t"],["f26","p"],["f27","h"],["f10","lm"],["f11","lb"],["f12","ls"],["f13","lt"],["f14","lp"],["f15","lh"],["f16","m"],["f17","b"],["f18","bs"],["f19","s"],["f0",""],["f1","g"],["f2","gg"],["f3","gs"],["f4","n"],["f5","nj"],["f6","nh"],["f7","d"],["f8","l"],["f9","lg"]]
-   For $i = 0 To Ubound($Rule, 1) - 1
-	  $Result = StringRegExpReplace($Result, "\Q" & $Rule[$i][0] & "\E",$Rule[$i][1])
-   Next
-   $Rom = $Result
-
-; FKR137
-   $Rom = StringReplace($Rom,"#","")
-   $Rom = StringReplace($Rom,"~","")
-   $Rom = StringReplace($Rom,"i-75m-17f-26E",".")
-   $Rom = StringReplace($Rom,"i-75m-17",",")
-   $Rom = StringReplace($Rom,",f-14E",":")
-   $Rom = StringReplace($Rom,"i-75m-18f-11E","!")
-   $Rom = StringReplace($Rom,",f-9E","?")
-   $Rom = StringReplace($Rom,"E","",-1,1)
-   If $NonKor > 0 Then
-	  $Rom = StringLeft($TargetKorOrig,$NonKor) & " " & $Rom
-   EndIf
-
-   ClipPut($Rom)
-EndFunc
+;Func ISORom()  ; Not used in SS
+;   $LEN = StringLen(StringStripWS(ClipGet(),1+2+4))
+;   $TargetKor = ClipGet()
+;   $TargetKorOrig = $TargetKor
+;
+;   $NonKor = 0
+;   Local $aArray = StringToASCIIArray ($TargetKor)
+;
+;   Sleep (100)
+;   For $i=0 to Ubound($aArray, 1)-1
+;	  If Number($aArray[$i]) < 44032 Then
+;		 $NonKor = $NonKor+1
+;		 $TargetKor = StringTrimLeft($TargetKor,1)
+;	  EndIf
+;   Next
+;   Sleep (100)
+;   $Rom =""
+;
+;   Local $aArray = StringToASCIIArray ($TargetKor)
+;
+;   If StringLen($TargetKor) > 0 Then
+;	  $ASCII1 = Number($aArray[0])-44032
+;	  $Target = $ASCII1
+;	  $Ini1 = "i" & FLOOR(Number($Target)/588)
+;	  $Med1 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;	  $Fin1 = "f" & MOD(Number($Target),28)
+;	  If StringLen($TargetKor) > 1 Then
+;		 $ASCII2 = Number($aArray[1])-44032
+;		 $Target = $ASCII2
+;		 $Ini2 = "i" & FLOOR(Number($Target)/588)
+;		 $Med2 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;		 $Fin2 = "f" & MOD(Number($Target),28)
+;		 If StringLen($TargetKor) > 2 Then
+;			$ASCII3 = Number($aArray[2])-44032
+;			$Target = $ASCII3
+;			$Ini3 = "i" & FLOOR(Number($Target)/588)
+;			$Med3 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;			$Fin3 = "f" & MOD(Number($Target),28)
+;			If StringLen($TargetKor) > 3 Then
+;			   $ASCII4 = Number($aArray[3])-44032
+;			   $Target = $ASCII4
+;			   $Ini4 = "i" & FLOOR(Number($Target)/588)
+;			   $Med4 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;			   $Fin4 = "f" & MOD(Number($Target),28)
+;			   If StringLen($TargetKor) > 4 Then
+;				  $ASCII5 = Number($aArray[4])-44032
+;				  $Target = $ASCII5
+;				  $Ini5 = "i" & FLOOR(Number($Target)/588)
+;				  $Med5 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;				  $Fin5 = "f" & MOD(Number($Target),28)
+;				  If StringLen($TargetKor) > 5 Then
+;					 $ASCII6 = Number($aArray[5])-44032
+;					 $Target = $ASCII6
+;					 $Ini6 = "i" & FLOOR(Number($Target)/588)
+;					 $Med6 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;					 $Fin6 = "f" & MOD(Number($Target),28)
+;					 If StringLen($TargetKor) > 6 Then
+;						$ASCII7 = Number($aArray[6])-44032
+;						$Target = $ASCII7
+;						$Ini7 = "i" & FLOOR(Number($Target)/588)
+;						$Med7 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;						$Fin7 = "f" & MOD(Number($Target),28)
+;						If StringLen($TargetKor) > 7 Then
+;						   $ASCII8 = Number($aArray[7])-44032
+;						   $Target = $ASCII8
+;						   $Ini8 = "i" & FLOOR(Number($Target)/588)
+;						   $Med8 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;						   $Fin8 = "f" & MOD(Number($Target),28)
+;						   If StringLen($TargetKor) > 8 Then
+;							  $ASCII9 = Number($aArray[8])-44032
+;							  $Target = $ASCII9
+;							  $Ini9 = "i" & FLOOR(Number($Target)/588)
+;							  $Med9 = "m" & MOD(FLOOR(Number($Target)/28),21)
+;							  $Fin9 = "f" & MOD(Number($Target),28)
+;							  $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 &  "~" & $Ini7 & "#" & $Med7 & "#" & $Fin7  &  "~" & $Ini8 & "#" & $Med8 & "#" & $Fin8  &  "~" & $Ini9 & "#" & $Med9 & "#" & $Fin9 & "E"
+;						   Else
+;							  $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 &  "~" & $Ini7 & "#" & $Med7 & "#" & $Fin7  &  "~" & $Ini8 & "#" & $Med8 & "#" & $Fin8 & "E"
+;						   EndIf
+;						Else
+;						   $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 &  "~" & $Ini7 & "#" & $Med7 & "#" & $Fin7 & "E"
+;						EndIf
+;					 Else
+;						$Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 &  "~" & $Ini6 & "#" & $Med6 & "#" & $Fin6 & "E"
+;					 EndIf
+;				  Else
+;					 $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "~" & $Ini5 & "#" & $Med5 & "#" & $Fin5 & "E"
+;				  EndIf
+;			   Else
+;				  $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "~" & $Ini4 & "#" & $Med4 & "#" & $Fin4 & "E"
+;			   EndIf
+;			Else
+;			   $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "~" & $Ini3 & "#" & $Med3 & "#" & $Fin3 & "E"
+;			EndIf
+;		 Else
+;			$Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "~" & $Ini2 & "#" & $Med2 & "#" & $Fin2 & "E"
+;		 EndIf
+;	  Else
+;		 $Rom = $Ini1 & "#" & $Med1 & "#" & $Fin1 & "E"
+;	  EndIf
+;   EndIf
+;   $Result = $Rom
+;; FKR134
+;   Local $Rule[19][2] = [["i10","ss"],["i11",""],["i12","j"],["i13","jj"],["i14","c"],["i15","k"],["i16","t"],["i17","p"],["i18","h"],["i1","gg"],["i2","n"],["i3","d"],["i4","dd"],["i5","l"],["i6","m"],["i7","b"],["i8","bb"],["i9","s"],["i0","g"]]
+;   For $i = 0 To Ubound($Rule, 1) - 1
+;	  $Result = StringRegExpReplace($Result, "\Q" & $Rule[$i][0] & "\E",$Rule[$i][1])
+;   Next
+;; FKR135
+;   Local $Rule[21][2] = [["m20","i"],["m10","wae"],["m11","oe"],["m12","yo"],["m13","u"],["m14","weo"],["m15","we"],["m16","wi"],["m17","yu"],["m18","eu"],["m19","yi"],["m0","a"],["m1","ae"],["m2","ya"],["m3","yae"],["m4","eo"],["m5","e"],["m6","yeo"],["m7","ye"],["m8","o"],["m9","wa"]]
+;   For $i = 0 To Ubound($Rule, 1) - 1
+;	  $Result = StringRegExpReplace($Result, "\Q" & $Rule[$i][0] & "\E",$Rule[$i][1])
+;   Next
+;; FKR136
+;   Local $Rule[28][2] = [["f20","ss"],["f21","ng"],["f22","j"],["f23","c"],["f24","k"],["f25","t"],["f26","p"],["f27","h"],["f10","lm"],["f11","lb"],["f12","ls"],["f13","lt"],["f14","lp"],["f15","lh"],["f16","m"],["f17","b"],["f18","bs"],["f19","s"],["f0",""],["f1","g"],["f2","gg"],["f3","gs"],["f4","n"],["f5","nj"],["f6","nh"],["f7","d"],["f8","l"],["f9","lg"]]
+;   For $i = 0 To Ubound($Rule, 1) - 1
+;	  $Result = StringRegExpReplace($Result, "\Q" & $Rule[$i][0] & "\E",$Rule[$i][1])
+;   Next
+;   $Rom = $Result
+;
+;; FKR137
+;   $Rom = StringReplace($Rom,"#","")
+;   $Rom = StringReplace($Rom,"~","")
+;   $Rom = StringReplace($Rom,"i-75m-17f-26E",".")
+;   $Rom = StringReplace($Rom,"i-75m-17",",")
+;   $Rom = StringReplace($Rom,",f-14E",":")
+;   $Rom = StringReplace($Rom,"i-75m-18f-11E","!")
+;   $Rom = StringReplace($Rom,",f-9E","?")
+;   $Rom = StringReplace($Rom,"E","",-1,1)
+;   If $NonKor > 0 Then
+;	  $Rom = StringLeft($TargetKorOrig,$NonKor) & " " & $Rom
+;   EndIf
+;
+;   ClipPut($Rom)
+;EndFunc
 
 ; FKR138
 
-Func HanchaTemp()
-   $Ambig = "No"
-   $AmbigExp = ""
-   _SendEx("{CTRLDOWN}c{CTRLUP}")
-   $OrigHancha = ClipGet()
-   Sleep(50+50)
-   MARC8Hancha()
-   Sleep(50+50)
-   $Hancha =ClipGet()
-   Sleep(50+50)
-   Hancha2Hangul()
-   Sleep(50+50)
-   $Result = StringStripWS(ClipGet(),$STR_STRIPLEADING + $STR_STRIPTRAILING + $STR_STRIPSPACES)
-   Sleep(50+50)
-   ClipPut($Result)
-   Sleep(50+50)
-   If $HanchaDisplay="On" Then
-	  $HanchaHangul=$Hancha & " (" & $Result & ")"
-	  ClipPut($HanchaHangul)
-   EndIf
-   _SendEx("{CTRLDOWN}v{CTRLUP}")
-
-   ;FKR139
-   $2Reading = " may read as "
-   $3Reading = " may read as "
-   ;FKR140
-   If StringInStr($Hancha,"樂")>0 OR StringInStr($Hancha,"樂")>0 OR StringInStr($Hancha,"樂")>0 OR StringInStr($Hancha,"樂")>0 Then
-  	  $Ambig = "Yes"
-	  $AmbigExp = $AmbigExp & @LF & "樂" & $3Reading & "악 / 락 / 요" & @LF
-   EndIf
-
-   ;FKR141
-If StringInStr($Hancha,"契")>0 OR StringInStr($Hancha,"契")>0 OR StringInStr($Hancha,"契")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "契" & $3Reading &"계 / 글 / 설" & @LF
-EndIf
-If StringInStr($Hancha,"寧")>0 OR StringInStr($Hancha,"寧")>0 OR StringInStr($Hancha,"寧")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "寧" & $3Reading &"녕 / 령 / 영" & @LF
-EndIf
-If StringInStr($Hancha,"率")>0 OR StringInStr($Hancha,"率")>0 OR StringInStr($Hancha,"率")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "率" & $3Reading &"솔 / 률 / 율" & @LF
-EndIf
-If StringInStr($Hancha,"說")>0 OR StringInStr($Hancha,"說")>0 OR StringInStr($Hancha,"說")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "說" & $3Reading &"설 / 세 / 열" & @LF
-EndIf
-If StringInStr($Hancha,"龜")>0 OR StringInStr($Hancha,"龜")>0 OR StringInStr($Hancha,"龜")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "龜" & $3Reading &"구 / 귀 / 균" & @LF
-EndIf
-If StringInStr($Hancha,"則")>0 OR StringInStr($Hancha,"則")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "則" & $2Reading &"칙 / 즉" & @LF
-EndIf
-If StringInStr($Hancha,"豈")>0 OR StringInStr($Hancha,"豈")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "豈" & $2Reading &"기 / 개" & @LF
-EndIf
-If StringInStr($Hancha,"更")>0 OR StringInStr($Hancha,"更")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "更" & $2Reading &"경 / 갱" & @LF
-EndIf
-If StringInStr($Hancha,"車")>0 OR StringInStr($Hancha,"車")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "車" & $2Reading &"차 / 거" & @LF
-EndIf
-If StringInStr($Hancha,"賈")>0 OR StringInStr($Hancha,"賈")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "賈" & $2Reading &"가 / 고" & @LF
-EndIf
-If StringInStr($Hancha,"滑")>0 OR StringInStr($Hancha,"滑")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "滑" & $2Reading &"활 / 골" & @LF
-EndIf
-If StringInStr($Hancha,"串")>0 OR StringInStr($Hancha,"串")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "串" & $2Reading &"곶 / 관" & @LF
-EndIf
-If StringInStr($Hancha,"句")>0 OR StringInStr($Hancha,"句")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "句" & $2Reading &"구 / 귀" & @LF
-EndIf
-If StringInStr($Hancha,"金")>0 OR StringInStr($Hancha,"金")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "金" & $2Reading &"김 / 금" & @LF
-EndIf
-If StringInStr($Hancha,"奈")>0 OR StringInStr($Hancha,"奈")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "奈" & $2Reading &"내 / 나" & @LF
-EndIf
-If StringInStr($Hancha,"讀")>0 OR StringInStr($Hancha,"讀")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "讀" & $2Reading &"독 / 두" & @LF
-EndIf
-If StringInStr($Hancha,"丹")>0 OR StringInStr($Hancha,"丹")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "丹" & $2Reading &"단 / 란" & @LF
-EndIf
-If StringInStr($Hancha,"怒")>0 OR StringInStr($Hancha,"怒")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "怒" & $2Reading &"노 / 로" & @LF
-EndIf
-If StringInStr($Hancha,"北")>0 OR StringInStr($Hancha,"北")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "北" & $2Reading &"북 / 배" & @LF
-EndIf
-If StringInStr($Hancha,"磻")>0 OR StringInStr($Hancha,"磻")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "磻" & $2Reading &"반 / 번" & @LF
-EndIf
-If StringInStr($Hancha,"便")>0 OR StringInStr($Hancha,"便")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "便" & $2Reading &"편 / 변" & @LF
-EndIf
-If StringInStr($Hancha,"復")>0 OR StringInStr($Hancha,"復")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "復" & $2Reading &"복 / 부" & @LF
-EndIf
-;~ If StringInStr($Hancha,"不")>0 OR StringInStr($Hancha,"不")>0 Then
-;~ $Ambig = "Yes"
-;~ $AmbigExp = $AmbigExp & @LF & "不" & $2Reading &"부 / 불" & @LF
-;~ EndIf
-If StringInStr($Hancha,"泌")>0 OR StringInStr($Hancha,"泌")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "泌" & $2Reading &"필 / 비" & @LF
-EndIf
-;~ If StringInStr($Hancha,"數")>0 OR StringInStr($Hancha,"數")>0 Then
-;~ $Ambig = "Yes"
-;~ $AmbigExp = $AmbigExp & @LF & "數" & $2Reading &"수 / 삭" & @LF
-;~ EndIf
-If StringInStr($Hancha,"參")>0 OR StringInStr($Hancha,"參")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "參" & $2Reading &"참 / 삼" & @LF
-EndIf
-If StringInStr($Hancha,"塞")>0 OR StringInStr($Hancha,"塞")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "塞" & $2Reading &"새 / 색" & @LF
-EndIf
-If StringInStr($Hancha,"省")>0 OR StringInStr($Hancha,"省")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "省" & $2Reading &"성 / 생" & @LF
-EndIf
-If StringInStr($Hancha,"葉")>0 OR StringInStr($Hancha,"葉")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "葉" & $2Reading &"엽 / 섭" & @LF
-EndIf
-If StringInStr($Hancha,"殺")>0 OR StringInStr($Hancha,"殺")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "殺" & $2Reading &"살 / 쇄" & @LF
-EndIf
-If StringInStr($Hancha,"辰")>0 OR StringInStr($Hancha,"辰")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "辰" & $2Reading &"진 / 신" & @LF
-EndIf
-If StringInStr($Hancha,"沈")>0 OR StringInStr($Hancha,"沈")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "沈" & $2Reading &"침 / 심" & @LF
-EndIf
-If StringInStr($Hancha,"拾")>0 OR StringInStr($Hancha,"拾")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "拾" & $2Reading &"습 / 십" & @LF
-EndIf
-If StringInStr($Hancha,"咽")>0 OR StringInStr($Hancha,"咽")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "咽" & $2Reading &"인 / 열" & @LF
-EndIf
-If StringInStr($Hancha,"瑩")>0 OR StringInStr($Hancha,"瑩")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "瑩" & $2Reading &"형 / 영" & @LF
-EndIf
-If StringInStr($Hancha,"惡")>0 OR StringInStr($Hancha,"惡")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "惡" & $2Reading &"악 / 오" & @LF
-EndIf
-If StringInStr($Hancha,"暈")>0 OR StringInStr($Hancha,"暈")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "暈" & $2Reading &"훈 / 운" & @LF
-EndIf
-If StringInStr($Hancha,"阮")>0 OR StringInStr($Hancha,"阮")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "阮" & $2Reading &"완 / 원" & @LF
-EndIf
-If StringInStr($Hancha,"易")>0 OR StringInStr($Hancha,"易")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "易" & $2Reading &"역 / 이" & @LF
-EndIf
-If StringInStr($Hancha,"狀")>0 OR StringInStr($Hancha,"狀")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "狀" & $2Reading &"상 / 장" & @LF
-EndIf
-If StringInStr($Hancha,"炙")>0 OR StringInStr($Hancha,"炙")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "炙" & $2Reading &"자 / 적" & @LF
-EndIf
-If StringInStr($Hancha,"識")>0 OR StringInStr($Hancha,"識")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "識" & $2Reading &"식 / 지" & @LF
-EndIf
-If StringInStr($Hancha,"什")>0 OR StringInStr($Hancha,"什")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "什" & $2Reading &"십 / 집" & @LF
-EndIf
-If StringInStr($Hancha,"茶")>0 OR StringInStr($Hancha,"茶")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "茶" & $2Reading &"다 / 차" & @LF
-EndIf
-If StringInStr($Hancha,"切")>0 OR StringInStr($Hancha,"切")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "切" & $2Reading &"절 / 체" & @LF
-EndIf
-If StringInStr($Hancha,"度")>0 OR StringInStr($Hancha,"度")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "度" & $2Reading &"도 / 탁" & @LF
-EndIf
-If StringInStr($Hancha,"拓")>0 OR StringInStr($Hancha,"拓")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "拓" & $2Reading &"척 / 탁" & @LF
-EndIf
-If StringInStr($Hancha,"糖")>0 OR StringInStr($Hancha,"糖")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "糖" & $2Reading &"당 / 탕" & @LF
-EndIf
-If StringInStr($Hancha,"宅")>0 OR StringInStr($Hancha,"宅")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "宅" & $2Reading &"댁 / 택" & @LF
-EndIf
-If StringInStr($Hancha,"洞")>0 OR StringInStr($Hancha,"洞")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "洞" & $2Reading &"동 / 통" & @LF
-EndIf
-If StringInStr($Hancha,"暴")>0 OR StringInStr($Hancha,"暴")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "暴" & $2Reading &"폭 / 포" & @LF
-EndIf
-If StringInStr($Hancha,"輻")>0 OR StringInStr($Hancha,"輻")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "輻" & $2Reading &"복 / 폭" & @LF
-EndIf
-If StringInStr($Hancha,"行")>0 OR StringInStr($Hancha,"行")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "行" & $2Reading &"행 / 항" & @LF
-EndIf
-If StringInStr($Hancha,"降")>0 OR StringInStr($Hancha,"降")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "降" & $2Reading &"강 / 항" & @LF
-EndIf
-If StringInStr($Hancha,"見")>0 OR StringInStr($Hancha,"見")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "見" & $2Reading &"견 / 현" & @LF
-EndIf
-If StringInStr($Hancha,"廓")>0 OR StringInStr($Hancha,"廓")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "廓" & $2Reading &"곽 / 확" & @LF
-EndIf
-If StringInStr($Hancha,"諸")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "諸" & $2Reading &"제 / 저" & @LF
-EndIf
-If StringInStr($Hancha,"羨")>0 OR StringInStr($Hancha,"羡")>0 Then
-$Ambig = "Yes"
-$AmbigExp = $AmbigExp & @LF & "羨" & $2Reading &"선 / 연" & @LF
-EndIf
-
-   If $Ambig="Yes" AND $TrayTip = "ON" Then
-	  If StringLen($AmbigExp)>255 Then
-		 TrayTip("CONSIDER",StringLeft($AmbigExp,234)&@LF&@LF&"TOO MANY TO DISPLAY",30,2)
-	  Else
-		 TrayTip("CONSIDER",$AmbigExp,30,2)
-	  EndIf
-   EndIf
-EndFunc
+;Func HanchaTemp()  ; Not used in SS
+;   $Ambig = "No"
+;   $AmbigExp = ""
+;   _SendEx("{CTRLDOWN}c{CTRLUP}")
+;   $OrigHancha = ClipGet()
+;   Sleep(50+50)
+;   MARC8Hancha()
+;   Sleep(50+50)
+;   $Hancha =ClipGet()
+;   Sleep(50+50)
+;   Hancha2Hangul()
+;   Sleep(50+50)
+;   $Result = StringStripWS(ClipGet(),$STR_STRIPLEADING + $STR_STRIPTRAILING + $STR_STRIPSPACES)
+;   Sleep(50+50)
+;   ClipPut($Result)
+;   Sleep(50+50)
+;   If $HanchaDisplay="On" Then
+;	  $HanchaHangul=$Hancha & " (" & $Result & ")"
+;	  ClipPut($HanchaHangul)
+;   EndIf
+;   _SendEx("{CTRLDOWN}v{CTRLUP}")
+;
+;   ;FKR139
+;   $2Reading = " may read as "
+;   $3Reading = " may read as "
+;   ;FKR140
+;   If StringInStr($Hancha,"樂")>0 OR StringInStr($Hancha,"樂")>0 OR StringInStr($Hancha,"樂")>0 OR StringInStr($Hancha,"樂")>0 Then
+;  	  $Ambig = "Yes"
+;	  $AmbigExp = $AmbigExp & @LF & "樂" & $3Reading & "악 / 락 / 요" & @LF
+;   EndIf
+;
+;   ;FKR141
+;If StringInStr($Hancha,"契")>0 OR StringInStr($Hancha,"契")>0 OR StringInStr($Hancha,"契")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "契" & $3Reading &"계 / 글 / 설" & @LF
+;EndIf
+;If StringInStr($Hancha,"寧")>0 OR StringInStr($Hancha,"寧")>0 OR StringInStr($Hancha,"寧")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "寧" & $3Reading &"녕 / 령 / 영" & @LF
+;EndIf
+;If StringInStr($Hancha,"率")>0 OR StringInStr($Hancha,"率")>0 OR StringInStr($Hancha,"率")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "率" & $3Reading &"솔 / 률 / 율" & @LF
+;EndIf
+;If StringInStr($Hancha,"說")>0 OR StringInStr($Hancha,"說")>0 OR StringInStr($Hancha,"說")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "說" & $3Reading &"설 / 세 / 열" & @LF
+;EndIf
+;If StringInStr($Hancha,"龜")>0 OR StringInStr($Hancha,"龜")>0 OR StringInStr($Hancha,"龜")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "龜" & $3Reading &"구 / 귀 / 균" & @LF
+;EndIf
+;If StringInStr($Hancha,"則")>0 OR StringInStr($Hancha,"則")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "則" & $2Reading &"칙 / 즉" & @LF
+;EndIf
+;If StringInStr($Hancha,"豈")>0 OR StringInStr($Hancha,"豈")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "豈" & $2Reading &"기 / 개" & @LF
+;EndIf
+;If StringInStr($Hancha,"更")>0 OR StringInStr($Hancha,"更")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "更" & $2Reading &"경 / 갱" & @LF
+;EndIf
+;If StringInStr($Hancha,"車")>0 OR StringInStr($Hancha,"車")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "車" & $2Reading &"차 / 거" & @LF
+;EndIf
+;If StringInStr($Hancha,"賈")>0 OR StringInStr($Hancha,"賈")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "賈" & $2Reading &"가 / 고" & @LF
+;EndIf
+;If StringInStr($Hancha,"滑")>0 OR StringInStr($Hancha,"滑")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "滑" & $2Reading &"활 / 골" & @LF
+;EndIf
+;If StringInStr($Hancha,"串")>0 OR StringInStr($Hancha,"串")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "串" & $2Reading &"곶 / 관" & @LF
+;EndIf
+;If StringInStr($Hancha,"句")>0 OR StringInStr($Hancha,"句")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "句" & $2Reading &"구 / 귀" & @LF
+;EndIf
+;If StringInStr($Hancha,"金")>0 OR StringInStr($Hancha,"金")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "金" & $2Reading &"김 / 금" & @LF
+;EndIf
+;If StringInStr($Hancha,"奈")>0 OR StringInStr($Hancha,"奈")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "奈" & $2Reading &"내 / 나" & @LF
+;EndIf
+;If StringInStr($Hancha,"讀")>0 OR StringInStr($Hancha,"讀")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "讀" & $2Reading &"독 / 두" & @LF
+;EndIf
+;If StringInStr($Hancha,"丹")>0 OR StringInStr($Hancha,"丹")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "丹" & $2Reading &"단 / 란" & @LF
+;EndIf
+;If StringInStr($Hancha,"怒")>0 OR StringInStr($Hancha,"怒")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "怒" & $2Reading &"노 / 로" & @LF
+;EndIf
+;If StringInStr($Hancha,"北")>0 OR StringInStr($Hancha,"北")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "北" & $2Reading &"북 / 배" & @LF
+;EndIf
+;If StringInStr($Hancha,"磻")>0 OR StringInStr($Hancha,"磻")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "磻" & $2Reading &"반 / 번" & @LF
+;EndIf
+;If StringInStr($Hancha,"便")>0 OR StringInStr($Hancha,"便")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "便" & $2Reading &"편 / 변" & @LF
+;EndIf
+;If StringInStr($Hancha,"復")>0 OR StringInStr($Hancha,"復")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "復" & $2Reading &"복 / 부" & @LF
+;EndIf
+;;~ If StringInStr($Hancha,"不")>0 OR StringInStr($Hancha,"不")>0 Then
+;;~ $Ambig = "Yes"
+;;~ $AmbigExp = $AmbigExp & @LF & "不" & $2Reading &"부 / 불" & @LF
+;;~ EndIf
+;If StringInStr($Hancha,"泌")>0 OR StringInStr($Hancha,"泌")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "泌" & $2Reading &"필 / 비" & @LF
+;EndIf
+;;~ If StringInStr($Hancha,"數")>0 OR StringInStr($Hancha,"數")>0 Then
+;;~ $Ambig = "Yes"
+;;~ $AmbigExp = $AmbigExp & @LF & "數" & $2Reading &"수 / 삭" & @LF
+;;~ EndIf
+;If StringInStr($Hancha,"參")>0 OR StringInStr($Hancha,"參")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "參" & $2Reading &"참 / 삼" & @LF
+;EndIf
+;If StringInStr($Hancha,"塞")>0 OR StringInStr($Hancha,"塞")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "塞" & $2Reading &"새 / 색" & @LF
+;EndIf
+;If StringInStr($Hancha,"省")>0 OR StringInStr($Hancha,"省")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "省" & $2Reading &"성 / 생" & @LF
+;EndIf
+;If StringInStr($Hancha,"葉")>0 OR StringInStr($Hancha,"葉")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "葉" & $2Reading &"엽 / 섭" & @LF
+;EndIf
+;If StringInStr($Hancha,"殺")>0 OR StringInStr($Hancha,"殺")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "殺" & $2Reading &"살 / 쇄" & @LF
+;EndIf
+;If StringInStr($Hancha,"辰")>0 OR StringInStr($Hancha,"辰")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "辰" & $2Reading &"진 / 신" & @LF
+;EndIf
+;If StringInStr($Hancha,"沈")>0 OR StringInStr($Hancha,"沈")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "沈" & $2Reading &"침 / 심" & @LF
+;EndIf
+;If StringInStr($Hancha,"拾")>0 OR StringInStr($Hancha,"拾")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "拾" & $2Reading &"습 / 십" & @LF
+;EndIf
+;If StringInStr($Hancha,"咽")>0 OR StringInStr($Hancha,"咽")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "咽" & $2Reading &"인 / 열" & @LF
+;EndIf
+;If StringInStr($Hancha,"瑩")>0 OR StringInStr($Hancha,"瑩")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "瑩" & $2Reading &"형 / 영" & @LF
+;EndIf
+;If StringInStr($Hancha,"惡")>0 OR StringInStr($Hancha,"惡")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "惡" & $2Reading &"악 / 오" & @LF
+;EndIf
+;If StringInStr($Hancha,"暈")>0 OR StringInStr($Hancha,"暈")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "暈" & $2Reading &"훈 / 운" & @LF
+;EndIf
+;If StringInStr($Hancha,"阮")>0 OR StringInStr($Hancha,"阮")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "阮" & $2Reading &"완 / 원" & @LF
+;EndIf
+;If StringInStr($Hancha,"易")>0 OR StringInStr($Hancha,"易")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "易" & $2Reading &"역 / 이" & @LF
+;EndIf
+;If StringInStr($Hancha,"狀")>0 OR StringInStr($Hancha,"狀")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "狀" & $2Reading &"상 / 장" & @LF
+;EndIf
+;If StringInStr($Hancha,"炙")>0 OR StringInStr($Hancha,"炙")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "炙" & $2Reading &"자 / 적" & @LF
+;EndIf
+;If StringInStr($Hancha,"識")>0 OR StringInStr($Hancha,"識")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "識" & $2Reading &"식 / 지" & @LF
+;EndIf
+;If StringInStr($Hancha,"什")>0 OR StringInStr($Hancha,"什")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "什" & $2Reading &"십 / 집" & @LF
+;EndIf
+;If StringInStr($Hancha,"茶")>0 OR StringInStr($Hancha,"茶")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "茶" & $2Reading &"다 / 차" & @LF
+;EndIf
+;If StringInStr($Hancha,"切")>0 OR StringInStr($Hancha,"切")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "切" & $2Reading &"절 / 체" & @LF
+;EndIf
+;If StringInStr($Hancha,"度")>0 OR StringInStr($Hancha,"度")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "度" & $2Reading &"도 / 탁" & @LF
+;EndIf
+;If StringInStr($Hancha,"拓")>0 OR StringInStr($Hancha,"拓")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "拓" & $2Reading &"척 / 탁" & @LF
+;EndIf
+;If StringInStr($Hancha,"糖")>0 OR StringInStr($Hancha,"糖")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "糖" & $2Reading &"당 / 탕" & @LF
+;EndIf
+;If StringInStr($Hancha,"宅")>0 OR StringInStr($Hancha,"宅")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "宅" & $2Reading &"댁 / 택" & @LF
+;EndIf
+;If StringInStr($Hancha,"洞")>0 OR StringInStr($Hancha,"洞")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "洞" & $2Reading &"동 / 통" & @LF
+;EndIf
+;If StringInStr($Hancha,"暴")>0 OR StringInStr($Hancha,"暴")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "暴" & $2Reading &"폭 / 포" & @LF
+;EndIf
+;If StringInStr($Hancha,"輻")>0 OR StringInStr($Hancha,"輻")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "輻" & $2Reading &"복 / 폭" & @LF
+;EndIf
+;If StringInStr($Hancha,"行")>0 OR StringInStr($Hancha,"行")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "行" & $2Reading &"행 / 항" & @LF
+;EndIf
+;If StringInStr($Hancha,"降")>0 OR StringInStr($Hancha,"降")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "降" & $2Reading &"강 / 항" & @LF
+;EndIf
+;If StringInStr($Hancha,"見")>0 OR StringInStr($Hancha,"見")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "見" & $2Reading &"견 / 현" & @LF
+;EndIf
+;If StringInStr($Hancha,"廓")>0 OR StringInStr($Hancha,"廓")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "廓" & $2Reading &"곽 / 확" & @LF
+;EndIf
+;If StringInStr($Hancha,"諸")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "諸" & $2Reading &"제 / 저" & @LF
+;EndIf
+;If StringInStr($Hancha,"羨")>0 OR StringInStr($Hancha,"羡")>0 Then
+;$Ambig = "Yes"
+;$AmbigExp = $AmbigExp & @LF & "羨" & $2Reading &"선 / 연" & @LF
+;EndIf
+;
+;   If $Ambig="Yes" AND $TrayTip = "ON" Then
+;	  If StringLen($AmbigExp)>255 Then
+;		 TrayTip("CONSIDER",StringLeft($AmbigExp,234)&@LF&@LF&"TOO MANY TO DISPLAY",30,2)
+;	  Else
+;		 TrayTip("CONSIDER",$AmbigExp,30,2)
+;	  EndIf
+;   EndIf
+;EndFunc
 
 ;===============================================================================
 ; _UnicodeURLEncode()
@@ -2543,21 +2543,21 @@ EndFunc
 ; Author(s): : Dhilip89
 ;===============================================================================
 
-Func _UnicodeURLEncode($UnicodeURL)
-    $UnicodeBinary = StringToBinary ($UnicodeURL, 4)
-    $UnicodeBinary2 = StringReplace($UnicodeBinary, '0x', '', 1)
-    $UnicodeBinaryLength = StringLen($UnicodeBinary2)
-    Local $EncodedString
-    For $i = 1 To $UnicodeBinaryLength Step 2
-        $UnicodeBinaryChar = StringMid($UnicodeBinary2, $i, 2)
-        If StringInStr("$-_.+!*'(),;/?:@=&abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", BinaryToString ('0x' & $UnicodeBinaryChar, 4)) Then
-            $EncodedString &= BinaryToString ('0x' & $UnicodeBinaryChar)
-        Else
-            $EncodedString &= '%' & $UnicodeBinaryChar
-        EndIf
-    Next
-    Return $EncodedString
-EndFunc   ;==>_UnicodeURLEncode
+;Func _UnicodeURLEncode($UnicodeURL)  ; Not used in SS
+;    $UnicodeBinary = StringToBinary ($UnicodeURL, 4)
+;    $UnicodeBinary2 = StringReplace($UnicodeBinary, '0x', '', 1)
+;    $UnicodeBinaryLength = StringLen($UnicodeBinary2)
+;    Local $EncodedString
+;    For $i = 1 To $UnicodeBinaryLength Step 2
+;        $UnicodeBinaryChar = StringMid($UnicodeBinary2, $i, 2)
+;        If StringInStr("$-_.+!*'(),;/?:@=&abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", BinaryToString ('0x' & $UnicodeBinaryChar, 4)) Then
+;            $EncodedString &= BinaryToString ('0x' & $UnicodeBinaryChar)
+;        Else
+;            $EncodedString &= '%' & $UnicodeBinaryChar
+;        EndIf
+;    Next
+;    Return $EncodedString
+;EndFunc   ;==>_UnicodeURLEncode
 
 ;===============================================================================
 ; _UnicodeURLDecode()
@@ -2567,21 +2567,21 @@ EndFunc   ;==>_UnicodeURLEncode
 ; Author(s): : nfwu, Dhilip89
 ; Note(s): : Modified from _URLDecode() that's only support non-unicode.
 ;===============================================================================
-Func _UnicodeURLDecode($toDecode)
-    Local $strChar = "", $iOne, $iTwo
-    Local $aryHex = StringSplit($toDecode, "")
-    For $i = 1 To $aryHex[0]
-        If $aryHex[$i] = "%" Then
-            $i = $i + 1
-            $iOne = $aryHex[$i]
-            $i = $i + 1
-            $iTwo = $aryHex[$i]
-            $strChar = $strChar & Chr(Dec($iOne & $iTwo))
-        Else
-            $strChar = $strChar & $aryHex[$i]
-        EndIf
-    Next
-    $Process = StringToBinary (StringReplace($strChar, "+", " "))
-    $DecodedString = BinaryToString ($Process, 4)
-    Return $DecodedString
- EndFunc   ;==>_UnicodeURLDecode
+;Func _UnicodeURLDecode($toDecode)  ; Not used in SS
+;    Local $strChar = "", $iOne, $iTwo
+;    Local $aryHex = StringSplit($toDecode, "")
+;    For $i = 1 To $aryHex[0]
+;        If $aryHex[$i] = "%" Then
+;            $i = $i + 1
+;            $iOne = $aryHex[$i]
+;            $i = $i + 1
+;            $iTwo = $aryHex[$i]
+;            $strChar = $strChar & Chr(Dec($iOne & $iTwo))
+;        Else
+;            $strChar = $strChar & $aryHex[$i]
+;        EndIf
+;    Next
+;    $Process = StringToBinary (StringReplace($strChar, "+", " "))
+;    $DecodedString = BinaryToString ($Process, 4)
+;    Return $DecodedString
+; EndFunc   ;==>_UnicodeURLDecode
