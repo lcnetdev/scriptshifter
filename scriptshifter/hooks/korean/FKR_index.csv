@@ -109,7 +109,7 @@
 ,FKR108,예외 자음군 표기 'ㄴㄱ'= n'g,Exception for 'ㄴㄱ'= n'g
 ,FKR109,나머지 변환,Conver everything else
 ,FKR110,기호 변환,Convert symbols
-,FKR111,"ㄹ + 모음/ㅎ/ㄹ, [""lr"",""ll""] 는 반드시 맨 끝에 둘 것","ㄹ + 모음/ㅎ/ㄹ, [""lr"",""ll""] 는 반드시 맨 끝에 둘 것"
+,FKR111,"ㄹ + 모음/ㅎ/ㄹ, [""lr"",""ll""] 는 반드시 맨 끝에 둘 것","ㄹ + 모음/ㅎ/ㄹ, [""lr"",""ll""] must be in the last of the array"
 ,FKR112,두음법칙 예외,Exceptions to initial sound law
 ,FKR113,첫 글자로 외래어 판정,Check loan words by the first 1 letter
 ,FKR114,두 글자로 외래어 판정,Check loan words by the first 2 letters

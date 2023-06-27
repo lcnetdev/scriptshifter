@@ -51,7 +51,7 @@ def s2r_names_post_config(ctx):
     return BREAK
 
 
-def _romanize_nonames(src, hancha=False):
+def _romanize_nonames(src, capitalize=False, hancha=False):
     # FKR038
     if hancha:
         src = _hancha2hangul(_marc8_hancha(src))
@@ -72,20 +72,17 @@ def _romanize_nonames(src, hancha=False):
     data = _romanize_oclc_auto(data)
 
     # FKR042
-    if capitalize = "all":
+    if capitalize == "all":
         data = data.title()
     # FKR043
-    elif capitalize = "first":
+    elif capitalize == "first":
         data = data.capitalize()
 
     # FKR044
     ambi = re.sub("[,.\";: ]+", " ", data)
 
-    # TODO See https://github.com/lcnetdev/scriptshifter/issues/20
-    no_oclc_breve = False
-
-    if no_oclc_breve:
-        data = _replace_map(data, {"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
+    # @TODO Move this to a generic normalization step (not only for K)
+    data = _replace_map(data, {"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
 
     # TODO Decide what to do with these. There is no facility for outputting
     # warnings or notes to the user yet.
@@ -94,12 +91,11 @@ def _romanize_nonames(src, hancha=False):
         if exp in ambi:
             warnings.append(ambi if warn == "" else warn)
 
-
     return data, warnings
 
 
 def _romanize_names(src):
-    return "Nothing Here Yet."
+    return "Nothing Here Yet.", {}
 
 
 def _romanize_oclc_auto(data):
@@ -108,13 +104,8 @@ def _romanize_oclc_auto(data):
         logger.debug(f"Applying fkr050[{rname}]")
         data = _replace_map(data, rule)
 
-    # NOTE: Is this memant to replace " 제" followed by a digit with " 제 "?
-    # This may not yield the expected results as it could replace all
-    # occurrences of " 제" as long as there is a match somewhere in the text.
-    if re.match(" 제[0-9]", data):
-        data = data.replace(" 제", " 제 ")
-    # NOTE: Maybe this was meant:
-    # data = re.sub(" 제([0-9])", "제 \\1", data):
+    # See https://github.com/lcnetdev/scriptshifter/issues/19
+    data = re.sub("제([0-9])", "제 \\1", data)
 
     # FKR052
     for rname, rule in KCONF["fkr052"].items():
@@ -216,7 +207,7 @@ def _kor_rom(data):
         rom = _replace_map(rom, KCONF[f"fkr{fkr_i:03}"])
 
     # FKR109
-    for pos, data in KCONF["fkr109"]
+    for pos, data in KCONF["fkr109"]:
         logger.debug(f"Applying FKR109[{pos}]")
         rom = _replace_map(rom, data)
 
@@ -251,13 +242,12 @@ def _kor_rom(data):
             orig in KCONF["fkr118"] or
             # FKR119
             orig in KCONF["fkr119"] or
-            orig.endswith(tuple(KCONF["fkr119_suffix"])):
+            orig.endswith(tuple(KCONF["fkr119_suffix"])) or
             # FKR120
-            orig.endswith(tuple(KCONF["fkr120"])):
+            orig.endswith(tuple(KCONF["fkr120"]))):
         rom = rom.capitalize()
 
     # FKR121
-    # TODO Check global $ConvertR2L assigned in L17 and tested in L1849.
     if f" {orig} " in KCONF["fkr121"]:
         if rom.startswith("r"):
             rom = "l" + rom[1:]
@@ -308,9 +298,9 @@ def _hancha2hangul(data):
     return re.sub("\\W{2,}", " ", data.strip())
 
 
-def _replace_map(src, rmap):
+def _replace_map(src, rmap, *args, **kw):
     """ Replace occurrences in a string according to a map. """
-    for k, v in rmap:
-        src = src.replace(k, v)
+    for k, v in rmap.items():
+        src = src.replace(k, v, *args, **kw)
 
     return src
