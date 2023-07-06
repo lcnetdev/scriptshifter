@@ -75,6 +75,7 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     # langsec_dir = langsec.get("directives", {})
     langsec_hooks = langsec.get("hooks", {})
 
+    src = src.strip()
     ctx = Context(src, general, langsec)
 
     # This hook may take over the whole transliteration process or delegate it

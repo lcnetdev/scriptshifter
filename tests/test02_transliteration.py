@@ -23,6 +23,8 @@ class TestTrans(TestCase):
     languages.
     """
 
+    maxDiff = None
+
     def sample_s2r(self):
         """
         Test S2R transliteration for one CSV sample.
@@ -61,6 +63,7 @@ def make_suite():
     reload_tables()
 
     suite = TestSuite()
+
     with open(
             path.join(TEST_DATA_DIR, "sample_strings.csv"),
             newline="") as fh:
@@ -73,8 +76,8 @@ def make_suite():
                 for tname in ("sample_s2r", "sample_r2s"):
                     tcase = TestTrans(tname)
                     tcase.tbl = row[2]
-                    tcase.script = row[3]
-                    tcase.roman = row[4]
+                    tcase.script = row[3].strip()
+                    tcase.roman = row[4].strip()
                     suite.addTest(tcase)
 
     return suite
