@@ -24,6 +24,10 @@ For running in development mode, add `-e FLASK_ENV=development` to the options.
 `/` renders a simple HTML form to test the transliteration service.
 
 
+## Contributing
+
+See the [contributing guide](./doc/contributing.md).
+
 ## Further documentation
 
 See the [`doc`](./doc) folder for additional documentation.
