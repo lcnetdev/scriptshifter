@@ -52,6 +52,8 @@ def s2r_names_post_config(ctx):
 
 
 def _romanize_nonames(src, capitalize=False, hancha=False):
+    """ Main Romanization function for non-name strings. """
+
     # FKR038
     if hancha:
         src = _hancha2hangul(_marc8_hancha(src))
@@ -69,20 +71,20 @@ def _romanize_nonames(src, capitalize=False, hancha=False):
     # This is more compact but I'm unsure if the replacement order is kept.
     # data = data.replace({"\r\n": " ", "\r": " ", "\n": " "})
 
-    data = _romanize_oclc_auto(data)
+    rom = _romanize_oclc_auto(data)
 
     # FKR042
     if capitalize == "all":
-        data = data.title()
+        rom = data.title()
     # FKR043
     elif capitalize == "first":
-        data = data.capitalize()
+        rom = data.capitalize()
 
     # FKR044
-    ambi = re.sub("[,.\";: ]+", " ", data)
+    ambi = re.sub("[,.\";: ]+", " ", rom)
 
     # @TODO Move this to a generic normalization step (not only for K)
-    data = _replace_map(data, {"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
+    rom = _replace_map(rom, {"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
 
     # TODO Decide what to do with these. There is no facility for outputting
     # warnings or notes to the user yet.
@@ -91,11 +93,106 @@ def _romanize_nonames(src, capitalize=False, hancha=False):
         if exp in ambi:
             warnings.append(ambi if warn == "" else warn)
 
-    return data, warnings
+    return rom, warnings
 
 
 def _romanize_names(src):
-    return "Nothing Here Yet.", {}
+    """ Main Romanization function for names. """
+
+    warnings = []
+
+    if re.find("[a-z]|[A-Z]|[0-9]", src):
+        warnings.append("Source may not be a personal name.")
+        return None, warnings
+
+    # FKR001: Conversion, Family names in Chinese (dealing with 金 and 李)
+    # FKR002: Family names, Initial sound law
+    replaced = False
+    for ss, r in KCONF["fkr001-002"]:
+        if replaced:
+            break
+        for s in ss:
+            if src.startswith(s):
+                src = r + src[1:]
+                replaced = True
+                break
+
+    # FKR003: First name, Chinese Character Conversion
+    src = _hancha2hangul(_marc8_hancha(src))
+
+    src, warnings = _parse_kor_name(re.sub("\\W{2,}", " ", src.strip()))
+
+    return rom, warnings
+
+
+def _parse_kor_name(src):
+    warnings = []
+    # FKR004: Check first two characters. Two-syllable family name or not?
+    two_syl_fname = False
+    for ptn in KCONF["fkr004"]:
+        if src.startswith(ptn):
+            two_syl_fname = True
+            break
+
+    # FKR005: Error if more than 7 syllables
+    if len(src) > 7 or len(src) < 2 or " " in src[3:]:
+        return _kor_corp_name_rom(src), warnings
+
+    ct_spaces = src.count(" ")
+    # FKR0006: Error if more than 2 spaces
+    if ct_spaces > 2:
+        warnings.append("ERROR: not a name (too many spaces)")
+        return None, warnings
+
+    # FKR007: 2 spaces (two family names)
+    if ct_spaces == 2:
+        parsed = src.replace(" ", "+", 1).replace(" ", "~", 1)
+    elif ct_spaces == 1:
+        # FKR008: 1 space (2nd position)
+        if src[1] == " ":
+            parsed = src.replace(" ", "~")
+
+        # FKR009: 1 space (3nd position)
+        if src[2] == " ":
+            if two_syl_fname:
+                parsed = "+" + src.replace(" ", "~")
+
+    return parsed, warnings
+
+
+def _kor_corp_name_rom(src):
+    chu = yu = 0
+    if src.startswith("(주) "):
+        src = src[4:]
+        chu = "L"
+    if src.endswith(" (주)"):
+        src = src[:-4]
+        chu = "R"
+    if src.startswith("(유) "):
+        src = src[4:]
+        yu = "L"
+    if src.endswith(" (유)"):
+        src = src[:-4]
+        yu = "R"
+
+    rom_tok = []
+    for tok in src.split(" "):
+        rom_tok.append(_romanize_oclc_auto(tok))
+    rom = " ".join(rom_tok).title()
+
+    if chu == "L":
+        rom = "(Chu) " + rom
+    elif chu == "R":
+        rom = rom + " (Chu)"
+    if yu == "L":
+        rom = "(Yu) " + rom
+    elif yu == "R":
+        rom = rom + " (Yu)"
+
+    # FKR035: Replace established names
+    rom = _replace_map(rom, KCONF["fkr035"])
+
+    return rom
 
 
 def _romanize_oclc_auto(data):

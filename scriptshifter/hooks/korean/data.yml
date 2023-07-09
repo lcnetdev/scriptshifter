@@ -1,7 +1,8 @@
-fkr001:
+fkr001-002:
+  # FKR001
   - [["金", "金"], "김"]
   - [["李", "李"], "이"]
-fkr002:
+  # FKR002
   # Use same logic as FKR001, hence single-element arrays.
   - [["리"], "이"]
   - [["라"], "나"]

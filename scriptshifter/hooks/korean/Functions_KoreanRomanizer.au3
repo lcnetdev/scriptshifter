@@ -63,174 +63,174 @@
 ;~    EndIf
 $TrayTip = "OFF"
 
-Func RomanizerAllCap()
-   Global $CapitalizeAll = "On" ; <-- 모든 첫글자 대문자 -->
-   Global $Capitalize = "Off"
-   Romanizer()
-EndFunc
+;Func RomanizerAllCap()
+;   Global $CapitalizeAll = "On" ; <-- 모든 첫글자 대문자 -->
+;   Global $Capitalize = "Off"
+;   Romanizer()
+;EndFunc
 
-Func RomanizerCap()
-   Global $CapitalizeAll = "Off"
-   Global $Capitalize = "On"; <-- 첫글자만 대문자 -->
-   Romanizer()
-EndFunc
+;Func RomanizerCap()
+;   Global $CapitalizeAll = "Off"
+;   Global $Capitalize = "On"; <-- 첫글자만 대문자 -->
+;   Romanizer()
+;EndFunc
 
-Func RomanizerNoCap()
-   Global $CapitalizeAll = "Off"
-   Global $Capitalize = "Off"; <-- 모든 첫글자 소문자 -->
-   Romanizer()
-EndFunc
+;Func RomanizerNoCap()
+;   Global $CapitalizeAll = "Off"
+;   Global $Capitalize = "Off"; <-- 모든 첫글자 소문자 -->
+;   Romanizer()
+;EndFunc
 
-Func CapitalizeAll()
-   Sleep(50+20)
-   $Source = ClipGet()
-   Local $sArray=StringSplit($Source," ")
-   $AllCapOutput = ""
-   For $i = 1 To Ubound($sArray, 1)-1
-	  ClipPut(StringUpper(StringLeft($sArray[$i],1)) & StringTrimLeft($sArray[$i],1))
-	  $AllCapOutput=$AllCapOutput & " " & ClipGet()
-   Next
-   ClipPut(StringStripWS($AllCapOutput,1+4))
-EndFunc
+;Func CapitalizeAll()
+;   Sleep(50+20)
+;   $Source = ClipGet()
+;   Local $sArray=StringSplit($Source," ")
+;   $AllCapOutput = ""
+;   For $i = 1 To Ubound($sArray, 1)-1
+;	  ClipPut(StringUpper(StringLeft($sArray[$i],1)) & StringTrimLeft($sArray[$i],1))
+;	  $AllCapOutput=$AllCapOutput & " " & ClipGet()
+;   Next
+;   ClipPut(StringStripWS($AllCapOutput,1+4))
+;EndFunc
 
-Func RomanizerAuth()
-   Global $Auth="Yes"
-   KorNameRom20()
-EndFunc
+;Func RomanizerAuth()
+;   Global $Auth="Yes"
+;   KorNameRom20()
+;EndFunc
 
-Func KorNameRomOCLC()
-   $KorNameRom = ""
-   Sleep(50+50)
-   $NClipB = ClipGet()
-   $ClipB = StringStripWS($NClipB,1+2+4)
-   Sleep(50+50)
-   ClipPut($ClipB)
-   Sleep(50+50)
-   ParseKorName()
-   Sleep(50+50)
-   If StringInStr(ClipGet(),"~") > 0 Then
-	  $aParsedNames = StringSplit(ClipGet(),"~")
-	  $LName = $aParsedNames[1]
-	  $FName = $aParsedNames[2]
-	  Sleep(50+50)
-	  ClipPut($FName)
-	  Sleep(50+50)
-	  KorFNameRom()
-	  Sleep(50+50)
-	  $FNameRom = ClipGet()
-	  Sleep(50+50)
-	  If StringInStr($LName,"+")>0 Then
-		 $aLastNames = StringSplit($LName,"+")
-		 $LName1 = $aLastNames[1]
-		 Sleep(50+50)
-		 ClipPut($LName1)
-		 Sleep(50+50)
-		 KorLNameRom()
-		 Sleep(50+50)
-		 $LNameRom1 = ClipGet()
-		 Sleep(50+50)
-		 $LName2 = $aLastNames[2]
-		 Sleep(50+50)
-		 ClipPut($LName2)
-		 Sleep(50+50)
-		 KorLNameRom()
-		 Sleep(50+50)
-		 $LNameRom2 = ClipGet()
-		 Sleep(50+50)
-		 $LNameRom = $LNameRom1 & " " & $LNameRom2
-		 Sleep(50+50)
-	  Else
-		 Sleep(50+50)
-		 ClipPut($LName)
-		 Sleep(50+50)
-		 KorLNameRom()
-		 Sleep(50+50)
-		 $LNameRom = ClipGet()
-		 Sleep(50+50)
-	  EndIf
-	  Sleep(50+50)
-	  $KorNameRom = $LNameRom & " " & $FNameRom
-	  Sleep(50+50)
-	  ClipPut($KorNameRom)
-	  Sleep(50+50)
-   EndIf
-   If StringRegExp(StringLeft($KorNameRom,1),"[a-z]|[A-Z]")=0 Then
-	  ClipPut($ClipB)
-	  KorCorpNameRomOCLC()
-   EndIf
-Sleep(50+20)
-EndFunc
+;Func KorNameRomOCLC()
+;   $KorNameRom = ""
+;   Sleep(50+50)
+;   $NClipB = ClipGet()
+;   $ClipB = StringStripWS($NClipB,1+2+4)
+;   Sleep(50+50)
+;   ClipPut($ClipB)
+;   Sleep(50+50)
+;   ParseKorName()
+;   Sleep(50+50)
+;   If StringInStr(ClipGet(),"~") > 0 Then
+;	  $aParsedNames = StringSplit(ClipGet(),"~")
+;	  $LName = $aParsedNames[1]
+;	  $FName = $aParsedNames[2]
+;	  Sleep(50+50)
+;	  ClipPut($FName)
+;	  Sleep(50+50)
+;	  KorFNameRom()
+;	  Sleep(50+50)
+;	  $FNameRom = ClipGet()
+;	  Sleep(50+50)
+;	  If StringInStr($LName,"+")>0 Then
+;		 $aLastNames = StringSplit($LName,"+")
+;		 $LName1 = $aLastNames[1]
+;		 Sleep(50+50)
+;		 ClipPut($LName1)
+;		 Sleep(50+50)
+;		 KorLNameRom()
+;		 Sleep(50+50)
+;		 $LNameRom1 = ClipGet()
+;		 Sleep(50+50)
+;		 $LName2 = $aLastNames[2]
+;		 Sleep(50+50)
+;		 ClipPut($LName2)
+;		 Sleep(50+50)
+;		 KorLNameRom()
+;		 Sleep(50+50)
+;		 $LNameRom2 = ClipGet()
+;		 Sleep(50+50)
+;		 $LNameRom = $LNameRom1 & " " & $LNameRom2
+;		 Sleep(50+50)
+;	  Else
+;		 Sleep(50+50)
+;		 ClipPut($LName)
+;		 Sleep(50+50)
+;		 KorLNameRom()
+;		 Sleep(50+50)
+;		 $LNameRom = ClipGet()
+;		 Sleep(50+50)
+;	  EndIf
+;	  Sleep(50+50)
+;	  $KorNameRom = $LNameRom & " " & $FNameRom
+;	  Sleep(50+50)
+;	  ClipPut($KorNameRom)
+;	  Sleep(50+50)
+;   EndIf
+;   If StringRegExp(StringLeft($KorNameRom,1),"[a-z]|[A-Z]")=0 Then
+;	  ClipPut($ClipB)
+;	  KorCorpNameRomOCLC()
+;   EndIf
+;Sleep(50+20)
+;EndFunc
 
-Func NameRomanizer()
-   Global $Auth="No"
-   _CopyEX()
-   $ClipB=ClipGet()
-   $ClipB=StringReplace($ClipB,"·",", ")
-   $ClipB=StringReplace($ClipB,"・",", ")
-   If StringInStr($ClipB,",")>0 AND StringLen($ClipB)>4 AND StringLen(StringLeft($ClipB,StringInStr($ClipB,",")-1))>1 Then
-	  BatchRom()
-   Else
-	  KorNameRom20()
-   EndIf
-EndFunc
+;Func NameRomanizer()
+;   Global $Auth="No"
+;   _CopyEX()
+;   $ClipB=ClipGet()
+;   $ClipB=StringReplace($ClipB,"·",", ")
+;   $ClipB=StringReplace($ClipB,"・",", ")
+;   If StringInStr($ClipB,",")>0 AND StringLen($ClipB)>4 AND StringLen(StringLeft($ClipB,StringInStr($ClipB,",")-1))>1 Then
+;	  BatchRom()
+;   Else
+;	  KorNameRom20()
+;   EndIf
+;EndFunc
 
-Func BatchRom()
-   _CopyEX()
-   TrayTip($TT_Title1,$TT_Text1,15)
-   $ClipB=ClipGet()
-   $ClipB=StringReplace($ClipB,"·",",")
-   $ClipB=StringReplace($ClipB,"・",", ")
-   $ClipB=StringReplace($ClipB,", ",",")
-   If StringRight($ClipB,1)="." Then
-	  $PUNC="p"
-	  ClipPut(StringTrimRight($ClipB,1))
-   Else
-	  If StringRight($ClipB,1)="," Then
-		 $PUNC="c"
-		 ClipPut(StringTrimRight($ClipB,1))
-	  Else
-		 $PUNC="0"
-	  EndIf
-   EndIf
-   $RomName=""
-   If StringInStr($ClipB,",")>0 Then
-	  $Names=StringRegExpReplace($ClipB,",","&")
-	  $Commas=@extended
-	  Local $aNames=StringSplit($Names,"&")
-   Else
-	  $Commas=0
-	  Local $aNames[2]=["0",$ClipB]
-   EndIf
-
-   For $i=0 To $Commas+1
-	  ClipPut($aNames[$i])
-	  If StringIsInt($aNames[$i])=0 then
-		 SimpleRomanizer()
-	  $RomName=$RomName & ", " & ClipGet()
-	  EndIf
-   Next
-
-   If $PUNC="0" Then
-	  ClipPut(StringTrimLeft($RomName,2))
-   EndIf
-   If $PUNC="p" Then
-	  ClipPut(StringTrimLeft($RomName,2)&".")
-   EndIf
-   If $PUNC="c" Then
-	  ClipPut(StringTrimLeft($RomName,2)&",")
-   EndIf
-
-   Sleep4OCLC()
-   If StringRegExp(ClipGet(),"[0-9]")>0 Then
-  	  TrayTip($TT_Title2,$TT_Text2,10)
-	  ClipPut($ClipB)
-   Else
-	  If $TrayTip="On" Then
-		 TrayTip($TT_Title3,$TT_Text3,10)
-	  EndIf
-	  _PasteEx()
-   EndIf
-EndFunc
+;Func BatchRom()
+;   _CopyEX()
+;   TrayTip($TT_Title1,$TT_Text1,15)
+;   $ClipB=ClipGet()
+;   $ClipB=StringReplace($ClipB,"·",",")
+;   $ClipB=StringReplace($ClipB,"・",", ")
+;   $ClipB=StringReplace($ClipB,", ",",")
+;   If StringRight($ClipB,1)="." Then
+;	  $PUNC="p"
+;	  ClipPut(StringTrimRight($ClipB,1))
+;   Else
+;	  If StringRight($ClipB,1)="," Then
+;		 $PUNC="c"
+;		 ClipPut(StringTrimRight($ClipB,1))
+;	  Else
+;		 $PUNC="0"
+;	  EndIf
+;   EndIf
+;   $RomName=""
+;   If StringInStr($ClipB,",")>0 Then
+;	  $Names=StringRegExpReplace($ClipB,",","&")
+;	  $Commas=@extended
+;	  Local $aNames=StringSplit($Names,"&")
+;   Else
+;	  $Commas=0
+;	  Local $aNames[2]=["0",$ClipB]
+;   EndIf
+;
+;   For $i=0 To $Commas+1
+;	  ClipPut($aNames[$i])
+;	  If StringIsInt($aNames[$i])=0 then
+;		 SimpleRomanizer()
+;	  $RomName=$RomName & ", " & ClipGet()
+;	  EndIf
+;   Next
+;
+;   If $PUNC="0" Then
+;	  ClipPut(StringTrimLeft($RomName,2))
+;   EndIf
+;   If $PUNC="p" Then
+;	  ClipPut(StringTrimLeft($RomName,2)&".")
+;   EndIf
+;   If $PUNC="c" Then
+;	  ClipPut(StringTrimLeft($RomName,2)&",")
+;   EndIf
+;
+;   Sleep4OCLC()
+;   If StringRegExp(ClipGet(),"[0-9]")>0 Then
+;  	  TrayTip($TT_Title2,$TT_Text2,10)
+;	  ClipPut($ClipB)
+;   Else
+;	  If $TrayTip="On" Then
+;		 TrayTip($TT_Title3,$TT_Text3,10)
+;	  EndIf
+;	  _PasteEx()
+;   EndIf
+;EndFunc
 
 ; Only for simple syllables --sc
 Func SimpleRomanizer()
@@ -457,7 +457,7 @@ Func ParseKorName()
 
    ; <-- FKR005 -->
    If StringLen($TargetKor) > 7 OR StringLen($TargetKor) = 1 OR StringInStr($TargetKorOrig," ",0,1)>3 Then
-	  If $ForeignNameConversion = "Yes" Then
+	  If $ForeignNameConversion = "Yes" Then  ; Assuming yes in SS?
 		 ClipPut($TargetKorOrig)
 		 KorCorpNameRomOCLC()
 	  Else
