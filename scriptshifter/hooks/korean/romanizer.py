@@ -120,7 +120,18 @@ def _romanize_names(src):
     # FKR003: First name, Chinese Character Conversion
     src = _hancha2hangul(_marc8_hancha(src))
 
-    src, warnings = _parse_kor_name(re.sub("\\W{2,}", " ", src.strip()))
+    if re.find("[a-zA-Z0-9]", src):
+        warnings.append(f"{src} may not be a personal name.")
+        return None, warnings
+
+    src, _warnings = _parse_kor_name(re.sub("\\W{2,}", " ", src.strip()))
+
+    if len(_warnings):
+        warnings += _warnings
+
+    if "~" in src:
+        lname, fname = src.split("~", 1)
+        fname_rom = _kor_fname_rom(fname)
 
     return rom, warnings
 
@@ -401,3 +412,108 @@ def _replace_map(src, rmap, *args, **kw):
         src = src.replace(k, v, *args, **kw)
 
     return src
+
+
+def _kor_fname_rom(fname):
+    rom_ls = []
+    cpoints = tuple(ord(c) for c in fname)
+    for i in range(len(fname)):
+        cp = cpoints[i] - CP_MIN
+        ini = "i" + str(cp // 588)
+        med = "m" + str((cp // 28) % 21)
+        fin = "f" + str(cp % 28)
+        rom_ls.append("#".join((ini, med, fin)))
+    rom = "~".join(rom_ls) + "E"
+
+    # FKR011: Check native Korean name, by coda
+    origin_by_fin = "sino"
+    for tok in KCONF["fkr011"]["nat_fin"]:
+        if tok in rom:
+            origin_by_fin = "native"
+            break
+
+    j = False
+    for tok in KCONF["fkr011"]["nat_ini"]:
+        if tok in rom:
+            j = True
+
+    k = False
+    for tok in KCONF["fkr011"]["dino_ini"]:
+        if tok in rom:
+            k = True
+
+    if j:
+        if k:
+            origin_by_ini = "sino"
+        else:
+            origin_by_ini = "native"
+    else:
+        origin_by_ini = "sino"
+
+    # FKR012: Check native Korean name, by vowel & coda
+    origin_by_med = "sino"
+    for tok in KCONF["fkr011"]:
+        if tok in rom:
+            origin_by_med = "native"
+            break
+
+    # FKR013: Check native Korean name, by ㅢ
+    if "m19#" in rom:
+        if "의" in fname or "희" in fname:
+            origin_by_med = "sino"
+        else:
+            origin_by_med = "native"
+
+    # FKR014: Consonant assimilation ㄱ
+    # FKR015: Consonant assimilation ㄲ
+    # FKR016: Consonant assimilation ㄴ
+    # FKR017: Consonant assimilation ㄷ
+    # FKR018: Consonant assimilation ㄹ
+    # FKR019: Consonant assimilation ㅁ
+    # FKR020: Consonant assimilation ㅂ
+    # FKR021: Consonant assimilation ㅅ
+    # FKR022: Consonant assimilation ㅆ
+    # FKR023: Consonant assimilation ㅇ
+    # FKR024: Consonant assimilation ㅈ
+    # FKR025: Consonant assimilation ㅊ
+    # FKR026: Consonant assimilation ㅎ
+    # FKR027: Final sound law
+    # FKR028: Vocalization 1 (except ㄹ+ㄷ, ㄹ+ㅈ): voiced+unvoiced
+    # FKR029: Vocalization 2 unvoiced+voiced
+    for i in range(14, 30):
+        fkrkey = f"fkr{i:03}"
+        logger.debug(f"Applying {fkrkey.upper()}")
+        rom = _replace_map(rom, KCONF[fkrkey])
+
+    # FKR030: Convert everything else
+    for k, cmap in KCONF["fkr030"].items():
+        logger.debug(f"Applying FKR030[\"{k}\"]")
+        rom = _replace_map(cmap)
+
+    rom = _replace_map(rom.replace("#", ""), {"swi": "shwi", "Swi": "Shwi"}, 1)
+
+    if len(fname) == 2:
+        rom = rom.replace("~", "-")
+    else:
+        rom = _replace_map(rom, {"n~g": "n'g", "~": ""})
+
+    # FKR031: ㄹ + vowels/ㅎ/ㄹ ["l-r","l-l"] does not work USE alternative
+    for k, cmap in KCONF["fkr031"].items():
+        logger.debug(f"Applying FKR031[\"{k}\"]")
+        rom = _replace_map(cmap)
+
+    # FKR032: Capitalization
+    rom = rom.capitalize()
+
+    # FKR033: Remove hyphen in bisyllabic native Korean first name
+    if (
+            len(fname) == 2
+            and "native" in (origin_by_ini, origin_by_fin, origin_by_med)):
+        rom = _replace_map(rom, {"n-g": "n'g", "-": ""})
+
+    # FKR034: First name, initial sound law
+        for k, v in KCONF["fkr034"].items():
+            if rom.startswith(k):
+                rom = rom.replace(k, v)
+
+    return rom

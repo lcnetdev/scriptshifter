@@ -1,9 +1,8 @@
 fkr001-002:
-  # FKR001
+# FKR001
   - [["金", "金"], "김"]
   - [["李", "李"], "이"]
-  # FKR002
-  # Use same logic as FKR001, hence single-element arrays.
+# FKR002 - Use same logic as FKR001, hence single-element arrays.
   - [["리"], "이"]
   - [["라"], "나"]
   - [["류"], "유"]
@@ -294,6 +293,12 @@ fkr031:
     "lr": "ll"
 
 fkr034:
+  "Ra": "Na"
+  "Ro": "No"
+  "Ri": "I"
+  "Ry": "Y"
+
+lname_rom:
   one_chars:
     "김": "Kim"
     "가": "Ka"
