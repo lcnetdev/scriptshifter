@@ -54,13 +54,15 @@ def s2r_names_post_config(ctx):
 def _romanize_nonames(src, capitalize=False, hancha=False):
     """ Main Romanization function for non-name strings. """
 
-    # FKR038
+    # FKR038: Convert Chinese characters to Hangul
     if hancha:
         src = _hancha2hangul(_marc8_hancha(src))
 
     data = f" {src} "
 
-    # FKR039, FKR040, FKR041
+    # FKR039: Replace Proper name with spaces in advance
+    # FKR040: Replace Proper name with a hyphen in advance
+    # FKR041: Romanize names of Hangul consonants
     for fkrcode in ("fkr039", "fkr040", "fkr041"):
         logger.debug(f"Applying {fkrcode}")
         data = _replace_map(data, KCONF[fkrcode])
@@ -73,14 +75,14 @@ def _romanize_nonames(src, capitalize=False, hancha=False):
 
     rom = _romanize_oclc_auto(data)
 
-    # FKR042
+    # FKR042: Capitalize all first letters
     if capitalize == "all":
         rom = data.title()
-    # FKR043
+    # FKR043: Capitalize the first letter
     elif capitalize == "first":
         rom = data.capitalize()
 
-    # FKR044
+    # FKR044: Ambiguities
     ambi = re.sub("[,.\";: ]+", " ", rom)
 
     # @TODO Move this to a generic normalization step (not only for K)
@@ -207,7 +209,7 @@ def _kor_corp_name_rom(src):
 
 
 def _romanize_oclc_auto(data):
-    # FKR050
+    # FKR050: Starts preprocessing symbol 
     for rname, rule in KCONF["fkr050"].items():
         logger.debug(f"Applying fkr050[{rname}]")
         data = _replace_map(data, rule)
@@ -215,7 +217,7 @@ def _romanize_oclc_auto(data):
     # See https://github.com/lcnetdev/scriptshifter/issues/19
     data = re.sub("제([0-9])", "제 \\1", data)
 
-    # FKR052
+    # FKR052: Replace Che+number
     for rname, rule in KCONF["fkr052"].items():
         logger.debug(f"Applying fkr052[{rname}]")
         data = _replace_map(data, rule)
@@ -230,26 +232,26 @@ def _romanize_oclc_auto(data):
         data_ls.append(_kor_rom(word))
     data = " ".join(data_ls)
 
-    # FKR059
+    # FKR059: Apply glottalization
     data = f" {data.lstrip()} ".replace({" GLOTTAL ": "", "*": "", "^": ""})
 
-    # FKR060
+    # FKR060: Process number + -년/-년도/-년대
     # TODO Add leading whitespace as per L1221? L1202 already added one.
     data = _replace_map(data, KCONF["fkr060"])
 
     data = re.sub("\\W{2,}", " ", f" {data.strip()} ")
 
-    # FKR061
-    # FKR063
-    # FKR064
-    # FKR065
+    # FKR061: Jurisdiction (시)
+    # FKR063: Jurisdiction (국,도,군,구)
+    # FKR064: Temple names of Kings, Queens, etc. (except 조/종)
+    # FKR065: Frequent historical names
     logger.debug("Applying FKR062-065")
     data = _replace_map(
             data,
             KCONF["fkr061"] + KCONF["fkr063"] +
             KCONF["fkr064"] + KCONF["fkr065"])
 
-    # FKR066
+    # FKR066: Starts restore symbols
     for rname, rule in KCONF["fkr066"].items():
         logger.debug(f"Applying FKR066[{rname}]")
         data = _replace_map(data, rule)
@@ -262,10 +264,10 @@ def _romanize_oclc_auto(data):
 def _kor_rom(data):
     data = re.sub("\\W{2,}", " ", data.strip())
 
-    # FKR069
+    # FKR069: Irregular sound change list
     data = _replace_map(data, KCONF["fkr069"])
 
-    # FKR070
+    # FKR070: [n] insertion position mark +
     niun = data.find("+")
     if niun:
         data = data.replace("+", "")
@@ -287,21 +289,48 @@ def _kor_rom(data):
         rom_ls.append("#".join((ini, med, fin)))
     rom = "~".join(rom_ls) + "E"
 
-    # FKR071
+    # FKR071: [n] insertion
     if niun:
         rom_niun_a, rom_niun_b = rom[:niun - 1].split("~", 1)
         if re.match("ill#m(?:2|6|12|17|20)", rom_niun_b):
             logger.debug("Applying FKR071")
             rom_niun_b = rom_niun_b.replace("i11#m", "i2#m", 1)
 
-        # FKR072
+        # FKR072: [n]+[l] >[l] + [l]
         if rom_niun_b.startswith("i5#") and rom_niun_a.endswith("f4"):
             logger.debug("Applying FKR072")
             rom_niun_b = rom_niun_b.replace("i5#", "i2", 1)
 
         rom = f"{rom_niun_a}~{rom_niun_b}"
 
-    # FKR073-100
+    # FKR073: Palatalization: ㄷ+이,ㄷ+여,ㄷ+히,ㄷ+혀
+    # FKR074: Palatalization: ㅌ+이,ㅌ+히,ㅌ+히,ㅌ+혀
+    # FKR075: Consonant assimilation ㄱ
+    # FKR076: Consonant assimilation ㄲ
+    # FKR077: Consonant assimilation ㄳ : ㄱ,ㄴ,ㄹ,ㅁ,ㅇ
+    # FKR078: Consonant assimilation ㄴ
+    # FKR079: Consonant assimilation ㄵ: ㄱ,ㄴ,ㄷ,ㅈ"
+    # FKR080: Consonant assimilation ㄶ : ㄱ,ㄴ,ㄷ,ㅈ
+    # FKR081: Consonant assimilation ㄷ
+    # FKR082: Consonant assimilation ㄹ
+    # FKR083: Consonant assimilation ㄺ : ㄱ,ㄴ,ㄷ,ㅈ
+    # FKR084: Consonant assimilation ㄻ : ㄱ,ㄴ,ㄷ,ㅈ
+    # FKR085: Consonant assimilation ㄼ : ㄱ,ㄴ,ㄷ,ㅈ
+    # FKR086: Consonant assimilation ㄾ : ㄱ,ㄴ,ㄷ,ㅈ
+    # FKR087: Consonant assimilation ㄿ : ㄱ,ㄴ,ㄷ,ㅈ
+    # FKR088: Consonant assimilation ㅀ : ㄱ,ㄴ,ㄷ,ㅈ
+    # FKR089: Consonant assimilation ㅁ
+    # FKR090: Consonant assimilation ㅂ
+    # FKR091: Consonant assimilation ㅄ
+    # FKR092: Consonant assimilation ㅅ
+    # FKR093: Consonant assimilation ㅆ
+    # FKR094: Consonant assimilation ㅇ
+    # FKR095: Consonant assimilation ㅈ
+    # FKR096: Consonant assimilation ㅊ
+    # FKR097: Consonant assimilation ㅋ
+    # FKR098: Consonant assimilation ㅌ
+    # FKR099: Consonant assimilation ㅍ
+    # FKR100: Consonant assimilation ㅎ
     fkr_i = 73
     for k, cmap in KCONF["fkr073-100"].items():
         if k in rom:
@@ -309,34 +338,41 @@ def _kor_rom(data):
             _replace_map(rom, cmap)
         fkr_i += 1
 
-    # FKR101-108
+    # FKR101: digraphic coda + ㅇ: ㄵ,ㄶ,ㄺ,ㄻ,ㄼ,ㄽ,ㄾ,ㄿ,ㅀ
+    # FKR102: digraphic coda + ㅎ: ㄵ,ㄶ,ㄺ,ㄻ,ㄼ,(ㄽ),ㄾ,ㄿ,ㅀ
+    # FKR103: Vocalization 1 (except ㄹ+ㄷ, ㄹ+ㅈ 제외) voiced + unvoiced
+    # FKR104: Vocalization 2 (except ㄹ+ㄷ, ㄹ+ㅈ 제외) unvoiced + voiced
+    # FKR105: Vocalization 3 (ㄹ+ㄷ, ㄹ+ㅈ)
+    # FKR106: Final sound law
+    # FKR107: Exception for '쉬' = shi
+    # FKR108: Exception for 'ㄴㄱ'= n'g
     for fkr_i in range(101, 109):
         logger.debug(f"Applying FKR{fkr_i:03}")
         rom = _replace_map(rom, KCONF[f"fkr{fkr_i:03}"])
 
-    # FKR109
+    # FKR109: Convert everything else
     for pos, data in KCONF["fkr109"]:
         logger.debug(f"Applying FKR109[{pos}]")
         rom = _replace_map(rom, data)
 
-    # FKR110
+    # FKR110: Convert symbols
     rom = _replace_map(rom, {"#": "", "~": ""})
 
     if non_kor > 0:
         rom = f"{orig[:non_kor]}-{rom}"
 
-    # FKR111
+    # FKR111: ㄹ + 모음/ㅎ/ㄹ, ["lr","ll"] must be in the last of the array
     rom = _replace_map(rom, KCONF["fkr111"])
 
-    # FKR112
+    # FKR112: Exceptions to initial sound law
     is_non_kor = False
-    # FKR113
-    # FKR114
-    # FKR115
+    # FKR113: Check loan words by the first 1 letter
+    # FKR114: Check loan words by the first 2 letters
+    # FKR115: Check loan words by the first 3 letters
     if orig.strip().startswith(tuple(KCONF["fkr113-115"])):
         is_non_kor = True
 
-    # FKR116
+    # FKR116: Exceptions to initial sound law - particles
     is_particle = False
     if orig.strip().startswith(tuple(KCONF["fkr116"])):
         is_particle = True
@@ -344,7 +380,7 @@ def _kor_rom(data):
     if len(orig) > 1 and not is_non_kor and not is_particle:
         rom = _replace_map(rom, KCONF["fkr116a"])
 
-    # FKR117
+    # FKR117: Proper names _StringPoper Does not work because of breves
     if (
             # FKR118
             orig in KCONF["fkr118"] or
@@ -355,7 +391,7 @@ def _kor_rom(data):
             orig.endswith(tuple(KCONF["fkr120"]))):
         rom = rom.capitalize()
 
-    # FKR121
+    # FKR121: Loan words beginning with L
     if f" {orig} " in KCONF["fkr121"]:
         if rom.startswith("r"):
             rom = "l" + rom[1:]
@@ -366,7 +402,7 @@ def _kor_rom(data):
 
 
 def _marc8_hancha(data):
-    # FKR142
+    # FKR142: Chinese character list
     logger.debug("Applying FKR142")
     return _replace_map(data, KCONF["fkr142"])
 
@@ -374,12 +410,39 @@ def _marc8_hancha(data):
 def _hancha2hangul(data):
     data = " " + data.replace("\n", "\n ")
 
-    # FKR143-170
+    # FKR143: Process exceptions first
+    # FKR144: Apply initial sound law (Except: 列, 烈, 裂, 劣)
+    # FKR145: Simplified characters, variants
+    # FKR146: Some characters from expanded list
+    # FKR147: Chinese characters 1-250 車=차
+    # FKR148: Chinese characters 501-750 串=관
+    # FKR149: Chinese characters 751-1000 金=금, 娘=랑
+    # FKR150: Chinese characters 1001-1250
+    # FKR151: Chinese characters 1251-1500 제외: 列, 烈, 裂, 劣
+    # FKR152: Chinese characters 1501-1750 제외: 律, 率, 栗, 慄
+    # FKR153: Chinese characters 1751-2000
+    # FKR154: 不,Chinese characters 2001-2250 제외: 不
+    # FKR155: Chinese characters 2251-2500 塞=색
+    # FKR156: Chinese characters 2501-2750
+    # FKR157: Chinese characters 2751-3000
+    # FKR158: Chinese characters 3001-2250
+    # FKR159: Chinese characters 3251-3500
+    # FKR160: Chinese characters 3501-3750
+    # FKR161: Chinese characters 3751-4000
+    # FKR162: Chinese characters 4001-4250
+    # FKR163: Chinese characters 4251-4500
+    # FKR164: Chinese characters 4501-4750
+    # FKR165: Chinese characters 4751-5000
+    # FKR166: Chinese characters 5001-5250
+    # FKR167: Chinese characters 5251-5500
+    # FKR168: Chinese characters 5501-5750
+    # FKR169: Chinese characters 5751-5978
+    # FKR170: Chinese characters 일본Chinese characters
     for i in range(143, 171):
         logger.debug(f"Applying FKR{i}")
         data = _replace_map(data, KCONF[f"fkr{i}"])
 
-    # FKR171
+    # FKR171: Chinese characters 不(부)의 발음 처리
     # Write down indices of occurrences of "不"
     idx = [i for i, item in enumerate(data) if item == "不"]
     for i in idx:
@@ -388,7 +451,14 @@ def _hancha2hangul(data):
             data = data.replace("不", "부", 1)
         else:
             data = data.replace("不", "불", 1)
-    # FKR172-179
+    # FKR172: Chinese characters 列(렬)의 발음 처리
+    # FKR173: Chinese characters 烈(렬)의 발음 처리
+    # FKR174: Chinese characters 裂(렬)의 발음 처리
+    # FKR175: Chinese characters 劣(렬)의 발음 처리
+    # FKR176: Chinese characters 律(률)의 발음 처리
+    # FKR177: Chinese characters 率(률)의 발음 처리
+    # FKR178: Chinese characters 慄(률)의 발음 처리
+    # FKR179: Chinese characters 栗(률)의 발음 처리
     for char in KCONF["fkr172-179"]:
         idx = [i for i, item in enumerate(data) if item == char]
         for i in idx:
@@ -399,7 +469,7 @@ def _hancha2hangul(data):
             else:
                 data = data.replace(char, "렬", 1)
 
-    # FKR180
+    # FKR180: Katakana
     logger.debug("Applying FKR180")
     data = _replace_map(data, KCONF["fkr180"])
 
