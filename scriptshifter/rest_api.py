@@ -11,6 +11,7 @@ from scriptshifter.trans import transliterate
 
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(level=environ.get("TXL_LOGLEVEL", logging.INFO))
 
 
 def create_app():
