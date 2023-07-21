@@ -51,7 +51,7 @@ def s2r_names_post_config(ctx):
     return BREAK
 
 
-def _romanize_nonames(src, capitalize=False, hancha=True):
+def _romanize_nonames(src, capitalize="first", hancha=True):
     """ Main Romanization function for non-name strings. """
 
     # FKR038: Convert Chinese characters to Hangul
@@ -84,13 +84,12 @@ def _romanize_nonames(src, capitalize=False, hancha=True):
         rom = rom.title()
     # FKR043: Capitalize the first letter
     elif capitalize == "first":
-        rom = rom.capitalize()
+        rom = rom[0].upper() + rom[1:]
 
     # FKR044: Ambiguities
     ambi = re.sub("[,.\";: ]+", " ", rom)
 
     # @TODO Move this to a generic normalization step (not only for K)
-    breakpoint()
     rom = _replace_map(rom, {"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
 
     # TODO Decide what to do with these. There is no facility for outputting
@@ -218,7 +217,6 @@ def _kor_corp_name_rom(src):
 
 
 def _romanize_oclc_auto(data):
-    breakpoint()
     # FKR050: Starts preprocessing symbol
     for rname, rule in KCONF["fkr050"].items():
         logger.debug(f"Applying fkr050[{rname}]")
@@ -405,7 +403,7 @@ def _kor_rom(kor):
             orig.endswith(tuple(KCONF["fkr119_suffix"])) or
             # FKR120
             orig.endswith(tuple(KCONF["fkr120"]))):
-        rom = rom.capitalize()
+        rom = rom[0].upper() + rom[1:]
 
     # FKR121: Loan words beginning with L
     if f" {orig} " in KCONF["fkr121"]:
@@ -589,7 +587,7 @@ def _kor_fname_rom(fname):
         rom = _replace_map(cmap)
 
     # FKR032: Capitalization
-    rom = rom.capitalize()
+    rom = rom[0].upper() + rom[1:]
 
     # FKR033: Remove hyphen in bisyllabic native Korean first name
     if (
