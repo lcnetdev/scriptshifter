@@ -290,6 +290,7 @@ def _kor_rom(kor):
             kor = kor[1:]
 
     rom_ls = []
+    cpoints = tuple(ord(c) for c in kor)
     for i in range(len(kor)):
         cp = cpoints[i] - CP_MIN
         ini = "i" + str(cp // 588)
