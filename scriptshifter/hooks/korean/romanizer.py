@@ -216,39 +216,40 @@ def _kor_corp_name_rom(src):
     return rom
 
 
-def _romanize_oclc_auto(data):
+def _romanize_oclc_auto(kor):
     # FKR050: Starts preprocessing symbol
     for rname, rule in KCONF["fkr050"].items():
         logger.debug(f"Applying fkr050[{rname}]")
-        data = _replace_map(data, rule)
+        kor = _replace_map(kor, rule)
 
     # See https://github.com/lcnetdev/scriptshifter/issues/19
-    data = re.sub("제([0-9])", "제 \\1", data)
+    kor = re.sub("제([0-9])", "제 \\1", kor)
 
     # FKR052: Replace Che+number
     for rname, rule in KCONF["fkr052"].items():
         logger.debug(f"Applying fkr052[{rname}]")
-        data = _replace_map(data, rule)
+        kor = _replace_map(kor, rule)
 
     # Strip end and multiple whitespace.
-    data = re.sub(r"\s{2,}", " ", data.strip())
+    kor = re.sub(r"\s{2,}", " ", kor.strip())
 
-    data = data.replace("^", " GLOTTAL ")
+    kor = kor.replace("^", " GLOTTAL ")
 
-    data_ls = []
-    for word in data.split(" "):
-        data_ls.append(_kor_rom(word))
-    data = " ".join(data_ls)
+    rom_ls = []
+    # breakpoint()
+    for word in kor.split(" "):
+        rom_ls.append(_kor_rom(word))
+    rom = " ".join(rom_ls)
 
     # FKR059: Apply glottalization
-    data = _replace_map(
-            f" {data.strip()} ", {" GLOTTAL ": "", "*": "", "^": ""})
+    rom = _replace_map(
+            f" {rom.strip()} ", {" GLOTTAL ": "", "*": "", "^": ""})
 
     # FKR060: Process number + -년/-년도/-년대
     # TODO Add leading whitespace as per L1221? L1202 already added one.
-    data = _replace_map(data, KCONF["fkr060"])
+    rom = _replace_map(rom, KCONF["fkr060"])
 
-    data = re.sub(r"\s{2,}", " ", f" {data.strip()} ")
+    rom = re.sub(r"\s{2,}", " ", f" {rom.strip()} ")
 
     # FKR061: Jurisdiction (시)
     # FKR063: Jurisdiction (국,도,군,구)
@@ -256,16 +257,16 @@ def _romanize_oclc_auto(data):
     # FKR065: Frequent historical names
     for fkrkey in ("fkr061", "fkr063", "fkr064", "fkr065"):
         logger.debug(f"Applying {fkrkey.upper()}")
-        data = _replace_map(data, KCONF[fkrkey])
+        rom = _replace_map(rom, KCONF[fkrkey])
 
     # FKR066: Starts restore symbols
     for rname, rule in KCONF["fkr066"].items():
         logger.debug(f"Applying FKR066[{rname}]")
-        data = _replace_map(data, rule)
+        rom = _replace_map(rom, rule)
 
-    data = re.sub(r"\s{2,}", " ", data.strip())
+    rom = re.sub(r"\s{2,}", " ", rom.strip())
 
-    return data
+    return rom
 
 
 # FKR068: Exceptions, Exceptions to initial sound law, Proper names
@@ -290,7 +291,9 @@ def _kor_rom(kor):
             kor = kor[1:]
 
     rom_ls = []
-    cpoints = tuple(ord(c) for c in kor)
+    if non_kor > 0:
+        # Rebuild code point list with non_kor removed.
+        cpoints = tuple(ord(c) for c in kor)
     for i in range(len(kor)):
         cp = cpoints[i] - CP_MIN
         ini = "i" + str(cp // 588)
@@ -347,7 +350,7 @@ def _kor_rom(kor):
     for k, cmap in KCONF["fkr073-100"].items():
         if k in rom:
             logger.debug(f"Applying FKR{fkr_i:03}")
-            _replace_map(rom, cmap)
+            rom = _replace_map(rom, cmap)
         fkr_i += 1
 
     # FKR101: digraphic coda + ㅇ: ㄵ,ㄶ,ㄺ,ㄻ,ㄼ,ㄽ,ㄾ,ㄿ,ㅀ
