@@ -261,9 +261,12 @@ def _romanize_oclc_auto(kor):
     # FKR066: Starts restore symbols
     for rname, rule in KCONF["fkr066"].items():
         logger.debug(f"Applying FKR066[{rname}]")
+        logger.debug(f"rom in FKR066: {rom}")
         rom = _replace_map(rom, rule)
 
-    rom = re.sub(r"\s{2,}", " ", rom.strip())
+    # Remove spaces from before punctuation signs.
+    rom = re.sub(r" (?=[,.;:?!])", "", rom.strip())
+    rom = re.sub(r"\s{2,}", " ", rom)
 
     return rom
 
