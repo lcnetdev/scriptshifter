@@ -236,7 +236,6 @@ def _romanize_oclc_auto(kor):
     kor = kor.replace("^", " GLOTTAL ")
 
     rom_ls = []
-    # breakpoint()
     for word in kor.split(" "):
         rom_ls.append(_kor_rom(word))
     rom = " ".join(rom_ls)
@@ -403,8 +402,11 @@ def _kor_rom(kor):
             # FKR118
             orig in KCONF["fkr118"] or
             # FKR119
-            orig in KCONF["fkr119"] or
-            orig.endswith(tuple(KCONF["fkr119_suffix"])) or
+            orig in KCONF["fkr119"]["word"] or
+            (
+                orig[:-1] in KCONF["fkr119"]["word"] and
+                orig.endswith(tuple(KCONF["fkr119"]["suffix"]))
+            ) or
             # FKR120
             orig.endswith(tuple(KCONF["fkr120"]))):
         rom = rom[0].upper() + rom[1:]
