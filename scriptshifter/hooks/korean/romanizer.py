@@ -23,11 +23,21 @@ program and assistance in porting it to Python.
 import logging
 import re
 
+from os import path
+from csv import reader
+
 from scriptshifter.exceptions import BREAK
 from scriptshifter.hooks.korean import KCONF
 
 
+PWD = path.dirname(path.realpath(__file__))
 CP_MIN = 44032
+
+# Buid FKR index for better logging.
+with open(path.join(PWD, "FKR_index.csv"), newline='') as fh:
+    csv = reader(fh)
+    FKR_IDX = {row[0]: row[2] for row in csv}
+
 
 logger = logging.getLogger(__name__)
 
@@ -67,9 +77,9 @@ def _romanize_nonames(src, capitalize="first", hancha=True):
     # FKR039: Replace Proper name with spaces in advance
     # FKR040: Replace Proper name with a hyphen in advance
     # FKR041: Romanize names of Hangul consonants
-    for fkrcode in ("fkr039", "fkr040", "fkr041"):
-        logger.debug(f"Applying {fkrcode}")
-        kor = _replace_map(kor, KCONF[fkrcode])
+    for i in range(39, 42):
+        _fkr_log(i)
+        kor = _replace_map(kor, KCONF[f"fkr{i:03}"])
 
     # NOTE This is slightly different from LL 929-930 in that it doesn't
     # result in double spaces.
@@ -218,6 +228,7 @@ def _kor_corp_name_rom(src):
 
 def _romanize_oclc_auto(kor):
     # FKR050: Starts preprocessing symbol
+    _fkr_log(50)
     for rname, rule in KCONF["fkr050"].items():
         logger.debug(f"Applying fkr050[{rname}]")
         kor = _replace_map(kor, rule)
@@ -226,6 +237,7 @@ def _romanize_oclc_auto(kor):
     kor = re.sub("제([0-9])", "제 \\1", kor)
 
     # FKR052: Replace Che+number
+    _fkr_log(52)
     for rname, rule in KCONF["fkr052"].items():
         logger.debug(f"Applying fkr052[{rname}]")
         kor = _replace_map(kor, rule)
@@ -236,6 +248,7 @@ def _romanize_oclc_auto(kor):
     kor = kor.replace("^", " GLOTTAL ")
 
     rom_ls = []
+    # breakpoint()
     for word in kor.split(" "):
         rom_ls.append(_kor_rom(word))
     rom = " ".join(rom_ls)
@@ -254,14 +267,14 @@ def _romanize_oclc_auto(kor):
     # FKR063: Jurisdiction (국,도,군,구)
     # FKR064: Temple names of Kings, Queens, etc. (except 조/종)
     # FKR065: Frequent historical names
-    for fkrkey in ("fkr061", "fkr063", "fkr064", "fkr065"):
-        logger.debug(f"Applying {fkrkey.upper()}")
-        rom = _replace_map(rom, KCONF[fkrkey])
+    for i in (61, 63, 64, 65):
+        _fkr_log(i)
+        rom = _replace_map(rom, KCONF[f"fkr{i:03}"])
 
     # FKR066: Starts restore symbols
+    _fkr_log(66)
     for rname, rule in KCONF["fkr066"].items():
         logger.debug(f"Applying FKR066[{rname}]")
-        logger.debug(f"rom in FKR066: {rom}")
         rom = _replace_map(rom, rule)
 
     # Remove spaces from before punctuation signs.
@@ -310,12 +323,12 @@ def _kor_rom(kor):
     if niun > -1:
         rom_niun_a, rom_niun_b = rom[:niun - 1].split("~", 1)
         if re.match("ill#m(?:2|6|12|17|20)", rom_niun_b):
-            logger.debug("Applying FKR071")
+            _fkr_log(71)
             rom_niun_b = rom_niun_b.replace("i11#m", "i2#m", 1)
 
         # FKR072: [n]+[l] >[l] + [l]
         if rom_niun_b.startswith("i5#") and rom_niun_a.endswith("f4"):
-            logger.debug("Applying FKR072")
+            _fkr_log(72)
             rom_niun_b = rom_niun_b.replace("i5#", "i2", 1)
 
         rom = f"{rom_niun_a}~{rom_niun_b}"
@@ -351,7 +364,7 @@ def _kor_rom(kor):
     fkr_i = 73
     for k, cmap in KCONF["fkr073-100"].items():
         if k in rom:
-            logger.debug(f"Applying FKR{fkr_i:03}")
+            _fkr_log(fkr_i)
             rom = _replace_map(rom, cmap)
         fkr_i += 1
 
@@ -364,12 +377,15 @@ def _kor_rom(kor):
     # FKR107: Exception for '쉬' = shi
     # FKR108: Exception for 'ㄴㄱ'= n'g
     for fkr_i in range(101, 109):
-        logger.debug(f"Applying FKR{fkr_i:03}")
+        _fkr_log(fkr_i)
+        _bk = rom
         rom = _replace_map(rom, KCONF[f"fkr{fkr_i:03}"])
+        if _bk != rom:
+            logger.debug(f"FKR{fkr_i} substitution: {rom} (was: {_bk})")
 
     # FKR109: Convert everything else
+    _fkr_log(109)
     for pos, data in KCONF["fkr109"].items():
-        logger.debug(f"Applying FKR109[{pos}]")
         rom = _replace_map(rom, data)
 
     # FKR110: Convert symbols
@@ -426,7 +442,7 @@ def _kor_rom(kor):
 
 def _marc8_hancha(data):
     # FKR142: Chinese character list
-    logger.debug("Applying FKR142")
+    _fkr_log(142)
     return _replace_map(data, KCONF["fkr142"])
 
 
@@ -462,7 +478,7 @@ def _hancha2hangul(data):
     # FKR169: Chinese characters 5751-5978
     # FKR170: Chinese characters 일본Chinese characters
     for i in range(143, 171):
-        logger.debug(f"Applying FKR{i}")
+        _fkr_log(i)
         data = _replace_map(data, KCONF[f"fkr{i}"])
 
     # FKR171: Chinese characters 不(부)의 발음 처리
@@ -493,7 +509,7 @@ def _hancha2hangul(data):
                 data = data.replace(char, "렬", 1)
 
     # FKR180: Katakana
-    logger.debug("Applying FKR180")
+    _fkr_log(180)
     data = _replace_map(data, KCONF["fkr180"])
 
     return re.sub(r"\s{2,}", " ", data.strip())
@@ -574,11 +590,11 @@ def _kor_fname_rom(fname):
     # FKR028: Vocalization 1 (except ㄹ+ㄷ, ㄹ+ㅈ): voiced+unvoiced
     # FKR029: Vocalization 2 unvoiced+voiced
     for i in range(14, 30):
-        fkrkey = f"fkr{i:03}"
-        logger.debug(f"Applying {fkrkey.upper()}")
-        rom = _replace_map(rom, KCONF[fkrkey])
+        _fkr_log(i)
+        rom = _replace_map(rom, KCONF[f"fkr{i:03}"])
 
     # FKR030: Convert everything else
+    _fkr_log(30)
     for k, cmap in KCONF["fkr030"].items():
         logger.debug(f"Applying FKR030[\"{k}\"]")
         rom = _replace_map(cmap)
@@ -591,6 +607,7 @@ def _kor_fname_rom(fname):
         rom = _replace_map(rom, {"n~g": "n'g", "~": ""})
 
     # FKR031: ㄹ + vowels/ㅎ/ㄹ ["l-r","l-l"] does not work USE alternative
+    _fkr_log(31)
     for k, cmap in KCONF["fkr031"].items():
         logger.debug(f"Applying FKR031[\"{k}\"]")
         rom = _replace_map(cmap)
@@ -610,3 +627,8 @@ def _kor_fname_rom(fname):
                 rom = rom.replace(k, v)
 
     return rom
+
+
+def _fkr_log(fkr_i):
+    fkr_k = f"FKR{fkr_i:03}"
+    logger.debug(f"Applying {fkr_k}: {FKR_IDX[fkr_k]}")
