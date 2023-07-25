@@ -105,6 +105,7 @@ def _romanize_nonames(src, capitalize="first", hancha=True):
     # TODO Decide what to do with these. There is no facility for outputting
     # warnings or notes to the user yet.
     warnings = []
+    _fkr_log(45)
     for exp, warn in KCONF["fkr045"].items():
         if exp in ambi:
             warnings.append(ambi if warn == "" else warn)

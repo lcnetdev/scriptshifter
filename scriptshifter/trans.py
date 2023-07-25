@@ -81,7 +81,7 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     # This hook may take over the whole transliteration process or delegate it
     # to some external process, and return the output string directly.
     if _run_hook("post_config", ctx, langsec_hooks) == BREAK:
-        return getattr(ctx, "dest", "")
+        return getattr(ctx, "dest", ""), getattr(ctx, "warnings", [])
 
     # Loop through source characters. The increment of each loop depends on
     # the length of the token that eventually matches.
@@ -233,7 +233,7 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     # its own return value.
     hret = _run_hook("pre_assembly", ctx, langsec_hooks)
     if hret is not None:
-        return hret
+        return hret, getattr(ctx, "warnings", [])
 
     logger.debug(f"Output list: {ctx.dest_ls}")
     ctx.dest = "".join(ctx.dest_ls)
@@ -242,12 +242,12 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     # return it immediately.
     hret = _run_hook("post_assembly", ctx, langsec_hooks)
     if hret == "ret":
-        return ctx.dest
+        return ctx.dest, getattr(ctx, "warnings", [])
 
     # Strip multiple spaces and leading/trailing whitespace.
     ctx.dest = re.sub(MULTI_WS_RE, ' ', ctx.dest.strip())
 
-    return ctx.dest
+    return ctx.dest, getattr(ctx, "warnings", [])
 
 
 def _run_hook(hname, ctx, hooks):

@@ -76,11 +76,8 @@ def transliterate_req(lang, r2s=False):
         return ("No input text provided! ", 400)
 
     try:
-        out = transliterate(in_txt, lang, r2s, capitalize)
+        out, warnings = transliterate(in_txt, lang, r2s, capitalize)
     except (NotImplementedError, ValueError) as e:
         return (str(e), 400)
 
-    rsp = Response(out, mimetype="text/plain")
-    rsp.headers["Content-Type"] = "text/plain; charset=utf-8"
-
-    return rsp
+    return {"output": out, "warnings": warnings}
