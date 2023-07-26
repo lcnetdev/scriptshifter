@@ -20,6 +20,8 @@ asian_cyrillic:
     Multi-purpose transliteration for non-Slavic Cyrillic scripts: Abaza, Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar, Bashkir, Buryat, Chechen, Chukchi, Chuvash, Dargwa, Dungan, Eskimo, Even, Evenki, Gagauz, Ingush, Inuit, Kabardian, Kalmyk, Karachay, Karachay-Balkar, Karakalpak, Karelian, Khakass, Khanty, Komi, Komi-Permyak, Koryak, Kumyk, Lak, Lapp, Lezghian, Lithuanian, Mansi, Mari, Moldovan, Molodstov, Mordvin, Nanai, Nenets, Nivkh, Nogai, Ossetic, Permyak, Romanian, Romany, Selkup, Shor, Tabasaran, Tat, Tuva, Udekhe, Udmurt, Yakut.
 belarusian:
   name: Belarusian
+bogus:
+  name: Bogus transliteration table
 bulgarian:
   name: Bulgarian
 chinese:
