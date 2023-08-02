@@ -433,10 +433,7 @@ def _kor_rom(kor):
 
     # FKR121: Loan words beginning with L
     if f" {orig} " in KCONF["fkr121"]:
-        if rom.startswith("r"):
-            rom = "l" + rom[1:]
-        elif rom.startswith("R"):
-            rom = "L" + rom[1:]
+        rom = _replace_map(rom[0], {"R": "L", "r": "l"}) + rom[1:]
 
     return rom
 

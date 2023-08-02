@@ -34,10 +34,11 @@ class TestTrans(TestCase):
         """
         config = scriptshifter.tables.load_table(self.tbl)
         if "script_to_roman" in config:
-            txl = transliterate(self.script, self.tbl)
+            txl = transliterate(self.script, self.tbl)[0]
             self.assertEqual(
                     txl, self.roman,
-                    f"S2R transliteration error for {self.tbl}!")
+                    f"S2R transliteration error for {self.tbl}!\n"
+                    f"Original: {self.script}")
 
     def sample_r2s(self):
         """
@@ -48,10 +49,11 @@ class TestTrans(TestCase):
         """
         config = scriptshifter.tables.load_table(self.tbl)
         if "roman_to_script" in config:
-            txl = transliterate(self.roman, self.tbl, r2s=True)
+            txl = transliterate(self.roman, self.tbl, r2s=True)[0]
             self.assertEqual(
                     txl, self.script,
-                    f"R2S transliteration error for {self.tbl}!")
+                    f"R2S transliteration error for {self.tbl}!\n"
+                    f"Original: {self.roman}")
 
 
 def make_suite():

@@ -17,9 +17,9 @@ class TestCapitalization(TestCase):
     def test_cap(self):
         tbl = "cap_inherited"
         in_str = "зг іо"
-        tx = transliterate(in_str, tbl)
-        tx_cap = transliterate(in_str, tbl, capitalize="first")
-        tx_all = transliterate(in_str, tbl, capitalize="all")
+        tx = transliterate(in_str, tbl)[0]
+        tx_cap = transliterate(in_str, tbl, capitalize="first")[0]
+        tx_all = transliterate(in_str, tbl, capitalize="all")[0]
 
         self.assertEqual(tx, "zh io")
         self.assertEqual(tx_cap, "Zh io")
@@ -28,9 +28,9 @@ class TestCapitalization(TestCase):
     def test_cap_ligatures(self):
         tbl = "cap_inherited"
         in_str = "жзг ёіо зг іо"
-        tx = transliterate(in_str, tbl)
-        tx_cap = transliterate(in_str, tbl, capitalize="first")
-        tx_all = transliterate(in_str, tbl, capitalize="all")
+        tx = transliterate(in_str, tbl)[0]
+        tx_cap = transliterate(in_str, tbl, capitalize="first")[0]
+        tx_all = transliterate(in_str, tbl, capitalize="all")[0]
 
         self.assertEqual(tx, "z︠h︡zh i︠o︡io zh io")
         self.assertEqual(tx_cap, "Z︠H︡zh i︠o︡io zh io")
