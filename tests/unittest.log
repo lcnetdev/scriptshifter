@@ -1067,7 +1067,7 @@ INFO:scriptshifter.trans:Loaded table for korean_nonames.
 INFO:scriptshifter.trans:Loaded table for korean_nonames.
 ..INFO:scriptshifter.trans:Transliteration is from korean_nonames to Latin.
 INFO:scriptshifter.trans:Loaded table for korean_nonames.
-E.INFO:scriptshifter.trans:Transliteration is from korean_nonames to Latin.
+F.INFO:scriptshifter.trans:Transliteration is from korean_nonames to Latin.
 INFO:scriptshifter.trans:Loaded table for korean_nonames.
 ..INFO:scriptshifter.trans:Transliteration is from korean_nonames to Latin.
 INFO:scriptshifter.trans:Loaded table for korean_nonames.
@@ -4286,34 +4286,6 @@ ERROR: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
 Test S2R transliteration for one CSV sample.
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 37, in sample_s2r
-    txl = transliterate(self.script, self.tbl)[0]
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/stefano/code/scriptshifter/src/scriptshifter/trans.py", line 83, in transliterate
-    if _run_hook("post_config", ctx, langsec_hooks) == BREAK:
-       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/stefano/code/scriptshifter/src/scriptshifter/trans.py", line 257, in _run_hook
-    ret = hook_def[0](ctx, **kwargs)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/stefano/code/scriptshifter/src/scriptshifter/hooks/korean/romanizer.py", line 47, in s2r_nonames_post_config
-    ctx.dest, ctx.warnings = _romanize_nonames(ctx.src)
-                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/stefano/code/scriptshifter/src/scriptshifter/hooks/korean/romanizer.py", line 90, in _romanize_nonames
-    rom = _romanize_oclc_auto(kor)
-          ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/stefano/code/scriptshifter/src/scriptshifter/hooks/korean/romanizer.py", line 254, in _romanize_oclc_auto
-    rom_ls.append(_kor_rom(word))
-                  ^^^^^^^^^^^^^^
-  File "/home/stefano/code/scriptshifter/src/scriptshifter/hooks/korean/romanizer.py", line 325, in _kor_rom
-    rom_niun_a, rom_niun_b = rom[:niun - 1].split("~", 1)
-    ^^^^^^^^^^^^^^^^^^^^^^
-ValueError: not enough values to unpack (expected 2, got 1)
-
-======================================================================
-ERROR: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
-Test S2R transliteration for one CSV sample.
-----------------------------------------------------------------------
-Traceback (most recent call last):
   File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 35, in sample_s2r
     config = scriptshifter.tables.load_table(self.tbl)
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -4559,6 +4531,21 @@ AssertionError: 'А а, Ә ә Б б, В в, G g, Ғ ғ, Д д, Е е, Ё ё,
 + А а, Ә ә Б б, В в, Г г, Ғ ғ, Д д, Е е, Ё ё, Ж ж, З з, И и, Й й, К к, Қ қ, Л л, М м, Н н, О о, Ө ө, П п, Р р, С с, Т т, У у, Ұ ұ, Ү ү, Ф ф, Х х, Һ һ, Ц ц, Ч ч, Ш ш, Щ щ, Ъ ъ, Ы ы, І і, Ь ь, Э э, Ю ю, Я я
  : R2S transliteration error for kazakh!
 Original: A a, Ă ă B b, V v, G g, Gh gh, D d, E e, Ë ë, Zh zh, Z z, I i, Ĭ ĭ, K k, Q q, L l, M m, N n, O o, Ȯ ȯ, P p, R r, S s, T t, U u, Ū ū, U̇ u̇, F f, Kh kh, Ḣ ḣ, T︠S︡ t︠s︡, Ch ch, Sh sh, Shch shch, ʺ̳ ʺ, Y y, Ī ī,  ʹ̳ ʹ, Ė ė, I︠U︡ i︠u︡, I︠A︡ i︠a︡
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Kigŭm i ogoe kwanggo ŭi iron kwa silmu' != 'Kigŭm chosŏngnyong ogoe kwanggo ŭi iron kwa silmu'
+- Kigŭm i ogoe kwanggo ŭi iron kwa silmu
+?       ^
++ Kigŭm chosŏngnyong ogoe kwanggo ŭi iron kwa silmu
+?       ^^^^^^^^^^^^
+ : S2R transliteration error for korean_nonames!
+Original: 기금 조성용 옥외 광고 의 이론 과 실무
 
 ======================================================================
 FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
@@ -5807,9 +5794,9 @@ AssertionError: 'Тему[14 chars] даврi тарiхi / [бош муҳаррi
 Original: Temur va Ulughbek : davri tarikhi / [bosh muḣarrir Aḣmadali Asqarov ; masʺul muḣarrir Oqilkhon Odilkhon]. Toshkent : Qomuslar bosh taḣririi︠a︡ti, [1996].
 
 ----------------------------------------------------------------------
-Ran 1608 tests in 2.666s
+Ran 1608 tests in 2.757s
 
-FAILED (failures=98, errors=5)
+FAILED (failures=99, errors=4)
 ......INFO:scriptshifter.trans:Transliteration is from cap_inherited to Latin.
 INFO:scriptshifter.trans:Loaded table for cap_inherited.
 INFO:scriptshifter.trans:Token   (\u20) at position 2 is not mapped.
@@ -5842,7 +5829,11 @@ INFO:scriptshifter.trans:Token   (\u20) at position 7 is not mapped.
 INFO:scriptshifter.trans:Capitalizing token.
 INFO:scriptshifter.trans:Token   (\u20) at position 10 is not mapped.
 INFO:scriptshifter.trans:Capitalizing token.
-....INFO:scriptshifter.trans:Transliteration is from Latin to rot3.
+./usr/lib/python3.11/site-packages/flask/json/provider.py:207: DeprecationWarning: The 'JSON_AS_ASCII' config key is deprecated and will be removed in Flask 2.3. Set 'app.json.ensure_ascii' instead.
+  warnings.warn(
+./usr/lib/python3.11/site-packages/flask/json/provider.py:281: DeprecationWarning: The 'JSONIFY_PRETTYPRINT_REGULAR' config key is deprecated and will be removed in Flask 2.3. Set 'app.json.compact' instead.
+  warnings.warn(
+..INFO:scriptshifter.trans:Transliteration is from Latin to rot3.
 INFO:scriptshifter.trans:Loaded table for rot3.
 INFO:scriptshifter.trans:Capitalizing token.
 .INFO:scriptshifter.trans:Transliteration is from Latin to rot3.
