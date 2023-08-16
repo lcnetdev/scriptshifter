@@ -1171,7 +1171,7 @@ INFO:scriptshifter.trans:Loaded table for korean_nonames.
 INFO:scriptshifter.trans:Loaded table for korean_nonames.
 ..INFO:scriptshifter.trans:Transliteration is from korean_nonames to Latin.
 INFO:scriptshifter.trans:Loaded table for korean_nonames.
-F.INFO:scriptshifter.trans:Transliteration is from korean_nonames to Latin.
+..INFO:scriptshifter.trans:Transliteration is from korean_nonames to Latin.
 INFO:scriptshifter.trans:Loaded table for korean_nonames.
 ..INFO:scriptshifter.trans:Transliteration is from korean_nonames to Latin.
 INFO:scriptshifter.trans:Loaded table for korean_nonames.
@@ -4597,21 +4597,6 @@ Test S2R transliteration for one CSV sample.
 Traceback (most recent call last):
   File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
     self.assertEqual(
-AssertionError: 'Nae an ŭi lidŏsip' != 'Nae an ŭi ridŏsip'
-- Nae an ŭi lidŏsip
-?           ^
-+ Nae an ŭi ridŏsip
-?           ^
- : S2R transliteration error for korean_nonames!
-Original: 내 안 의 리더십
-
-======================================================================
-FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
-Test S2R transliteration for one CSV sample.
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
-    self.assertEqual(
 AssertionError: "Tasŏk ryu yŏngmo - uri mal kwa uri kŭl ro ch'ŏrhakhan k'ŭn sasangga" != "Tasŏk Yu Yŏng-mo - uri mal kwa uri kŭl ro ch'ŏrhakhan k'ŭn sasangga"
 - Tasŏk ryu yŏngmo - uri mal kwa uri kŭl ro ch'ŏrhakhan k'ŭn sasangga
 ?       ^^  ^
@@ -5822,9 +5807,9 @@ AssertionError: 'Тему[14 chars] даврi тарiхi / [бош муҳаррi
 Original: Temur va Ulughbek : davri tarikhi / [bosh muḣarrir Aḣmadali Asqarov ; masʺul muḣarrir Oqilkhon Odilkhon]. Toshkent : Qomuslar bosh taḣririi︠a︡ti, [1996].
 
 ----------------------------------------------------------------------
-Ran 1608 tests in 2.669s
+Ran 1608 tests in 2.666s
 
-FAILED (failures=99, errors=5)
+FAILED (failures=98, errors=5)
 ......INFO:scriptshifter.trans:Transliteration is from cap_inherited to Latin.
 INFO:scriptshifter.trans:Loaded table for cap_inherited.
 INFO:scriptshifter.trans:Token   (\u20) at position 2 is not mapped.

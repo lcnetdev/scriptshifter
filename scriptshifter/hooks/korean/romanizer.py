@@ -122,10 +122,6 @@ def _romanize_names(src):
 
     warnings = []
 
-    if re.find("[a-z]|[A-Z]|[0-9]", src):
-        warnings.append("Source may not be a personal name.")
-        return None, warnings
-
     # FKR001: Conversion, Family names in Chinese (dealing with 金 and 李)
     # FKR002: Family names, Initial sound law
     replaced = False
@@ -141,24 +137,51 @@ def _romanize_names(src):
     # FKR003: First name, Chinese Character Conversion
     src = _hancha2hangul(_marc8_hancha(src))
 
-    if re.find("[a-zA-Z0-9]", src):
-        warnings.append(f"{src} may not be a personal name.")
+    if re.search("[a-zA-Z0-9]", src):
+        warnings.append(f"{src} is not a recognized personal name.")
         return None, warnings
 
-    src, _warnings = _parse_kor_name(re.sub(r"\s{2,}", " ", src.strip()))
+    # `parsed` can either be a modified Korean string with markers, or in case
+    # of a foreign name, the final romanized name.
+    parsed, _warnings = _parse_kor_name(re.sub(r"\s{2,}", " ", src.strip()))
 
     if len(_warnings):
         warnings += _warnings
 
-    if "~" in src:
-        lname, fname = src.split("~", 1)
-        fname_rom = _kor_fname_rom(fname)
+    if parsed:
+        if "~" in parsed:
+            lname, fname = parsed.split("~", 1)
+            fname_rom = _kor_fname_rom(fname)
 
-    return rom, warnings
+            lname_rom_ls = [_kor_lname_rom(n) for n in lname.split("+")]
+
+            if not any(lname_rom_ls):
+                warnings.append(f"{parsed} is not a recognized Korean name.")
+                return None, warnings
+
+            lname_rom = " ".join(lname_rom_ls)
+
+            rom = f"{lname_rom} {fname_rom}"
+
+            if False:
+                # TODO add option for authoritative name.
+                rom_ls = rom.rsplit(" ", 1)
+                rom = ", ".join(rom_ls)
+
+            return rom, warnings
+
+        else:
+            warnings.append("Romanized as a foreign name.")
+            return parsed, warnings
+
+    warnings.append(f"{src} is not a recognized Korean name.")
+    return None, warnings
 
 
 def _parse_kor_name(src):
+    parsed = None
     warnings = []
+
     # FKR004: Check first two characters. Two-syllable family name or not?
     two_syl_fname = False
     for ptn in KCONF["fkr004"]:
@@ -174,7 +197,7 @@ def _parse_kor_name(src):
     # FKR0006: Error if more than 2 spaces
     if ct_spaces > 2:
         warnings.append("ERROR: not a name (too many spaces)")
-        return None, warnings
+        return parsed, warnings
 
     # FKR007: 2 spaces (two family names)
     if ct_spaces == 2:
@@ -545,7 +568,7 @@ def _kor_fname_rom(fname):
             j = True
 
     k = False
-    for tok in KCONF["fkr011"]["dino_ini"]:
+    for tok in KCONF["fkr011"]["sino_ini"]:
         if tok in rom:
             k = True
 
@@ -595,7 +618,7 @@ def _kor_fname_rom(fname):
     _fkr_log(30)
     for k, cmap in KCONF["fkr030"].items():
         logger.debug(f"Applying FKR030[\"{k}\"]")
-        rom = _replace_map(cmap)
+        rom = _replace_map(rom, cmap)
 
     rom = _replace_map(rom.replace("#", ""), {"swi": "shwi", "Swi": "Shwi"}, 1)
 
@@ -608,7 +631,7 @@ def _kor_fname_rom(fname):
     _fkr_log(31)
     for k, cmap in KCONF["fkr031"].items():
         logger.debug(f"Applying FKR031[\"{k}\"]")
-        rom = _replace_map(cmap)
+        rom = _replace_map(rom, cmap)
 
     # FKR032: Capitalization
     rom = rom[0].upper() + rom[1:]
@@ -625,6 +648,22 @@ def _kor_fname_rom(fname):
                 rom = rom.replace(k, v)
 
     return rom
+
+
+def _kor_lname_rom(lname):
+    if len(lname) == 2:
+        # FKR181: 2-charater names.
+        _fkr_log(181)
+        rom = _replace_map(lname, KCONF["fkr181"])
+    else:
+        # FKR182: 1-charater Chinese names.
+        _fkr_log(182)
+        lname = _replace_map(lname, KCONF["fkr182"])
+        # FKR183: 1-charater names.
+        _fkr_log(183)
+        rom = _replace_map(lname, KCONF["fkr183"])
+
+    return rom if lname != rom else False
 
 
 def _fkr_log(fkr_i):
