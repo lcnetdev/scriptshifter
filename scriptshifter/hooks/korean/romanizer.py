@@ -345,7 +345,9 @@ def _kor_rom(kor):
 
     # FKR071: [n] insertion
     if niun > -1:
-        rom_niun_a, rom_niun_b = rom[:niun - 1].split("~", 1)
+        rom_niun = rom[:niun - 1].split("~", 1)
+        rom_niun_a = rom_niun[0] if len(rom_niun) > 1 else ""
+        rom_niun_b = rom_niun[1] if len(rom_niun) > 1 else rom_niun[0]
         if re.match("ill#m(?:2|6|12|17|20)", rom_niun_b):
             _fkr_log(71)
             rom_niun_b = rom_niun_b.replace("i11#m", "i2#m", 1)
