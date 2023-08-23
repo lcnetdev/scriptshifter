@@ -1,5 +1,5 @@
 general:
-  name: Belorusian
+  name: Belarusian
   parents:
     - _cyrillic_base
 
@@ -11,6 +11,8 @@ roman_to_script:
     "g": "\u0491"
     "E\u0307": "\u042D"
     "e\u0307": "\u044D"
+    "E\u030C": "\u0462"
+    "e\u030C": "\u0463"
     "e": "\u0435"
     "Z\uFE20H\uFE21": "\u0416"
     # this conversion shouldn't be needed, but does no harm
@@ -23,6 +25,8 @@ roman_to_script:
     "I": "\u0406"
     "i\uFE20o\uFE21": "\u0451"
     "i": "\u0456"
+    "I\u0304": "\u0418"
+    "i\u0304": "\u0438"
     # this conversion shouldn't be needed, but does no harm
     # Obsolete form.
     #"SHCH": "\u0429"
@@ -53,6 +57,8 @@ script_to_roman:
     "\u040E": "U\u0306"
     "\u0413": "H"
     "\u0416": "Z\uFE20H\uFE21"
+    "\u0418": "I\u0304"
+    "\u0438": "i\u0304"
     "\u0426": "TS"
     "\u042B": "Y"
     "\u042D": "E\u0307"
@@ -64,5 +70,7 @@ script_to_roman:
     "\u0451": "i\uFE20o\uFE21"
     "\u0456": "i"
     "\u045E": "u\u0306"
+    "\u0462": "E\u030C"
+    "\u0463": "e\u030C"
     "\u0490": "G"
     "\u0491": "g"

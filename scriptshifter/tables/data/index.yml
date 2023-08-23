@@ -24,6 +24,8 @@ bulgarian:
   name: Bulgarian
 chinese:
   name: Chinese (Hanzi)
+chinese_alt:
+  name: Chinese (Alternative)
 church_slavonic:
   name: Church Slavonic
 ethiopic:
