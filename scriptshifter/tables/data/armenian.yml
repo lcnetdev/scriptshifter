@@ -146,6 +146,12 @@ roman_to_script:
     "F": "\u0556"
     "f": "\u0586"
     "\u02B9": ""
+    #Punctuation
+    ",": "\u055D"
+    ".": "\u0589"
+    "!": "\u055C"
+    "?": "\u055E"
+    "-": "\u058A"
 
 script_to_roman:
   map:
@@ -201,6 +207,7 @@ script_to_roman:
     "\u0565\u057E": "ev"
     "\u0535": "E"
     "\u0565": "e"
+    "\u0587": "ev"
     # T uppercase with ayn
     "\u0539": "T\u02BB"
     # t lowercase with ayn
@@ -287,4 +294,9 @@ script_to_roman:
     "\u0582": "w"
     "\u0556": "F"
     "\u0586": "f"
-
+    #Punctuation
+    "\u055D": ","
+    "\u0589": "."
+    "\u055C": "!"
+    "\u055E": "?"
+    "\u058A": "-"
