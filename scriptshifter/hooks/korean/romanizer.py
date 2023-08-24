@@ -110,6 +110,8 @@ def _romanize_nonames(src, capitalize="first", hancha=True):
         if exp in ambi:
             warnings.append(ambi if warn == "" else warn)
 
+    rom = rom.replace("kkk", "kk")
+
     return rom, warnings
 
 
@@ -167,6 +169,8 @@ def _romanize_names(src):
                 # TODO add option for authoritative name.
                 rom_ls = rom.rsplit(" ", 1)
                 rom = ", ".join(rom_ls)
+
+            rom = rom.replace("kkk", "kk")
 
             return rom, warnings
 
@@ -272,7 +276,6 @@ def _romanize_oclc_auto(kor):
     kor = kor.replace("^", " GLOTTAL ")
 
     rom_ls = []
-    # breakpoint()
     for word in kor.split(" "):
         rom_ls.append(_kor_rom(word))
     rom = " ".join(rom_ls)
