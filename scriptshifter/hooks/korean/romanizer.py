@@ -110,7 +110,8 @@ def _romanize_nonames(src, capitalize="first", hancha=True):
         if exp in ambi:
             warnings.append(ambi if warn == "" else warn)
 
-    rom = rom.replace("kkk", "kk")
+    if rom:
+        rom = rom.replace("kkk", "kk")
 
     return rom, warnings
 
@@ -348,9 +349,13 @@ def _kor_rom(kor):
 
     # FKR071: [n] insertion
     if niun > -1:
-        rom_niun = rom[:niun - 1].split("~", 1)
-        rom_niun_a = rom_niun[0] if len(rom_niun) > 1 else ""
-        rom_niun_b = rom_niun[1] if len(rom_niun) > 1 else rom_niun[0]
+        niun_loc = rom.find("~")
+        # Advance until the niun'th occurrence of ~
+        # If niun is 0 or 1 the loop will be skipped.
+        for i in range(niun - 1):
+            niun_loc = rom.find("~", niun_loc + 1)
+        rom_niun_a = rom[:niun_loc]
+        rom_niun_b = rom[niun_loc + 1:]
         if re.match("ill#m(?:2|6|12|17|20)", rom_niun_b):
             _fkr_log(71)
             rom_niun_b = rom_niun_b.replace("i11#m", "i2#m", 1)

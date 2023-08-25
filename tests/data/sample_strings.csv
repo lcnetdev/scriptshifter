@@ -67,8 +67,35 @@ KHAKAS,Cyrillic,,,,L-R ,,,
 KOMI/KIMI-PERMYAK,Cyrillic,,,,L-R ,,,
 Konkani,Devanagari,,श्रीज्ञानेश्वर : अलोकीक व्यक्तीमत्व ,Śrījñāneśvara : alokīka vyaktīmatva ,L-R ,,,
 Konkani,Kannada,,ಚಂದ್ರ ಅನಿ ತಾರಾಂ,Candr ani tārāṃ,L-R ,,,
-Korean,Hangul,,민주화 이후 국정 운영,Minjuhwa ihu kukchŏng unyŏng,L-R ,,,
-Korean,Hancha only,,曉城　趙　明基　博士　追慕　佛教　史學　論文集,Hyosŏng Cho Myŏng-gi Paksa ch'umo Pulgyo sahak nonmunjip,L-R ,,,Not Chinese
+Korean,Hangul,korean_nonames,민주화 이후 국정 운영,Minjuhwa ihu kukchŏng unyŏng,L-R ,,,
+Korean,Hancha only,korean_nonames,曉城　趙　明基　博士　追慕　佛教　史學　論文集,Hyosŏng Cho Myŏng-gi Paksa ch'umo Pulgyo sahak nonmunjip,L-R ,,,Not Chinese
+Korean,Hangul,korean_nonames,결단력,Kyŏltannyŏk,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,상견례,Sangyŏnnye,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,신여성,Sinyŏsŏng,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,의견란,Ŭigyŏnnan,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,만석꾼,Mansŏkkun,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,임진란,Imjinnan,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,임진록,Imjinnok,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,옛이야기,Yenniyagi,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,전달자,Chŏndalcha,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,독해법,Tokhaepŏp,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,방지법,Pangjipŏp,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,추진법,Ch'ujinpŏp,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,여행법,Yŏhaengpŏp,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,사랑법,Sarangpŏp,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,호박꽃,Hobakkot,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,공권력,Kongkwŏnnyŏk,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,생산량,Saengsannyang,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,이원론,Iwŏnnon,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,동원령,Tongwŏnnyŏng,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,한여름,Hanyŏrŭm,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,휘발유,Hwiballyu,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,꽃잎,Kkonnip,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,솔잎,Sollip,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,활동가,Hwaltongga,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,별일,Pyŏllil,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,노근리,Nogŭn-ni,L-R,,,From Elaine
+Korean,Hangul,korean_nonames,창원군,Ch'angwŏn-gun,L-R,,,From Elaine
 Korean ,Hangul +Hancha,korean_nonames,民法　과　法學　의　重要　問題,Minpŏp kwa pŏphak ŭi chungyo munje,L-R ,,,Not Chinese
 Korean ,Hangul +Hancha,korean_nonames,그래도 돈 버는 사람 은 있다,Kŭraedo ton pŏnŭn saram ŭn itta,L-R ,,,From K-Romanizer
 Korean ,Hangul +Hancha,korean_nonames,근대 계몽기 문학 과 독자 의 발견,Kŭndae kyemonggi munhak kwa tokcha ŭi palgyŏn,L-R ,,,From K-Romanizer
