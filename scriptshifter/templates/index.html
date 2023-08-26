@@ -20,6 +20,13 @@
             padding: 1em;
         }
 
+        pre.warnings{
+            border-left: 0.3rem solid #FF5722 !important;
+        }
+        #warnings-toggle{
+            display: none;
+        }
+
     </style>
 
 
@@ -62,7 +69,9 @@
         </fieldset>
     </form>
 
-    <div id="warnings"></div>
+    <div id="warnings-toggle"><pre class="warnings"><code id="warnings">
+
+    </code></pre></div>
     <div id="results">
         Results will appear here.
     </div>
@@ -91,10 +100,18 @@
                 method: 'post',
                 body: data,
             })
-            .then(response=>response.text())
-            .then((text)=>{
+            .then(response=>response.json())
+            .then((results)=>{
 
-                document.getElementById('results').innerText = text
+                document.getElementById('warnings-toggle').style.display="none"
+
+                document.getElementById('results').innerText = results.output
+
+                if (results.warnings.length>0){
+                    document.getElementById('warnings-toggle').style.display="block"
+                }
+                document.getElementById('warnings').innerText = "WARNING:\n" + results.warnings.join("\n")
+
 
             }).catch((error) => {
               alert("Error:\n" + error)
