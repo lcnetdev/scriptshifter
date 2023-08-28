@@ -19,7 +19,7 @@ class Context:
     """
     Context used within the transliteration and passed to hook functions.
     """
-    def __init__(self, src, general, langsec):
+    def __init__(self, src, general, langsec, options={}):
         """
         Initialize a context.
 
@@ -27,9 +27,11 @@ class Context:
             src (str): The original text. This is meant to never change.
             general (dict): general section of the current config.
             langsec (dict): Language configuration section being used.
+            options (dict): extra options as a dict.
         """
         self.src = src
         self.general = general
+        self.options = options
         self.langsec = langsec
         self.dest_ls = []
 
@@ -76,7 +78,7 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     langsec_hooks = langsec.get("hooks", {})
 
     src = src.strip()
-    ctx = Context(src, general, langsec)
+    ctx = Context(src, general, langsec, {"capitalize": capitalize})
 
     # This hook may take over the whole transliteration process or delegate it
     # to some external process, and return the output string directly.
@@ -189,11 +191,15 @@ def transliterate(src, lang, r2s=False, capitalize=False):
 
                 # A match is found. Stop scanning tokens, append result, and
                 # proceed scanning the source.
+
                 # Capitalization.
                 if (
-                    (capitalize == "first" and ctx.cur == 0)
+                    (ctx.options["capitalize"] == "first" and ctx.cur == 0)
                     or
-                    (capitalize == "all" and ctx.cur_flags & CUR_BOW)
+                    (
+                        ctx.options["capitalize"] == "all"
+                        and ctx.cur_flags & CUR_BOW
+                    )
                 ):
                     logger.info("Capitalizing token.")
                     double_cap = False
@@ -203,7 +209,7 @@ def transliterate(src, lang, r2s=False, capitalize=False):
                             double_cap = True
                             break
                     if not double_cap:
-                        ctx.dest_tk = ctx.dest_tk.capitalize()
+                        ctx.dest_tk = ctx.dest_tk[0].upper() + ctx.dest_tk[1:]
 
                 ctx.dest_ls.append(ctx.dest_tk)
                 ctx.cur += step

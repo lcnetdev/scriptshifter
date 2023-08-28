@@ -44,7 +44,8 @@ logger = logging.getLogger(__name__)
 
 def s2r_nonames_post_config(ctx):
     """ Romanize a regular string NOT containing personal names. """
-    ctx.dest, ctx.warnings = _romanize_nonames(ctx.src)
+    ctx.dest, ctx.warnings = _romanize_nonames(
+            ctx.src, ctx.options["capitalize"])
 
     return BREAK
 
