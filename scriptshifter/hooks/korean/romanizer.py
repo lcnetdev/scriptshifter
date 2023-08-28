@@ -171,8 +171,6 @@ def _romanize_names(src):
                 rom_ls = rom.rsplit(" ", 1)
                 rom = ", ".join(rom_ls)
 
-            rom = rom.replace("kkk", "kk")
-
             return rom, warnings
 
         else:
