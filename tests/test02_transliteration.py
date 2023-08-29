@@ -34,7 +34,7 @@ class TestTrans(TestCase):
         """
         config = scriptshifter.tables.load_table(self.tbl)
         if "script_to_roman" in config:
-            txl = transliterate(self.script, self.tbl)[0]
+            txl = transliterate(self.script, self.tbl, capitalize="first")[0]
             self.assertEqual(
                     txl, self.roman,
                     f"S2R transliteration error for {self.tbl}!\n"
@@ -49,7 +49,8 @@ class TestTrans(TestCase):
         """
         config = scriptshifter.tables.load_table(self.tbl)
         if "roman_to_script" in config:
-            txl = transliterate(self.roman, self.tbl, r2s=True)[0]
+            txl = transliterate(
+                    self.roman, self.tbl, r2s=True, capitalize="first")[0]
             self.assertEqual(
                     txl, self.script,
                     f"R2S transliteration error for {self.tbl}!\n"

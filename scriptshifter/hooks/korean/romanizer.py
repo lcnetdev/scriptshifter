@@ -275,6 +275,8 @@ def _romanize_oclc_auto(kor):
 
     kor = kor.replace("^", " GLOTTAL ")
 
+    logger.debug(f"Korean before romanization: {kor}")
+
     rom_ls = []
     for word in kor.split(" "):
         rom_ls.append(_kor_rom(word))
@@ -355,7 +357,7 @@ def _kor_rom(kor):
             niun_loc = rom.find("~", niun_loc + 1)
         rom_niun_a = rom[:niun_loc]
         rom_niun_b = rom[niun_loc + 1:]
-        if re.match("ill#m(?:2|6|12|17|20)", rom_niun_b):
+        if re.match("i11#m(?:2|6|12|17|20)", rom_niun_b):
             _fkr_log(71)
             rom_niun_b = rom_niun_b.replace("i11#m", "i2#m", 1)
 
@@ -394,13 +396,6 @@ def _kor_rom(kor):
     # FKR098: Consonant assimilation ㅌ
     # FKR099: Consonant assimilation ㅍ
     # FKR100: Consonant assimilation ㅎ
-    fkr_i = 73
-    for k, cmap in KCONF["fkr073-100"].items():
-        if k in rom:
-            _fkr_log(fkr_i)
-            rom = _replace_map(rom, cmap)
-        fkr_i += 1
-
     # FKR101: digraphic coda + ㅇ: ㄵ,ㄶ,ㄺ,ㄻ,ㄼ,ㄽ,ㄾ,ㄿ,ㅀ
     # FKR102: digraphic coda + ㅎ: ㄵ,ㄶ,ㄺ,ㄻ,ㄼ,(ㄽ),ㄾ,ㄿ,ㅀ
     # FKR103: Vocalization 1 (except ㄹ+ㄷ, ㄹ+ㅈ 제외) voiced + unvoiced
@@ -409,7 +404,7 @@ def _kor_rom(kor):
     # FKR106: Final sound law
     # FKR107: Exception for '쉬' = shi
     # FKR108: Exception for 'ㄴㄱ'= n'g
-    for fkr_i in range(101, 109):
+    for fkr_i in range(73, 109):
         _fkr_log(fkr_i)
         _bk = rom
         rom = _replace_map(rom, KCONF[f"fkr{fkr_i:03}"])

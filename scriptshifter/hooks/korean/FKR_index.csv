@@ -106,7 +106,7 @@ FKR105,"유성음화3 (ㄹ+ㄷ, ㄹ+ㅈ)","Vocalization 3 (ㄹ+ㄷ, ㄹ+ㅈ)"
 FKR106,말음법칙,Final sound law
 FKR107,예외 자음표기 '쉬' = shi,Exception for '쉬' = shi
 FKR108,예외 자음군 표기 'ㄴㄱ'= n'g,Exception for 'ㄴㄱ'= n'g
-FKR109,나머지 변환,Conver everything else
+FKR109,나머지 변환,Convert everything else
 FKR110,기호 변환,Convert symbols
 FKR111,"ㄹ + 모음/ㅎ/ㄹ, [""lr"",""ll""] 는 반드시 맨 끝에 둘 것","ㄹ + 모음/ㅎ/ㄹ, [""lr"",""ll""] must be in the last of the array"
 FKR112,두음법칙 예외,Exceptions to initial sound law
@@ -139,7 +139,7 @@ FKR138,ISO/TR 11941 END ISO/TR 11941 로마자 규칙,ISO/TR 11941  => No need f
 FKR139,한자음이 여러개일 경우,Chinese characters with multiple readings
 FKR140,樂은 그대로 둘것,Leave 樂 as it is
 FKR141,엑셀에서 복사,Chinese character list
-FKR142,한자 MARC8한자로 통일,Conver to MARC8 characters
+FKR142,한자 MARC8한자로 통일,Convert to MARC8 characters
 FKR143,한자 예외 한자어 변환 먼저,Process exceptions first
 FKR144,"한자 두음법칙 처리 (제외: 列, 烈, 裂, 劣)","Apply initial sound law (Except: 列, 烈, 裂, 劣)"
 FKR145,"한자 약자, 이체자","Simplified characters, variants"
