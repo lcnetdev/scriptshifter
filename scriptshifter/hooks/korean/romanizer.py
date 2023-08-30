@@ -293,10 +293,11 @@ def _romanize_oclc_auto(kor):
     rom = re.sub(r"\s{2,}", " ", f" {rom.strip()} ")
 
     # FKR061: Jurisdiction (시)
+    # FKR062: Historical place names
     # FKR063: Jurisdiction (국,도,군,구)
     # FKR064: Temple names of Kings, Queens, etc. (except 조/종)
     # FKR065: Frequent historical names
-    for i in (61, 63, 64, 65):
+    for i in range(61, 66):
         _fkr_log(i)
         rom = _replace_map(rom, KCONF[f"fkr{i:03}"])
 

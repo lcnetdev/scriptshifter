@@ -3000,6 +3000,11 @@ fkr061:
   " hwach'ŏnŭp ": " Hwach'ŏn-ŭp "
   " hoengsŏngŭp ": " Hoengsŏng-ŭp "
 
+fkr062:
+  # Historical place names
+  " nogŭlli ": " Nogŭn-ni "
+  " ch'angwŏn'gun ": " Ch'angwŏn-gun "
+
 # Also commented out in L1235
 #fkr063_rule_kn:
 #  " ch'ang taewang ": " Ch'ang Taewang "
