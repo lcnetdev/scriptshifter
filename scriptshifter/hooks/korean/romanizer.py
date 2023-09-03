@@ -100,9 +100,6 @@ def _romanize_nonames(src, capitalize="first", hancha=True):
     # FKR044: Ambiguities
     ambi = re.sub("[,.\";: ]+", " ", rom)
 
-    # @TODO Move this to a generic normalization step (not only for K)
-    rom = _replace_map(rom, {"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
-
     # TODO Decide what to do with these. There is no facility for outputting
     # warnings or notes to the user yet.
     warnings = []
@@ -462,6 +459,9 @@ def _kor_rom(kor):
     # FKR121: Loan words beginning with L
     if f" {orig} " in KCONF["fkr121"]:
         rom = _replace_map(rom[0], {"R": "L", "r": "l"}) + rom[1:]
+
+    # @TODO Move this to a generic normalization step (not only for K)
+    rom = _replace_map(rom, {"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
 
     return rom
 
