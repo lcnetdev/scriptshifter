@@ -190,8 +190,10 @@ def _parse_kor_name(src):
             two_syl_fname = True
             break
 
+    src_len = len(src)
+
     # FKR005: Error if more than 7 syllables
-    if len(src) > 7 or len(src) < 2 or " " in src[3:]:
+    if src_len > 7 or src_len < 2 or " " in src[3:]:
         return _kor_corp_name_rom(src), warnings
 
     ct_spaces = src.count(" ")
@@ -213,6 +215,15 @@ def _parse_kor_name(src):
             if two_syl_fname:
                 parsed = "+" + src.replace(" ", "~")
 
+    # FKR010: When there is no space
+    else:
+        if src_len == 2:
+            parsed = src[0] + "~" + src[1:]
+        elif src_len > 2:
+            if two_syl_fname:
+                parsed = src[:1] + "~" + src[2:]
+            else:
+                parsed = src[0] + "~" + src[1:]
     return parsed, warnings
 
 
