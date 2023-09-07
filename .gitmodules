@@ -1,0 +1,3 @@
+[submodule "ext/camel_tools"]
+	path = ext/camel_tools
+	url = https://github.com/CAMeL-Lab/camel_tools.git
