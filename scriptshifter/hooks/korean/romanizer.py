@@ -90,9 +90,10 @@ def _romanize_nonames(src, capitalize="first", hancha=True):
 
     rom = _romanize_oclc_auto(kor)
 
+    logger.debug(f"Before capitalization: {rom}")
     # FKR042: Capitalize all first letters
     if capitalize == "all":
-        rom = rom.title()
+        rom = _capitalize(rom)
     # FKR043: Capitalize the first letter
     elif capitalize == "first":
         rom = rom[0].upper() + rom[1:]
@@ -118,9 +119,30 @@ def _romanize_names(src):
     """
     Main Romanization function for names.
 
+    Separate and romanize multiple names sepearated by comma or middle dot.
+
     K-Romanizer: KorNameRom20
     """
+    rom_ls = []
+    warnings = []
 
+    if "," in src and "·" in src:
+        warnings.append(
+                "both commas and middle dots are being used to separate "
+                "names. Only one of the two types should be used, or "
+                "unexpected results may occur.")
+
+    kor_ls = src.split(",") if "," in src else src.split("·")
+
+    for kor in kor_ls:
+        rom, _warnings = _romanize_name(kor.strip())
+        rom_ls.append(rom)
+        warnings.extend(_warnings)
+
+    return ", ".join(rom_ls), warnings
+
+
+def _romanize_name(src):
     warnings = []
 
     # FKR001: Conversion, Family names in Chinese (dealing with 金 and 李)
@@ -245,7 +267,7 @@ def _kor_corp_name_rom(src):
     rom_tok = []
     for tok in src.split(" "):
         rom_tok.append(_romanize_oclc_auto(tok))
-    rom = " ".join(rom_tok).title()
+    rom = _capitalize(" ".join(rom_tok))
 
     if chu == "L":
         rom = "(Chu) " + rom
@@ -680,6 +702,14 @@ def _kor_lname_rom(lname):
         rom = _replace_map(lname, KCONF["fkr183"])
 
     return rom if lname != rom else False
+
+
+def _capitalize(src):
+    """ Only capitalize first word and words preceded by space."""
+    orig_ls = src.split(" ")
+    cap_ls = [orig[0].upper() + orig[1:] for orig in orig_ls]
+
+    return " ".join(cap_ls)
 
 
 def _fkr_log(fkr_i):
