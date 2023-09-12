@@ -1,3 +1,4 @@
 flask
 pyyaml
 uwsgi
+./ext/camel_tools
