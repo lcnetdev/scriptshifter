@@ -27,12 +27,18 @@
             display: none;
         }
 
+        p.input_descr {
+            font-size: 80%;
+            font-style: italic;
+            margin-bottom: .5rem;
+        }
+
     </style>
 
 
 
 
-    <form id="transliterate" action="/transliterate" method="POST">
+    <form id="transliterate" action="/trans" method="POST">
         <fieldset>
             <label for="text">Input text</label>
             <textarea id="text" name="text"></textarea>
@@ -42,9 +48,19 @@
                     <option value="{{ k }}">{{ v["name"] }}</option>
                 {% endfor %}
             </select>
+        </fieldset>
+        <fieldset>
+            <legend>Direction</legend>
             <div>
-                <label class="label-inline" for="r2s">Roman to Script</label>
-                <input type="checkbox" id="r2s" name="r2s">
+                <label class="label-inline" for="s2r">Script to Roman</label>
+                <input
+                        type="radio" id="opt_s2r" name="t_dir" value="s2r"
+                        checked>
+            </div>
+            <div>
+                <label class="label-inline" for="r2s">Roman to script</label>
+                <input
+                        type="radio" id="opt_r2s" name="t_dir" value="r2s">
             </div>
         </fieldset>
         <fieldset>
@@ -64,6 +80,7 @@
                 <input type="radio" id="all" name="capitalize" value="all">
             </div>
         </fieldset>
+        <div id="options"></div>
         <fieldset>
             <input class="button-primary" type="submit" value="Transliterate!">
         </fieldset>
@@ -77,26 +94,63 @@
     </div>
 
     <script type="text/javascript">
+        document.getElementById('lang').addEventListener('change',(event)=>{
+            let lang = document.getElementById("lang").value;
+
+            fetch('/options/' + lang)
+              .then(response=>response.json())
+                .then((data) => {
+                    document.getElementById("options").replaceChildren();
+                    data.forEach((opt)=>{
+                        let fset = document.createElement("fieldset");
+                        let label = document.createElement("label");
+                        label.setAttribute("for", opt.id);
+                        label.append(opt.label);
+
+                        let input = document.createElement("input");
+                        input.setAttribute("id", opt.id);
+                        input.setAttribute("name", opt.id);
+                        input.classList.add("option_i");
+                        input.value = opt.default;
+
+                        let descr = document.createElement("p");
+                        descr.setAttribute("class", "input_descr");
+                        descr.append(opt.description);
+
+                        fset.append(label, descr, input);
+                        document.getElementById("options").append(fset);
+                    });
+                });
+
+            event.preventDefault();
+            return false;
+        })
+        document.getElementById('lang').dispatchEvent(new Event('change'));
+
+
         document.getElementById('transliterate').addEventListener('submit',(event)=>{
 
-
-
             const data = new URLSearchParams();
+
+            let t_dir = Array.from(document.getElementsByName("t_dir")).find(r => r.checked).value;
 
             let capitalize = Array.from(document.getElementsByName("capitalize")).find(r => r.checked).value;
 
 
             data.append('text',document.getElementById('text').value)
             data.append('lang',document.getElementById('lang').value)
-
-            if (document.getElementById('r2s').checked){
-                data.append('r2s','on')
-            }
-
+            data.append('t_dir',t_dir)
             data.append('capitalize',capitalize)
 
+            let options = {};
+            let option_inputs = document.getElementsByClassName("option_i");
+            for (i = 0; i < option_inputs.length; i++) {
+                let el = option_inputs[i];
+                options[el.getAttribute('id')] = el.value;
+            };
+            data.append('options', JSON.stringify(options));
 
-            fetch('/transliterate', {
+            fetch('/trans', {
                 method: 'post',
                 body: data,
             })
@@ -116,12 +170,6 @@
             }).catch((error) => {
               alert("Error:\n" + error)
             });
-
-
-
-
-
-
 
             event.preventDefault()
             return false

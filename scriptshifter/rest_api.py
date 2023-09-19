@@ -2,9 +2,10 @@ import logging
 
 from base64 import b64encode
 from copy import deepcopy
+from json import loads
 from os import environ, urandom
 
-from flask import Flask, Response, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request
 
 from scriptshifter.tables import list_tables, load_table
 from scriptshifter.trans import transliterate
@@ -60,23 +61,32 @@ def dump_table(lang):
     return jsonify(tbl)
 
 
-@app.route("/transliterate", methods=["POST"])
-def transliterate_form():
-    """ UI version of the `trans` endpoint. Passes everything via form. """
-    return transliterate_req(
-            request.form["lang"], request.form.get("r2s", False))
+@app.route("/options/<lang>", methods=["GET"])
+def get_options(lang):
+    """
+    Get extra options for a table.
+    """
+    tbl = load_table(lang)
+
+    return jsonify(tbl.get("options", []))
 
 
-@app.route("/trans/<lang>/r2s", methods=["POST"], defaults={"r2s": True})
-@app.route("/trans/<lang>", methods=["POST"])
-def transliterate_req(lang, r2s=False):
+@app.route("/trans", methods=["POST"])
+def transliterate_req():
+    lang = request.form["lang"]
     in_txt = request.form["text"]
     capitalize = request.form.get("capitalize", False)
+    t_dir = request.form.get("t_dir", "s2r")
+    if t_dir not in ("s2r", "r2s"):
+        return f"Invalid direction: {t_dir}", 400
+
     if not len(in_txt):
         return ("No input text provided! ", 400)
+    options = loads(request.form.get("options", {}))
+    logger.debug(f"Extra options: {options}")
 
     try:
-        out, warnings = transliterate(in_txt, lang, r2s, capitalize)
+        out, warnings = transliterate(in_txt, lang, t_dir, options, capitalize)
     except (NotImplementedError, ValueError) as e:
         return (str(e), 400)
 
