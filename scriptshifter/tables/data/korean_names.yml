@@ -5,7 +5,7 @@ general:
 options:
   - id: marc_field
     label: MARC field
-    description: enter 0 if not applicable.
+    description: Romanize according to a specific MARC field format. Enter 0 if not applicable.
     type: int
     default: 0
 

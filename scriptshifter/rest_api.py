@@ -2,6 +2,7 @@ import logging
 
 from base64 import b64encode
 from copy import deepcopy
+from json import loads
 from os import environ, urandom
 
 from flask import Flask, jsonify, render_template, request
@@ -81,7 +82,7 @@ def transliterate_req():
 
     if not len(in_txt):
         return ("No input text provided! ", 400)
-    options = request.form.get("options", {})
+    options = loads(request.form.get("options", {}))
     logger.debug(f"Extra options: {options}")
 
     try:

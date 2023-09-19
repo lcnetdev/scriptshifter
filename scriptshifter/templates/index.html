@@ -27,6 +27,12 @@
             display: none;
         }
 
+        p.input_descr {
+            font-size: 80%;
+            font-style: italic;
+            margin-bottom: .5rem;
+        }
+
     </style>
 
 
@@ -107,7 +113,11 @@
                         input.classList.add("option_i");
                         input.value = opt.default;
 
-                        fset.append(label, input);
+                        let descr = document.createElement("p");
+                        descr.setAttribute("class", "input_descr");
+                        descr.append(opt.description);
+
+                        fset.append(label, descr, input);
                         document.getElementById("options").append(fset);
                     });
                 });

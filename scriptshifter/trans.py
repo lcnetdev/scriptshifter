@@ -52,6 +52,8 @@ def transliterate(src, lang, t_dir="s2r", options={}, capitalize=False):
             `"first"` (only first letter), or `"all"` (first letter of each
             word).
 
+        options: extra script-dependent options. Defaults to the empty map.
+
     Keyword args:
         r2s (bool): If False (the default), the source is considered to be a
         non-latin script in the language and script specified, and the output
@@ -87,7 +89,8 @@ def transliterate(src, lang, t_dir="s2r", options={}, capitalize=False):
     langsec_hooks = langsec.get("hooks", {})
 
     src = src.strip()
-    ctx = Context(src, general, langsec, {"capitalize": capitalize})
+    options["capitalize"] = capitalize
+    ctx = Context(src, general, langsec, options)
 
     # This hook may take over the whole transliteration process or delegate it
     # to some external process, and return the output string directly.

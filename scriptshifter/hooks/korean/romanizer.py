@@ -57,16 +57,16 @@ def s2r_names_post_config(ctx):
     One or more names can be transcribed. A comma or middle dot (U+00B7) is
     to be used as separator for multiple names.
     """
-    ctx.dest, ctx.warnings = _romanize_names(ctx.src)
+    ctx.dest, ctx.warnings = _romanize_names(ctx.src, ctx.options)
 
     return BREAK
 
 
-def _romanize_nonames(src, capitalize="first", hancha=True):
+def _romanize_nonames(src, options):
     """ Main Romanization function for non-name strings. """
 
     # FKR038: Convert Chinese characters to Hangul
-    if hancha:
+    if options.get("hancha", True):
         kor = _hancha2hangul(_marc8_hancha(src))
     else:
         kor = src
@@ -92,10 +92,10 @@ def _romanize_nonames(src, capitalize="first", hancha=True):
 
     logger.debug(f"Before capitalization: {rom}")
     # FKR042: Capitalize all first letters
-    if capitalize == "all":
+    if options["capitalize"] == "all":
         rom = _capitalize(rom)
     # FKR043: Capitalize the first letter
-    elif capitalize == "first":
+    elif options["capitalize"] == "first":
         rom = rom[0].upper() + rom[1:]
 
     # FKR044: Ambiguities
@@ -115,7 +115,7 @@ def _romanize_nonames(src, capitalize="first", hancha=True):
     return rom, warnings
 
 
-def _romanize_names(src):
+def _romanize_names(src, options):
     """
     Main Romanization function for names.
 
@@ -135,14 +135,15 @@ def _romanize_names(src):
     kor_ls = src.split(",") if "," in src else src.split("·")
 
     for kor in kor_ls:
-        rom, _warnings = _romanize_name(kor.strip())
+        rom, _warnings = _romanize_name(kor.strip(), options)
         rom_ls.append(rom)
+
         warnings.extend(_warnings)
 
     return ", ".join(rom_ls), warnings
 
 
-def _romanize_name(src):
+def _romanize_name(src, options):
     warnings = []
 
     # FKR001: Conversion, Family names in Chinese (dealing with 金 and 李)
@@ -184,7 +185,17 @@ def _romanize_name(src):
 
             lname_rom = " ".join(lname_rom_ls)
 
-            rom = f"{lname_rom} {fname_rom}"
+            # Add comma after the last name for certain MARC fields.
+            marc_field_str = options.get("marc_field", "0")
+            try:
+                marc_field = int(marc_field_str)
+            except TypeError:
+                raise ValueError(
+                        f"{marc_field_str} is not a valid MARC field code.")
+            if marc_field in (100, 600, 700, 800):
+                rom = f"{lname_rom}, {fname_rom}"
+            else:
+                rom = f"{lname_rom} {fname_rom}"
 
             if False:
                 # TODO add option for authoritative name.
