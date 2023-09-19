@@ -2,6 +2,13 @@ general:
   name: Korean (Names)
   description: Korean names S2R.
 
+options:
+  - id: marc_field
+    label: MARC field
+    description: enter 0 if not applicable.
+    type: int
+    default: 0
+
 script_to_roman:
   hooks:
     post_config:

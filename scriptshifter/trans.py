@@ -36,7 +36,7 @@ class Context:
         self.dest_ls = []
 
 
-def transliterate(src, lang, r2s=False, capitalize=False):
+def transliterate(src, lang, t_dir="s2r", options={}, capitalize=False):
     """
     Transliterate a single string.
 
@@ -44,6 +44,13 @@ def transliterate(src, lang, r2s=False, capitalize=False):
         src (str): Source string.
 
         lang (str): Language name.
+
+        t_dir (str): Transliteration direction. Either `s2r` for
+            script-to-Roman (default) or `r2s`  for Roman-to-script.
+
+        capitalize: capitalize words: one of `False` (no change - default),
+            `"first"` (only first letter), or `"all"` (first letter of each
+            word).
 
     Keyword args:
         r2s (bool): If False (the default), the source is considered to be a
@@ -54,8 +61,8 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     Return:
         str: The transliterated string.
     """
-    source_str = "Latin" if r2s else lang
-    target_str = lang if r2s else "Latin"
+    source_str = "Latin" if t_dir == "r2s" else lang
+    target_str = lang if t_dir == "r2s" else "Latin"
     logger.info(f"Transliteration is from {source_str} to {target_str}.")
 
     cfg = load_table(lang)
@@ -64,16 +71,18 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     # General directives.
     general = cfg.get("general", {})
 
-    if not r2s and "script_to_roman" not in cfg:
+    if t_dir == "s2r" and "script_to_roman" not in cfg:
         raise NotImplementedError(
             f"Script-to-Roman transliteration not yet supported for {lang}."
         )
-    elif r2s and "roman_to_script" not in cfg:
+    elif t_dir == "r2s" and "roman_to_script" not in cfg:
         raise NotImplementedError(
             f"Roman-to-script transliteration not yet supported for {lang}."
         )
 
-    langsec = cfg["script_to_roman"] if not r2s else cfg["roman_to_script"]
+    langsec = (
+            cfg["script_to_roman"] if t_dir == "s2r"
+            else cfg["roman_to_script"])
     # langsec_dir = langsec.get("directives", {})
     langsec_hooks = langsec.get("hooks", {})
 

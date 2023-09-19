@@ -162,7 +162,7 @@ def _romanize_name(src):
 
     if re.search("[a-zA-Z0-9]", src):
         warnings.append(f"{src} is not a recognized personal name.")
-        return None, warnings
+        return "", warnings
 
     # `parsed` can either be a modified Korean string with markers, or in case
     # of a foreign name, the final romanized name.
@@ -180,7 +180,7 @@ def _romanize_name(src):
 
             if not any(lname_rom_ls):
                 warnings.append(f"{parsed} is not a recognized Korean name.")
-                return None, warnings
+                return "", warnings
 
             lname_rom = " ".join(lname_rom_ls)
 
@@ -198,7 +198,7 @@ def _romanize_name(src):
             return parsed, warnings
 
     warnings.append(f"{src} is not a recognized Korean name.")
-    return None, warnings
+    return "", warnings
 
 
 def _parse_kor_name(src):
