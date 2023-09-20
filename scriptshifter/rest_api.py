@@ -82,7 +82,7 @@ def transliterate_req():
 
     if not len(in_txt):
         return ("No input text provided! ", 400)
-    options = loads(request.form.get("options", {}))
+    options = loads(request.form.get("options", "{}"))
     logger.debug(f"Extra options: {options}")
 
     try:
