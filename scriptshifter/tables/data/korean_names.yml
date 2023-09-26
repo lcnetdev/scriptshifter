@@ -1,0 +1,17 @@
+general:
+  name: Korean (Names)
+  description: Korean names S2R.
+
+options:
+  - id: marc_field
+    label: MARC field
+    description: Romanize according to a specific MARC field format. Leave blank if not applicable.
+    type: string
+    default:
+
+script_to_roman:
+  hooks:
+    post_config:
+      -
+        - korean.romanizer.s2r_names_post_config
+

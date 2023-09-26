@@ -114,9 +114,18 @@ after the hook function is executed. Possible return values are defined below
 for each hook. Some special return values, such as `BREAK` and `CONT`, are
 registered as constants under `scriptshifter.exceptions`.
 
-**[TODO]** These hooks are being implemented in a vacuum, without much of a
-real-world use case. Modifications to these capabilities may change as actual
-challenges arise.
+### Always available context members
+
+The following members of the context object are available in all the hooks:
+
+- `ctx.src`: Source text. It should not be reassigned.
+- `ctx.general`: Configuration general options.
+- `ctx.langsec`: language section (S2R or R2S) of configuration.
+- `ctx.options`: language-specific options defined in configuration and set
+    at the beginning of the request.
+
+Other members are available in different hooks. See the individual hooks
+reference below.
 
 ### `post_config`
 
@@ -129,16 +138,13 @@ or REST API.
 
 #### Available context members
 
-- `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position. It should be 0 at this point.
 - `ctx.dest_ls`: destination token list. It should be empty at this point.
-- `ctx.general`: Configuration general options.
-- `ctx.langsec`: language section (S2R or R2S) of configuration.
 
 #### Return
 
 `None` or `BREAK`. In the former case the application proceeds to the usual
-translteration process; in the latter case, it returns the value of
+transliteration process; in the latter case, it returns the value of
 `ctx.dest`, which the hook function should have set.
 
 ### `begin_input_token`
@@ -152,13 +158,10 @@ of multiple symbols based on logical rules rather than a dictionary.
 
 #### Available context members
 
-- `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
 - `ctx.cur_flags`: flags associated with the current position. They are reset
   at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list.
-- `ctx.general`: Configuration general options.
-- `ctx.langsec`: language section (S2R or R2S) of configuration.
 
 #### Return
 
@@ -178,13 +181,10 @@ ignore term and when or when not to trigger a match.
 
 #### Available context members
 
-- `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
 - `ctx.cur_flags`: flags associated with the current position. They are reset
   at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list.
-- `ctx.general`: Configuration general options.
-- `ctx.langsec`: language section (S2R or R2S) of configuration.
 
 #### Output
 
@@ -204,13 +204,10 @@ scanning for more ignore tokens past the match.
 
 #### Available context members
 
-- `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
 - `ctx.cur_flags`: flags associated with the current position. They are reset
   at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list.
-- `ctx.general`: Configuration general options.
-- `ctx.langsec`: language section (S2R or R2S) of configuration.
 - `ctx.tk`: matching ignore token.
 - `ctx.ignoring`: whether an ignore token matched. If set to `False`, the rest
   of the workflow will assume a non-match.
@@ -231,15 +228,12 @@ may take a broader context into consideration. They may also take over the
 substitution step for the current position, skip the scanning for an arbitrary
 number of characters, and/or exit the text scanning loop altogether.
 
-#### Available context member
+#### Available context members
 
-- `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
 - `ctx.cur_flags`: flags associated with the current position. They are reset
   at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list.
-- `ctx.general`: Configuration general options.
-- `ctx.langsec`: language section (S2R or R2S) of configuration.
 - `ctx.src_tk`: the input token being looked up.
 - `ctx.dest_tk`: the transliterated string associated with the current token.
 
@@ -260,14 +254,11 @@ also inject additional conditions and logic for the match, and revoke the
 
 #### Available context members
 
-- `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
 - `ctx.cur_flags`: flags associated with the current position. They are reset
   at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list. The matching token will be added to it
   after this hook is run.
-- `ctx.general`: Configuration general options.
-- `ctx.langsec`: language section (S2R or R2S) of configuration.
 - `ctx.src_tk`: the matching input token.
 - `ctx.dest_tk`: the transliterated string to be added to the output.
 - `ctx.match`: whether there was a match. If set to `False`, the rest of the
@@ -291,13 +282,10 @@ cursor position to the destination list, verbatim.
 
 #### Available context members
 
-- `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
 - `ctx.cur_flags`: flags associated with the current position. They are reset
   at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list.
-- `ctx.general`: Configuration general options.
-- `ctx.langsec`: language section (S2R or R2S) of configuration.
 
 #### Output
 
@@ -316,10 +304,7 @@ bypass any further output handling.
 
 #### Available context members
 
-- `ctx.src`: Source text. It should not be reassigned.
 - `ctx.dest_ls`: destination token list.
-- `ctx.general`: Configuration general options.
-- `ctx.langsec`: language section (S2R or R2S) of configuration.
 
 #### Output
 
@@ -337,11 +322,8 @@ and return it before any further default processing is done.
 
 #### Available context members
 
-- `ctx.src`: Source text. It should not be reassigned.
 - `ctx.cur`: cursor position.
 - `ctx.dest_ls`: destination token list.
-- `ctx.general`: Configuration general options.
-- `ctx.langsec`: language section (S2R or R2S) of configuration.
 - `ctx.dest`: output string.
 
 #### Output
