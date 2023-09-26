@@ -45,6 +45,24 @@ Content: language configuration as a JSON object with all the transliteration
 rules as they are read by the application. If the table inherits from a parent,
 the computed values from the merged tables are shown.
 
+## `GET /options/<lang>`
+
+Get options available for a script.
+
+### URI parameters
+
+- `<lang>`: Language code as given by the `/languages` endpoint. 
+
+### Response code
+
+`200 OK`
+
+### Response body
+
+MIME type: `application/json`
+
+Content: list of options as a JSON object.
+
 ## `POST /trans`
 
 Transliterate an input string into a given language.
