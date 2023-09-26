@@ -5,9 +5,9 @@ general:
 options:
   - id: marc_field
     label: MARC field
-    description: Romanize according to a specific MARC field format. Enter 0 if not applicable.
-    type: int
-    default: 0
+    description: Romanize according to a specific MARC field format. Leave blank if not applicable.
+    type: string
+    default:
 
 script_to_roman:
   hooks:
