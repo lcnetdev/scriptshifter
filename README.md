@@ -2,6 +2,12 @@
 
 REST API service to convert non-Latin scripts to Latin, and vice versa.
 
+## Environment variables
+
+- `TXL_LOGLEVEL`: Application log level. Defaults to `WARN`.
+- `TXL_DICTA_EP`: Endpoint for the Dicta Hebrew transliteration service. This
+  is mandatory for using the Hebrew module.
+
 ## Run on Docker
 
 Build container in current dir:
