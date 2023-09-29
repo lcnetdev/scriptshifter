@@ -1,4 +1,7 @@
 flask
 python-dotenv
 pyyaml
+requests
 uwsgi
+
+./ext/camel_tools
