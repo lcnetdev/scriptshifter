@@ -32,6 +32,8 @@ ethiopic:
   name: Ethiopic (Amharic)
 georgian:
   name: Georgian
+hebrew:
+  name: Hebrew
 hindi:
   name: Hindi (Devanagari)
 kazakh:

@@ -107,11 +107,25 @@
                         label.setAttribute("for", opt.id);
                         label.append(opt.label);
 
-                        let input = document.createElement("input");
+                        var input;
+                        if (opt.type == "list") {
+                            input = document.createElement("select");
+                            opt.options.forEach((sel) => {
+                                let option = document.createElement("option");
+                                option.append(sel.label);
+                                option.value = sel.id;
+                                if (option.value == opt.default) {
+                                    option.selected = true;
+                                };
+                                input.append(option);
+                            })
+                        } else {
+                            input = document.createElement("input");
+                            input.value = opt.default;
+                        }
                         input.setAttribute("id", opt.id);
                         input.setAttribute("name", opt.id);
                         input.classList.add("option_i");
-                        input.value = opt.default;
 
                         let descr = document.createElement("p");
                         descr.setAttribute("class", "input_descr");
