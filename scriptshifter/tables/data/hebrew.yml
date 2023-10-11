@@ -12,7 +12,7 @@ options:
         label: Rabbinic
       - id: modern
         label: Modern
-    default: modern
+    default: rabbinic
 
 script_to_roman:
   hooks:
