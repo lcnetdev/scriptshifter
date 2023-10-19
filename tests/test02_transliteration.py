@@ -70,8 +70,6 @@ def make_suite():
     for fpath in glob(path.join(TEST_DATA_DIR, "script_samples", "*.csv")):
         with open(fpath, newline="") as fh:
             csv = reader(fh)
-            # csv.__next__()  # Discard header row.
-
             for row in csv:
                 if len(row[0]):
                     # Inject transliteration info in the test case.
