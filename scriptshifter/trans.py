@@ -36,7 +36,7 @@ class Context:
         self.dest_ls = []
 
 
-def transliterate(src, lang, t_dir="s2r", options={}, capitalize=False):
+def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     """
     Transliterate a single string.
 

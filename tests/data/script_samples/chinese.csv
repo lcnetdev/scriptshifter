@@ -1,10 +1,10 @@
-chinese,從易經解維摩詰經，臺北市大塊文化出版股份有限公司。,"cong yi jing jie wei mo jie jing, Taibei Shi da kuai wen hua chu ban gu fen you xian gong si.",,Is this transcription the desired output or what ScriptShifter gave in testing?
-chinese,廖忠俊. 著名狀元榜眼探花傳略,liao zhong jun. zhu ming zhuang yuan bang yan tan hua zhuan lüe,,Is this transcription the desired output or what ScriptShifter gave in testing?
-chinese,宋至道三年（997年），唃廝囉在高昌磨榆國出生，是吐蕃雅隆覺阿王系的後裔。,"song zhi dao san nian (997nian), gu si luo zai gao chang mo yu guo chu sheng, shi Tufan ya long jue a wang xi de hou yi.",,Is this transcription the desired output or what ScriptShifter gave in testing?
-chinese,文學革命論 / 陳獨秀 -- 人的文學 / 周作人 -- 新文學運動的意義 / 張我軍.,wen xue ge ming lun / chen du xiu -- ren de wen xue / zhou zuo ren -- xin wen xue yun dong de yi yi / zhang wo jun.,,Is this transcription the desired output or what ScriptShifter gave in testing?
+chinese,從易經解維摩詰經，臺北市大塊文化出版股份有限公司。,"cong yi jing jie wei mo jie jing, Taibei Shi da kuai wen hua chu ban gu fen you xian gong si.",,
+chinese,廖忠俊. 著名狀元榜眼探花傳略,liao zhong jun. zhu ming zhuang yuan bang yan tan hua zhuan lüe,,
+chinese,宋至道三年（997年），唃廝囉在高昌磨榆國出生，是吐蕃雅隆覺阿王系的後裔。,"song zhi dao san nian (997nian), gu si luo zai gao chang mo yu guo chu sheng, shi Tufan ya long jue a wang xi de hou yi.",,
+chinese,文學革命論 / 陳獨秀 -- 人的文學 / 周作人 -- 新文學運動的意義 / 張我軍.,wen xue ge ming lun / chen du xiu -- ren de wen xue / zhou zuo ren -- xin wen xue yun dong de yi yi / zhang wo jun.,,
 chinese,中國近代人口史料彙覽 = ZHONGGUO JINDAI RENKOU SHILIAO HUILAN / 《中國近代人口史料彙覽》編寫組編.,"Zhongguo jin dai ren kou shi liao hui lan = ZHONGGUO JINDAI RENKOU SHILIAO HUILAN / ""Zhongguo jin dai ren kou shi liao hui lan"" bian xie zu bian.",,
 chinese,"桂林 : 广西师范大学出版社, 2022.","Guilin : Guangxi shi fan da xue chu ban she, 2022.",,
-chinese,王正强,"Wang, Zhengqiang",,"MARC 100 field, surname entry requires a comma that is not in the vernacular."
+chinese,王正强,"Wang, Zhengqiang",{"marc_field": "100"},"MARC 100 field, surname entry requires a comma that is not in the vernacular."
 chinese,"秦腔通史 = QINQIANG TONGSHI / 王正强, 周琪著.","Qin qiang tong shi = QINQIANG TONGSHI / Wang Zhengqiang, Zhou Qi zhu.",,
 chinese,"困學紀聞 : 全校本 / [宋]王應麟著 ; [清]翁元圻等注 ; 欒保羣, 田松青, 呂宗力校點.","Kun xue ji wen : quan jiao ben / [Song] Wang Yinglin zhu ; [Qing] Weng Yuanqi deng zhu ; Luan Baoqun, Tian Songqing, Lü Zongli jiao dian.",,
 chinese,"修訂版, 第 1 版.","Xiu ding ban, di 1 ban.",,
@@ -16,7 +16,7 @@ chinese,楊于庭集 / (明)楊于庭撰 ; 政協全椒縣委員會編.,Yang Yut
 chinese,"北京市 : 國家圖書館出版社, 2020.","Beijing Shi : Guo jia tu shu guan chu ban she, 2020.",,
 chinese,全椒古代典籍叢書,Quanjiao gu dai dian ji cong shu,,
 chinese,春秋質疑十二卷 -- 楊道行集三十三卷.,Chun qiu zhi yi shi er juan -- Yang Daoxing ji san shi san juan.,,
-chinese,"楊于庭, jin shi 1580. 春秋質疑.","Yang, Yuting, jin shi 1580. Chun qiu zhi yi.",,"MARC 700 field, comma needs to be added into the surname entry that is not in the vernacular."
+chinese,"楊于庭, jin shi 1580. 春秋質疑.","Yang, Yuting, jin shi 1580. Chun qiu zhi yi.",{"marc_field": "700"},"MARC 700 field, comma needs to be added into the surname entry that is not in the vernacular."
 chinese,"中國人民政治協商會議. 全椒縣委員會, editor.","Zhongguo ren min zheng zhi xie shang hui yi. Quanjiao Xian wei yuan hui, editor.",,
 chinese,漢魏六朝隋碑誌索引 / 劉琴麗編著.,Han Wei Liu chao sui bei zhi suo yin / Liu Qinli bian zhu.,,
 chinese,"北京 : 中国社会科学出版社, 2019.","Beijing : Zhongguo she hui ke xue chu ban she, 2019.",,
@@ -26,8 +26,8 @@ chinese,"桂林 : 广西师范大学出版社, 2022.","Guilin : Guangxi shi fan 
 chinese,"《清代河務檔案》編寫組, editor.","""Qing dai he wu dang an"" bian xie zu, editor.",,
 chinese,"張穆全集 / 張正明, 安介生主編.","Zhang Mu quan ji / Zhang Zhengming, An Jiesheng zhu bian.",,
 chinese,"太原市 : 三晋出版社, 2019.","Taiyuan Shi : San Jin chu ban she, 2019.",,
-chinese,欒保羣,"Luan, Baoqun",,"MARC 700 field, comma needs to be added into the surname entry that is not in the vernacular."
-chinese,呂宗力,"Lü, Zongli",,"MARC 700 field, comma needs to be added into the surname entry that is not in the vernacular."
+chinese,欒保羣,"Luan, Baoqun",{"marc_field": "700"},"MARC 700 field, comma needs to be added into the surname entry that is not in the vernacular."
+chinese,呂宗力,"Lü, Zongli",{"marc_field": "700"},"MARC 700 field, comma needs to be added into the surname entry that is not in the vernacular."
 chinese,袁昶友朋書札 / (清)袁昶輯 ; 謝冬榮等整理.,Yuan Chang you peng shu zha / (Qing) Yuan Chang ji ; Xie Dongrong deng zheng li.,,
 chinese,"南京市 : 鳳凰出版社, 2021.","Nanjing Shi : Feng huang chu ban she, 2021.",,
 chinese,漢代簡牘草書整理與研究 / 李洪財著,Han dai jian du cao shu zheng li yu yan jiu / Li Hongcai zhu.,,

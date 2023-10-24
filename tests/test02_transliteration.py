@@ -3,6 +3,7 @@ import logging
 from unittest import TestCase, TestSuite, TextTestRunner
 from csv import reader
 from glob import glob
+from json import loads as jloads
 from os import environ, path
 
 from tests import TEST_DATA_DIR, reload_tables
@@ -34,7 +35,10 @@ class TestTrans(TestCase):
         """
         config = scriptshifter.tables.load_table(self.tbl)
         if "script_to_roman" in config:
-            txl = transliterate(self.script, self.tbl, capitalize="first")[0]
+            txl = transliterate(
+                    self.script, self.tbl,
+                    capitalize=self.options.get("capitalize", False),
+                    options=self.options)[0]
             self.assertEqual(
                     txl, self.roman,
                     f"S2R transliteration error for {self.tbl}!\n"
@@ -50,7 +54,10 @@ class TestTrans(TestCase):
         config = scriptshifter.tables.load_table(self.tbl)
         if "roman_to_script" in config:
             txl = transliterate(
-                    self.roman, self.tbl, r2s=True, capitalize="first")[0]
+                    self.roman, self.tbl,
+                    t_dir="r2s",
+                    capitalize=self.options.get("capitalize", False),
+                    options=self.options)[0]
             self.assertEqual(
                     txl, self.script,
                     f"R2S transliteration error for {self.tbl}!\n"
@@ -78,6 +85,7 @@ def make_suite():
                         tcase.tbl = row[0]
                         tcase.script = row[1].strip()
                         tcase.roman = row[2].strip()
+                        tcase.options = jloads(row[3]) if len(row[3]) else {}
                         suite.addTest(tcase)
 
     return suite
