@@ -45,21 +45,38 @@ Content: language configuration as a JSON object with all the transliteration
 rules as they are read by the application. If the table inherits from a parent,
 the computed values from the merged tables are shown.
 
-## `POST /transliterate/<lang>[/r2s]`
+## `GET /options/<lang>`
 
-Transliterate an input string in a given language.
+Get options available for a script.
 
 ### URI parameters
 
 - `<lang>`: Language code as given by the `/languages` endpoint. 
-- `r2s`: if appended to the URI, the transliteration is intended to be
-  Roman-to-script, and the input string should be Latin text. If not, the
-  default behavior is followed, which is interpreting the input as a script
-  in the given language, and returning the Romanized text.
+
+### Response code
+
+`200 OK`
+
+### Response body
+
+MIME type: `application/json`
+
+Content: list of options as a JSON object.
+
+## `POST /trans`
+
+Transliterate an input string into a given language.
 
 ### POST body
 
+- `lang`: Language code as given by the `/languages` endpoint. 
 - `text`: Input text to be transliterated.
+- `capitalize`: One of `first` (capitalize the first letter of the input),
+  `all` (capitalize all words separated by spaces), or null (default: apply no
+  additional capitalization). All options leave any existing capitalization
+  unchanged.
+- `t_dir`: Direction of the transliteration or transcription: either `s2r`
+  (default: script to Roman) or `r2s` (Roman to script).
 
 ### Response code
 
@@ -69,7 +86,9 @@ Transliterate an input string in a given language.
 
 ### Response body
 
-MIME Type: `text/plain`
+MIME Type: `application/json`
 
-Content: transliterated string. Characters not found in the mapping are copied
-verbatim (see "Configuration files" section for more information).
+Content: JSON object containing two keys: `ouput` containing the transliterated
+string; and `warnings` containing a list of warnings. Characters not found in
+the mapping are copied verbatim in the transliterated string (see
+"Configuration files" section for more information).
