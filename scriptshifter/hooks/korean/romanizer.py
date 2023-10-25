@@ -186,13 +186,8 @@ def _romanize_name(src, options):
             lname_rom = " ".join(lname_rom_ls)
 
             # Add comma after the last name for certain MARC fields.
-            marc_field_str = options.get("marc_field", "0")
-            try:
-                marc_field = int(marc_field_str)
-            except TypeError:
-                raise ValueError(
-                        f"{marc_field_str} is not a valid MARC field code.")
-            if marc_field in (100, 600, 700, 800):
+            marc_field = options.get("marc_field")
+            if marc_field in ("100", "600", "700", "800"):
                 rom = f"{lname_rom}, {fname_rom}"
             else:
                 rom = f"{lname_rom} {fname_rom}"
