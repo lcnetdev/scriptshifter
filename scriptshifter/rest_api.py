@@ -2,11 +2,14 @@ import logging
 
 from base64 import b64encode
 from copy import deepcopy
-from json import loads
+from email.message import EmailMessage
+from json import loads, dumps
 from os import environ, urandom
+from smtplib import SMTP
 
 from flask import Flask, jsonify, render_template, request
 
+from scriptshifter import EMAIL_FROM, EMAIL_TO, SMTP_HOST, SMTP_PORT
 from scriptshifter.tables import list_tables, load_table
 from scriptshifter.trans import transliterate
 
@@ -91,3 +94,45 @@ def transliterate_req():
         return (str(e), 400)
 
     return {"output": out, "warnings": warnings}
+
+
+@app.route("/feedback", methods=["POST"])
+def feedback():
+    """
+    Allows users to provide feedback to improve a specific result.
+    """
+    lang = request.form["lang"]
+    src = request.form["src"]
+    t_dir = request.form.get("t_dir", "s2r")
+    result = request.form["result"]
+    expected = request.form["expected"]
+    options = request.form.get("options", {})
+    notes = request.form.get("notes")
+    contact = request.form.get("contact")
+
+    msg = EmailMessage()
+    msg["subject"] = "Scriptshifter feedback report"
+    msg["from"] = EMAIL_FROM
+    msg["to"] = EMAIL_TO
+    if contact:
+        msg["cc"] = contact
+    msg.set_content(f"""
+        *Scriptshifter feedback report from {contact or 'anonymous'}*\n\n
+        *Language:* {lang}\n
+        *Direction:* {
+                    'Roman to Script' if t_dir == 'r2s'
+                    else 'Script to Roman'}\n
+        *Source:* {src}\n
+        *Result:* {result}\n
+        *Expected result:* {expected}\n
+        *Applied options:* {dumps(options)}\n
+        *Notes:*\n
+        {notes}""")
+
+    # TODO This uses a test SMTP server:
+    # python -m smtpd -n -c DebuggingServer localhost:1025
+    smtp = SMTP(SMTP_HOST, SMTP_PORT)
+    smtp.send_message(msg)
+    smtp.quit()
+
+    return {"message": "Feedback message sent."}
