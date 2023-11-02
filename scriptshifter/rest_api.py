@@ -9,6 +9,7 @@ from smtplib import SMTP
 
 from flask import Flask, jsonify, render_template, request
 
+from scriptshifter import SMTP_HOST, SMTP_PORT
 from scriptshifter.tables import list_tables, load_table
 from scriptshifter.trans import transliterate
 
@@ -130,7 +131,7 @@ def feedback():
 
     # TODO This uses a test SMTP server:
     # python -m smtpd -n -c DebuggingServer localhost:1025
-    smtp = SMTP("localhost", 1025)
+    smtp = SMTP(SMTP_HOST, SMTP_PORT);
     smtp.send_message(msg)
     smtp.quit()
 
