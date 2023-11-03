@@ -21,6 +21,9 @@ RUN chown -R www:www ${_workroot} .
 # Remove development packages.
 RUN apk del buildtools
 
+ENV TXL_EMAIL_FROM="me@example.com"
+ENV TXL_EMAIL_TO="you@example.com"
+
 EXPOSE 8000
 
 ENTRYPOINT ["./entrypoint.sh"]
