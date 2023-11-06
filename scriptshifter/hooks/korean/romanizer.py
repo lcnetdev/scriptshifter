@@ -570,9 +570,9 @@ def _hancha2hangul(data):
     for char in KCONF["fkr172-179"]:
         idx = [i for i, item in enumerate(data) if item == char]
         for i in idx:
-            val = ord(data[i + 1])
+            val = ord(data[i - 1])
             coda_value = (val - CP_MIN) % 28
-            if coda_value == 1 or coda_value == 4 or val < 100:  # TODO verify
+            if coda_value == 0 or coda_value == 4 or val < 100:  # TODO verify
                 data = data.replace(char, "열", 1)
             else:
                 data = data.replace(char, "렬", 1)
