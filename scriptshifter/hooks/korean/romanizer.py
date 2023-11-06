@@ -177,7 +177,11 @@ def _romanize_name(src, options):
             lname, fname = parsed.split("~", 1)
             fname_rom = _kor_fname_rom(fname)
 
-            lname_rom_ls = [_kor_lname_rom(n) for n in lname.split("+")]
+            lname_rom_ls = []
+            for n in lname.split("+"):
+                _k = _kor_lname_rom(n)
+                if _k:
+                    lname_rom_ls.append(_k)
 
             if not any(lname_rom_ls):
                 warnings.append(f"{parsed} is not a recognized Korean name.")
