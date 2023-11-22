@@ -2,7 +2,6 @@ general:
   name: Kalmyk (Cyrillic)
   parents:
     - _cyrillic_base
-    - _ignore_base
 
 roman_to_script:
   map:

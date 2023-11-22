@@ -2,7 +2,6 @@ general:
   name: Asian (Cyrillic)
   parents:
     - _cyrillic_base
-    - _ignore_base
 
 # COMMON COMBINING CHARACTERS (always follow a base letter):
 # combining grave \u0300
