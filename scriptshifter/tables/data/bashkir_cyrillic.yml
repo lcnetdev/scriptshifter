@@ -1,0 +1,55 @@
+general:
+  name: Bashkir (Cyrillic)
+  parents:
+    - _cyrillic_base
+    - _ignore_base
+
+roman_to_script:
+  map:
+    "N\uFE20G\uFE21": "\u04A2"
+    "N\uFE20g\uFE21": "\u04A2"
+    "n\uFE20g\uFE21": "\u04A3"
+    "T\uFE20H\uFE21": "\u0498"
+    "T\uFE20h\uFE21": "\u0498"
+    "t\uFE20h\uFE21": "\u0499"
+    "A\u0306": "\u04D8"
+    "a\u0306": "\u04D9"
+    "GH": "\u0492"
+    "Gh": "\u0492"
+    "gh": "\u0493"
+    "H\u0307": "\u04BA"
+    "h\u0307": "\u04BB"
+    "O\u0307": "\u04E8"
+    "o\u0307": "\u04E9"
+    "U\u0307": "\u04AE"
+    "u\u0307": "\u04AF"
+    "TH": "\u04AA"
+    "Th": "\u04AA"s
+    "th": "\u04AB"
+    "J": "\u04B8"
+    "j": "\u04B9"
+    "Q": "\u04A0"
+    "q": "\u04A1"
+
+script_to_roman:
+  map:
+    "\u0492": "Gh"
+    "\u0493": "gh"
+    "\u0498": "T\uFE20h\uFE21"
+    "\u0499": "t\uFE20h\uFE21"
+    "\u04A0": "Q"
+    "\u04A1": "q"
+    "\u04A2": "N\uFE20G\uFE21"
+    "\u04A3": "n\uFE20g\uFE21"
+    "\u04AA": "Th"
+    "\u04AB": "th"
+    "\u04AE": "U\u0307"
+    "\u04AF": "u\u0307"
+    "\u04B8": "J"
+    "\u04B9": "j"
+    "\u04BA": "H\u0307"
+    "\u04BB": "h\u0307"
+    "\u04D8": "A\u0306"
+    "\u04D9": "a\u0306"
+    "\u04E8": "O\u0307"
+    "\u04E9": "o\u0307"
