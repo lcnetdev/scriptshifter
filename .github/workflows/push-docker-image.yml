@@ -1,14 +1,14 @@
 name: Push image to Docker Hub.
 on:
   push:
-    branches: [ "main", "docker_hub" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
 env:
   DOCKER_USER: lcnetdev
   DOCKER_PASSWORD: ${{secrets.DOCKER_HUB}}
-  REPO_NAME: lcnetdev
+  REPO_NAME: scriptshifter
 
 jobs:
   push-image-to-docker-hub:
