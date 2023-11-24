@@ -6,6 +6,7 @@ on:
 
 env:
   DOCKER_USER: lcnetdev
+  DOCKER_PASSWORD: ${{secrets.DOCKER_HUB}}
   REPO_NAME: scriptshifter
 
 jobs:
