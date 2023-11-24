@@ -1,0 +1,27 @@
+name: Push image to Docker Hub.
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  DOCKER_USER: lcnetdev
+  DOCKER_PASSWORD: ${{secrets.DOCKER_HUB}}
+  REPO_NAME: lcnetdev
+
+jobs:
+  push-image-to-docker-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: docker login
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
+      - name: Build the Docker image
+        run: docker build . --tag $DOCKER_USER/$REPO_NAME:${{ steps.date.outputs.date }}
+      - name: Push to Docker Hub
+        run: docker push $DOCKER_USER/$REPO_NAME:${{ steps.date.outputs.date }}
