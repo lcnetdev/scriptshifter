@@ -2,8 +2,7 @@ name: Push image to Docker Hub.
 on:
   push:
     tags:
-      - "*"
-      #- "v*.*.*"
+      - "v*.*.*"
 
 env:
   DOCKER_USER: lcnetdev
@@ -17,8 +16,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build the Docker image
         run: docker build . --tag $DOCKER_USER/$REPO_NAME:${{ github.ref_name }}
-      # - name: docker login
-      #   run: |
-      #     docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      # - name: Push to Docker Hub
-      #   run: docker push $DOCKER_USER/$REPO_NAME:${{ github.ref_name }}
+      - name: docker login
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Push to Docker Hub
+        run: docker push $DOCKER_USER/$REPO_NAME:${{ github.ref_name }}
