@@ -13,6 +13,11 @@
             height: 15vh;
             padding: 0.5em;
         }
+
+        fieldset.float-left {
+            margin-right: 2rem;
+        }
+
         #results{
             font-size: 1.25em;
             background-color: whitesmoke;
@@ -49,38 +54,41 @@
                 {% endfor %}
             </select>
         </fieldset>
-        <fieldset>
-            <legend>Direction</legend>
-            <div>
-                <label class="label-inline" for="s2r">Script to Roman</label>
-                <input
-                        type="radio" id="opt_s2r" name="t_dir" value="s2r"
-                        checked>
-            </div>
-            <div>
-                <label class="label-inline" for="r2s">Roman to script</label>
-                <input
-                        type="radio" id="opt_r2s" name="t_dir" value="r2s">
-            </div>
-        </fieldset>
-        <fieldset>
-            <legend>Capitalize</legend>
-            <div>
-                <label class="label-inline" for="no-change">No change</label>
-                <input
-                        type="radio" id="no-change" name="capitalize"
-                                                     value="no_change" checked>
-            </div>
-            <div>
-                <label class="label-inline" for="first">First word</label>
-                <input type="radio" id="first" name="capitalize" value="first">
-            </div>
-            <div>
-                <label class="label-inline" for="all">All words</label>
-                <input type="radio" id="all" name="capitalize" value="all">
-            </div>
-        </fieldset>
-        <div id="options"></div>
+        <div class="clearfix">
+            <h3>General Options</h3>
+            <fieldset class="float-left">
+                <legend>Direction</legend>
+                <div>
+                    <label class="label-inline" for="s2r">Script to Roman</label>
+                    <input
+                            type="radio" id="opt_s2r" name="t_dir" value="s2r"
+                            checked>
+                </div>
+                <div>
+                    <label class="label-inline" for="r2s">Roman to script</label>
+                    <input
+                            type="radio" id="opt_r2s" name="t_dir" value="r2s">
+                </div>
+            </fieldset>
+            <fieldset class="float-left">
+                <legend>Capitalize</legend>
+                <div>
+                    <label class="label-inline" for="no-change">No change</label>
+                    <input
+                            type="radio" id="no-change" name="capitalize"
+                                                         value="no_change" checked>
+                </div>
+                <div>
+                    <label class="label-inline" for="first">First word</label>
+                    <input type="radio" id="first" name="capitalize" value="first">
+                </div>
+                <div>
+                    <label class="label-inline" for="all">All words</label>
+                    <input type="radio" id="all" name="capitalize" value="all">
+                </div>
+            </fieldset>
+        </div>
+        <div id="options" class="clearfix"></div>
         <fieldset>
             <input class="button-primary" type="submit" value="Transliterate!">
         </fieldset>
@@ -101,8 +109,14 @@
               .then(response=>response.json())
                 .then((data) => {
                     document.getElementById("options").replaceChildren();
+                    if (data.length > 0) {
+                        let hdr = document.createElement("h3");
+                        hdr.innerText = "Language options";
+                        document.getElementById("options").append(hdr);
+                    }
                     data.forEach((opt)=>{
                         let fset = document.createElement("fieldset");
+                        fset.setAttribute("class", "float-left");
                         let label = document.createElement("label");
                         label.setAttribute("for", opt.id);
                         label.append(opt.label);
