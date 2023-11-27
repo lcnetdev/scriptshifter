@@ -18,13 +18,13 @@ logger = getLogger(__name__)
 def s2r_post_config(ctx, src_script):
     # options = detect_preoptions(ctx.src, src_script)
     options = [n for n, v in ctx.options.items() if v and n != "capitalize"]
-    logger.info(f"Options for {src_script}: {options}")
     ctx.dest = process(src_script, "IAST", ctx.src, pre_options=options)
 
     return BREAK
 
 
 def r2s_post_config(ctx, dest_script):
-    ctx.dest = process("IAST", dest_script, ctx.src)
+    options = [n for n, v in ctx.options.items() if v and n != "capitalize"]
+    ctx.dest = process("IAST", dest_script, ctx.src, post_options=options)
 
     return BREAK
