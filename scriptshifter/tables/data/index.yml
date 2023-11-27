@@ -56,6 +56,9 @@ serbian:
   name: Serbian
 pulaar:
   name: Pulaar (Adlam)
+thai:
+  name: Thai
+  note: Uses Aksharamukha.
 tajik:
   name: Tajik (Cyrillic)
 tatar:

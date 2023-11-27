@@ -155,7 +155,11 @@
             let option_inputs = document.getElementsByClassName("option_i");
             for (i = 0; i < option_inputs.length; i++) {
                 let el = option_inputs[i];
-                options[el.getAttribute('id')] = el.value;
+                if (el.type == "checkbox") {
+                    options[el.id] = el.checked;
+                } else {
+                    options[el.id] = el.value;
+                }
             };
             data.append('options', JSON.stringify(options));
 
