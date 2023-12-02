@@ -26,10 +26,14 @@ bashkir_cyrillic:
   name: Bashkir (Cyrillic)
 belarusian:
   name: Belarusian
+bengali:
+  name: Bengali
 bulgarian:
   name: Bulgarian
 buriat:
   name: Buriat (Cyrillic)
+burmese:
+  name: Burmese (Myanmar)
 chinese:
   name: Chinese (Hanzi)
 chukchi_cyrillic:
@@ -38,6 +42,8 @@ church_slavonic:
   name: Church Slavonic
 chuvash_cyrillic:
   name: Chuvash (Cyrillic)
+devanagari:
+  name: Devanagari
 dungan_cyrillic:
   name: Dungan (Cyrillic)
 ethiopic:
@@ -50,6 +56,10 @@ gagauz_cyrillic:
   name: Gagauz (Cyrillic)
 hindi:
   name: Hindi (Devanagari)
+hiragana:
+  name: Japanese (Hiragana)
+katakana:
+  name: Japanese (Katakana)
 kalmyk_cyrillic:
   name: Kalmyk (Cyrillic)
 kara-kalpak_cyrillic:
@@ -96,6 +106,8 @@ ossetic_cyrillic:
   name: Ossetic (Cyrillic)
 pulaar:
   name: Pulaar (Adlam)
+gurmukhi:
+  name: Punjabi (Gurmukhi)
 romani_cyrillic:
   name: Romani (Cyrillic)
 russian:
@@ -107,11 +119,22 @@ shor_cyrillic:
 syriac_cyrillic:
   name: Syriac (Cyrillic)
 tajik_cyrillic:
+tamil:
+  name: Tamil
+tamil_brahmi:
+  name: Tamil Brahmi
+tamil_extended:
+  name: Tamil (extended)
+thai:
+  name: Thai
+tajik:
   name: Tajik (Cyrillic)
 tatar-kryashen_cyrillic:
   name: Tatar-Kryashen (Cyrillic)
 tatar_cyrillic:
   name: Tatar (Cyrillic)
+tibetan:
+  name: Tibetan
 turkmen_cyrillic:
   name: Turkmen (Cyrillic)
 tuvinian_cyrillic:
