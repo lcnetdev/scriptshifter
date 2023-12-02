@@ -119,6 +119,7 @@ shor_cyrillic:
 syriac_cyrillic:
   name: Syriac (Cyrillic)
 tajik_cyrillic:
+  name: Tajik (Cyrillic)
 tamil:
   name: Tamil
 tamil_brahmi:
@@ -127,8 +128,6 @@ tamil_extended:
   name: Tamil (extended)
 thai:
   name: Thai
-tajik:
-  name: Tajik (Cyrillic)
 tatar-kryashen_cyrillic:
   name: Tatar-Kryashen (Cyrillic)
 tatar_cyrillic:
