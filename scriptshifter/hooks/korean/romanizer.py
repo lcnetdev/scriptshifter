@@ -167,7 +167,9 @@ def _romanize_name(src, options):
 
     # `parsed` can either be a modified Korean string with markers, or in case
     # of a foreign name, the final romanized name.
-    parsed, _warnings = _parse_kor_name(re.sub(r"\s{2,}", " ", src.strip()))
+    parsed, _warnings = _parse_kor_name(
+            re.sub(r"\s{2,}", " ", src.strip()),
+            options)
 
     if len(_warnings):
         warnings += _warnings
@@ -211,7 +213,7 @@ def _romanize_name(src, options):
     return "", warnings
 
 
-def _parse_kor_name(src):
+def _parse_kor_name(src, options):
     parsed = None
     warnings = []
 
@@ -225,14 +227,18 @@ def _parse_kor_name(src):
     src_len = len(src)
 
     # FKR005: Error if more than 7 syllables
-    if src_len > 7 or src_len < 2 or " " in src[3:]:
-        return _kor_corp_name_rom(src), warnings
+    if src_len > 7 or src_len < 2 or src.find(" ") > 2:
+        if options.get("foreign_name"):
+            return _kor_corp_name_rom(src), warnings
+        else:
+            warnings.append("ERROR: not a Korean name.")
+            return None, warnings
 
     ct_spaces = src.count(" ")
     # FKR0006: Error if more than 2 spaces
     if ct_spaces > 2:
         warnings.append("ERROR: not a name (too many spaces)")
-        return parsed, warnings
+        return None, warnings
 
     # FKR007: 2 spaces (two family names)
     if ct_spaces == 2:

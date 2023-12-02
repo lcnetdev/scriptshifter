@@ -108,10 +108,19 @@
                         label.append(opt.label);
 
                         let input = document.createElement("input");
+                        if (opt.type == "boolean") {
+                            // Use checkbox for boolean type.
+                            input.setAttribute("type", "checkbox");
+                            if (opt.default) {
+                                input.setAttribute("checked", 1);
+                            }
+                        } else {
+                            // Use text for all other types.
+                            input.value = opt.default;
+                        }
                         input.setAttribute("id", opt.id);
                         input.setAttribute("name", opt.id);
                         input.classList.add("option_i");
-                        input.value = opt.default;
 
                         let descr = document.createElement("p");
                         descr.setAttribute("class", "input_descr");
