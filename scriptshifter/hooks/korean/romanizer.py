@@ -28,6 +28,7 @@ from csv import reader
 
 from scriptshifter.exceptions import BREAK
 from scriptshifter.hooks.korean import KCONF
+from scriptshifter.tools import capitalize
 
 
 PWD = path.dirname(path.realpath(__file__))
@@ -93,7 +94,7 @@ def _romanize_nonames(src, options):
     logger.debug(f"Before capitalization: {rom}")
     # FKR042: Capitalize all first letters
     if options["capitalize"] == "all":
-        rom = _capitalize(rom)
+        rom = capitalize(rom)
     # FKR043: Capitalize the first letter
     elif options["capitalize"] == "first":
         rom = rom[0].upper() + rom[1:]
@@ -283,7 +284,7 @@ def _kor_corp_name_rom(src):
     rom_tok = []
     for tok in src.split(" "):
         rom_tok.append(_romanize_oclc_auto(tok))
-    rom = _capitalize(" ".join(rom_tok))
+    rom = capitalize(" ".join(rom_tok))
 
     if chu == "L":
         rom = "(Chu) " + rom
@@ -718,14 +719,6 @@ def _kor_lname_rom(lname):
         rom = _replace_map(lname, KCONF["fkr183"])
 
     return rom if lname != rom else False
-
-
-def _capitalize(src):
-    """ Only capitalize first word and words preceded by space."""
-    orig_ls = src.split(" ")
-    cap_ls = [orig[0].upper() + orig[1:] for orig in orig_ls]
-
-    return " ".join(cap_ls)
 
 
 def _fkr_log(fkr_i):
