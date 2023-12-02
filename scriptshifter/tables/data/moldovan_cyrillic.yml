@@ -1,0 +1,14 @@
+general:
+  name: Moldovan (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "J": "\u04C1"
+    "j": "\u04C2"
+
+script_to_roman:
+  map:
+    "\u04C1": "J"
+    "\u04C2": "j"

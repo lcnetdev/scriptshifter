@@ -168,7 +168,9 @@ def _romanize_name(src, options):
 
     # `parsed` can either be a modified Korean string with markers, or in case
     # of a foreign name, the final romanized name.
-    parsed, _warnings = _parse_kor_name(re.sub(r"\s{2,}", " ", src.strip()))
+    parsed, _warnings = _parse_kor_name(
+            re.sub(r"\s{2,}", " ", src.strip()),
+            options)
 
     if len(_warnings):
         warnings += _warnings
@@ -178,7 +180,11 @@ def _romanize_name(src, options):
             lname, fname = parsed.split("~", 1)
             fname_rom = _kor_fname_rom(fname)
 
-            lname_rom_ls = [_kor_lname_rom(n) for n in lname.split("+")]
+            lname_rom_ls = []
+            for n in lname.split("+"):
+                _k = _kor_lname_rom(n)
+                if _k:
+                    lname_rom_ls.append(_k)
 
             if not any(lname_rom_ls):
                 warnings.append(f"{parsed} is not a recognized Korean name.")
@@ -187,13 +193,8 @@ def _romanize_name(src, options):
             lname_rom = " ".join(lname_rom_ls)
 
             # Add comma after the last name for certain MARC fields.
-            marc_field_str = options.get("marc_field", "0")
-            try:
-                marc_field = int(marc_field_str)
-            except TypeError:
-                raise ValueError(
-                        f"{marc_field_str} is not a valid MARC field code.")
-            if marc_field in (100, 600, 700, 800):
+            marc_field = options.get("marc_field")
+            if marc_field in ("100", "600", "700", "800"):
                 rom = f"{lname_rom}, {fname_rom}"
             else:
                 rom = f"{lname_rom} {fname_rom}"
@@ -213,7 +214,7 @@ def _romanize_name(src, options):
     return "", warnings
 
 
-def _parse_kor_name(src):
+def _parse_kor_name(src, options):
     parsed = None
     warnings = []
 
@@ -227,14 +228,18 @@ def _parse_kor_name(src):
     src_len = len(src)
 
     # FKR005: Error if more than 7 syllables
-    if src_len > 7 or src_len < 2 or " " in src[3:]:
-        return _kor_corp_name_rom(src), warnings
+    if src_len > 7 or src_len < 2 or src.find(" ") > 2:
+        if options.get("foreign_name"):
+            return _kor_corp_name_rom(src), warnings
+        else:
+            warnings.append("ERROR: not a Korean name.")
+            return None, warnings
 
     ct_spaces = src.count(" ")
     # FKR0006: Error if more than 2 spaces
     if ct_spaces > 2:
         warnings.append("ERROR: not a name (too many spaces)")
-        return parsed, warnings
+        return None, warnings
 
     # FKR007: 2 spaces (two family names)
     if ct_spaces == 2:
@@ -572,9 +577,9 @@ def _hancha2hangul(data):
     for char in KCONF["fkr172-179"]:
         idx = [i for i, item in enumerate(data) if item == char]
         for i in idx:
-            val = ord(data[i + 1])
+            val = ord(data[i - 1])
             coda_value = (val - CP_MIN) % 28
-            if coda_value == 1 or coda_value == 4 or val < 100:  # TODO verify
+            if coda_value == 0 or coda_value == 4 or val < 100:  # TODO verify
                 data = data.replace(char, "열", 1)
             else:
                 data = data.replace(char, "렬", 1)

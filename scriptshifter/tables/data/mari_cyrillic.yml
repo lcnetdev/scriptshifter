@@ -1,0 +1,36 @@
+general:
+  name: Mari (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "I\uFE20O\uFE21": "u\0401"
+    "I\uFE20o\uFE21": "u\0401"
+    "i\uFE20o\uFE21": "u\0451"
+    "N\uFE20G\uFE21": "\u04A4"
+    "N\uFE20g\uFE21": "\u04A4"
+    "n\uFE20g\uFE21": "\u04A5"
+    "A\u0306": "\u04D2"
+    "a\u0306": "\u04D3"
+    "O\u0307": "\u04E6"
+    "o\u0307": "\u04E7"
+    "U\u0307": "\u04F0"
+    "u\u0307": "\u04F1"
+    "Y\u0307": "\u04F8"
+    "y\u0307": "\u04F9"
+
+script_to_roman:
+  map:
+    "u\0401": "I\uFE20O\uFE21"
+    "u\0451": "i\uFE20o\uFE21"
+    "\u04A4": "N\uFE20G\uFE21"
+    "\u04A5": "n\uFE20g\uFE21"
+    "\u04D2": "A\u0306"
+    "\u04D3": "a\u0306"
+    "\u04E6": "O\u0307"
+    "\u04E7": "o\u0307"
+    "\u04F0": "U\u0307"
+    "\u04F1": "u\u0307"
+    "\u04F8": "Y\u0307"
+    "\u04F9": "y\u0307"

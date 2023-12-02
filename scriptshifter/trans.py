@@ -19,24 +19,36 @@ class Context:
     """
     Context used within the transliteration and passed to hook functions.
     """
+    @property
+    def src(self):
+        return self._src
+
+    @src.setter
+    def src(self):
+        raise NotImplementedError("Atribute is read-only.")
+
+    @src.deleter
+    def src(self):
+        raise NotImplementedError("Atribute is read-only.")
+
     def __init__(self, src, general, langsec, options={}):
         """
         Initialize a context.
 
         Args:
-            src (str): The original text. This is meant to never change.
+            src (str): The original text. Read-only.
             general (dict): general section of the current config.
             langsec (dict): Language configuration section being used.
             options (dict): extra options as a dict.
         """
-        self.src = src
+        self._src = src
         self.general = general
         self.options = options
         self.langsec = langsec
         self.dest_ls = []
 
 
-def transliterate(src, lang, t_dir="s2r", options={}, capitalize=False):
+def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     """
     Transliterate a single string.
 

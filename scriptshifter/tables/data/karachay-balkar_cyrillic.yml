@@ -1,0 +1,15 @@
+general:
+  name: Karachay-Balkar (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "W": "\u0423\u0313"
+    "w": "\u0443\u0313"
+
+script_to_roman:
+  map:
+    "\u0423\u0313": "W"
+    "\u0443\u0313": "w"
+

@@ -1,0 +1,32 @@
+general:
+  name: Udmurt (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "D\uFE20Z\uFE21": "\u04DE"
+    "D\uFE20z\uFE21": "\u04DE"
+    "d\uFE20z\uFE21": "\u04DF"
+    "I\u0308": "\u04E4"
+    "i\u0308": "\u04E5"
+    "O\u0307": "\u04E6"
+    "o\u0307": "\u04E7"
+    "C\u0307H": "\u04F4"
+    "C\u0307h": "\u04F4"
+    "c\u0307h": "\u04F5"
+    "J": "\u04DC"
+    "j": "\u04DD"
+
+script_to_roman:
+  map:
+    "\u04DC": "J"
+    "\u04DD": "j"
+    "\u04DE": "D\uFE20Z\uFE21"
+    "\u04DF": "d\uFE20z\uFE21"
+    "\u04E4": "I\u0308"
+    "\u04E5": "i\u0308"
+    "\u04E6": "O\u0307"
+    "\u04E7": "o\u0307"
+    "\u04F4": "C\u0307h"
+    "\u04F5": "c\u0307h"

@@ -1,0 +1,31 @@
+general:
+  name: Turkmen (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "N\uFE20G\uFE21": "\u04A2"
+    "N\uFE20g\uFE21": "\u04A2"
+    "n\uFE20g\uFE21": "\u04A3"
+    "A\u0306": "\u04D8"
+    "a\u0306": "\u04D9"
+    "O\u0307": "\u04E8"
+    "o\u0307": "\u04E9"
+    "U\u0307": "\u04AE"
+    "u\u0307": "\u04AF"
+    "J": "\u0496"
+    "j": "\u0497"
+
+script_to_roman:
+  map:
+    "\u0496": "J"
+    "\u0497": "j"
+    "\u04A2": "N\uFE20G\uFE21"
+    "\u04A3": "n\uFE20g\uFE21"
+    "\u04AE": "U\u0307"
+    "\u04AF": "u\u0307"
+    "\u04D8": "A\u0306"
+    "\u04D9": "a\u0306"
+    "\u04E8": "O\u0307"
+    "\u04E9": "o\u0307"

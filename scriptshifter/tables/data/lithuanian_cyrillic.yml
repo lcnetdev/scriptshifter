@@ -1,0 +1,30 @@
+general:
+  name: Lithuanian (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "C\u030C": "\u0427"
+    "c\u030C": "\u0447"
+    "E\u0307": "\u0462"
+    "e\u0307": "\u0463"
+    "S\u030C": "\u0428"
+    "s\u030C": "\u0448"
+    "C": "\u0426"
+    "c": "\u0446"
+    "J": "\u0416"
+    "j": "\u0436"
+
+script_to_roman:
+  map:
+    "\u0416": "J"
+    "\u0426": "C"
+    "\u0427": "C\u030C"
+    "\u0428": "S\u030C"
+    "\u0436": "j"
+    "\u0446": "c"
+    "\u0447": "c\u030C"
+    "\u0448": "s\u030C"
+    "\u0462": "E\u0307"
+    "\u0463": "e\u0307"

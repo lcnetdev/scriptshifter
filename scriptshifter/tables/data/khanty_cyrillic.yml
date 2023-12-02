@@ -1,0 +1,47 @@
+general:
+  name: Khanty (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "N\uFE20G\uFE21": "\u04C7"
+    "N\uFE20g\uFE21": "\u04C7"
+    "n\uFE20g\uFE21": "\u04C8"
+    "A\u0306": "\u04D8"
+    "a\u0306": "\u04D9"
+    "A\u0308": "\u04D2"
+    "a\u0308": "\u04D3"
+    "A\u0310": "\u04DA"
+    "a\u0310": "\u04DB"
+    "O\u0304": "\u04E8"
+    "o\u0304": "\u04E9"
+    "O\u0307": "\u04E6"
+    "o\u0307": "\u04E7"
+    "O\u0310": "\u04EA"
+    "o\u0310": "\u04EB"
+    "U\u0307": "\u04F0"
+    "u\u0307": "\u04F1"
+    "Q": "\u04C3"
+    "q": "\u04C4"
+
+script_to_roman:
+  map:
+    "\u04C3": "Q"
+    "\u04C4": "q"
+    "\u04C7": "N\uFE20G\uFE21"
+    "\u04C8": "n\uFE20g\uFE21"
+    "\u04D2": "A\u0308"
+    "\u04D3": "a\u0308"
+    "\u04D8": "A\u0306"
+    "\u04D9": "a\u0306"
+    "\u04DA": "A\u0310"
+    "\u04DB": "a\u0310"
+    "\u04E6": "O\u0307"
+    "\u04E7": "o\u0307"
+    "\u04E8": "O\u0304"
+    "\u04E9": "o\u0304"
+    "\u04EA": "O\u0310"
+    "\u04EB": "o\u0310"
+    "\u04F0": "U\u0307"
+    "\u04F1": "u\u0307"

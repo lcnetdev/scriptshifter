@@ -1,0 +1,23 @@
+general:
+  name: Romani (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "GH": "\u0490"
+    "Gh": "\u0490"
+    "gh": "\u0491"
+    "R\u0326": "\u0420\u0306"
+    "r\u0326": "\u0440\u0306"
+    "R\u0327": "\u0420\u0306"
+    "r\u0327": "\u0440\u0306"
+
+script_to_roman:
+  map:
+    "\u0420\u0306": "R\u0327"
+    "\u0440\u0306": "r\u0327"
+    "\u0490": "Gh"
+    "\u0491": "gh"
+    "\u0492": "Gh"
+    "\u0493f": "gh"

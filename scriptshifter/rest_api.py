@@ -86,7 +86,7 @@ def transliterate_req():
     logger.debug(f"Extra options: {options}")
 
     try:
-        out, warnings = transliterate(in_txt, lang, t_dir, options, capitalize)
+        out, warnings = transliterate(in_txt, lang, t_dir, capitalize, options)
     except (NotImplementedError, ValueError) as e:
         return (str(e), 400)
 
