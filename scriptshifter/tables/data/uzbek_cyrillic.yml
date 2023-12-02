@@ -1,0 +1,29 @@
+general:
+  name: Uzbek (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "H\u0307": "\u04B2"
+    "h\u0307": "\u04B3"
+    "U\u0306": "\u040E"
+    "u\u0306": "\u045E"
+    "GH": "\u0492"
+    "Gh": "\u0492"
+    "gh": "\u0493"
+    "Q": "\u049A"
+    "q": "\u049B"
+
+script_to_roman:
+  map:
+    "\u040E": "U\u0306"
+    "\u045E": "u\u0306"
+    "\u0492": "Gh"
+    "\u0493": "gh"
+    "\u049A": "Q"
+    "\u049B": "q"
+    "\u04B2": "H\u0307"
+    "\u04B3": "h\u0307"
+    "\u04C3": "Q"
+    "\u04C4": "q"

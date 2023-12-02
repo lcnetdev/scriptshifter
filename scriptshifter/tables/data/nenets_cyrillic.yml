@@ -1,0 +1,15 @@
+general:
+  name: Nenets (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "N\uFE20G\uFE21": "\u04C7"
+    "N\uFE20g\uFE21": "\u04C7"
+    "n\uFE20g\uFE21": "\u04C8"
+
+script_to_roman:
+  map:
+    "\u04C7": "N\uFE20G\uFE21"
+    "\u04C8": "n\uFE20g\uFE21"

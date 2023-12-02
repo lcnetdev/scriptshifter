@@ -1,0 +1,36 @@
+general:
+  name: Yuit (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "N\uFE20G\uFE21": "\u041D\u0027"
+    "N\uFE20g\uFE21": "\u041D\u0027"
+    "n\uFE20g\uFE21": "\u043D\u0027"
+    "GH": "\u0413\u0027"
+    "Gh": "\u0413\u0027"
+    "gh": "\u0433\u0027"
+    "H\u0307": "\u0425\u0027"
+    "h\u0307": "\u0445\u0027"
+    "L\u0301": "\u041B\u0027"
+    "l\u0301": "\u043B\u0027"
+    "Q": "\u041A\u0027"
+    "q": "\u043A\u0027"
+    "W": "\u040E"
+    "w": "\u045E"
+
+script_to_roman:
+  map:
+    "\u0413\u0027": "Gh"
+    "\u041A\u0027": "Q"
+    "\u041B\u0027": "L\u0301"
+    "\u041D\u0027": "N\uFE20G\uFE21"
+    "\u0425\u0027": "H\u0307"
+    "\u0433\u0027": "gh"
+    "\u043A\u0027": "q"
+    "\u043B\u0027": "l\u0301"
+    "\u043D\u0027": "n\uFE20g\uFE21"
+    "\u0445\u0027": "h\u0307"
+    "\u040E": "W"
+    "\u045E": "w"
