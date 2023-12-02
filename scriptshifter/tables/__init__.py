@@ -71,14 +71,14 @@ class Token(str):
         - BEFGH
         - B
         """
-        logger.debug(f"a: {self.content}, b: {other.content}")
+        # logger.debug(f"a: {self.content}, b: {other.content}")
         self_len = len(self.content)
         other_len = len(other.content)
         min_len = min(self_len, other_len)
 
         # If one of the strings is entirely contained in the other string...
         if self.content[:min_len] == other.content[:min_len]:
-            logger.debug("Roots match.")
+            # logger.debug("Roots match.")
             # ...then the longer one takes precedence (is "less")
             return self_len > other_len
 
