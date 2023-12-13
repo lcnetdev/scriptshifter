@@ -7,6 +7,7 @@ from os import environ, urandom
 
 from flask import Flask, jsonify, render_template, request
 
+from scriptshifter.exceptions import ApiError
 from scriptshifter.tables import list_tables, load_table
 from scriptshifter.trans import transliterate
 
@@ -29,6 +30,14 @@ def create_app():
 
 
 app = create_app()
+
+
+#@app.exception_handler(ApiError)
+#def handle_exception(request: Request, e: ApiError):
+#    return JSONResponse(
+#        content=e.to_json(),
+#        status_code=e.status_code
+#    )
 
 
 @app.route("/", methods=["GET"])
