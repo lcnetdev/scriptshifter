@@ -1,4 +1,3 @@
-from json import dumps
 from os import environ
 
 from requests import post
@@ -17,10 +16,10 @@ def s2r_post_config(ctx):
     ctx.warnings = []
     rsp = post(
             EP,
-            data=dumps({
+            data={
                 "data": ctx.src,
                 "genre": ctx.options.get("genre", DEFAULT_GENRE)
-            }))
+            })
     rsp.raise_for_status()
 
     rom = rsp.json().get("transliteration")
