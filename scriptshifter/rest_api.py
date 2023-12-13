@@ -7,7 +7,7 @@ from os import environ, urandom
 
 from flask import Flask, jsonify, render_template, request
 
-from scriptshifter.exceptions import ApiError
+# from scriptshifter.exceptions import ApiError
 from scriptshifter.tables import list_tables, load_table
 from scriptshifter.trans import transliterate
 
