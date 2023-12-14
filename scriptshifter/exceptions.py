@@ -22,9 +22,9 @@ class ApiError(Exception):
 
 class ConfigError(ApiError):
     """ Raised when a malformed configuration is detected. """
-    pass
+    status_code = 500
 
 
 class UpstreamError(ApiError):
     """ Raised when an external service responds with an error code. """
-    pass
+    status_code = 500

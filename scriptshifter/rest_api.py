@@ -7,11 +7,7 @@ from os import environ, urandom
 
 from flask import Flask, jsonify, render_template, request
 
-<<<<<<< HEAD
 from scriptshifter.exceptions import ApiError
-=======
-# from scriptshifter.exceptions import ApiError
->>>>>>> 7e9bbf5e0854f7fd8325abc809b17b50ff927038
 from scriptshifter.tables import list_tables, load_table
 from scriptshifter.trans import transliterate
 
@@ -36,24 +32,15 @@ def create_app():
 app = create_app()
 
 
-<<<<<<< HEAD
 @app.errorhandler(ApiError)
 def handle_exception(e: ApiError):
-    rsp = e.get_response()
-    rsp.data = dumps({
-        "content": e.to_json(),
-        "status_code": e.status_code
-    })
-
-    return rsp
-=======
-#@app.exception_handler(ApiError)
-#def handle_exception(request: Request, e: ApiError):
-#    return JSONResponse(
-#        content=e.to_json(),
-#        status_code=e.status_code
-#    )
->>>>>>> 7e9bbf5e0854f7fd8325abc809b17b50ff927038
+    return ({
+        "warnings": [
+            "ScriptShifter HTTP request failed with status code "
+            f"{e.status_code}: {e.msg}"
+        ],
+        "output": "",
+    }, e.status_code)
 
 
 @app.route("/", methods=["GET"])
