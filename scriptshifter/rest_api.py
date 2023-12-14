@@ -2,12 +2,12 @@ import logging
 
 from base64 import b64encode
 from copy import deepcopy
-from json import loads
+from json import dumps, loads
 from os import environ, urandom
 
 from flask import Flask, jsonify, render_template, request
 
-# from scriptshifter.exceptions import ApiError
+from scriptshifter.exceptions import ApiError
 from scriptshifter.tables import list_tables, load_table
 from scriptshifter.trans import transliterate
 
@@ -32,12 +32,15 @@ def create_app():
 app = create_app()
 
 
-#@app.exception_handler(ApiError)
-#def handle_exception(request: Request, e: ApiError):
-#    return JSONResponse(
-#        content=e.to_json(),
-#        status_code=e.status_code
-#    )
+@app.errorhandler(ApiError)
+def handle_exception(e: ApiError):
+    return ({
+        "warnings": [
+            "ScriptShifter HTTP request failed with status code "
+            f"{e.status_code}: {e.msg}"
+        ],
+        "output": "",
+    }, e.status_code)
 
 
 @app.route("/", methods=["GET"])

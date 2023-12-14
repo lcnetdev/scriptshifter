@@ -2,7 +2,7 @@ from os import environ
 
 from requests import post
 
-from scriptshifter.exceptions import BREAK
+from scriptshifter.exceptions import BREAK, UpstreamError
 from scriptshifter.tools import capitalize
 
 EP = environ.get("TXL_DICTA_EP")
@@ -20,7 +20,10 @@ def s2r_post_config(ctx):
                 "data": ctx.src,
                 "genre": ctx.options.get("genre", DEFAULT_GENRE)
             })
-    rsp.raise_for_status()
+    try:
+        rsp.raise_for_status()
+    except Exception:
+        raise UpstreamError("Error received from Dicta service.")
 
     rom = rsp.json().get("transliteration")
 

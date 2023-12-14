@@ -121,15 +121,28 @@
                         label.setAttribute("for", opt.id);
                         label.append(opt.label);
 
-                        let input = document.createElement("input");
-                        if (opt.type == "boolean") {
+                        var input;
+                        if (opt.type == "list") {
+                            input = document.createElement("select");
+                            opt.options.forEach((sel) => {
+                                let option = document.createElement("option");
+                                option.append(sel.label);
+                                option.value = sel.id;
+                                if (option.value == opt.default) {
+                                    option.selected = true;
+                                };
+                                input.append(option);
+                            })
+                        } else if (opt.type == "boolean") {
                             // Use checkbox for boolean type.
+                            input = document.createElement("input");
                             input.setAttribute("type", "checkbox");
                             if (opt.default) {
                                 input.setAttribute("checked", 1);
                             }
                         } else {
                             // Use text for all other types.
+                            input = document.createElement("input");
                             input.value = opt.default;
                         }
                         input.setAttribute("id", opt.id);
