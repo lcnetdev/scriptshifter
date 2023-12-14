@@ -2,11 +2,12 @@ import logging
 
 from base64 import b64encode
 from copy import deepcopy
-from json import loads
+from json import dumps, loads
 from os import environ, urandom
 
 from flask import Flask, jsonify, render_template, request
 
+from scriptshifter.exceptions import ApiError
 from scriptshifter.tables import list_tables, load_table
 from scriptshifter.trans import transliterate
 
@@ -29,6 +30,17 @@ def create_app():
 
 
 app = create_app()
+
+
+@app.errorhandler(ApiError)
+def handle_exception(e: ApiError):
+    rsp = e.get_response()
+    rsp.data = dumps({
+        "content": e.to_json(),
+        "status_code": e.status_code
+    })
+
+    return rsp
 
 
 @app.route("/", methods=["GET"])
