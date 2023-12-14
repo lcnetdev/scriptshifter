@@ -16,7 +16,7 @@ def s2r_post_config(ctx):
     ctx.warnings = []
     rsp = post(
             EP,
-            data={
+            json={
                 "data": ctx.src,
                 "genre": ctx.options.get("genre", DEFAULT_GENRE)
             })
