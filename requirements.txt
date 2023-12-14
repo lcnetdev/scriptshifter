@@ -1,4 +1,5 @@
 aksharamukha>=2.1,<2.2
+python-dotenv>=1.0,<2
 flask>=2.3,<2.4
 pyyaml>=6.0,<7
 uwsgi>=2.0,<2.1
