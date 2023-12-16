@@ -11,7 +11,7 @@ RUN pip install -r requirements.txt
 COPY entrypoint.sh uwsgi.ini wsgi.py ./
 
 COPY ext ./ext/
-RUN pip install ext/arabic_transliterator
+#RUN pip install ext/arabic_transliterator
 
 COPY scriptshifter ./scriptshifter/
 RUN chmod +x ./entrypoint.sh
