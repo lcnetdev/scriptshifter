@@ -13,6 +13,11 @@
             height: 15vh;
             padding: 0.5em;
         }
+
+        fieldset.float-left {
+            margin-right: 2rem;
+        }
+
         #results{
             font-size: 1.25em;
             background-color: whitesmoke;
@@ -20,12 +25,25 @@
             padding: 1em;
         }
 
+        pre.warnings{
+            border-left: 0.3rem solid #FF5722 !important;
+        }
+        #warnings-toggle{
+            display: none;
+        }
+
+        p.input_descr {
+            font-size: 80%;
+            font-style: italic;
+            margin-bottom: .5rem;
+        }
+
     </style>
 
 
 
 
-    <form id="transliterate" action="/transliterate" method="POST">
+    <form id="transliterate" action="/trans" method="POST">
         <fieldset>
             <label for="text">Input text</label>
             <textarea id="text" name="text"></textarea>
@@ -35,75 +53,163 @@
                     <option value="{{ k }}">{{ v["name"] }}</option>
                 {% endfor %}
             </select>
-            <div>
-                <label class="label-inline" for="r2s">Roman to Script</label>
-                <input type="checkbox" id="r2s" name="r2s">
-            </div>
         </fieldset>
-        <fieldset>
-            <legend>Capitalize</legend>
-            <div>
-                <label class="label-inline" for="no-change">No change</label>
-                <input
-                        type="radio" id="no-change" name="capitalize"
-                                                     value="no_change" checked>
-            </div>
-            <div>
-                <label class="label-inline" for="first">First word</label>
-                <input type="radio" id="first" name="capitalize" value="first">
-            </div>
-            <div>
-                <label class="label-inline" for="all">All words</label>
-                <input type="radio" id="all" name="capitalize" value="all">
-            </div>
-        </fieldset>
+        <div class="clearfix">
+            <h3>General Options</h3>
+            <fieldset class="float-left">
+                <legend>Direction</legend>
+                <div>
+                    <label class="label-inline" for="s2r">Script to Roman</label>
+                    <input
+                            type="radio" id="opt_s2r" name="t_dir" value="s2r"
+                            checked>
+                </div>
+                <div>
+                    <label class="label-inline" for="r2s">Roman to script</label>
+                    <input
+                            type="radio" id="opt_r2s" name="t_dir" value="r2s">
+                </div>
+            </fieldset>
+            <fieldset class="float-left">
+                <legend>Capitalize</legend>
+                <div>
+                    <label class="label-inline" for="no-change">No change</label>
+                    <input
+                            type="radio" id="no-change" name="capitalize"
+                                                         value="no_change" checked>
+                </div>
+                <div>
+                    <label class="label-inline" for="first">First word</label>
+                    <input type="radio" id="first" name="capitalize" value="first">
+                </div>
+                <div>
+                    <label class="label-inline" for="all">All words</label>
+                    <input type="radio" id="all" name="capitalize" value="all">
+                </div>
+            </fieldset>
+        </div>
+        <div id="options" class="clearfix"></div>
         <fieldset>
             <input class="button-primary" type="submit" value="Transliterate!">
         </fieldset>
     </form>
 
+    <div id="warnings-toggle"><pre class="warnings"><code id="warnings">
+
+    </code></pre></div>
     <div id="results">
         Results will appear here.
     </div>
 
     <script type="text/javascript">
+        document.getElementById('lang').addEventListener('change',(event)=>{
+            let lang = document.getElementById("lang").value;
+
+            fetch('/options/' + lang)
+              .then(response=>response.json())
+                .then((data) => {
+                    document.getElementById("options").replaceChildren();
+                    if (data.length > 0) {
+                        let hdr = document.createElement("h3");
+                        hdr.innerText = "Language options";
+                        document.getElementById("options").append(hdr);
+                    }
+                    data.forEach((opt)=>{
+                        let fset = document.createElement("fieldset");
+                        fset.setAttribute("class", "float-left");
+                        let label = document.createElement("label");
+                        label.setAttribute("for", opt.id);
+                        label.append(opt.label);
+
+                        var input;
+                        if (opt.type == "list") {
+                            input = document.createElement("select");
+                            opt.options.forEach((sel) => {
+                                let option = document.createElement("option");
+                                option.append(sel.label);
+                                option.value = sel.id;
+                                if (option.value == opt.default) {
+                                    option.selected = true;
+                                };
+                                input.append(option);
+                            })
+                        } else if (opt.type == "boolean") {
+                            // Use checkbox for boolean type.
+                            input = document.createElement("input");
+                            input.setAttribute("type", "checkbox");
+                            if (opt.default) {
+                                input.setAttribute("checked", 1);
+                            }
+                        } else {
+                            // Use text for all other types.
+                            input = document.createElement("input");
+                            input.value = opt.default;
+                        }
+                        input.setAttribute("id", opt.id);
+                        input.setAttribute("name", opt.id);
+                        input.classList.add("option_i");
+
+                        let descr = document.createElement("p");
+                        descr.setAttribute("class", "input_descr");
+                        descr.append(opt.description);
+
+                        fset.append(label, descr, input);
+                        document.getElementById("options").append(fset);
+                    });
+                });
+
+            event.preventDefault();
+            return false;
+        })
+        document.getElementById('lang').dispatchEvent(new Event('change'));
+
+
         document.getElementById('transliterate').addEventListener('submit',(event)=>{
 
-
-
             const data = new URLSearchParams();
+
+            let t_dir = Array.from(document.getElementsByName("t_dir")).find(r => r.checked).value;
 
             let capitalize = Array.from(document.getElementsByName("capitalize")).find(r => r.checked).value;
 
 
             data.append('text',document.getElementById('text').value)
             data.append('lang',document.getElementById('lang').value)
-
-            if (document.getElementById('r2s').checked){
-                data.append('r2s','on')
-            }
-
+            data.append('t_dir',t_dir)
             data.append('capitalize',capitalize)
 
+            let options = {};
+            let option_inputs = document.getElementsByClassName("option_i");
+            for (i = 0; i < option_inputs.length; i++) {
+                let el = option_inputs[i];
+                if (el.type == "checkbox") {
+                    options[el.id] = el.checked;
+                } else {
+                    options[el.id] = el.value;
+                }
+            };
+            data.append('options', JSON.stringify(options));
 
-            fetch('/transliterate', {
+            fetch('/trans', {
                 method: 'post',
                 body: data,
             })
-            .then(response=>response.text())
-            .then((text)=>{
+            .then(response=>response.json())
+            .then((results)=>{
 
-                document.getElementById('results').innerText = text
+                document.getElementById('warnings-toggle').style.display="none"
+
+                document.getElementById('results').innerText = results.output
+
+                if (results.warnings.length>0){
+                    document.getElementById('warnings-toggle').style.display="block"
+                }
+                document.getElementById('warnings').innerText = "WARNING:\n" + results.warnings.join("\n")
+
 
             }).catch((error) => {
               alert("Error:\n" + error)
             });
-
-
-
-
-
-
 
             event.preventDefault()
             return false

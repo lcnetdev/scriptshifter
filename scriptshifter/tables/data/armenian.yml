@@ -40,11 +40,12 @@ roman_to_script:
     # ew combination
     "ew": "\u0565\u0582"
     # EV combination
-    "EV": "\u0565\u057E"
+    "EʹV": "\u0535\u057E"
     # Ev combination
-    "Ev": "\u0565\u057E"
+    "Eʹv": "\u0535\u057E"
     # ev combination
-    "ev": "\u0565\u057E"
+    "eʹv": "\u0565\u057E"
+    "ev": "\u0587"
     "E": "\u0535"
     "e": "\u0565"
     # T uppercase with ayn
@@ -146,6 +147,12 @@ roman_to_script:
     "F": "\u0556"
     "f": "\u0586"
     "\u02B9": ""
+    #Ligature Letters
+    "mn": "\uFB13"
+    "me": "\uFB14"
+    "mi": "\uFB15"
+    "vn": "\uFB16"
+    "mkh": "\uFB17"
     #Punctuation
     ",": "\u055D"
     ".": "\u0589"
@@ -202,9 +209,9 @@ script_to_roman:
     # ew combination
     "\u0565\u0582": "ew"
     # Ev combination
-    "\u0565\u057E": "Ev"
+    "\u0535\u057E": "Eʹv"
     # ev combination
-    "\u0565\u057E": "ev"
+    "\u0565\u057E": "eʹv"
     "\u0535": "E"
     "\u0565": "e"
     "\u0587": "ev"
@@ -294,6 +301,12 @@ script_to_roman:
     "\u0582": "w"
     "\u0556": "F"
     "\u0586": "f"
+    #Ligature Letters
+    "\uFB13": "mn"
+    "\uFB14": "me"
+    "\uFB15": "mi"
+    "\uFB16": "vn"
+    "\uFB17": "mkh"
     #Punctuation
     "\u055D": ","
     "\u0589": "."

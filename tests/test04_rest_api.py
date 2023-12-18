@@ -54,43 +54,41 @@ class TestRestAPI(TestCase):
 
     def test_trans_api_s2r(self):
         with app.test_client() as c:
-            rsp = c.post("/trans/rot3", data={"text": "defg"})
+            rsp = c.post("/trans", data={"lang": "rot3", "text": "defg"})
 
         self.assertEqual(rsp.status_code, 200)
-        data = rsp.get_data(as_text=True)
+        data = json.loads(rsp.get_data(as_text=True))
 
-        self.assertEqual(data, "abcd")
+        self.assertEqual(data["output"], "abcd")
 
     def test_trans_api_r2s(self):
         with app.test_client() as c:
-            rsp = c.post("/trans/rot3/r2s", data={"text": "abcd"})
+            rsp = c.post(
+                "/trans", data={
+                    "lang": "rot3",
+                    "text": "abcd",
+                    "t_dir": "r2s"
+                }
+            )
 
         self.assertEqual(rsp.status_code, 200)
-        data = rsp.get_data(as_text=True)
+        data = json.loads(rsp.get_data(as_text=True))
 
-        self.assertEqual(data, "defg")
+        self.assertEqual(data["output"], "defg")
 
     def test_trans_api_capitalize(self):
         with app.test_client() as c:
             rsp = c.post(
-                    "/trans/rot3/r2s",
-                    data={"capitalize": "first", "text": "bcde"})
+                "/trans",
+                data={
+                    "lang": "rot3",
+                    "capitalize": "first",
+                    "text": "bcde",
+                    "t_dir": "r2s"
+                }
+            )
 
         self.assertEqual(rsp.status_code, 200)
-        data = rsp.get_data(as_text=True)
+        data = json.loads(rsp.get_data(as_text=True))
 
-        self.assertEqual(data, "Efgh")
-
-    def test_trans_form(self):
-        with app.test_client() as c:
-            rsp = c.post(
-                    "/transliterate", data={
-                        "text": "abcd",
-                        "r2s": "true",
-                        "lang": "rot3",
-                    })
-
-        self.assertEqual(rsp.status_code, 200)
-        data = rsp.get_data(as_text=True)
-
-        self.assertEqual(data, "defg")
+        self.assertEqual(data["output"], "Efgh")

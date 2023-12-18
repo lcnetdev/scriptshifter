@@ -1,0 +1,869 @@
+- Kim chŏngil kongp'o rŭl ssoa ollida
+?     ^
++ Kim Chŏng-il kongp'o rŭl ssoa ollida
+?     ^    +
+ : S2R transliteration error for korean_nonames!
+Original: 김 정일 공포 를 쏘아 올리다
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Kim ch'angmo ŭi Taehan Min'guk sŏnmul opsyŏn kyogwasŏ" != "Kim Ch'ang-mo ŭi Taehan Min'guk sŏnmul opsyŏn kyogwasŏ"
+- Kim ch'angmo ŭi Taehan Min'guk sŏnmul opsyŏn kyogwasŏ
+?     ^
++ Kim Ch'ang-mo ŭi Taehan Min'guk sŏnmul opsyŏn kyogwasŏ
+?     ^     +
+ : S2R transliteration error for korean_nonames!
+Original: 김 창모 의 대한 민국 선물 옵션 교과서
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Tasŏk ryu yŏngmo - uri mal kwa uri kŭl ro ch'ŏrhakhan k'ŭn sasangga" != "Tasŏk Yu Yŏng-mo - uri mal kwa uri kŭl ro ch'ŏrhakhan k'ŭn sasangga"
+- Tasŏk ryu yŏngmo - uri mal kwa uri kŭl ro ch'ŏrhakhan k'ŭn sasangga
+?       ^^  ^
++ Tasŏk Yu Yŏng-mo - uri mal kwa uri kŭl ro ch'ŏrhakhan k'ŭn sasangga
+?       ^  ^   +
+ : S2R transliteration error for korean_nonames!
+Original: 다석 류 영모 - 우리 말 과 우리 글 로 철학한 큰 사상가
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Taehan Min'guk 20-tae chŏlmang ŭi t'ŭraiaenggŭl ŭl nŏmŏ" != "Taehan Min 'guk 20-tae chŏlmang ŭi t'ŭraiaenggŭl ŭl nŏmŏ"
+- Taehan Min'guk 20-tae chŏlmang ŭi t'ŭraiaenggŭl ŭl nŏmŏ
++ Taehan Min 'guk 20-tae chŏlmang ŭi t'ŭraiaenggŭl ŭl nŏmŏ
+?           +
+ : S2R transliteration error for korean_nonames!
+Original: 대한민국 20대 절망 의 트라이앵글 을 넘어
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'To yŏnmyŏng ŭi sasang kwa munhak' != 'To Yŏn-myŏng ŭi sasang kwa munhak'
+- To yŏnmyŏng ŭi sasang kwa munhak
+?    ^
++ To Yŏn-myŏng ŭi sasang kwa munhak
+?    ^  +
+ : S2R transliteration error for korean_nonames!
+Original: 도 연명 의 사상 과 문학
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Munhak cheguk: ch'oe kangmin p'yŏngnonjip" != "Munhak cheguk: Ch'oe Kang-min p'yŏngnonjip"
+- Munhak cheguk: ch'oe kangmin p'yŏngnonjip
+?                ^     ^
++ Munhak cheguk: Ch'oe Kang-min p'yŏngnonjip
+?                ^     ^   +
+ : S2R transliteration error for korean_nonames!
+Original: 문학 제국 : 최 강민 평론집
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Pak kijun ŭi Han'guk manhwa yasa" != "Pak Ki-jun ŭi Han'guk manhwa yasa"
+- Pak kijun ŭi Han'guk manhwa yasa
+?     ^
++ Pak Ki-jun ŭi Han'guk manhwa yasa
+?     ^ +
+ : S2R transliteration error for korean_nonames!
+Original: 박 기준 의 한국 만화 야사
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Pak nohong ŭi taejung yŏnyesa 1' != 'Pak No-hong ŭi taejung yŏnyesa 1'
+- Pak nohong ŭi taejung yŏnyesa 1
+?     ^
++ Pak No-hong ŭi taejung yŏnyesa 1
+?     ^ +
+ : S2R transliteration error for korean_nonames!
+Original: 박 노홍 의 대중 연예사 1
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Sarang ŭi hakkyo (ma kwangsu sosŏlchip)' != 'Sarang ŭi hakkyo (Ma Kwang-su sosŏlchip)'
+- Sarang ŭi hakkyo (ma kwangsu sosŏlchip)
+?                   ^  ^
++ Sarang ŭi hakkyo (Ma Kwang-su sosŏlchip)
+?                   ^  ^    +
+ : S2R transliteration error for korean_nonames!
+Original: 사랑 의 학교 (마 광수 소설집)
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Sahoe pokchi yulli wa ch'ŏrhak (kaejŏngp'an)" != "Sahoe pokchi yulli wa ch 'ŏrhak (kaejŏngp' an)"
+- Sahoe pokchi yulli wa ch'ŏrhak (kaejŏngp'an)
++ Sahoe pokchi yulli wa ch 'ŏrhak (kaejŏngp' an)
+?                         +                 +
+ : S2R transliteration error for korean_nonames!
+Original: 사회 복지 윤리 와 철학 (개정판)
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Sebŏphak 1 (2009) kaejŏngp'an" != "Sepŏphak 1 (2009) kaejŏngp'an"
+- Sebŏphak 1 (2009) kaejŏngp'an
+?   ^
++ Sepŏphak 1 (2009) kaejŏngp'an
+?   ^
+ : S2R transliteration error for korean_nonames!
+Original: 세법학 1 (2009) 개정판
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Sebŏphak 2 (2009) kaejŏngp'an" != "Sepŏphak 2 (2009) kaejŏngp'an"
+- Sebŏphak 2 (2009) kaejŏngp'an
+?   ^
++ Sepŏphak 2 (2009) kaejŏngp'an
+?   ^
+ : S2R transliteration error for korean_nonames!
+Original: 세법학 2 (2009) 개정판
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Sop'ŭrano sin yŏngok ŭi kkum kkun hu e" != "Sop'ŭrano Sin Yŏng-ok ŭi kkum kkun hu e"
+- Sop'ŭrano sin yŏngok ŭi kkum kkun hu e
+?           ^   ^
++ Sop'ŭrano Sin Yŏng-ok ŭi kkum kkun hu e
+?           ^   ^   +
+ : S2R transliteration error for korean_nonames!
+Original: 소프라노 신 영옥 의 꿈 꾼 후 에
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Son yŏngun ŭi uri ttang kwahak tapsagi' != 'Son Yŏng-un ŭi uri ttang kwahak tapsagi'
+- Son yŏngun ŭi uri ttang kwahak tapsagi
+?     ^
++ Son Yŏng-un ŭi uri ttang kwahak tapsagi
+?     ^   +
+ : S2R transliteration error for korean_nonames!
+Original: 손 영운 의 우리 땅 과학 답사기
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Song uk ŭi sam kwa munhak' != 'Song Uk ŭi sam kwa munhak'
+- Song uk ŭi sam kwa munhak
+?      ^
++ Song Uk ŭi sam kwa munhak
+?      ^
+ : S2R transliteration error for korean_nonames!
+Original: 송 욱 의 삶 과 문학
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Sukpin ch'oessi charyojip 2" != "Sukpin Ch'oe Ssi charyojip 2"
+- Sukpin ch'oessi charyojip 2
+?        ^    ^
++ Sukpin Ch'oe Ssi charyojip 2
+?        ^    ^^
+ : S2R transliteration error for korean_nonames!
+Original: 숙빈 최씨 자료집 2
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Sunjong Hwangje wa ch'ininch'ŏk" != "Sunjong hwangje wa ch'ininch'ŏk"
+- Sunjong Hwangje wa ch'ininch'ŏk
+?         ^
++ Sunjong hwangje wa ch'ininch'ŏk
+?         ^
+ : S2R transliteration error for korean_nonames!
+Original: 순종 황제 와 친인척
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Syup'ŏ Ait'i K'oria 2020" != "Syup'ŏ Ait'i k'oria 2020"
+- Syup'ŏ Ait'i K'oria 2020
+?              ^
++ Syup'ŏ Ait'i k'oria 2020
+?              ^
+ : S2R transliteration error for korean_nonames!
+Original: 슈퍼 아이티 코리아 2020
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Singminji ihu rŭl sayuhada: t'alsingminhwa wa chaesingminhwa ŭi kyŏnggye" != "Singminji ihu rŭl sayu hada: t'alsingminhwa wa chaesingminhwa ŭi kyŏnggye"
+- Singminji ihu rŭl sayuhada: t'alsingminhwa wa chaesingminhwa ŭi kyŏnggye
++ Singminji ihu rŭl sayu hada: t'alsingminhwa wa chaesingminhwa ŭi kyŏnggye
+?                       +
+ : S2R transliteration error for korean_nonames!
+Original: 식민지 이후 를 사유하다 : 탈식민화 와 재식민화 의 경계
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Sin hyŏnsu sijip 1985-2004 chŏn 2-kwŏn' != 'Sin Hyŏn-su-sijip 1985-2004 chŏn 2-kwŏn'
+- Sin hyŏnsu sijip 1985-2004 chŏn 2-kwŏn
+?     ^     ^
++ Sin Hyŏn-su-sijip 1985-2004 chŏn 2-kwŏn
+?     ^   +  ^
+ : S2R transliteration error for korean_nonames!
+Original: 신 현수 시집 1985-2004 전 2권
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Sim yŏnsu ŭi simunhak t'amsaek" != "Sim Yŏn-su ŭi simunhak t'amsaek"
+- Sim yŏnsu ŭi simunhak t'amsaek
+?     ^
++ Sim Yŏn-su ŭi simunhak t'amsaek
+?     ^  +
+ : S2R transliteration error for korean_nonames!
+Original: 심 연수 의 시문학 탐색
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Simjang ŭl salligo sahoe rŭl sallinŭn song myŏnggŭn ŭi kŏn'gang kyogwasŏ" != "Simjang ŭl salligo sahoe rŭl sallinŭn Song Myŏng-gŭn ŭi kŏn'gang kyogwasŏ"
+- Simjang ŭl salligo sahoe rŭl sallinŭn song myŏnggŭn ŭi kŏn'gang kyogwasŏ
+?                                       ^    ^
++ Simjang ŭl salligo sahoe rŭl sallinŭn Song Myŏng-gŭn ŭi kŏn'gang kyogwasŏ
+?                                       ^    ^    +
+ : S2R transliteration error for korean_nonames!
+Original: 심장 을 살리고 사회 를 살리는 송 명근 의 건강 교과서
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Yŏmsangsŏp sosŏl tasi ilki' != 'Yŏm sangsŏp sosŏl tasi ilki'
+- Yŏmsangsŏp sosŏl tasi ilki
++ Yŏm sangsŏp sosŏl tasi ilki
+?    +
+ : S2R transliteration error for korean_nonames!
+Original: 염상섭 소설 다시 읽기
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Yŏngwŏnhi kkŏjiji annŭn ŏnyak ŭi tŭngpul 1' != 'Yŏngwŏnhi kkŏjiji annŭn ŏnyak ŭi tŭngbul 1'
+- Yŏngwŏnhi kkŏjiji annŭn ŏnyak ŭi tŭngpul 1
+?                                      ^
++ Yŏngwŏnhi kkŏjiji annŭn ŏnyak ŭi tŭngbul 1
+?                                      ^
+ : S2R transliteration error for korean_nonames!
+Original: 영원히 꺼지지 않는 언약 의 등불 1
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Obama wa kim chŏngil ŭi saengjon' != 'Obama wa Kim Chŏng-il ŭi saengjon'
+- Obama wa kim chŏngil ŭi saengjon
+?          ^   ^
++ Obama wa Kim Chŏng-il ŭi saengjon
+?          ^   ^    +
+ : S2R transliteration error for korean_nonames!
+Original: 오바마 와 김 정일 의 생존
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Wanyŏk i ok chŏnjip 03 pŏlledŭl ŭi koerophim e taehayŏ' != 'Wanyŏk Yi Ok chŏnjip 03 pŏlledŭl ŭi koerophim e taehayŏ'
+- Wanyŏk i ok chŏnjip 03 pŏlledŭl ŭi koerophim e taehayŏ
+?          ^
++ Wanyŏk Yi Ok chŏnjip 03 pŏlledŭl ŭi koerophim e taehayŏ
+?        +  ^
+ : S2R transliteration error for korean_nonames!
+Original: 완역 이 옥 전집 03 벌레들 의 괴롭힘 에 대하여
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Yu t'aeu ŭi chilbyŏng wanch'i (CD1-chang p'oham)" != "Yu T'ae-u ŭi chilbyŏng wanch'i (CD1-chang p'oham)"
+- Yu t'aeu ŭi chilbyŏng wanch'i (CD1-chang p'oham)
+?    ^
++ Yu T'ae-u ŭi chilbyŏng wanch'i (CD1-chang p'oham)
+?    ^   +
+ : S2R transliteration error for korean_nonames!
+Original: 유 태우 의 질병 완치 (CD1장 포함)
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'I kangbaek hŭigok chŏnjip 2' != 'Yi Kang-baek hŭigok chŏnjip 2'
+- I kangbaek hŭigok chŏnjip 2
+? ^^^
++ Yi Kang-baek hŭigok chŏnjip 2
+? ^^^^   +
+ : S2R transliteration error for korean_nonames!
+Original: 이 강백 희곡 전집 2
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'I tŏgil ŭi sesang ŭl pakkun yŏindŭl' != 'Yi Tŏg-il ŭi sesang ŭl pakkun yŏindŭl'
+- I tŏgil ŭi sesang ŭl pakkun yŏindŭl
+? ^^^
++ Yi Tŏg-il ŭi sesang ŭl pakkun yŏindŭl
+? ^^^^  +
+ : S2R transliteration error for korean_nonames!
+Original: 이 덕일 의 세상 을 바꾼 여인들
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'I samno ka chŏngmal pulssang hada' != 'Yi Sam-no ka chŏngmal pulssang hada'
+- I samno ka chŏngmal pulssang hada
+? ^^^
++ Yi Sam-no ka chŏngmal pulssang hada
+? ^^^^  +
+ : S2R transliteration error for korean_nonames!
+Original: 이 삼노 가 정말 불쌍 하다
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "I sang chŏnjip 2 tanp'yŏn sosŏl" != "Yi Sang chŏnjip 2 tanp'yŏn sosŏl"
+- I sang chŏnjip 2 tanp'yŏn sosŏl
+? ^^^
++ Yi Sang chŏnjip 2 tanp'yŏn sosŏl
+? ^^^^
+ : S2R transliteration error for korean_nonames!
+Original: 이 상 전집 2 단편 소설
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "I sang chŏnjip 3: changp'yŏn sosŏl" != "Yi Sang chŏnjip 3: changp'yŏn sosŏl"
+- I sang chŏnjip 3: changp'yŏn sosŏl
+? ^^^
++ Yi Sang chŏnjip 3: changp'yŏn sosŏl
+? ^^^^
+ : S2R transliteration error for korean_nonames!
+Original: 이 상 전집 3 : 장편 소설
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'I sŭngman tongmun sŏhanjip (sang)' != 'Yi Sŭng-man tongmun sŏhanjip (sang)'
+- I sŭngman tongmun sŏhanjip (sang)
+? ^^^
++ Yi Sŭng-man tongmun sŏhanjip (sang)
+? ^^^^   +
+ : S2R transliteration error for korean_nonames!
+Original: 이 승만 동문 서한집 (상)
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "I iksang tanp'yŏn sosŏl chŏnjip" != "Yi Ik-sang tanp'yŏn sosŏl chŏnjip"
+- I iksang tanp'yŏn sosŏl chŏnjip
+?  --
++ Yi Ik-sang tanp'yŏn sosŏl chŏnjip
+? +++  +
+ : S2R transliteration error for korean_nonames!
+Original: 이 익상 단편 소설 전집
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Iginŭn chŏng chuyŏng chiji annŭn i pyŏngch'ŏl" != "Iginŭn Chŏng Chu-yŏng chiji annŭn Yi Pyŏng-ch'ŏl"
+- Iginŭn chŏng chuyŏng chiji annŭn i pyŏngch'ŏl
+?        ^     ^                     ^
++ Iginŭn Chŏng Chu-yŏng chiji annŭn Yi Pyŏng-ch'ŏl
+?        ^     ^  +                 +  ^    +
+ : S2R transliteration error for korean_nonames!
+Original: 이기는 정 주영 지지 않는 이 병철
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Ijae hwang yunsŏk ŭi hangmun kwa sasang' != 'Ijae Hwang Yun-sŏk ŭi hangmun kwa sasang'
+- Ijae hwang yunsŏk ŭi hangmun kwa sasang
+?      ^     ^
++ Ijae Hwang Yun-sŏk ŭi hangmun kwa sasang
+?      ^     ^  +
+ : S2R transliteration error for korean_nonames!
+Original: 이재 황 윤석 의 학문 과 사상
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Chŏjakkwŏnbŏp ŭi chŏngsŏk che 3-p'an" != "Chŏjakkwŏnpŏp ŭi chŏngsŏk che 3-p'an"
+- Chŏjakkwŏnbŏp ŭi chŏngsŏk che 3-p'an
+?           ^
++ Chŏjakkwŏnpŏp ŭi chŏngsŏk che 3-p'an
+?           ^
+ : S2R transliteration error for korean_nonames!
+Original: 저작권법 의 정석 제 3판
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Chŏnsŏl ŭi myŏngch'ang im pangul" != "Chŏnsŏl ŭi myŏngch'ang Im Pang-ul"
+- Chŏnsŏl ŭi myŏngch'ang im pangul
+?                        ^  ^
++ Chŏnsŏl ŭi myŏngch'ang Im Pang-ul
+?                        ^  ^   +
+ : S2R transliteration error for korean_nonames!
+Original: 전설 의 명창 임 방울
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Chŏlmŭn kugŭllŏ ka sesang e tŏnjinŭn yŏljŏngnyŏk' != 'Chŏlmŭn kugŭllŏ ka sesang e tŏnjinŭn yŏlchŏngnyŏk'
+- Chŏlmŭn kugŭllŏ ka sesang e tŏnjinŭn yŏljŏngnyŏk
+?                                         ^
++ Chŏlmŭn kugŭllŏ ka sesang e tŏnjinŭn yŏlchŏngnyŏk
+?                                         ^^
+ : S2R transliteration error for korean_nonames!
+Original: 젊은 구글러 가 세상 에 던지는 열정력
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Cho kŭnho kŏmsajang ŭi wŏryo p'yŏnji" != "Cho Kŭn-ho kŏmsajang ŭi wŏryo p'yŏnji"
+- Cho kŭnho kŏmsajang ŭi wŏryo p'yŏnji
+?     ^
++ Cho Kŭn-ho kŏmsajang ŭi wŏryo p'yŏnji
+?     ^  +
+ : S2R transliteration error for korean_nonames!
+Original: 조 근호 검사장 의 월요 편지
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Cho suung ŭi iyagi munhak (kaejŏngp'an)" != "Cho Su-ung ŭi iyagi munhak (kaejŏngp'an)"
+- Cho suung ŭi iyagi munhak (kaejŏngp'an)
+?     ^
++ Cho Su-ung ŭi iyagi munhak (kaejŏngp'an)
+?     ^ +
+ : S2R transliteration error for korean_nonames!
+Original: 조 수웅 의 이야기 문학 (개정판)
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Chosebŏp (2009)' != 'Chosepŏp (2009)'
+- Chosebŏp (2009)
+?      ^
++ Chosepŏp (2009)
+?      ^
+ : S2R transliteration error for korean_nonames!
+Original: 조세법 (2009)
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Chungso kiŏp ŭi chŏllyakchŏk sŏngkwa kwalli(BSC) ironp'yŏn" != "Chungsogiŏp ŭi chŏllyakchŏk sŏngkwa kwalli (BSC) ironp'yŏn"
+- Chungso kiŏp ŭi chŏllyakchŏk sŏngkwa kwalli(BSC) ironp'yŏn
+?        ^^
++ Chungsogiŏp ŭi chŏllyakchŏk sŏngkwa kwalli (BSC) ironp'yŏn
+?        ^                                  +
+ : S2R transliteration error for korean_nonames!
+Original: 중소 기업 의 전략적 성과 관리(BSC) 이론편
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Chis[40 chars]onggong chŏngbohwa hyŏksin pangan yŏn'gu(Ⅳ) ch'onggwal pogosŏ" != "Chis[40 chars]onggong chŏngbohwa hyŏksin pangan yŏn'gu (Ⅳ) ch'onggwal pogosŏ"
+- Chisik chŏngbohwa ŭi chŏnmyŏnhwa rŭl wihan konggong chŏngbohwa hyŏksin pangan yŏn'gu(Ⅳ) ch'onggwal pogosŏ
++ Chisik chŏngbohwa ŭi chŏnmyŏnhwa rŭl wihan konggong chŏngbohwa hyŏksin pangan yŏn'gu (Ⅳ) ch'onggwal pogosŏ
+?                                                                                     +
+ : S2R transliteration error for korean_nonames!
+Original: 지식 정보화 의 전면화 를 위한 공공 정보화 혁신 방안 연구(Ⅳ) 총괄 보고서
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Chilbyŏng e ttarŭn yang, hanbang siksa yobŏp' != 'Chilbyŏng e ttarŭn yang,-hanbang siksa yobŏp'
+- Chilbyŏng e ttarŭn yang, hanbang siksa yobŏp
+?                         ^
++ Chilbyŏng e ttarŭn yang,-hanbang siksa yobŏp
+?                         ^
+ : S2R transliteration error for korean_nonames!
+Original: 질병 에 따른 양·한방 식사 요법
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Ch'ŏnha cheil chamnom cho yŏngnam ŭi suda" != "Ch'ŏnha cheil chamnom Cho Yŏng-nam Ŭi suda"
+- Ch'ŏnha cheil chamnom cho yŏngnam ŭi suda
+?                       ^   ^       ^
++ Ch'ŏnha cheil chamnom Cho Yŏng-nam Ŭi suda
+?                       ^   ^   +    ^
+ : S2R transliteration error for korean_nonames!
+Original: 천하 제일 잡놈 조 영남 의 수다
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Ch'oe namsŏn ŭi ek'ŭrit'wirŭ wa kŭndae ŏnŏ minjok" != "Ch 'oe Nam-sŏn ŭi ek'ŭrit'wirŭ wa kŭndae ŏnŏ minjok"
+- Ch'oe namsŏn ŭi ek'ŭrit'wirŭ wa kŭndae ŏnŏ minjok
+?       ^
++ Ch 'oe Nam-sŏn ŭi ek'ŭrit'wirŭ wa kŭndae ŏnŏ minjok
+?   +    ^  +
+ : S2R transliteration error for korean_nonames!
+Original: 최 남선 의 에크리튀르 와 근대 언어 민족
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Ch'oe sŭngch'ŏl paksa ka mal hanŭn sŏnginpyŏng ttaeryŏ chapki" != "Ch'oe Sŭng-ch'ŏl paksa ka mal hanŭn sŏnginpyŏng ttaeryŏ chapki"
+- Ch'oe sŭngch'ŏl paksa ka mal hanŭn sŏnginpyŏng ttaeryŏ chapki
+?       ^
++ Ch'oe Sŭng-ch'ŏl paksa ka mal hanŭn sŏnginpyŏng ttaeryŏ chapki
+?       ^   +
+ : S2R transliteration error for korean_nonames!
+Original: 최 승철 박사 가 말 하는 성인병 때려 잡기
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Ch'oe chonghyŏn kŭ ka kkumkkun iltŭng kukka ro kanŭn kil" != "Ch'oe Chong-hyŏn Kŭ ka kkumkkun iltŭng kukka ro kanŭn kil"
+- Ch'oe chonghyŏn kŭ ka kkumkkun iltŭng kukka ro kanŭn kil
+?       ^         ^
++ Ch'oe Chong-hyŏn Kŭ ka kkumkkun iltŭng kukka ro kanŭn kil
+?       ^    +     ^
+ : S2R transliteration error for korean_nonames!
+Original: 최 종현 그 가 꿈꾼 일등 국가 로 가는 길
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "P'aldangho sujil sago yegyŏngbo sisŭt'em kaebal e kwanhan kich'o yŏn'gu" != "P'altangho sujil sago yegyŏngbo sisŭt'em kaebal e kwanhan kich'o yŏn'gu"
+- P'aldangho sujil sago yegyŏngbo sisŭt'em kaebal e kwanhan kich'o yŏn'gu
+?     ^
++ P'altangho sujil sago yegyŏngbo sisŭt'em kaebal e kwanhan kich'o yŏn'gu
+?     ^
+ : S2R transliteration error for korean_nonames!
+Original: 팔당호 수질 사고 예경보 시스템 개발 에 관한 기초 연구
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Hananim kat'i kapsida" != "Hananim kach'i kapsida"
+- Hananim kat'i kapsida
+?           ^
++ Hananim kach'i kapsida
+?           ^^
+ : S2R transliteration error for korean_nonames!
+Original: 하나님 같이 갑시다
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Han'guk ŭi kyoyŏk kujo wa Kyŏngsang suji pyŏndong yoin punsŏk" != "Han'guk ŭi kyoyŏk kujo wa kyŏngsang suji pyŏndong yoin punsŏk"
+- Han'guk ŭi kyoyŏk kujo wa Kyŏngsang suji pyŏndong yoin punsŏk
+?                           ^
++ Han'guk ŭi kyoyŏk kujo wa kyŏngsang suji pyŏndong yoin punsŏk
+?                           ^
+ : S2R transliteration error for korean_nonames!
+Original: 한국 의 교역 구조 와 경상 수지 변동 요인 분석
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Han'guk hŏnbŏmnon [5 p'an]" != "Han'guk hŏnpŏmnon [5 p'an]"
+- Han'guk hŏnbŏmnon [5 p'an]
+?            ^
++ Han'guk hŏnpŏmnon [5 p'an]
+?            ^
+ : S2R transliteration error for korean_nonames!
+Original: 한국 헌법론 [5 판]
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Han'guk hŏnbŏmnon [chŏnjŏng 5-p'an]" != "Han'guk hŏnpŏmnon [chŏnjŏng 5-p'an]"
+- Han'guk hŏnbŏmnon [chŏnjŏng 5-p'an]
+?            ^
++ Han'guk hŏnpŏmnon [chŏnjŏng 5-p'an]
+?            ^
+ : S2R transliteration error for korean_nonames!
+Original: 한국 헌법론 [전정 5판]
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Han'guksa ŭi ihae yochŏm" != "Han'guksa ŭi ihae yojŏm"
+- Han'guksa ŭi ihae yochŏm
+?                     ^^
++ Han'guksa ŭi ihae yojŏm
+?                     ^
+ : S2R transliteration error for korean_nonames!
+Original: 한국사 의 이해 요점
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Han'gugŏ paldalsa chŭngbo" != "Han'gugŏ paltalsa chŭngbo"
+- Han'gugŏ paldalsa chŭngbo
+?             ^
++ Han'gugŏ paltalsa chŭngbo
+?             ^
+ : S2R transliteration error for korean_nonames!
+Original: 한국어 발달사 증보
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Han'gugŏ wa Oegugŏ taejo punsŏngnon" != "Han'gugŏ wa oegugŏ taejo punsŏngnon"
+- Han'gugŏ wa Oegugŏ taejo punsŏngnon
+?             ^
++ Han'gugŏ wa oegugŏ taejo punsŏngnon
+?             ^
+ : S2R transliteration error for korean_nonames!
+Original: 한국어 와 외국어 대조 분석론
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: 'Haengjŏng chŏngbohwa(G4C) sŏngkwa punsŏk' != 'Haengjŏng chŏngbohwa (G4C) sŏngkwa punsŏk'
+- Haengjŏng chŏngbohwa(G4C) sŏngkwa punsŏk
++ Haengjŏng chŏngbohwa (G4C) sŏngkwa punsŏk
+?                     +
+ : S2R transliteration error for korean_nonames!
+Original: 행정 정보화(G4C) 성과 분석
+
+======================================================================
+FAIL: sample_s2r (tests.test02_transliteration.TestTrans.sample_s2r)
+Test S2R transliteration for one CSV sample.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/stefano/code/scriptshifter/src/tests/test02_transliteration.py", line 38, in sample_s2r
+    self.assertEqual(
+AssertionError: "Hyŏndaesahoe wa seksyuŏllit'i" != "Hyŏndae sahoe wa seksyuŏllit'i"
+- Hyŏndaesahoe wa seksyuŏllit'i
++ Hyŏndae sahoe wa seksyuŏllit'i
+?        +
+ : S2R transliteration error for korean_nonames!
+Original: 현대사회 와 섹슈얼리티

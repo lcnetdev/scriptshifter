@@ -1,0 +1,27 @@
+general:
+  name: Altai (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "N\uFE20G\uFE21": "\u04A4"
+    "N\uFE20g\uFE21": "\u04A4"
+    "n\uFE20g\uFE21": "\u04A5"
+    "D\u0301": "\u0408"
+    "d\u0301": "\u0458"
+    "O\u0307": "\u04E6"
+    "o\u0307": "\u04E7"
+    "U\u0307": "\u04F0"
+    "u\u0307": "\u04F1"
+
+script_to_roman:
+  map:
+    "\u0408": "D\u0301"
+    "\u0458": "d\u0301"
+    "\u04A4": "N\uFE20G\uFE21"
+    "\u04A5": "n\uFE20g\uFE21"
+    "\u04E6": "O\u0307"
+    "\u04E7": "o\u0307"
+    "\u04F0": "U\u0307"
+    "\u04F1": "u\u0307"

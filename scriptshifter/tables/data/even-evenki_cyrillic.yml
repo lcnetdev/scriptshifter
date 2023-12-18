@@ -1,0 +1,27 @@
+general:
+  name: Even/Evenki (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "N\uFE20G\uFE21": "\u04C7"
+    "N\uFE20g\uFE21": "\u04C7"
+    "n\uFE20g\uFE21": "\u04C8"
+    "O\u0307": "\u04E8"
+    "o\u0307": "\u04E9"
+    "O\u0304": "\u04EA"
+    "o\u0304": "\u04EB"
+
+script_to_roman:
+  map:
+    "\u04A2": "N\uFE20G\uFE21"
+    "\u04A3": "n\uFE20g\uFE21"
+    "\u04C7": "N\uFE20G\uFE21"
+    "\u04C8": "n\uFE20g\uFE21"
+    "\u04C9": "N\uFE20G\uFE21"
+    "\u04CA": "n\uFE20g\uFE21"
+    "\u04E8": "O\u0307"
+    "\u04E9": "o\u0307"
+    "\u04EA": "O\u0304"
+    "\u04EB": "o\u0304"

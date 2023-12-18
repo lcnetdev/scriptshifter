@@ -1,0 +1,25 @@
+general:
+  name: Korean (Names)
+  description: Korean names S2R.
+
+options:
+  - id: marc_field
+    label: MARC field
+    description: Romanize according to a specific MARC field format. Leave blank if not applicable.
+    type: string
+    default:
+  - id: foreign_name
+    label: Foreign name
+    description: >
+      The provided string shall be romanized as a foreign name.
+      If this option is deactivated, names not falling within the Korean name
+      schema will not be transliterated and a warning will be issued.
+    type: boolean
+    default: false
+
+script_to_roman:
+  hooks:
+    post_config:
+      -
+        - korean.romanizer.s2r_names_post_config
+

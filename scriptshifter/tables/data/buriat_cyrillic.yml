@@ -1,0 +1,23 @@
+general:
+  name: Buriat (Cyrillic)
+  parents:
+    - _cyrillic_base
+    - _ignore_base
+
+roman_to_script:
+  map:
+    "H\u0307": "\u04BA"
+    "h\u0307": "\u04BB"
+    "O\u0307": "\u04E8"
+    "o\u0307": "\u04E9"
+    "U\u0307": "\u04AE"
+    "u\u0307": "\u04AF"
+
+script_to_roman:
+  map:
+    "\u04AE": "U\u0307"
+    "\u04AF": "u\u0307"
+    "\u04BA": "H\u0307"
+    "\u04BB": "h\u0307"
+    "\u04E8": "O\u0307"
+    "\u04E9": "o\u0307"

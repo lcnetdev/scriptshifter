@@ -127,6 +127,28 @@ Type: list
 A list of parents that the configuration inherits from. See "Inheritance"
 above.
 
+### `options`
+
+A list of additional options that may be passed in a request. This is
+useful when developing custom hooks. Any values are ignored by the core
+transliteration process.
+
+Each list member is an object is expected to contain the following keys that
+are used in the built-in API:
+
+- `id`: the option ID used as a HTML tag ID and as a variable name.
+- `label`: human-readable label usable in a UI.
+- `description`: description usable in a UI. Optional.
+- `type`: at the moment, if this is set to `list`, a select widget shall be
+  generated in the UI. An additional `options` key (see below) with the
+  individual options will be required. Any other value generates a single-line
+  text field.
+- `options`: list of maps, each representing a selectable option in the drop-
+  down menu when the type is `list`. Each list item has an `id` and a `label`
+  key, used respectively as the input value and human-readable label.
+- `default`: The default value that should be set for the option in a UI. Note
+  that this does not set a default value in an API call [TODO].
+
 ### `roman_to_script`
 
 Roman-to-script transliteration section. If absent, the application will raise

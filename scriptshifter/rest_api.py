@@ -2,15 +2,18 @@ import logging
 
 from base64 import b64encode
 from copy import deepcopy
+from json import dumps, loads
 from os import environ, urandom
 
-from flask import Flask, Response, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request
 
+from scriptshifter.exceptions import ApiError
 from scriptshifter.tables import list_tables, load_table
 from scriptshifter.trans import transliterate
 
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(level=environ.get("TXL_LOGLEVEL", logging.INFO))
 
 
 def create_app():
@@ -27,6 +30,17 @@ def create_app():
 
 
 app = create_app()
+
+
+@app.errorhandler(ApiError)
+def handle_exception(e: ApiError):
+    return ({
+        "warnings": [
+            "ScriptShifter HTTP request failed with status code "
+            f"{e.status_code}: {e.msg}"
+        ],
+        "output": "",
+    }, e.status_code)
 
 
 @app.route("/", methods=["GET"])
@@ -59,27 +73,33 @@ def dump_table(lang):
     return jsonify(tbl)
 
 
-@app.route("/transliterate", methods=["POST"])
-def transliterate_form():
-    """ UI version of the `trans` endpoint. Passes everything via form. """
-    return transliterate_req(
-            request.form["lang"], request.form.get("r2s", False))
+@app.route("/options/<lang>", methods=["GET"])
+def get_options(lang):
+    """
+    Get extra options for a table.
+    """
+    tbl = load_table(lang)
+
+    return jsonify(tbl.get("options", []))
 
 
-@app.route("/trans/<lang>/r2s", methods=["POST"], defaults={"r2s": True})
-@app.route("/trans/<lang>", methods=["POST"])
-def transliterate_req(lang, r2s=False):
+@app.route("/trans", methods=["POST"])
+def transliterate_req():
+    lang = request.form["lang"]
     in_txt = request.form["text"]
     capitalize = request.form.get("capitalize", False)
+    t_dir = request.form.get("t_dir", "s2r")
+    if t_dir not in ("s2r", "r2s"):
+        return f"Invalid direction: {t_dir}", 400
+
     if not len(in_txt):
         return ("No input text provided! ", 400)
+    options = loads(request.form.get("options", "{}"))
+    logger.debug(f"Extra options: {options}")
 
     try:
-        out = transliterate(in_txt, lang, r2s, capitalize)
+        out, warnings = transliterate(in_txt, lang, t_dir, capitalize, options)
     except (NotImplementedError, ValueError) as e:
         return (str(e), 400)
 
-    rsp = Response(out, mimetype="text/plain")
-    rsp.headers["Content-Type"] = "text/plain; charset=utf-8"
-
-    return rsp
+    return {"output": out, "warnings": warnings}

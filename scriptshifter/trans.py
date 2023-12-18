@@ -19,22 +19,36 @@ class Context:
     """
     Context used within the transliteration and passed to hook functions.
     """
-    def __init__(self, src, general, langsec):
+    @property
+    def src(self):
+        return self._src
+
+    @src.setter
+    def src(self):
+        raise NotImplementedError("Atribute is read-only.")
+
+    @src.deleter
+    def src(self):
+        raise NotImplementedError("Atribute is read-only.")
+
+    def __init__(self, src, general, langsec, options={}):
         """
         Initialize a context.
 
         Args:
-            src (str): The original text. This is meant to never change.
+            src (str): The original text. Read-only.
             general (dict): general section of the current config.
             langsec (dict): Language configuration section being used.
+            options (dict): extra options as a dict.
         """
-        self.src = src
+        self._src = src
         self.general = general
+        self.options = options
         self.langsec = langsec
         self.dest_ls = []
 
 
-def transliterate(src, lang, r2s=False, capitalize=False):
+def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     """
     Transliterate a single string.
 
@@ -42,6 +56,15 @@ def transliterate(src, lang, r2s=False, capitalize=False):
         src (str): Source string.
 
         lang (str): Language name.
+
+        t_dir (str): Transliteration direction. Either `s2r` for
+            script-to-Roman (default) or `r2s`  for Roman-to-script.
+
+        capitalize: capitalize words: one of `False` (no change - default),
+            `"first"` (only first letter), or `"all"` (first letter of each
+            word).
+
+        options: extra script-dependent options. Defaults to the empty map.
 
     Keyword args:
         r2s (bool): If False (the default), the source is considered to be a
@@ -52,8 +75,8 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     Return:
         str: The transliterated string.
     """
-    source_str = "Latin" if r2s else lang
-    target_str = lang if r2s else "Latin"
+    source_str = "Latin" if t_dir == "r2s" else lang
+    target_str = lang if t_dir == "r2s" else "Latin"
     logger.info(f"Transliteration is from {source_str} to {target_str}.")
 
     cfg = load_table(lang)
@@ -62,26 +85,29 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     # General directives.
     general = cfg.get("general", {})
 
-    if not r2s and "script_to_roman" not in cfg:
+    if t_dir == "s2r" and "script_to_roman" not in cfg:
         raise NotImplementedError(
             f"Script-to-Roman transliteration not yet supported for {lang}."
         )
-    elif r2s and "roman_to_script" not in cfg:
+    elif t_dir == "r2s" and "roman_to_script" not in cfg:
         raise NotImplementedError(
             f"Roman-to-script transliteration not yet supported for {lang}."
         )
 
-    langsec = cfg["script_to_roman"] if not r2s else cfg["roman_to_script"]
+    langsec = (
+            cfg["script_to_roman"] if t_dir == "s2r"
+            else cfg["roman_to_script"])
     # langsec_dir = langsec.get("directives", {})
     langsec_hooks = langsec.get("hooks", {})
 
     src = src.strip()
-    ctx = Context(src, general, langsec)
+    options["capitalize"] = capitalize
+    ctx = Context(src, general, langsec, options)
 
     # This hook may take over the whole transliteration process or delegate it
     # to some external process, and return the output string directly.
     if _run_hook("post_config", ctx, langsec_hooks) == BREAK:
-        return getattr(ctx, "dest", "")
+        return getattr(ctx, "dest", ""), getattr(ctx, "warnings", [])
 
     # Loop through source characters. The increment of each loop depends on
     # the length of the token that eventually matches.
@@ -189,11 +215,15 @@ def transliterate(src, lang, r2s=False, capitalize=False):
 
                 # A match is found. Stop scanning tokens, append result, and
                 # proceed scanning the source.
+
                 # Capitalization.
                 if (
-                    (capitalize == "first" and ctx.cur == 0)
+                    (ctx.options["capitalize"] == "first" and ctx.cur == 0)
                     or
-                    (capitalize == "all" and ctx.cur_flags & CUR_BOW)
+                    (
+                        ctx.options["capitalize"] == "all"
+                        and ctx.cur_flags & CUR_BOW
+                    )
                 ):
                     logger.info("Capitalizing token.")
                     double_cap = False
@@ -203,7 +233,7 @@ def transliterate(src, lang, r2s=False, capitalize=False):
                             double_cap = True
                             break
                     if not double_cap:
-                        ctx.dest_tk = ctx.dest_tk.capitalize()
+                        ctx.dest_tk = ctx.dest_tk[0].upper() + ctx.dest_tk[1:]
 
                 ctx.dest_ls.append(ctx.dest_tk)
                 ctx.cur += step
@@ -233,7 +263,7 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     # its own return value.
     hret = _run_hook("pre_assembly", ctx, langsec_hooks)
     if hret is not None:
-        return hret
+        return hret, getattr(ctx, "warnings", [])
 
     logger.debug(f"Output list: {ctx.dest_ls}")
     ctx.dest = "".join(ctx.dest_ls)
@@ -242,12 +272,12 @@ def transliterate(src, lang, r2s=False, capitalize=False):
     # return it immediately.
     hret = _run_hook("post_assembly", ctx, langsec_hooks)
     if hret == "ret":
-        return ctx.dest
+        return ctx.dest, getattr(ctx, "warnings", [])
 
     # Strip multiple spaces and leading/trailing whitespace.
     ctx.dest = re.sub(MULTI_WS_RE, ' ', ctx.dest.strip())
 
-    return ctx.dest
+    return ctx.dest, getattr(ctx, "warnings", [])
 
 
 def _run_hook(hname, ctx, hooks):
