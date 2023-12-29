@@ -1,6 +1,9 @@
-./ext/camel_tools
 aksharamukha>=2.1,<2.2
-python-dotenv>=1.0,<2
+camel-tools>=1.1.0
 flask>=2.3,<2.4
+funcy==1.15
+pymarc>=4.0.0
+python-dotenv>=1.0,<2
 pyyaml>=6.0,<7
+repackage>=0.7.3
 uwsgi>=2.0,<2.1
