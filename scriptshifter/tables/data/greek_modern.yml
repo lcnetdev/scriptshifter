@@ -1,0 +1,9 @@
+general:
+  name: Greek (modern)
+  parents:
+    - greek_ancient
+
+script_to_roman:
+  map:
+    "Β": "V"
+    "β": "v"
