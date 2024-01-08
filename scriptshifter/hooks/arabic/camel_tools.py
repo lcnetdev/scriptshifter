@@ -7,8 +7,10 @@ from scriptshifter.exceptions import BREAK
 
 CAMEL_DIR = path.join(path.dirname(APP_ROOT), "ext", "arabic_rom")
 MODULE_DIR = path.join(CAMEL_DIR, "src")
-MODEL_DIR = path.join(CAMEL_DIR, "models", "mle")
-MODEL_PATH = path.join(MODEL_DIR, "size1.0.tsv")
+# MODEL_DIR = path.join(CAMEL_DIR, "models", "mle")
+MODEL_DIR = path.join(CAMEL_DIR, "data", "processed")
+# MODEL_PATH = path.join(MODEL_DIR, "size1.0.tsv")
+MODEL_PATH = path.join(MODEL_DIR, "train.tsv")
 
 syspath.append(MODULE_DIR)
 
