@@ -1,18 +1,34 @@
 general:
   name: Greek (ancient and medieval)
+  notes:
+    - Compiled based on https://www.loc.gov/catdir/cpso/romanization/greek.pdf
+    - >
+      "The document notes: \"The h is supplied as appropriate when the rough
+        breathing does not appear in the Greek text (for example, when the text
+        is in all capitals, or, in Modern Greek, when the text is in monotonic
+        orthography).\" This is not implemented as it would assume that a
+        specific word be known to have a rough breathing."
+
   parents:
     - _ignore_base
 
 script_to_roman:
+  hooks:
+    post_config:
+      -
+        - greek.normalize_diacritics
   map:
     "Α": "A"
+    "Αυ": "Au"
     "Β": "B"
     "Γ": "G"
     "Γκ": "Gk"
     "Δ": "D"
     "Ε": "E"
+    "Ευ": "Eu"
     "Ζ": "Z"
     "Η": "Ē"
+    "Ηυ": "Ēu"
     "Θ": "Th"
     "Ι": "I"
     "Κ": "K"
@@ -23,6 +39,7 @@ script_to_roman:
     "Ντ": "D̲"
     "Ξ": "X"
     "Ο": "O"
+    "Ου": "Ou"
     "Π": "P"
     "Ρ": "R"
     "Ῥ": "Rh"
@@ -30,12 +47,12 @@ script_to_roman:
     "C": "S"
     "Τ": "T"
     "Υ": "Y"
+    "Υι": "Ui"
     "Φ": "Ph"
     "Χ": "Ch"
     "Ψ": "Ps"
     "Ω": "Ō"
-    "Ϝ": "W" # Archaic
-    "Ϙ": "Ḳ" # Archaic
+    "Ωυ": "Ōu"
     "α": "a"
     "αυ": "au"
     "β": "b"
@@ -77,6 +94,41 @@ script_to_roman:
     "ψ": "ps"
     "ω": "ō"
     "ωυ": "ōu"
-    "ϝ": "w" # Archaic
-    "ϙ": "ḳ" # Archaic
+
+    # Dasia
+    "ἁ": "ha"
+    "ἁυ": "hau"
+    "Ἁ": "Ha"
+    "Ἁυ": "Hau"
+    "ἑ": "he"
+    "ἑυ": "heu"
+    "Ἑ": "He"
+    "Ἑυ": "Heu"
+    "ἡ": "hē"
+    "ἡυ": "hēu"
+    "Ἡ": "Hē"
+    "Ἡυ": "Hēu"
+    "ἱ": "hi"
+    "Ἱ": "Hi"
+    "ὁ": "ho"
+    "ὁυ": "Hou"
+    "Ὁ": "Ho"
+    "Ὁυ": "Hou"
+    "ὑ": "hy"
+    "ὑι": "hui"
+    "Ὑ": "Hy"
+    "Ὑι": "Hui"
+    "ὡ": "hō"
+    "ὡυ": "hōu"
+    "Ὡ": "Hō"
+    "Ὡυ": "Hōu"
+
+    # Archaic symbols
+    "Ϝ": "W"
+    "Ϙ": "Ḳ"
+    "ϝ": "w"
+    "ϙ": "ḳ"
+
+    # Punctuation
+    "·": ";"
     ";": "?"
