@@ -1,6 +1,6 @@
 FROM python:3.9-alpine3.15
 
-RUN apk add --no-cache -t buildtools build-base
+RUN apk add --no-cache -t buildtools build-base gfortran
 RUN apk add --no-cache linux-headers
 
 ENV _workroot "/usr/local/scriptshifter/src"
@@ -11,7 +11,6 @@ RUN pip install -r requirements.txt
 COPY entrypoint.sh uwsgi.ini wsgi.py ./
 
 COPY ext ./ext/
-#RUN pip install ext/arabic_transliterator
 
 COPY scriptshifter ./scriptshifter/
 RUN chmod +x ./entrypoint.sh
