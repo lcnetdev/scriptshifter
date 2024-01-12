@@ -1,7 +1,12 @@
-FROM python:3.9-alpine3.15
+FROM python:3.10-slim-bullseye
 
-RUN apk add --no-cache -t buildtools build-base
-RUN apk add --no-cache linux-headers
+RUN apt update
+RUN apt install -y build-essential tzdata gfortran libopenblas-dev libboost-all-dev
+
+ENV TZ=America/New_York
+
+# Copy and compile Kakadu codec.
+WORKDIR ${_workroot}
 
 ENV _workroot "/usr/local/scriptshifter/src"
 
@@ -15,11 +20,15 @@ COPY ext ./ext/
 
 COPY scriptshifter ./scriptshifter/
 RUN chmod +x ./entrypoint.sh
-RUN addgroup -S www && adduser -S www -G www
+
+RUN addgroup --system www
+RUN adduser --system www
+RUN gpasswd -a www www
 RUN chown -R www:www ${_workroot} .
 
 # Remove development packages.
-RUN apk del buildtools
+RUN apt remove -y build-essential
+RUN apt autoremove -y
 
 EXPOSE 8000
 
