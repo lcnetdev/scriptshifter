@@ -13,21 +13,21 @@ ENV _workroot "/usr/local/scriptshifter/src"
 WORKDIR ${_workroot}
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
-COPY entrypoint.sh uwsgi.ini wsgi.py ./
-
-COPY ext ./ext/
-
-COPY scriptshifter ./scriptshifter/
-RUN chmod +x ./entrypoint.sh
-
-RUN addgroup --system www
-RUN adduser --system www
-RUN gpasswd -a www www
-RUN chown -R www:www ${_workroot} .
 
 # Remove development packages.
 RUN apt remove -y build-essential
 RUN apt autoremove -y
+
+RUN addgroup --system www
+RUN adduser --system www
+RUN gpasswd -a www www
+
+COPY entrypoint.sh uwsgi.ini wsgi.py ./
+COPY ext ./ext/
+COPY scriptshifter ./scriptshifter/
+
+RUN chmod +x ./entrypoint.sh
+RUN chown -R www:www ${_workroot} .
 
 EXPOSE 8000
 
