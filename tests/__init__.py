@@ -58,7 +58,7 @@ def test_sample(dset):
         # If no deltas, just truncate the file.
         for lang, script, delta in deltas:
             fh.write(f"Language: {lang}\n")
-            fh.write(f"Original: {script}\n")
+            fh.write(f"Original: {script}\nDiff (result vs. expected):\n")
             for dline in delta:
                 fh.write(dline.strip() + "\n")
             fh.write("\n\n")
