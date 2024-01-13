@@ -171,6 +171,7 @@ def _romanize_name(src, options):
     parsed, _warnings = _parse_kor_name(
             re.sub(r"\s{2,}", " ", src.strip()),
             options)
+    logger.debug(f"Parsed Korean name: {parsed}")
 
     if len(_warnings):
         warnings += _warnings
@@ -178,11 +179,14 @@ def _romanize_name(src, options):
     if parsed:
         if "~" in parsed:
             lname, fname = parsed.split("~", 1)
+            logger.debug(f"First name: {fname}; Last name: {lname}")
             fname_rom = _kor_fname_rom(fname)
 
             lname_rom_ls = []
             for n in lname.split("+"):
                 _k = _kor_lname_rom(n)
+                logger.debug(f"Split name part: {n}")
+                logger.debug(f"Split name part romanized: {_k}")
                 if _k:
                     lname_rom_ls.append(_k)
 
@@ -223,6 +227,7 @@ def _parse_kor_name(src, options):
     for ptn in KCONF["fkr004"]:
         if src.startswith(ptn):
             two_syl_fname = True
+            logger.debug("Name has a 2-syllable family name.")
             break
 
     src_len = len(src)
@@ -243,25 +248,32 @@ def _parse_kor_name(src, options):
 
     # FKR007: 2 spaces (two family names)
     if ct_spaces == 2:
+        logger.debug(f"Name {src} has 2 spaces.")
         parsed = src.replace(" ", "+", 1).replace(" ", "~", 1)
     elif ct_spaces == 1:
         # FKR008: 1 space (2nd position)
         if src[1] == " ":
+            logger.debug(f"Name {src} has 1 space in the 2nd position.")
             parsed = src.replace(" ", "~")
 
         # FKR009: 1 space (3nd position)
         if src[2] == " ":
+            logger.debug(f"Name {src} has 1 space in the 3rd position.")
             if two_syl_fname:
                 parsed = "+" + src.replace(" ", "~")
 
     # FKR010: When there is no space
     else:
+        logger.debug(f"Name {src} has no spaces.")
         if src_len == 2:
+            logger.debug("Name has 2 characters.")
             parsed = src[0] + "~" + src[1:]
         elif src_len > 2:
+            logger.debug("Name has more than 2 characters.")
             if two_syl_fname:
-                parsed = src[:1] + "~" + src[2:]
+                parsed = src[:2] + "~" + src[2:]
             else:
+                logger.debug("Name has 1 character.")
                 parsed = src[0] + "~" + src[1:]
     return parsed, warnings
 
@@ -707,14 +719,14 @@ def _kor_fname_rom(fname):
 
 def _kor_lname_rom(lname):
     if len(lname) == 2:
-        # FKR181: 2-charater names.
+        # FKR181: 2-character names.
         _fkr_log(181)
         rom = _replace_map(lname, KCONF["fkr181"])
     else:
-        # FKR182: 1-charater Chinese names.
+        # FKR182: 1-character Chinese names.
         _fkr_log(182)
         lname = _replace_map(lname, KCONF["fkr182"])
-        # FKR183: 1-charater names.
+        # FKR183: 1-character names.
         _fkr_log(183)
         rom = _replace_map(lname, KCONF["fkr183"])
 
