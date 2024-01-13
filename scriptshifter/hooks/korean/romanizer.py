@@ -185,8 +185,8 @@ def _romanize_name(src, options):
             lname_rom_ls = []
             for n in lname.split("+"):
                 _k = _kor_lname_rom(n)
-                logger.debug(f"Split name part: {n}")
-                logger.debug(f"Split name part romanized: {_k}")
+                logger.debug(f"Split last name part: {n}")
+                logger.debug(f"Split last name part romanized: {_k}")
                 if _k:
                     lname_rom_ls.append(_k)
 
@@ -223,11 +223,11 @@ def _parse_kor_name(src, options):
     warnings = []
 
     # FKR004: Check first two characters. Two-syllable family name or not?
-    two_syl_fname = False
+    two_syl_lname = False
     for ptn in KCONF["fkr004"]:
         if src.startswith(ptn):
-            two_syl_fname = True
-            logger.debug("Name has a 2-syllable family name.")
+            two_syl_lname = True
+            logger.debug("Name has a 2-syllable last name.")
             break
 
     src_len = len(src)
@@ -259,7 +259,7 @@ def _parse_kor_name(src, options):
         # FKR009: 1 space (3nd position)
         if src[2] == " ":
             logger.debug(f"Name {src} has 1 space in the 3rd position.")
-            if two_syl_fname:
+            if two_syl_lname:
                 parsed = "+" + src.replace(" ", "~")
 
     # FKR010: When there is no space
@@ -270,10 +270,11 @@ def _parse_kor_name(src, options):
             parsed = src[0] + "~" + src[1:]
         elif src_len > 2:
             logger.debug("Name has more than 2 characters.")
-            if two_syl_fname:
+            if two_syl_lname:
+                logger.debug("Last name has 2 syllables.")
                 parsed = src[:2] + "~" + src[2:]
             else:
-                logger.debug("Name has 1 character.")
+                logger.debug("Last name has 1 syllable.")
                 parsed = src[0] + "~" + src[1:]
     return parsed, warnings
 
@@ -621,45 +622,37 @@ def _kor_fname_rom(fname):
         fin = "f" + str(cp % 28)
         rom_ls.append("#".join((ini, med, fin)))
     rom = "~".join(rom_ls) + "E"
+    logger.debug(f"Encoded first name: {rom}")
 
     # FKR011: Check native Korean name, by coda
-    origin_by_fin = "sino"
+    native_by_fin = False
     for tok in KCONF["fkr011"]["nat_fin"]:
         if tok in rom:
-            origin_by_fin = "native"
+            native_by_fin = True
             break
 
     j = False
     for tok in KCONF["fkr011"]["nat_ini"]:
         if tok in rom:
             j = True
-
+            break
     k = False
     for tok in KCONF["fkr011"]["sino_ini"]:
-        if tok in rom:
+        if tok in fname:
             k = True
-
-    if j:
-        if k:
-            origin_by_ini = "sino"
-        else:
-            origin_by_ini = "native"
-    else:
-        origin_by_ini = "sino"
+            break
+    native_by_ini = j and not k
 
     # FKR012: Check native Korean name, by vowel & coda
-    origin_by_med = "sino"
+    native_by_med = False
     for tok in KCONF["fkr011"]:
         if tok in rom:
-            origin_by_med = "native"
+            native_by_med = True
             break
 
     # FKR013: Check native Korean name, by ㅢ
     if "m19#" in rom:
-        if "의" in fname or "희" in fname:
-            origin_by_med = "sino"
-        else:
-            origin_by_med = "native"
+        native_by_med = "의" not in fname and "희" not in fname
 
     # FKR014: Consonant assimilation ㄱ
     # FKR015: Consonant assimilation ㄲ
@@ -689,6 +682,8 @@ def _kor_fname_rom(fname):
 
     rom = _replace_map(rom.replace("#", ""), {"swi": "shwi", "Swi": "Shwi"}, 1)
 
+    logger.debug(f"Partly romanized first name: {rom}")
+    logger.debug(f"fname: {fname} ({len(fname)})")
     if len(fname) == 2:
         rom = rom.replace("~", "-")
     else:
@@ -701,12 +696,15 @@ def _kor_fname_rom(fname):
         rom = _replace_map(rom, cmap)
 
     # FKR032: Capitalization
+    _fkr_log(32)
     rom = rom[0].upper() + rom[1:]
 
     # FKR033: Remove hyphen in bisyllabic native Korean first name
+    _fkr_log(33)
     if (
             len(fname) == 2
-            and "native" in (origin_by_ini, origin_by_fin, origin_by_med)):
+            and any((native_by_ini, native_by_fin, native_by_med))):
+        logger.debug("First name is native.")
         rom = _replace_map(rom, {"n-g": "n'g", "-": ""})
 
     # FKR034: First name, initial sound law
