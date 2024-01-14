@@ -631,12 +631,11 @@ def _kor_fname_rom(fname):
             native_by_fin = True
             break
 
-    j = False
+    j = k = False
     for tok in KCONF["fkr011"]["nat_ini"]:
         if tok in rom:
             j = True
             break
-    k = False
     for tok in KCONF["fkr011"]["sino_ini"]:
         if tok in fname:
             k = True
