@@ -123,6 +123,11 @@ The following members of the context object are available in all the hooks:
 - `ctx.langsec`: language section (S2R or R2S) of configuration.
 - `ctx.options`: language-specific options defined in configuration and set
     at the beginning of the request.
+- `ctx.warnings`: list of warnings issued during the process. They will be
+  output in the return value of the `transliterate()` function. Normally
+  this function does not return an error if a malformed string was provided;
+  rather, it may return an empty string and some warnings about the issues
+  found with the input.
 
 Other members are available in different hooks. See the individual hooks
 reference below.

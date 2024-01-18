@@ -133,3 +133,8 @@ tags.temp
 
 # Legacy Visual Basic files, not compatible  with license.
 *.bas
+
+
+# Local
+ext/arabic_rom/data
+!.keep

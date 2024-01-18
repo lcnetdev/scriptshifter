@@ -2,11 +2,11 @@
 # https://github.com/MTG/ArabicTransliterator
 
 general:
-  name: Arabic (ArabicTransliterator)
+  name: Arabic
   description: Arabic S2R using a 3rd party library.
 
 script_to_roman:
   hooks:
     post_config:
       -
-        - arabic_ext.s2r_post_config
+        - arabic.camel_tools.s2r_post_config

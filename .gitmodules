@@ -1,3 +1,3 @@
-[submodule "ext/arabic_transliterator"]
-	path = ext/arabic_transliterator
-	url = git@github.com:MTG/ArabicTransliterator.git
+[submodule "ext/arabic_rom"]
+	path = ext/arabic_rom
+	url = https://github.com/fadhleryani/Arabic_ALA-LC_Romanization.git

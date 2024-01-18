@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 export PYTHONPATH=$PYTHONPATH:.
 export WEBAPP_PIDFILE="/run/scriptshifter_webapp.pid"
