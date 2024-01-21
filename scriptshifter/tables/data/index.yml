@@ -54,8 +54,8 @@ gagauz_cyrillic:
   name: Gagauz (Cyrillic)
 georgian:
   name: Georgian
-greek_ancient:
-  name: Greek (ancient and medieval)
+greek_classical:
+  name: Greek (classical)
 greek_modern:
   name: Greek (modern)
 hebrew:
