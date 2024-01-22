@@ -123,14 +123,14 @@ def parse_numeral(ctx):
             cur = ctx.cur - i
             if cur >= 0:
                 num_tk = ctx.src[cur]  # Number to be parsed
-                if ctx.src[-i] in DIGITS[i]:
+                if ctx.src[cur] in DIGITS[i]:
                     # Not yet reached word boundary.
                     ctx.dest_ls[-i] = str(DIGITS[i][num_tk])
                 else:
-                    if ctx.src[-i] != " ":  # Word boundary.
+                    if ctx.src[cur] != " ":  # Word boundary.
                         # Something's wrong.
                         ctx.warnings.append(
-                                f"Character `{ctx.src[-i] }` at position "
+                                f"Character `{ctx.src[cur] }` at position "
                                 f"{cur} is not a valid digit character "
                                 f"at place #{4 - i} in a numeral.")
 
