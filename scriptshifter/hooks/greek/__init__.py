@@ -1,6 +1,8 @@
 __doc__ = """ Greek hooks. """
 
 
+from logging import getLogger
+
 from scriptshifter.exceptions import CONT
 
 
@@ -59,20 +61,28 @@ DIGITS = {
     },
 }
 
-NUM_SUFFIX = "ʹ"
-THOUSANDS_PREFIX = "͵"
+NUM_SUFFIX = "\u0374"  # ʹ
+THOUSANDS_PREFIX = "\u0375"  # ͵
+
+logger = getLogger(__name__)
 
 
 def parse_numeral(ctx):
+    """
+    Parse a numeric string.
+
+    Runs on begin_input_token hook.
+
+    Note that this logic does not raise a warning or error for numeral
+    characters mixed with letter characters without a space. Therefore,
+    "͵ακακαα" would transliterate "1021kaa", and "͵αακαα", "1001kaa".
+    """
     # Parse thousands.
     if ctx.src[ctx.cur] == THOUSANDS_PREFIX:
         tk = ctx.src[ctx.cur + 1]
 
         try:
-            ctx.dest.append(DIGITS[4][tk])
-            # Fill 3 slots with zeroes, other digits will be captured when
-            # NUM_PREFIX shows up if they are not zeroes.
-            ctx.dest.extend(["0", "0", "0"])
+            ctx.dest_ls.append(str(DIGITS[4][tk]))
             ctx.cur += 2
 
         except KeyError:
@@ -81,24 +91,46 @@ def parse_numeral(ctx):
                     "is not a valid thousands character.")
             ctx.cur += 1
 
-        finally:
             return CONT
 
+        ext = ["0", "0", "0"]
+        ext_cur = 0
+        for i in range(0, 3):
+            # Parse following characters until EOW or max 3.
+            if ctx.cur >= len(ctx.src) or ctx.src[ctx.cur] == " ":
+                break
+
+            try:
+                ext[ext_cur] = str(DIGITS[3 - i][ctx.src[ctx.cur]])
+                ctx.cur += 1
+            except KeyError:
+                # If the number char is not in the correct position, pad with 0
+                continue
+            finally:
+                ext_cur += 1
+        ctx.dest_ls.extend(ext)
+
+        logger.debug(f"Stopping numeral parsing at position #{ctx.cur}.")
+
+        return CONT
+
     # Parse 1÷999.
+    # This requires a different approach, i.e. backtracking previously
+    # transliterated characters.
     if ctx.src[ctx.cur] == NUM_SUFFIX:
-        # go back maximum 3 positions.
+        # Move back up to 3 positions.
         for i in range(1, 4):
             cur = ctx.cur - i
             if cur >= 0:
                 num_tk = ctx.src[cur]  # Number to be parsed
-                if ctx.dest[-i] in DIGITS[i]:
+                if ctx.src[-i] in DIGITS[i]:
                     # Not yet reached word boundary.
-                    ctx.dest[-i] = num_tk
+                    ctx.dest_ls[-i] = str(DIGITS[i][num_tk])
                 else:
-                    if ctx.dest[-i] != " ":  # Word boundary.
+                    if ctx.src[-i] != " ":  # Word boundary.
                         # Something's wrong.
                         ctx.warnings.append(
-                                f"Character `{ctx.dest[-i] }` at position "
+                                f"Character `{ctx.src[-i] }` at position "
                                 f"{cur} is not a valid digit character "
                                 f"at place #{4 - i} in a numeral.")
 

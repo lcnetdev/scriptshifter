@@ -131,7 +131,6 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             ctx.cur == len(ctx.src) - 1
             or ctx.src[ctx.cur + 1] in word_boundary
         ) and (cur_char not in word_boundary):
-            # Beginning of word.
             # End of word.
             logger.debug(f"End of word at position {ctx.cur}.")
             ctx.cur_flags |= CUR_EOW
