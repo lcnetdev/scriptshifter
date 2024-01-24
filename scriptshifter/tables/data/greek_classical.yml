@@ -12,6 +12,201 @@ script_to_roman:
       -
         - greek.parse_numeral
 
+  normalize:
+    # Alpha
+    "\u03B1":
+      - "\u03AC"
+      - "\u1F00"
+      - "\u1F02"
+      - "\u1F04"
+      - "\u1F06"
+      - "\u1F70"
+      - "\u1F71"
+    "\u0391":
+      - "\u0386"
+      - "\u1F08"
+      - "\u1F0A"
+      - "\u1F0C"
+    # Rough alpha
+    "\u03B1\u0314":
+      - "\u1F01"
+      - "\u1F03"
+      - "\u1F05"
+      - "\u1F07"
+    "\u0391\u0314":
+      - "\u1F09"
+      - "\u1F0B"
+      - "\u1F0D"
+      - "\u1F0F"
+    # Epsilon
+    "\u03B5":
+      - "\u03AD"
+      - "\u1F10"
+      - "\u1F12"
+      - "\u1F14"
+      - "\u1F72"
+      - "\u1F73"
+    "\u0395":
+      - "\u0388"
+      - "\u1F18"
+      - "\u1F1A"
+      - "\u1F1C"
+    # Rough epsilon
+    "\u03B5\u0314":
+      - "\u1F11"
+      - "\u1F13"
+      - "\u1F15"
+    "\u0395\u0314":
+      - "\u1F19"
+      - "\u1F1B"
+      - "\u1F1D"
+    # Eta
+    "\u03B7":
+      - "\u03AE"
+      - "\u1F20"
+      - "\u1F22"
+      - "\u1F24"
+      - "\u1F26"
+      - "\u1F74"
+      - "\u1F75"
+    "\u0397":
+      - "\u0389"
+      - "\u1F28"
+      - "\u1F2A"
+      - "\u1F2C"
+      - "\u1F2E"
+    # Rough eta
+    "\u03B7\u0314":
+      - "\u1F21"
+      - "\u1F23"
+      - "\u1F25"
+      - "\u1F27"
+    "\u0397\u0314":
+      - "\u1F29"
+      - "\u1F2B"
+      - "\u1F2D"
+      - "\u1F2F"
+    # Iota
+    "\u03B9":
+      - "\u03AF"
+      - "\u1F30"
+      - "\u1F32"
+      - "\u1F34"
+      - "\u1F36"
+      - "\u1F76"
+      - "\u1F77"
+    "\u0399":
+      - "\u038A"
+      - "\u1F38"
+      - "\u1F3A"
+      - "\u1F3C"
+      - "\u1F3E"
+    # Rough iota
+    "\u03B9\u0314":
+      - "\u1F31"
+      - "\u1F33"
+      - "\u1F35"
+      - "\u1F37"
+    "\u0399\u0314":
+      - "\u1F39"
+      - "\u1F3B"
+      - "\u1F3D"
+      - "\u1F3F"
+        # ὶ
+    # Omicron
+    "\u03BF":
+      - "\u03CC"
+      - "\u1F40"
+      - "\u1F42"
+      - "\u1F44"
+      - "\u1F78"
+      - "\u1F79"
+    "\u039F":
+      - "\u038C"
+      - "\u1F48"
+      - "\u1F4A"
+      - "\u1F4C"
+    # Rough Omicron
+    "\u03BF\u0314":
+      - "\u1F41"
+      - "\u1F43"
+      - "\u1F45"
+    "\u039F\u0314":
+      - "\u1F49"
+      - "\u1F4B"
+      - "\u1F4D"
+    # Upsilon
+    "\u03C5":
+      - "\u03CD"
+      - "\u1F50"
+      - "\u1F52"
+      - "\u1F54"
+      - "\u1F56"
+      - "\u1FE6"
+      - "\u1F7A"
+      - "\u1F7B"
+    "\u03A5":
+      - "\u038E"
+        # NOTE: Capital upsilon + psili seems to be absent from Unicode table.
+    # Rough Upsilon
+    "\u03C5\u0314":
+      - "\u1F51"
+      - "\u1F53"
+      - "\u1F55"
+      - "\u1F57"
+    "\u03A5\u0314":
+      - "\u1F59"
+      - "\u1F5B"
+      - "\u1F5D"
+      - "\u1F5F"
+    # Omega
+    "\u03C9":
+      - "\u03CE"
+      - "\u1F60"
+      - "\u1F62"
+      - "\u1F64"
+      - "\u1F66"
+      - "\u1F7C"
+      - "\u1F7D"
+    "\u03A9":
+      - "\u038F"
+      - "\u1F68"
+      - "\u1F6A"
+      - "\u1F6C"
+      - "\u1F6E"
+    # Rough omega
+    "\u03C9\u0314":
+      - "\u1F61"
+      - "\u1F63"
+      - "\u1F65"
+      - "\u1F67"
+    "\u03A9\u0314":
+      - "\u1F69"
+      - "\u1F6B"
+      - "\u1F6D"
+      - "\u1F6F"
+    # TODO: Combined vowels with Vrachy, Makron, Dialytika, Prosgegrammeni, Ypogegrammeni.
+
+    # Remove all combining diacritics except for dasia.
+    "":
+      - "\u0342"
+      - "\u0343"
+      - "\u0344"
+      - "\u0345"
+      - "\u037A"
+      - "\u0384"
+      - "\u1FBD"
+      - "\u1FBE"
+      - "\u1FBF"
+      - "\u1FC0"
+      - "\u1FC1"
+      - "\u1FCD"
+      - "\u1FCE"
+      - "\u1FCF"
+      - "\u1FED"
+      - "\u1FEE"
+      - "\u1FFD"
+
   map:
     "\u201C": "\"\u0332"
     "\u201D": "\"\u0333"

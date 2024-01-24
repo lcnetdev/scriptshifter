@@ -29,6 +29,7 @@ TABLE_DIR = environ.get("TXL_CONFIG_TABLE_DIR", DEFAULT_TABLE_DIR)
 # Available hook names.
 HOOKS = (
     "post_config",
+    "post_normalize",
     "begin_input_token",
     "pre_ignore_token",
     "on_ignore_match",
@@ -148,6 +149,14 @@ def load_table(tname):
                 for k, v in tdata["script_to_roman"].get("map", {}).items()}
         tdata["script_to_roman"]["map"] = tuple(
                 (k.content, tokens[k]) for k in sorted(tokens))
+
+        # Normalization.
+        normalize = {}
+        for k, v in tdata["script_to_roman"].get("normalize", {}).items():
+            for vv in v:
+                normalize[Token(vv)] = k
+        # TODO inherit normalization rules
+        tdata["script_to_roman"]["normalize"] = dict(sorted(normalize.items()))
 
         if "hooks" in tdata["script_to_roman"]:
             tdata["script_to_roman"]["hooks"] = load_hook_fn(
