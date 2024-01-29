@@ -134,7 +134,8 @@ def parse_numeral(ctx):
                                 f"{cur} is not a valid digit character "
                                 f"at place #{4 - i} in a numeral.")
 
-                    return  # Continue normal parsing.
+                    ctx.cur += 1
+                    return CONT  # Continue normal parsing.
 
         ctx.cur += 1
         return CONT

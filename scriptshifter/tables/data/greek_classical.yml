@@ -1,8 +1,7 @@
 general:
-  name: Greek (ancient and medieval)
+  name: Classical Greek (ancient and medieval)
   notes:
     - Compiled based on https://www.loc.gov/catdir/cpso/romanization/greek.pdf
-
   parents:
     - _ignore_base
 
@@ -15,7 +14,6 @@ script_to_roman:
   normalize:
     # Alpha
     "\u03B1":
-      - "\u03AC"
       - "\u1F00"
       - "\u1F02"
       - "\u1F04"
@@ -23,7 +21,6 @@ script_to_roman:
       - "\u1F70"
       - "\u1F71"
     "\u0391":
-      - "\u0386"
       - "\u1F08"
       - "\u1F0A"
       - "\u1F0C"
@@ -40,14 +37,12 @@ script_to_roman:
       - "\u1F0F"
     # Epsilon
     "\u03B5":
-      - "\u03AD"
       - "\u1F10"
       - "\u1F12"
       - "\u1F14"
       - "\u1F72"
       - "\u1F73"
     "\u0395":
-      - "\u0388"
       - "\u1F18"
       - "\u1F1A"
       - "\u1F1C"
@@ -62,7 +57,6 @@ script_to_roman:
       - "\u1F1D"
     # Eta
     "\u03B7":
-      - "\u03AE"
       - "\u1F20"
       - "\u1F22"
       - "\u1F24"
@@ -70,7 +64,6 @@ script_to_roman:
       - "\u1F74"
       - "\u1F75"
     "\u0397":
-      - "\u0389"
       - "\u1F28"
       - "\u1F2A"
       - "\u1F2C"
@@ -88,7 +81,6 @@ script_to_roman:
       - "\u1F2F"
     # Iota
     "\u03B9":
-      - "\u03AF"
       - "\u1F30"
       - "\u1F32"
       - "\u1F34"
@@ -96,7 +88,6 @@ script_to_roman:
       - "\u1F76"
       - "\u1F77"
     "\u0399":
-      - "\u038A"
       - "\u1F38"
       - "\u1F3A"
       - "\u1F3C"
@@ -115,14 +106,12 @@ script_to_roman:
         # ὶ
     # Omicron
     "\u03BF":
-      - "\u03CC"
       - "\u1F40"
       - "\u1F42"
       - "\u1F44"
       - "\u1F78"
       - "\u1F79"
     "\u039F":
-      - "\u038C"
       - "\u1F48"
       - "\u1F4A"
       - "\u1F4C"
@@ -135,6 +124,15 @@ script_to_roman:
       - "\u1F49"
       - "\u1F4B"
       - "\u1F4D"
+    # Rho
+    "\u03C1":
+      - "\u1FE4"
+    "\u03C1\u0314":
+      - "\u1FE5"
+    # Rough Rho
+    "\u03A1\u0314":
+      - "\u1FEC"
+
     # Upsilon
     "\u03C5":
       - "\u03CD"
@@ -145,8 +143,7 @@ script_to_roman:
       - "\u1FE6"
       - "\u1F7A"
       - "\u1F7B"
-    "\u03A5":
-      - "\u038E"
+    #"\u03A5":
         # NOTE: Capital upsilon + psili seems to be absent from Unicode table.
     # Rough Upsilon
     "\u03C5\u0314":
@@ -161,7 +158,6 @@ script_to_roman:
       - "\u1F5F"
     # Omega
     "\u03C9":
-      - "\u03CE"
       - "\u1F60"
       - "\u1F62"
       - "\u1F64"
@@ -169,7 +165,6 @@ script_to_roman:
       - "\u1F7C"
       - "\u1F7D"
     "\u03A9":
-      - "\u038F"
       - "\u1F68"
       - "\u1F6A"
       - "\u1F6C"
@@ -191,10 +186,8 @@ script_to_roman:
     "":
       - "\u0342"
       - "\u0343"
-      - "\u0344"
       - "\u0345"
       - "\u037A"
-      - "\u0384"
       - "\u1FBD"
       - "\u1FBE"
       - "\u1FBF"
