@@ -4,11 +4,6 @@ general:
     - greek_classical
 
 script_to_roman:
-  hooks:
-    begin_input_token:
-      -
-        - greek.parse_numeral
-
   normalize:
     "\u03B1":
       - "\u03AC"
