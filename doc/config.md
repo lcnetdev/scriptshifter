@@ -14,19 +14,31 @@ The configuration file names are key to most operations in the software. They
 are all-lowercase and use underscores to separate words, e.g.
 `church_slavonic`. They have the `.yml` extension and are written in the
 [YAML](https://yaml.org/) configuration language. Hence, a transliteration
-request to the REST API endpoint `/trans/church_slavonic` uses the
-`church_slavonic.yml` configuration file.
-
-In order for a transliteration option to appear in the Web interface menu or
-in the `/languages` API endpoint, it must be added to the `index.yml` file.
-This file contains summary information about the available languages.
+request to the `/trans` REST API endpoint providing `church_slavonic` as the
+transliteration language, uses the `church_slavonic.yml` configuration file.
 
 Other files are present in the `data` directory that are not exposed to the end
 user via Web UI or REST API. These files may be incomplete transliteration
 tables that are used by other specific tables. An example is `_cyrillic.yml`,
 which is used by `belarusian.yml`, `bulgarian.yml`, etc., but is not meant to
 be used by itself. It is still accessible for transliteration however, for
-testing purposes. See below for more details about inhritance.
+testing purposes. See below for more details about inheritance.
+
+###  Index file
+
+In order for a transliteration option to appear in the Web interface menu or
+in the `/languages` API endpoint, it must be added to the `index.yml` file.
+This file contains summary information about the available languages.
+
+The index file is a map of key-value pairs, where the keys are the
+transliteration table key names as described previously, and the values are
+key-value pairs which can have arbitrary contents. These contents are displayed
+to the user in the `/languages` API endpoint.
+
+The only mandatory key for each key-value pair is `name`, which is the
+human-readable label that is displayed in the Web UI. Other keys, such as
+`description`, may be used to inform the user about the scope of a particular
+table.
 
 ## Inheritance
 
@@ -262,15 +274,3 @@ Type: list
 
 This is only a valid subsection of S2R. It removes double capitalization rules
 from the inherited list.
-
-##  Index file
-
-The index file is a map of key-value pairs, where the keys are the
-transliteration table key names as described previously, and the values are
-key-value pairs which can have arbitrary contents. These contents are displayed
-to the user in the `/languages` API endpoint.
-
-The only mandatory key for each key-value pair is `name`, which is the
-human-readable label that is displayed in the Web UI. Other keys, such as
-`description`, may be used to inform the user about the scope of a particular
-table.

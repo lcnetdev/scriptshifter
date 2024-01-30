@@ -25,11 +25,18 @@
             padding: 1em;
         }
 
+        #feedback_cont {
+            margin: 4em;
+            padding: 4em;
+            background-color: whitesmoke;
+        }
+
         pre.warnings{
             border-left: 0.3rem solid #FF5722 !important;
         }
-        #warnings-toggle{
-            display: none;
+
+        .hidden {
+            display: none !important;
         }
 
         p.input_descr {
@@ -38,9 +45,12 @@
             margin-bottom: .5rem;
         }
 
+        .center {
+            display: block;
+            margin: 20px auto;
+        }
+
     </style>
-
-
 
 
     <form id="transliterate" action="/trans" method="POST">
@@ -89,177 +99,81 @@
             </fieldset>
         </div>
         <div id="options" class="clearfix"></div>
+
         <fieldset>
-            <input class="button-primary" type="submit" value="Transliterate!">
+            <input class="button button-primary" type="submit" value="Transliterate!">
         </fieldset>
+
+        {% if feedback_form %}
+        <fieldset id="feedback_btn_cont" class="hidden">
+            <input
+                    id="feedback_btn" class="button button-outline"
+                    value="Suggest improvements">
+        </fieldset>
+        {% endif %}
     </form>
 
-    <div id="warnings-toggle"><pre class="warnings"><code id="warnings">
-
-    </code></pre></div>
-    <div id="results">
-        Results will appear here.
+    <div id="warnings-toggle" class="hidden">
+        <pre class="warnings"><code id="warnings"></code></pre>
     </div>
 
-    <script type="text/javascript">
-        document.getElementById('lang').addEventListener('change',(event)=>{
-            let lang = document.getElementById("lang").value;
-
-            fetch('/options/' + lang)
-              .then(response=>response.json())
-                .then((data) => {
-                    document.getElementById("options").replaceChildren();
-                    if (data.length > 0) {
-                        let hdr = document.createElement("h3");
-                        hdr.innerText = "Language options";
-                        document.getElementById("options").append(hdr);
-                    }
-                    data.forEach((opt)=>{
-                        let fset = document.createElement("fieldset");
-                        fset.setAttribute("class", "float-left");
-                        let label = document.createElement("label");
-                        label.setAttribute("for", opt.id);
-                        label.append(opt.label);
-
-                        var input;
-                        if (opt.type == "list") {
-                            input = document.createElement("select");
-                            opt.options.forEach((sel) => {
-                                let option = document.createElement("option");
-                                option.append(sel.label);
-                                option.value = sel.id;
-                                if (option.value == opt.default) {
-                                    option.selected = true;
-                                };
-                                input.append(option);
-                            })
-                        } else if (opt.type == "boolean") {
-                            // Use checkbox for boolean type.
-                            input = document.createElement("input");
-                            input.setAttribute("type", "checkbox");
-                            if (opt.default) {
-                                input.setAttribute("checked", 1);
-                            }
-                        } else {
-                            // Use text for all other types.
-                            input = document.createElement("input");
-                            input.value = opt.default;
-                        }
-                        input.setAttribute("id", opt.id);
-                        input.setAttribute("name", opt.id);
-                        input.classList.add("option_i");
-
-                        let descr = document.createElement("p");
-                        descr.setAttribute("class", "input_descr");
-                        descr.append(opt.description);
-
-                        fset.append(label, descr, input);
-                        document.getElementById("options").append(fset);
-                    });
-                });
-
-            event.preventDefault();
-            return false;
-        })
-        document.getElementById('lang').dispatchEvent(new Event('change'));
-
-
-        document.getElementById('transliterate').addEventListener('submit',(event)=>{
-
-            const data = new URLSearchParams();
-
-            let t_dir = Array.from(document.getElementsByName("t_dir")).find(r => r.checked).value;
-
-            let capitalize = Array.from(document.getElementsByName("capitalize")).find(r => r.checked).value;
-
-
-            data.append('text',document.getElementById('text').value)
-            data.append('lang',document.getElementById('lang').value)
-            data.append('t_dir',t_dir)
-            data.append('capitalize',capitalize)
-
-            let options = {};
-            let option_inputs = document.getElementsByClassName("option_i");
-            for (i = 0; i < option_inputs.length; i++) {
-                let el = option_inputs[i];
-                if (el.type == "checkbox") {
-                    options[el.id] = el.checked;
-                } else {
-                    options[el.id] = el.value;
-                }
-            };
-            data.append('options', JSON.stringify(options));
-
-            fetch('/trans', {
-                method: 'post',
-                body: data,
-            })
-            .then(response=>response.json())
-            .then((results)=>{
-
-                document.getElementById('warnings-toggle').style.display="none"
-
-                document.getElementById('results').innerText = results.output
-
-                if (results.warnings.length>0){
-                    document.getElementById('warnings-toggle').style.display="block"
-                }
-                document.getElementById('warnings').innerText = "WARNING:\n" + results.warnings.join("\n")
-
-
-            }).catch((error) => {
-              alert("Error:\n" + error)
-            });
-
-            event.preventDefault()
-            return false
-
-        })
-
-
-
-    </script>
-
-
-<!-- 
-    <form action="/transliterate" method="POST">
-        <fieldset>
-            <label for="text">Input text</label>
-            <textarea id="text" name="text"></textarea>
-            <label for="lang">Language</label>
-            <select id="lang" name="lang">
-                {% for k, v in languages.items() %}
-                    <option value="{{ k }}">{{ v["name"] }}</option>
-                {% endfor %}
-            </select>
-            <div>
-                <label class="label-inline" for="r2s">Roman to Script</label>
-                <input type="checkbox" id="r2s" name="r2s">
-            </div>
-        </fieldset>
-        <fieldset>
-            <legend>Capitalize</legend>
-            <div>
-                <label class="label-inline" for="no-change">No change</label>
-                <input
-                        type="radio" id="no-change" name="capitalize"
-                                                     value="no_change" checked>
-            </div>
-            <div>
-                <label class="label-inline" for="first">First word</label>
-                <input type="radio" id="first" name="capitalize" value="first">
-            </div>
-            <div>
-                <label class="label-inline" for="all">All words</label>
-                <input type="radio" id="all" name="capitalize" value="all">
-            </div>
-        </fieldset>
-        <fieldset>
-            <input class="button-primary" type="submit" value="Transliterate!">
-        </fieldset>
-    </form> -->
-
-
-
+    <div id="results_cont">
+        <img id="loader_results" src="/static/loading.gif" class="hidden"/>
+        <div id="results">Results will appear here.</div>
     </div>
+
+    {% if feedback_form %}
+    <div id="feedback_cont" class="hidden">
+        <h2>Submit feedback</h2>
+        <form
+                id="feedback_form" action="/feedback"
+                method="POST">
+            <fieldset>
+                <label class="label-inline" for="lang">Language</label>
+                <input id="lang_fb_input" name="lang" disabled />
+            </fieldset>
+            <fieldset>
+                <label class="label-inline" for="src">Input text</label>
+                <input id="src_fb_input" name="src" disabled />
+            </fieldset>
+            <fieldset>
+                <label class="label-inline" for="t_dir">Direction</label>
+                <input id="t_dir_fb_input" name="t_dir" disabled />
+            </fieldset>
+            <fieldset>
+                <label class="label-inline" for="result">Result</label>
+                <textarea id="result_fb_input" name="result" disabled>
+                </textarea>
+            </fieldset>
+            <fieldset>
+                <label class="label-inline" for="expected">
+                    Expected result
+                </label>
+                <textarea
+                        id="expected_fb_input" name="expected"
+                        style="background-color: white"></textarea>
+            </fieldset>
+            <fieldset>
+                <label class="label-inline" for="contact">Contact</label>
+                <input id="contact_fb_input" name="contact" />
+            </fieldset>
+            <fieldset>
+                <label class="label-inline" for="notes">Notes</label>
+                <textarea id="notes_fb_input" name="notes"></textarea>
+            </fieldset>
+                <input type="hidden" id="options_fb_input" name="options" />
+            <fieldset>
+            </fieldset>
+
+            <button type="submit" class="button button-primary">
+                Submit
+            </button>
+            <button
+                    id="cancel_fb_btn"
+                    class="button button-clear">Cancel</button>
+        </form>
+    </div>
+    {% endif %}
+
+    <script type="text/javascript" src="/static/ss.js"></script>
 {% endblock %}
