@@ -3,6 +3,7 @@ general:
 
 roman_to_script:
   ignore:
+    - " "
     - "at head of title"
     - "colophon"
     - "date of publication not identified"
@@ -116,4 +117,7 @@ roman_to_script:
     #- re: "and ([a-z0-9]+ )?others"
     - "et al."
 
+script_to_roman:
+  ignore:
+    - " "
 
