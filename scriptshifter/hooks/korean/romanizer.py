@@ -28,6 +28,7 @@ from csv import reader
 
 from scriptshifter.exceptions import BREAK
 from scriptshifter.hooks.korean import KCONF
+from scriptshifter.tools import capitalize
 
 
 PWD = path.dirname(path.realpath(__file__))
@@ -93,7 +94,7 @@ def _romanize_nonames(src, options):
     logger.debug(f"Before capitalization: {rom}")
     # FKR042: Capitalize all first letters
     if options["capitalize"] == "all":
-        rom = _capitalize(rom)
+        rom = capitalize(rom)
     # FKR043: Capitalize the first letter
     elif options["capitalize"] == "first":
         rom = rom[0].upper() + rom[1:]
@@ -167,7 +168,10 @@ def _romanize_name(src, options):
 
     # `parsed` can either be a modified Korean string with markers, or in case
     # of a foreign name, the final romanized name.
-    parsed, _warnings = _parse_kor_name(re.sub(r"\s{2,}", " ", src.strip()))
+    parsed, _warnings = _parse_kor_name(
+            re.sub(r"\s{2,}", " ", src.strip()),
+            options)
+    logger.debug(f"Parsed Korean name: {parsed}")
 
     if len(_warnings):
         warnings += _warnings
@@ -175,9 +179,16 @@ def _romanize_name(src, options):
     if parsed:
         if "~" in parsed:
             lname, fname = parsed.split("~", 1)
+            logger.debug(f"First name: {fname}; Last name: {lname}")
             fname_rom = _kor_fname_rom(fname)
 
-            lname_rom_ls = [_kor_lname_rom(n) for n in lname.split("+")]
+            lname_rom_ls = []
+            for n in lname.split("+"):
+                _k = _kor_lname_rom(n)
+                logger.debug(f"Split last name part: {n}")
+                logger.debug(f"Split last name part romanized: {_k}")
+                if _k:
+                    lname_rom_ls.append(_k)
 
             if not any(lname_rom_ls):
                 warnings.append(f"{parsed} is not a recognized Korean name.")
@@ -207,50 +218,63 @@ def _romanize_name(src, options):
     return "", warnings
 
 
-def _parse_kor_name(src):
+def _parse_kor_name(src, options):
     parsed = None
     warnings = []
 
     # FKR004: Check first two characters. Two-syllable family name or not?
-    two_syl_fname = False
+    two_syl_lname = False
     for ptn in KCONF["fkr004"]:
         if src.startswith(ptn):
-            two_syl_fname = True
+            two_syl_lname = True
+            logger.debug("Name has a 2-syllable last name.")
             break
 
     src_len = len(src)
 
     # FKR005: Error if more than 7 syllables
-    if src_len > 7 or src_len < 2 or " " in src[3:]:
-        return _kor_corp_name_rom(src), warnings
+    if src_len > 7 or src_len < 2 or src.find(" ") > 2:
+        if options.get("foreign_name"):
+            return _kor_corp_name_rom(src), warnings
+        else:
+            warnings.append("ERROR: not a Korean name.")
+            return None, warnings
 
     ct_spaces = src.count(" ")
     # FKR0006: Error if more than 2 spaces
     if ct_spaces > 2:
         warnings.append("ERROR: not a name (too many spaces)")
-        return parsed, warnings
+        return None, warnings
 
     # FKR007: 2 spaces (two family names)
     if ct_spaces == 2:
+        logger.debug(f"Name {src} has 2 spaces.")
         parsed = src.replace(" ", "+", 1).replace(" ", "~", 1)
     elif ct_spaces == 1:
         # FKR008: 1 space (2nd position)
         if src[1] == " ":
+            logger.debug(f"Name {src} has 1 space in the 2nd position.")
             parsed = src.replace(" ", "~")
 
         # FKR009: 1 space (3nd position)
         if src[2] == " ":
-            if two_syl_fname:
+            logger.debug(f"Name {src} has 1 space in the 3rd position.")
+            if two_syl_lname:
                 parsed = "+" + src.replace(" ", "~")
 
     # FKR010: When there is no space
     else:
+        logger.debug(f"Name {src} has no spaces.")
         if src_len == 2:
+            logger.debug("Name has 2 characters.")
             parsed = src[0] + "~" + src[1:]
         elif src_len > 2:
-            if two_syl_fname:
-                parsed = src[:1] + "~" + src[2:]
+            logger.debug("Name has more than 2 characters.")
+            if two_syl_lname:
+                logger.debug("Last name has 2 syllables.")
+                parsed = src[:2] + "~" + src[2:]
             else:
+                logger.debug("Last name has 1 syllable.")
                 parsed = src[0] + "~" + src[1:]
     return parsed, warnings
 
@@ -273,7 +297,7 @@ def _kor_corp_name_rom(src):
     rom_tok = []
     for tok in src.split(" "):
         rom_tok.append(_romanize_oclc_auto(tok))
-    rom = _capitalize(" ".join(rom_tok))
+    rom = capitalize(" ".join(rom_tok))
 
     if chu == "L":
         rom = "(Chu) " + rom
@@ -384,6 +408,7 @@ def _kor_rom(kor):
     rom = "~".join(rom_ls)
     if len(rom):
         rom = rom + "E"
+    logger.debug(f"Coded romanization before replacements: {rom}")
 
     # FKR071: [n] insertion
     if niun > -1:
@@ -448,6 +473,7 @@ def _kor_rom(kor):
         if _bk != rom:
             logger.debug(f"FKR{fkr_i} substitution: {rom} (was: {_bk})")
 
+    logger.debug(f"Coded romanization after replacements: {rom}")
     # FKR109: Convert everything else
     _fkr_log(109)
     for pos, data in KCONF["fkr109"].items():
@@ -492,7 +518,7 @@ def _kor_rom(kor):
                 orig.endswith(tuple(KCONF["fkr119"]["suffix"]))
             ) or
             # FKR120
-            orig.endswith(tuple(KCONF["fkr120"]))):
+            orig in KCONF["fkr120"]):
         rom = rom[0].upper() + rom[1:]
 
     # FKR121: Loan words beginning with L
@@ -566,9 +592,9 @@ def _hancha2hangul(data):
     for char in KCONF["fkr172-179"]:
         idx = [i for i, item in enumerate(data) if item == char]
         for i in idx:
-            val = ord(data[i + 1])
+            val = ord(data[i - 1])
             coda_value = (val - CP_MIN) % 28
-            if coda_value == 1 or coda_value == 4 or val < 100:  # TODO verify
+            if coda_value == 0 or coda_value == 4 or val < 100:  # TODO verify
                 data = data.replace(char, "열", 1)
             else:
                 data = data.replace(char, "렬", 1)
@@ -598,45 +624,36 @@ def _kor_fname_rom(fname):
         fin = "f" + str(cp % 28)
         rom_ls.append("#".join((ini, med, fin)))
     rom = "~".join(rom_ls) + "E"
+    logger.debug(f"Encoded first name: {rom}")
 
     # FKR011: Check native Korean name, by coda
-    origin_by_fin = "sino"
+    native_by_fin = False
     for tok in KCONF["fkr011"]["nat_fin"]:
         if tok in rom:
-            origin_by_fin = "native"
+            native_by_fin = True
             break
 
-    j = False
+    j = k = False
     for tok in KCONF["fkr011"]["nat_ini"]:
         if tok in rom:
             j = True
-
-    k = False
+            break
     for tok in KCONF["fkr011"]["sino_ini"]:
-        if tok in rom:
+        if tok in fname:
             k = True
-
-    if j:
-        if k:
-            origin_by_ini = "sino"
-        else:
-            origin_by_ini = "native"
-    else:
-        origin_by_ini = "sino"
+            break
+    native_by_ini = j and not k
 
     # FKR012: Check native Korean name, by vowel & coda
-    origin_by_med = "sino"
+    native_by_med = False
     for tok in KCONF["fkr011"]:
         if tok in rom:
-            origin_by_med = "native"
+            native_by_med = True
             break
 
     # FKR013: Check native Korean name, by ㅢ
     if "m19#" in rom:
-        if "의" in fname or "희" in fname:
-            origin_by_med = "sino"
-        else:
-            origin_by_med = "native"
+        native_by_med = "의" not in fname and "희" not in fname
 
     # FKR014: Consonant assimilation ㄱ
     # FKR015: Consonant assimilation ㄲ
@@ -666,6 +683,8 @@ def _kor_fname_rom(fname):
 
     rom = _replace_map(rom.replace("#", ""), {"swi": "shwi", "Swi": "Shwi"}, 1)
 
+    logger.debug(f"Partly romanized first name: {rom}")
+    logger.debug(f"fname: {fname} ({len(fname)})")
     if len(fname) == 2:
         rom = rom.replace("~", "-")
     else:
@@ -678,15 +697,21 @@ def _kor_fname_rom(fname):
         rom = _replace_map(rom, cmap)
 
     # FKR032: Capitalization
+    _fkr_log(32)
     rom = rom[0].upper() + rom[1:]
 
     # FKR033: Remove hyphen in bisyllabic native Korean first name
+    _fkr_log(33)
     if (
             len(fname) == 2
-            and "native" in (origin_by_ini, origin_by_fin, origin_by_med)):
+            and any((native_by_ini, native_by_fin, native_by_med))):
+        _fkr_log(33)
+        logger.debug("First name is native.")
         rom = _replace_map(rom, {"n-g": "n'g", "-": ""})
 
     # FKR034: First name, initial sound law
+    if len(fname) > 1:
+        _fkr_log(34)
         for k, v in KCONF["fkr034"].items():
             if rom.startswith(k):
                 rom = rom.replace(k, v)
@@ -696,26 +721,18 @@ def _kor_fname_rom(fname):
 
 def _kor_lname_rom(lname):
     if len(lname) == 2:
-        # FKR181: 2-charater names.
+        # FKR181: 2-character names.
         _fkr_log(181)
         rom = _replace_map(lname, KCONF["fkr181"])
     else:
-        # FKR182: 1-charater Chinese names.
+        # FKR182: 1-character Chinese names.
         _fkr_log(182)
         lname = _replace_map(lname, KCONF["fkr182"])
-        # FKR183: 1-charater names.
+        # FKR183: 1-character names.
         _fkr_log(183)
         rom = _replace_map(lname, KCONF["fkr183"])
 
     return rom if lname != rom else False
-
-
-def _capitalize(src):
-    """ Only capitalize first word and words preceded by space."""
-    orig_ls = src.split(" ")
-    cap_ls = [orig[0].upper() + orig[1:] for orig in orig_ls]
-
-    return " ".join(cap_ls)
 
 
 def _fkr_log(fkr_i):

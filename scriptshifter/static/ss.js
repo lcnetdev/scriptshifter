@@ -5,17 +5,45 @@ document.getElementById('lang').addEventListener('change',(event)=>{
       .then(response=>response.json())
         .then((data) => {
             document.getElementById("options").replaceChildren();
+            if (data.length > 0) {
+                let hdr = document.createElement("h3");
+                hdr.innerText = "Language options";
+                document.getElementById("options").append(hdr);
+            }
             data.forEach((opt)=>{
                 let fset = document.createElement("fieldset");
+                fset.setAttribute("class", "float-left");
                 let label = document.createElement("label");
                 label.setAttribute("for", opt.id);
                 label.append(opt.label);
 
-                let input = document.createElement("input");
+                var input;
+                if (opt.type == "list") {
+                    input = document.createElement("select");
+                    opt.options.forEach((sel) => {
+                        let option = document.createElement("option");
+                        option.append(sel.label);
+                        option.value = sel.id;
+                        if (option.value == opt.default) {
+                            option.selected = true;
+                        };
+                        input.append(option);
+                    })
+                } else if (opt.type == "boolean") {
+                    // Use checkbox for boolean type.
+                    input = document.createElement("input");
+                    input.setAttribute("type", "checkbox");
+                    if (opt.default) {
+                        input.setAttribute("checked", 1);
+                    }
+                } else {
+                    // Use text for all other types.
+                    input = document.createElement("input");
+                    input.value = opt.default;
+                }
                 input.setAttribute("id", opt.id);
                 input.setAttribute("name", opt.id);
                 input.classList.add("option_i");
-                input.value = opt.default;
 
                 let descr = document.createElement("p");
                 descr.setAttribute("class", "input_descr");
@@ -53,7 +81,11 @@ document.getElementById('transliterate').addEventListener('submit',(event)=>{
     let option_inputs = document.getElementsByClassName("option_i");
     for (i = 0; i < option_inputs.length; i++) {
         let el = option_inputs[i];
-        options[el.getAttribute('id')] = el.value;
+        if (el.type == "checkbox") {
+            options[el.id] = el.checked;
+        } else {
+            options[el.id] = el.value;
+        }
     };
     data.append('options', JSON.stringify(options));
 
@@ -149,3 +181,5 @@ document.getElementById('cancel_fb_btn').addEventListener('click',(event)=>{
     event.preventDefault();
     return false;
 })
+
+

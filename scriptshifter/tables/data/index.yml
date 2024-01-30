@@ -9,60 +9,146 @@
 
 abkhaz_cyrillic:
   name: Abkhaz (Cyrillic)
-arabic_ext:
+altai_cyrillic:
+  name: Altai (Cyrillic)
+arabic:
   name: Arabic (S2R)
   description: Arabic-to-Roman transliterator using the ArabicTransliterator external library.
 armenian:
   name: Armenian
-azerbaijani:
+azerbaijani_cyrillic:
   name: Azerbaijani (Cyrillic)
 asian_cyrillic:
   name: Asian Cyrillic
   description: >
     Multi-purpose transliteration for non-Slavic Cyrillic scripts: Abaza, Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar, Bashkir, Buryat, Chechen, Chukchi, Chuvash, Dargwa, Dungan, Eskimo, Even, Evenki, Gagauz, Ingush, Inuit, Kabardian, Kalmyk, Karachay, Karachay-Balkar, Karakalpak, Karelian, Khakass, Khanty, Komi, Komi-Permyak, Koryak, Kumyk, Lak, Lapp, Lezghian, Lithuanian, Mansi, Mari, Moldovan, Molodstov, Mordvin, Nanai, Nenets, Nivkh, Nogai, Ossetic, Permyak, Romanian, Romany, Selkup, Shor, Tabasaran, Tat, Tuva, Udekhe, Udmurt, Yakut.
+bashkir_cyrillic:
+  name: Bashkir (Cyrillic)
 belarusian:
   name: Belarusian
+bengali:
+  name: Bengali
 bulgarian:
   name: Bulgarian
+buriat:
+  name: Buriat (Cyrillic)
+burmese:
+  name: Burmese (Myanmar)
 chinese:
   name: Chinese (Hanzi)
+chukchi_cyrillic:
+  name: Chukchi (Cyrillic)
 church_slavonic:
   name: Church Slavonic
+chuvash_cyrillic:
+  name: Chuvash (Cyrillic)
+devanagari:
+  name: Devanagari
+dungan_cyrillic:
+  name: Dungan (Cyrillic)
 ethiopic:
   name: Ethiopic (Amharic)
+even-evenki_cyrillic:
+  name: Even/Evenki (Cyrillic)
 georgian:
   name: Georgian
+gagauz_cyrillic:
+  name: Gagauz (Cyrillic)
+hebrew:
+  name: Hebrew
 hindi:
   name: Hindi (Devanagari)
-kazakh:
+hiragana:
+  name: Japanese (Hiragana)
+katakana:
+  name: Japanese (Katakana)
+kalmyk_cyrillic:
+  name: Kalmyk (Cyrillic)
+kara-kalpak_cyrillic:
+  name: Kara-Kalpak (Cyrillic)
+karachai-balkar_cyrillic:
+  name: Karachay-Balkar  (Cyrillic)
+karelian_cyrillic:
+  name: Karelian  (Cyrillic)
+kazakh_cyrillic:
   name: Kazakh (Cyrillic)
+khakass_cyrillic:
+  name: Khakass (Cyrillic)
+khanty_cyrillic:
+  name: Khanty (Cyrillic)
+komi_cyrillic:
+  name: Komi (Cyrillic)
 korean_nonames:
   name: Korean
   description: Korean S2R for strings NOT containing any personal names.
 korean_names:
-  name: Korean (names only)
-  description: Korean S2R for strings ONLY containing personal names. Separate multiple names with a comma or a center-dot (U+00B7).
-kyrgyz:
+  name: Korean (last + first names only)
+  description: Korean S2R for strings ONLY containing personal names formatted as last + first name. Separate multiple names with a comma or a center-dot (U+00B7).
+koryak_cyrillic:
+  name: Koryak (Cyrillic)
+kyrgyz_cyrillic:
   name: Kyrgyz (Cyrillic)
-mongolian:
+lithuanian_cyrillic:
+  name: Lithuanian (Cyrillic)
+macedonian:
+  name: Macedonian
+mansi_cyrillic:
+  name: Mansi (Cyrillic)
+moldovan_cyrillic:
+  name: Moldovan (Cyrillic)
+mongolian_cyrillic:
   name: Mongolian (Cyrillic)
 mongolian_mongol_bichig:
   name: Mongolian (Mongol bichig)
-russian:
-  name: Russian
-macedonian:
-  name: Macedonian
-serbian:
-  name: Serbian
+mordvin_cyrillic:
+  name: Mordvin (Cyrillic)
+nenets_cyrillic:
+  name: Nenets (Cyrillic)
+ossetic_cyrillic:
+  name: Ossetic (Cyrillic)
 pulaar:
   name: Pulaar (Adlam)
-tajik:
+gurmukhi:
+  name: Punjabi (Gurmukhi)
+romani_cyrillic:
+  name: Romani (Cyrillic)
+russian:
+  name: Russian
+serbian:
+  name: Serbian
+shor_cyrillic:
+  name: Shor (Cyrillic)
+syriac_cyrillic:
+  name: Syriac (Cyrillic)
+tajik_cyrillic:
   name: Tajik (Cyrillic)
-tatar:
+tamil:
+  name: Tamil
+tamil_brahmi:
+  name: Tamil Brahmi
+tamil_extended:
+  name: Tamil (extended)
+thai:
+  name: Thai
+tatar-kryashen_cyrillic:
+  name: Tatar-Kryashen (Cyrillic)
+tatar_cyrillic:
   name: Tatar (Cyrillic)
-turkmen:
+tibetan:
+  name: Tibetan
+turkmen_cyrillic:
   name: Turkmen (Cyrillic)
+tuvinian_cyrillic:
+  name: Tuvinian (Cyrillic)
+udmurt_cyrillic:
+  name: Udmurt (Cyrillic)
+uighur_cyrillic:
+  name: Uighur (Cyrillic)
 ukrainian:
   name: Ukrainian
-uzbek:
+uzbek_cyrillic:
   name: Uzbek (Cyrillic)
+yakut_cyrillic:
+  name: Yakut (Cyrillic)
+yuit_cyrillic:
+  name: Yuit (Cyrillic)

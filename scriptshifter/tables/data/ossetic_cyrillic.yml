@@ -1,0 +1,17 @@
+general:
+  name: Ossetic (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "A\uFE20E\uFE21": "\u04D4"
+    "A\uFE20e\uFE21": "\u04D4"
+    "a\uFE20e\uFE21": "\u04D5"
+    "\u00C6": "\u04D4"
+    "\u00E6": "\u04D5"
+
+script_to_roman:
+  map:
+    "\u04D4": "\u00C6"
+    "\u04D5": "\u00E6"

@@ -1,0 +1,22 @@
+general:
+  name: Hebrew
+  description: Hebrew S2R.
+
+options:
+  - id: genre
+    label: Genre
+    description: Genre of the script.
+    type: list
+    options:
+      - id: rabbinic
+        label: Rabbinic
+      - id: modern
+        label: Modern
+    default: rabbinic
+
+script_to_roman:
+  hooks:
+    post_config:
+      -
+        - hebrew.dicta_api.s2r_post_config
+

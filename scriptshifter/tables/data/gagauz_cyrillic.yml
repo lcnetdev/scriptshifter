@@ -1,0 +1,22 @@
+general:
+  name: Gagauz (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "A\u0306": "\u04D2"
+    "a\u0306": "\u04D3"
+    "O\u0307": "\u04E6"
+    "o\u0307": "\u04E7"
+    "U\u0307": "\u04F0"
+    "u\u0307": "\u04F1"
+
+script_to_roman:
+  map:
+    "\u04D2": "A\u0306"
+    "\u04D3": "a\u0306"
+    "\u04E6": "O\u0307"
+    "\u04E7": "o\u0307"
+    "\u04F0": "U\u0307"
+    "\u04F1": "u\u0307"

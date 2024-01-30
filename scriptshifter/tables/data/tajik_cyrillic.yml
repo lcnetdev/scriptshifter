@@ -1,40 +1,35 @@
 general:
-  name: tajik (Cyrillic)
+  name: Tajik (Cyrillic)
   parents:
     - _cyrillic_base
 
 roman_to_script:
   map:
-    # Included to handle typos
     "GH": "\u0492"
     "Gh": "\u0492"
     "gh": "\u0493"
-    # Included to handle typos
-    "gH": "\u0493"
-    "I\u0304": "\u04E2"
-    "i\u0304": "\u04E3"
-    "Q": "\u049A"
-    "q": "\u049B"
-    "U\u0304": "\u04EE"
-    "u\u0304": "\u04EF"
     "H\u0307": "\u04B2"
     "h\u0307": "\u04B3"
+    "I\u0304": "\u04E2"
+    "i\u0304": "\u04E3"
+    "U\u0304": "\u04EE"
+    "u\u0304": "\u04EF"
     "J": "\u04B6"
     "j": "\u04B7"
+    "Q": "\u049A"
+    "q": "\u049B"
 
 script_to_roman:
   map:
     "\u0492": "Gh"
     "\u0493": "gh"
-    "\u04E2": "I\u0304"
-    "\u04E3": "i\u0304"
     "\u049A": "Q"
     "\u049B": "q"
-    "\u04A2": "N\uFE20G\uFE21"
-    "\u04A3": "n\uFE20g\uFE21"
-    "\u04EE": "U\u0304"
-    "\u04EF": "u\u0304"
     "\u04B2": "H\u0307"
     "\u04B3": "h\u0307"
     "\u04B6": "J"
     "\u04B7": "j"
+    "\u04E2": "I\u0304"
+    "\u04E3": "i\u0304"
+    "\u04EE": "U\u0304"
+    "\u04EF": "u\u0304"

@@ -1,0 +1,20 @@
+general:
+  name: Chukchi (Cyrillic)
+  parents:
+    - _cyrillic_base
+
+roman_to_script:
+  map:
+    "N\uFE20G\uFE21": "\u04A2"
+    "N\uFE20g\uFE21": "\u04A2"
+    "n\uFE20g\uFE21": "\u04A3"
+    "Q": "\u04C3"
+    "q": "\u04C4"
+
+script_to_roman:
+  map:
+    "\u04A2": "N\uFE20G\uFE21"
+    "\u04A3": "n\uFE20g\uFE21"
+    "\u04C3": "Q"
+    "\u04C4": "q"
+

@@ -19,21 +19,34 @@ class Context:
     """
     Context used within the transliteration and passed to hook functions.
     """
+    @property
+    def src(self):
+        return self._src
+
+    @src.setter
+    def src(self):
+        raise NotImplementedError("Atribute is read-only.")
+
+    @src.deleter
+    def src(self):
+        raise NotImplementedError("Atribute is read-only.")
+
     def __init__(self, src, general, langsec, options={}):
         """
         Initialize a context.
 
         Args:
-            src (str): The original text. This is meant to never change.
+            src (str): The original text. Read-only.
             general (dict): general section of the current config.
             langsec (dict): Language configuration section being used.
             options (dict): extra options as a dict.
         """
-        self.src = src
+        self._src = src
         self.general = general
         self.options = options
         self.langsec = langsec
         self.dest_ls = []
+        self.warnings = []
 
 
 def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
@@ -95,28 +108,28 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     # This hook may take over the whole transliteration process or delegate it
     # to some external process, and return the output string directly.
     if _run_hook("post_config", ctx, langsec_hooks) == BREAK:
-        return getattr(ctx, "dest", ""), getattr(ctx, "warnings", [])
+        return getattr(ctx, "dest", ""), ctx.warnings
 
     # Loop through source characters. The increment of each loop depends on
     # the length of the token that eventually matches.
     ignore_list = langsec.get("ignore", [])  # Only present in R2S
     ctx.cur = 0
     word_boundary = langsec.get("word_boundary", WORD_BOUNDARY)
-    while ctx.cur < len(src):
+    while ctx.cur < len(ctx.src):
         # Reset cursor position flags.
         # Carry over extended "beginning of word" flag.
         ctx.cur_flags = 0
-        cur_char = src[ctx.cur]
+        cur_char = ctx.src[ctx.cur]
 
         # Look for a word boundary and flag word beginning/end it if found.
-        if (ctx.cur == 0 or src[ctx.cur - 1] in word_boundary) and (
+        if (ctx.cur == 0 or ctx.src[ctx.cur - 1] in word_boundary) and (
                 cur_char not in word_boundary):
             # Beginning of word.
             logger.debug(f"Beginning of word at position {ctx.cur}.")
             ctx.cur_flags |= CUR_BOW
         if (
-            ctx.cur == len(src) - 1
-            or src[ctx.cur + 1] in word_boundary
+            ctx.cur == len(ctx.src) - 1
+            or ctx.src[ctx.cur + 1] in word_boundary
         ) and (cur_char not in word_boundary):
             # Beginning of word.
             # End of word.
@@ -146,7 +159,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                     continue
 
                 step = len(ctx.tk)
-                if ctx.tk == src[ctx.cur:ctx.cur + step]:
+                if ctx.tk == ctx.src[ctx.cur:ctx.cur + step]:
                     # The position matches an ignore token.
                     hret = _run_hook("on_ignore_match", ctx, langsec_hooks)
                     if hret == BREAK:
@@ -185,13 +198,13 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             # due to the alphabetical ordering.
             if ctx.src_tk[0] > cur_char:
                 logger.debug(
-                        f"{ctx.src_tk} is after {src[ctx.cur:ctx.cur + step]}."
-                        " Breaking loop.")
+                        f"{ctx.src_tk} is after "
+                        f"{ctx.src[ctx.cur:ctx.cur + step]}. Breaking loop.")
                 break
 
             # Longer tokens should be guaranteed to be scanned before their
             # substrings at this point.
-            if ctx.src_tk == src[ctx.cur:ctx.cur + step]:
+            if ctx.src_tk == ctx.src[ctx.cur:ctx.cur + step]:
                 ctx.match = True
                 # This hook may skip this token or break out of the token
                 # lookup for the current position.
@@ -251,7 +264,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     # its own return value.
     hret = _run_hook("pre_assembly", ctx, langsec_hooks)
     if hret is not None:
-        return hret, getattr(ctx, "warnings", [])
+        return hret, ctx.warnings
 
     logger.debug(f"Output list: {ctx.dest_ls}")
     ctx.dest = "".join(ctx.dest_ls)
@@ -260,12 +273,12 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     # return it immediately.
     hret = _run_hook("post_assembly", ctx, langsec_hooks)
     if hret == "ret":
-        return ctx.dest, getattr(ctx, "warnings", [])
+        return ctx.dest, ctx.warnings
 
     # Strip multiple spaces and leading/trailing whitespace.
     ctx.dest = re.sub(MULTI_WS_RE, ' ', ctx.dest.strip())
 
-    return ctx.dest, getattr(ctx, "warnings", [])
+    return ctx.dest, ctx.warnings
 
 
 def _run_hook(hname, ctx, hooks):

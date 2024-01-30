@@ -1,6 +1,8 @@
 from csv import reader
 from difflib import ndiff
 from importlib import reload
+from json import loads as jloads
+from logging import getLogger
 from os import path
 
 import scriptshifter.tables
@@ -10,6 +12,8 @@ from scriptshifter.trans import transliterate
 
 TEST_DIR = path.dirname(path.realpath(__file__))
 TEST_DATA_DIR = path.join(TEST_DIR, "data")
+
+logger = getLogger(__name__)
 
 
 def reload_tables():
@@ -38,18 +42,23 @@ def test_sample(dset):
         csv = reader(fh)
         for row in csv:
             lang, script, rom = row[:3]
-            opts = row[3] if len(row) > 3 and row[3] else {}
-            trans, warnings = transliterate(script, lang, "s2r", opts)
+            if not lang:
+                continue
+            opts = jloads(row[3]) if len(row) > 3 and row[3] else {}
+            trans, warnings = transliterate(
+                    script, lang, t_dir="s2r",
+                    capitalize=opts.get("capitalize"), options=opts)
             if (trans == rom):
                 print(".", end="")
             else:
                 print("F", end="")
-                deltas.append((script, ndiff([trans], [rom])))
+                deltas.append((lang, script, ndiff([trans], [rom])))
 
     with open(log_fpath, "w") as fh:
         # If no deltas, just truncate the file.
-        for script, delta in deltas:
-            fh.write(f"Original: {script}\n")
+        for lang, script, delta in deltas:
+            fh.write(f"Language: {lang}\n")
+            fh.write(f"Original: {script}\nDiff (result vs. expected):\n")
             for dline in delta:
                 fh.write(dline.strip() + "\n")
             fh.write("\n\n")
