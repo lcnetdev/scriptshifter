@@ -48,7 +48,10 @@ def handle_exception(e: ApiError):
 
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html", languages=list_tables())
+    return render_template(
+            "index.html",
+            languages=list_tables(),
+            feedback_form=SMTP_HOST is not None)
 
 
 @app.route("/health", methods=["GET"])

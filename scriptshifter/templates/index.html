@@ -104,11 +104,13 @@
             <input class="button button-primary" type="submit" value="Transliterate!">
         </fieldset>
 
+        {% if feedback_form %}
         <fieldset id="feedback_btn_cont" class="hidden">
             <input
                     id="feedback_btn" class="button button-outline"
                     value="Suggest improvements">
         </fieldset>
+        {% endif %}
     </form>
 
     <div id="warnings-toggle" class="hidden">
@@ -120,6 +122,7 @@
         <div id="results">Results will appear here.</div>
     </div>
 
+    {% if feedback_form %}
     <div id="feedback_cont" class="hidden">
         <h2>Submit feedback</h2>
         <form
@@ -170,6 +173,7 @@
                     class="button button-clear">Cancel</button>
         </form>
     </div>
+    {% endif %}
 
     <script type="text/javascript" src="/static/ss.js"></script>
 {% endblock %}
