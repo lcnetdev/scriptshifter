@@ -1,6 +1,15 @@
 var fb_btn = document.getElementById('feedback_btn_cont');
 var fb_active = fb_btn != undefined;
 
+// URL parameters
+var qd = {};
+if (location.search) location.search.substr(1).split("&").forEach(function(item) {
+    var s = item.split("="),
+        k = s[0],
+        v = s[1] && decodeURIComponent(s[1]);
+    (qd[k] = qd[k] || []).push(v)
+})
+
 
 document.getElementById('lang').addEventListener('change',(event)=>{
     let lang = document.getElementById("lang").value;
@@ -61,6 +70,20 @@ document.getElementById('lang').addEventListener('change',(event)=>{
     event.preventDefault();
     return false;
 })
+
+// Change language select menu based on query string
+var nav_lang = qd["lang"]
+if (nav_lang != undefined) {
+    var lang_sel = document.getElementById("lang");
+    Array.from(lang_sel.options).every(item => {
+        if (item.value == nav_lang) {
+            lang_sel.value = nav_lang;
+            return false;
+        }
+        return true;
+    })
+}
+// Trigger the change event to process lang options.
 document.getElementById('lang').dispatchEvent(new Event('change'));
 
 
