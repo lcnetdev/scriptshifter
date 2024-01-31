@@ -80,6 +80,11 @@ string in a production environment.
 
 `/` renders a simple HTML form to test the transliteration service.
 
+Adding a language as a value of the `lang` URL parameter, the UI will start
+with that language selected. E.g. `/?lang=chinese` will select Chinese from
+the drop-down automatically. The value must be one of the keys found in
+`/languages`.
+
 
 ## Contributing
 
