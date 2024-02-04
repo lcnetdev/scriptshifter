@@ -20,18 +20,43 @@ script_to_roman:
       - "\u1F06"
       - "\u1F70"
       - "\u1F71"
+      - "\u1F80"
+      - "\u1F82"
+      - "\u1F84"
+      - "\u1F86"
+      - "\u1FB0"
+      - "\u1FB1"
+      - "\u1FB2"
+      - "\u1FB3"
+      - "\u1FB4"
+      - "\u1FB7"
+      - "\u1FBC"
     "\u0391":
       - "\u1F08"
       - "\u1F0A"
       - "\u1F0C"
+      - "\u1F88"
+      - "\u1F8A"
+      - "\u1F8C"
+      - "\u1F8E"
+      - "\u1FB8"
+      - "\u1FB9"
     # Rough alpha
     "\u1F01":
       - "\u03B1\u0314"
       - "\u1F03"
       - "\u1F05"
       - "\u1F07"
+      - "\u1F81"
+      - "\u1F83"
+      - "\u1F85"
+      - "\u1F87"
     "\u1F09":
       - "\u0391\u0314"
+      - "\u1F89"
+      - "\u1F8B"
+      - "\u1F8D"
+      - "\u1F8F"
       - "\u1F0B"
       - "\u1F0D"
       - "\u1F0F"
@@ -47,12 +72,12 @@ script_to_roman:
       - "\u1F1A"
       - "\u1F1C"
     # Rough epsilon
-      "\u1F11":
+    "\u1F11":
       - "\u03B5\u0314"
       - "\u1F13"
       - "\u1F15"
     "\u1F19":
-      - "\u0395\u0314":
+      - "\u0395\u0314"
       - "\u1F1B"
       - "\u1F1D"
     # Eta
@@ -63,35 +88,66 @@ script_to_roman:
       - "\u1F26"
       - "\u1F74"
       - "\u1F75"
+      - "\u1F90"
+      - "\u1F92"
+      - "\u1F94"
+      - "\u1F96"
     "\u0397":
       - "\u1F28"
       - "\u1F2A"
       - "\u1F2C"
       - "\u1F2E"
+      - "\u1F98"
+      - "\u1F9A"
+      - "\u1F9C"
+      - "\u1F9E"
+      - "\u1FC2"
+      - "\u1FC3"
+      - "\u1FC4"
+      - "\u1FC7"
+      - "\u1FCC"
     # Rough eta
     "\u1F21":
       - "\u03B7\u0314"
       - "\u1F23"
       - "\u1F25"
       - "\u1F27"
+      - "\u1F91"
+      - "\u1F93"
+      - "\u1F95"
+      - "\u1F97"
     "\u1F29":
       - "\u0397\u0314"
       - "\u1F2B"
       - "\u1F2D"
       - "\u1F2F"
+      - "\u1F99"
+      - "\u1F9B"
+      - "\u1F9D"
+      - "\u1F9F"
     # Iota
     "\u03B9":
+      - "\u0390"
+      - "\u03CA"
       - "\u1F30"
       - "\u1F32"
       - "\u1F34"
       - "\u1F36"
       - "\u1F76"
       - "\u1F77"
+      - "\u1FD0"
+      - "\u1FD1"
+      - "\u1FD2"
+      - "\u1FD3"
+      - "\u1FD7"
     "\u0399":
+      - "\u03AA"
       - "\u1F38"
       - "\u1F3A"
       - "\u1F3C"
       - "\u1F3E"
+      - "\u1FD8"
+      - "\u1FD9"
     # Rough iota
     "\u1F31":
       - "\u03B9\u0314"
@@ -99,7 +155,7 @@ script_to_roman:
       - "\u1F35"
       - "\u1F37"
     "\u1F39":
-      - "\u0399\u0314":
+      - "\u0399\u0314"
       - "\u1F3B"
       - "\u1F3D"
       - "\u1F3F"
@@ -129,13 +185,14 @@ script_to_roman:
       - "\u1FE4"
     # Rough Rho
     "\u1FE5":
-      - "\u03C1\u0314":
+      - "\u03C1\u0314"
     "\u1FEC":
       - "\u03A1\u0314"
 
     # Upsilon
     "\u03C5":
-      - "\u03CD"
+      - "\u03B0"
+      - "\u03CB"
       - "\u1F50"
       - "\u1F52"
       - "\u1F54"
@@ -143,8 +200,16 @@ script_to_roman:
       - "\u1FE6"
       - "\u1F7A"
       - "\u1F7B"
-    #"\u03A5":
+      - "\u1FE0"
+      - "\u1FE1"
+      - "\u1FE2"
+      - "\u1FE3"
+      - "\u1FE7"
+    "\u03A5":
         # NOTE: Capital upsilon + psili seems to be absent from Unicode table.
+      - "\u03AB"
+      - "\u1FE8"
+      - "\u1FE9"
     # Rough Upsilon
     "\u1F51":
       - "\u03C5\u0314"
@@ -164,28 +229,49 @@ script_to_roman:
       - "\u1F66"
       - "\u1F7C"
       - "\u1F7D"
+      - "\u1FA0"
+      - "\u1FA2"
+      - "\u1FA4"
+      - "\u1FA6"
+      - "\u1FF2"
+      - "\u1FF3"
+      - "\u1FF4"
+      - "\u1FF7"
     "\u03A9":
       - "\u1F68"
       - "\u1F6A"
       - "\u1F6C"
       - "\u1F6E"
+      - "\u1FA8"
+      - "\u1FAA"
+      - "\u1FAC"
+      - "\u1FAE"
+      - "\u1FFC"
     # Rough omega
     "\u1F61":
-      - "\u03C9\u0314":
+      - "\u03C9\u0314"
       - "\u1F63"
       - "\u1F65"
       - "\u1F67"
+      - "\u1FA1"
+      - "\u1FA3"
+      - "\u1FA5"
+      - "\u1FA7"
     "\u1F69":
       - "\u03A9\u0314"
       - "\u1F6B"
       - "\u1F6D"
       - "\u1F6F"
-    # TODO: Combined vowels with Vrachy, Makron, Dialytika, Prosgegrammeni, Ypogegrammeni.
+      - "\u1FA9"
+      - "\u1FAB"
+      - "\u1FAD"
+      - "\u1FAF"
 
     # Remove all combining diacritics except for dasia.
     "":
       - "\u0342"
       - "\u0343"
+      - "\u0344"
       - "\u0345"
       - "\u037A"
       - "\u1FBD"
