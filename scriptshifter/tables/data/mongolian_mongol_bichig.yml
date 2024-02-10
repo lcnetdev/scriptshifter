@@ -4,11 +4,14 @@ general:
     - _ignore_base
 
 roman_to_script:
+
   map:
+    "\u002Daca": "\u202F\u1820\u1834\u1820
     "\u002DA": "\u180E\u1820"
     "\u002Da": "\u180E\u1820"
     "A": "\u1820"
     "a": "\u1820"
+    "\u002Dece": "\u202F\u1821\u1834\u1821
     "\u002DE": "\u180E\u1821"
     "\u002De": "\u180E\u1821"
     "\u002D": "\u202F"
@@ -29,7 +32,6 @@ roman_to_script:
     "U": "\u1824"
     "u": "\u1824"
     "NG": "\u1829"
-    # this conversion should not be needed, but does no harm
     "nG": "\u1829"
     "ng": "\u1829"
     "N": "\u1828"
@@ -42,7 +44,6 @@ roman_to_script:
     "q": "\u182C"
     "KH": "\u183B"
     "Kh": "\u183B"
-    # this conversion should not be needed, but does no harm
     "kH": "\u183B"
     "kh": "\u183B"
     "K\u0307": "\u183A"
@@ -57,15 +58,12 @@ roman_to_script:
     "m": "\u182E"
     "LH": "\u1840"
     "Lh": "\u1840"
-    # this conversion should not be needed, but does no harm
     "lH": "\u1840"
     "lh": "\u1840"
     "L": "\u182F"
     "l": "\u182F"
     "TS\u0307": "\u183C"
-    # this conversion should not be needed, but does no harm
     "Ts\u0307": "\u183C"
-    # this conversion should not be needed, but does no harm
     "tS\u0307": "\u183C"
     "ts\u0307": "\u183C"
     "S\u0301": "\u1831"
@@ -87,21 +85,19 @@ roman_to_script:
     "F": "\u1839"
     "f": "\u1839"
     "ZR": "\u183F"
-    # this conversion should not be needed, but does no harm
     "Zr": "\u183F"
-    # this conversion should not be needed, but does no harm
     "zR": "\u183F"
     "zr": "\u183F"
     "R": "\u1837"
     "r": "\u1837"
     "ZH": "\u1841"
     "Zh": "\u1841"
-    # this conversion should not be needed, but does no harm
     "zH": "\u1841"
     "zh": "\u1841"
+    "Z": "\u183D"
+    "z": "\u183D"
     "CH": "\u1842"
     "Ch": "\u1842"
-    # this conversion should not be needed, but does no harm
     "cH": "\u1842"
     "ch": "\u1842"
     # this is a Buryat letter
