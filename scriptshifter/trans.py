@@ -110,6 +110,12 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     if _run_hook("post_config", ctx, langsec_hooks) == BREAK:
         return getattr(ctx, "dest", ""), ctx.warnings
 
+    if "normalize" in ctx.langsec:
+        _normalize_src(ctx)
+
+    if _run_hook("post_normalize", ctx, langsec_hooks) == BREAK:
+        return getattr(ctx, "dest", ""), ctx.warnings
+
     # Loop through source characters. The increment of each loop depends on
     # the length of the token that eventually matches.
     ignore_list = langsec.get("ignore", [])  # Only present in R2S
@@ -279,6 +285,12 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     ctx.dest = re.sub(MULTI_WS_RE, ' ', ctx.dest.strip())
 
     return ctx.dest, ctx.warnings
+
+
+def _normalize_src(ctx):
+    for nk, nv in ctx.langsec.get("normalize", {}).items():
+        ctx._src = ctx.src.replace(nk, nv)
+    logger.debug(f"Normalized source: {ctx.src}")
 
 
 def _run_hook(hname, ctx, hooks):
