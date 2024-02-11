@@ -408,6 +408,7 @@ def _kor_rom(kor):
     rom = "~".join(rom_ls)
     if len(rom):
         rom = rom + "E"
+    logger.debug(f"Coded romanization before replacements: {rom}")
 
     # FKR071: [n] insertion
     if niun > -1:
@@ -472,6 +473,7 @@ def _kor_rom(kor):
         if _bk != rom:
             logger.debug(f"FKR{fkr_i} substitution: {rom} (was: {_bk})")
 
+    logger.debug(f"Coded romanization after replacements: {rom}")
     # FKR109: Convert everything else
     _fkr_log(109)
     for pos, data in KCONF["fkr109"].items():
@@ -516,7 +518,7 @@ def _kor_rom(kor):
                 orig.endswith(tuple(KCONF["fkr119"]["suffix"]))
             ) or
             # FKR120
-            orig.endswith(tuple(KCONF["fkr120"]))):
+            orig in KCONF["fkr120"]):
         rom = rom[0].upper() + rom[1:]
 
     # FKR121: Loan words beginning with L
@@ -703,10 +705,13 @@ def _kor_fname_rom(fname):
     if (
             len(fname) == 2
             and any((native_by_ini, native_by_fin, native_by_med))):
+        _fkr_log(33)
         logger.debug("First name is native.")
         rom = _replace_map(rom, {"n-g": "n'g", "-": ""})
 
     # FKR034: First name, initial sound law
+    if len(fname) > 1:
+        _fkr_log(34)
         for k, v in KCONF["fkr034"].items():
             if rom.startswith(k):
                 rom = rom.replace(k, v)

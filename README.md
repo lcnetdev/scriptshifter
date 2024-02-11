@@ -58,9 +58,32 @@ docker run --env-file .env -p 8000:8000 scriptshifter:latest
 For running in development mode, add `-e FLASK_ENV=development` to the options.
 
 
+## Environment variables
+
+The following environment variables are available for modification:
+
+`TXL_EMAIL_FROM`: Email address sending the feedback form on behalf of users.
+
+`TXL_EMAIL_TO`: Recipients of the feedback form.
+
+`TXL_FLASK_SECRET`: Seed for web server security. Set to a random-generated
+string in a production environment.
+
+`TXL_LOGLEVEL`: Logging level. Use Python notation. The default is `WARN`.
+
+`TXL_SMTP_HOST`: SMTP host to send feedback messages through. Defaults to
+`localhost`.
+
+`TXL_SMTP_PORT`: Port of the SMTP server. Defaults to `1025`.
+
 ## Web UI
 
 `/` renders a simple HTML form to test the transliteration service.
+
+Adding a language as a value of the `lang` URL parameter, the UI will start
+with that language selected. E.g. `/?lang=chinese` will select Chinese from
+the drop-down automatically. The value must be one of the keys found in
+`/languages`.
 
 
 ## Contributing

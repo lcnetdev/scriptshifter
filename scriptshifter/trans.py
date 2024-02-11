@@ -24,12 +24,12 @@ class Context:
         return self._src
 
     @src.setter
-    def src(self, _):
-        raise NotImplementedError("Atribute is read-only.")
+    def src(self):
+        raise NotImplementedError("Attribute is read-only.")
 
     @src.deleter
     def src(self):
-        raise NotImplementedError("Atribute is read-only.")
+        raise NotImplementedError("Attribute is read-only.")
 
     def __init__(self, src, general, langsec, options={}):
         """
@@ -110,12 +110,6 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     if _run_hook("post_config", ctx, langsec_hooks) == BREAK:
         return getattr(ctx, "dest", ""), ctx.warnings
 
-    if "normalize" in ctx.langsec:
-        _normalize_src(ctx)
-
-    if _run_hook("post_normalize", ctx, langsec_hooks) == BREAK:
-        return getattr(ctx, "dest", ""), ctx.warnings
-
     # Loop through source characters. The increment of each loop depends on
     # the length of the token that eventually matches.
     ignore_list = langsec.get("ignore", [])  # Only present in R2S
@@ -137,6 +131,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             ctx.cur == len(ctx.src) - 1
             or ctx.src[ctx.cur + 1] in word_boundary
         ) and (cur_char not in word_boundary):
+            # Beginning of word.
             # End of word.
             logger.debug(f"End of word at position {ctx.cur}.")
             ctx.cur_flags |= CUR_EOW
@@ -284,12 +279,6 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     ctx.dest = re.sub(MULTI_WS_RE, ' ', ctx.dest.strip())
 
     return ctx.dest, ctx.warnings
-
-
-def _normalize_src(ctx):
-    for nk, nv in ctx.langsec.get("normalize", {}).items():
-        ctx._src = ctx.src.replace(nk, nv)
-    logger.debug(f"Normalized source: {ctx.src}")
 
 
 def _run_hook(hname, ctx, hooks):
