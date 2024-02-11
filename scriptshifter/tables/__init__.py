@@ -152,12 +152,19 @@ def load_table(tname):
 
         # Normalization.
         normalize = {}
+
+        # Inherit normalization rules.
+        for parent in parents:
+            parent_langsec = load_table(parent)["script_to_roman"]
+            normalize |= parent_langsec.get("normalize", {})
+
         for k, v in tdata["script_to_roman"].get("normalize", {}).items():
             for vv in v:
                 normalize[Token(vv)] = k
-        # TODO inherit normalization rules
+
         tdata["script_to_roman"]["normalize"] = dict(sorted(normalize.items()))
 
+        # Hook function.
         if "hooks" in tdata["script_to_roman"]:
             tdata["script_to_roman"]["hooks"] = load_hook_fn(
                     tname, tdata["script_to_roman"])
