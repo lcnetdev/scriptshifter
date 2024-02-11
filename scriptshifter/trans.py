@@ -25,11 +25,11 @@ class Context:
 
     @src.setter
     def src(self):
-        raise NotImplementedError("Atribute is read-only.")
+        raise NotImplementedError("Attribute is read-only.")
 
     @src.deleter
     def src(self):
-        raise NotImplementedError("Atribute is read-only.")
+        raise NotImplementedError("Attribute is read-only.")
 
     def __init__(self, src, general, langsec, options={}):
         """
