@@ -121,6 +121,18 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     ignore_list = langsec.get("ignore", [])  # Only present in R2S
     ctx.cur = 0
     word_boundary = langsec.get("word_boundary", WORD_BOUNDARY)
+
+    map_default = langsec["map"]
+    map_initial = (
+            langsec["map_initial"] + map_default
+            if "map_initial" in langsec else None)
+    map_final = (
+            langsec["map_final"] + map_default
+            if "map_final" in langsec else None)
+    # TODO unused
+    map_standalone = (
+            langsec["map_standalone"] + map_default
+            if "map_standalone" in langsec else None)
     while ctx.cur < len(ctx.src):
         # Reset cursor position flags.
         # Carry over extended "beginning of word" flag.
@@ -189,7 +201,22 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
         # Begin transliteration token lookup.
         ctx.match = False
-        for ctx.src_tk, ctx.dest_tk in langsec["map"]:
+
+        # Assign special maps based on token position.
+        # Standalone has precedence, then initial, then final, then medial.
+        # This is totally arbitrary and amy change if special cases arise.
+        if (
+                ctx.cur_flags & CUR_BOW and ctx.cur_flags & CUR_EOW
+                and map_standalone):
+            map_ = map_standalone
+        elif ctx.cur_flags & CUR_BOW and map_initial:
+            map_ = map_initial
+        elif ctx.cur_flags & CUR_EOW and map_final:
+            map_ = map_final
+        else:
+            map_ = map_default
+
+        for ctx.src_tk, ctx.dest_tk in map_:
             hret = _run_hook("pre_tx_token", ctx, langsec_hooks)
             if hret == BREAK:
                 break

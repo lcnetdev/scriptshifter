@@ -30,6 +30,7 @@ script_to_roman:
       - "\u1FB2"
       - "\u1FB3"
       - "\u1FB4"
+      - "\u1FB6"
       - "\u1FB7"
     "\u0391":
       - "\u0386"
@@ -296,6 +297,18 @@ script_to_roman:
       - "\u1FED"
       - "\u1FEE"
       - "\u1FFD"
+
+  map_initial:
+    "\u0393\u03BA": "Gk"
+    "\u03B3\u03BA": "gk"
+    "\u039C\u03C0": "B"
+    "\u03BC\u03C0": "b"
+    "\u039D\u03C4": "\u1E0E"
+    "\u03BD\u03C4": "\u1E0F"
+
+  map_final:
+    "\u0393\u03BA": "Gk"
+    "\u03B3\u03BA": "gk"
 
   map:
     "\u201C": "\"\u0332"
