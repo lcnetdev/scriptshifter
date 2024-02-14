@@ -12,126 +12,131 @@ script_to_roman:
         - greek.parse_numeral
 
   normalize:
+    # Assimilate all vowels that can be in a diphthong with upsilon to a
+    # non-tonal and a tonal form, so that a hiatus can be established.
+    # The accent used for the assimilated form is Varia.
+
     # Alpha
-    "\u03B1":
-      - "\u03AC"
-      - "\u1F00"
-      - "\u1F02"
-      - "\u1F04"
-      - "\u1F06"
-      - "\u1F70"
-      - "\u1F71"
-      - "\u1F80"
-      - "\u1F82"
-      - "\u1F84"
-      - "\u1F86"
-      - "\u1FB0"
-      - "\u1FB1"
-      - "\u1FB2"
-      - "\u1FB3"
-      - "\u1FB4"
-      - "\u1FB6"
-      - "\u1FB7"
-    "\u0391":
-      - "\u0386"
-      - "\u1F08"
-      - "\u1F0A"
-      - "\u1F0C"
-      - "\u1F88"
-      - "\u1F8A"
-      - "\u1F8C"
-      - "\u1F8E"
-      - "\u1FB8"
-      - "\u1FB9"
-      - "\u1FBC"
+    "\u03B1":  # α 	Greek Small Letter Alpha
+      - "\u1F00"  # ἀ 	Greek Small Letter Alpha With Psili
+      - "\u1F80"  # ᾀ 	Greek Small Letter Alpha With Psili And Ypogegrammeni
+      - "\u1FB0"  # ᾰ 	Greek Small Letter Alpha With Vrachy
+      - "\u1FB1"  # ᾱ 	Greek Small Letter Alpha With Macron
+      - "\u1FB3"  # ᾳ 	Greek Small Letter Alpha With Ypogegrammeni
+    "\u1F70":  # ὰ 	Greek Small Letter Alpha With Varia
+      - "\u03AC"  # ά 	Greek Small Letter Alpha With Tonos
+      - "\u1F02"  # ἂ 	Greek Small Letter Alpha With Psili And Varia
+      - "\u1F04"  # ἄ 	Greek Small Letter Alpha With Psili And Oxia
+      - "\u1F06"  # ἆ 	Greek Small Letter Alpha With Psili And Perispomeni
+      - "\u1F71"  # ά 	Greek Small Letter Alpha With Oxia
+      - "\u1F82"  # ᾂ 	Greek Small Letter Alpha With Psili And Varia And Ypogegrammeni
+      - "\u1F84"  # ᾄ 	Greek Small Letter Alpha With Psili And Oxia And Ypogegrammeni
+      - "\u1F86"  # ᾆ 	Greek Small Letter Alpha With Psili And Perispomeni And Ypogegrammeni
+      - "\u1FB2"  # ᾲ 	Greek Small Letter Alpha With Varia And Ypogegrammeni
+      - "\u1FB4"  # ᾴ 	Greek Small Letter Alpha With Oxia And Ypogegrammeni
+      - "\u1FB6"  # ᾶ 	Greek Small Letter Alpha With Perispomeni
+      - "\u1FB7"  # ᾷ 	Greek Small Letter Alpha With Perispomeni And Ypogegrammeni
+    "\u0391":  # Α 	Greek Capital Letter Alpha
+      - "\u1F08"  # Ἀ 	Greek Capital Letter Alpha With Psili
+      - "\u1F88"  # ᾈ 	Greek Capital Letter Alpha With Psili And Prosgegrammeni
+      - "\u1FB8"  # Ᾰ 	Greek Capital Letter Alpha With Vrachy
+      - "\u1FB9"  # Ᾱ 	Greek Capital Letter Alpha With Macron
+      - "\u1FBC"  # ᾼ 	Greek Capital Letter Alpha With Prosgegrammeni
+    "\u1F0A":  # Ἂ 	Greek Capital Letter Alpha With Psili And Varia
+      - "\u0386"  # Ά 	Greek Capital Letter Alpha With Tonos
+      - "\u1F0C"  # Ἄ 	Greek Capital Letter Alpha With Psili And Oxia
+      - "\u1F8A"  # ᾊ 	Greek Capital Letter Alpha With Psili And Varia And Prosgegrammeni
+      - "\u1F8C"  # ᾌ 	Greek Capital Letter Alpha With Psili And Oxia And Prosgegrammeni
+      - "\u1F8E"  # ᾎ 	Greek Capital Letter Alpha With Psili And Perispomeni And Prosgegrammeni
     # Rough alpha
-    "\u1F01":
-      - "\u03B1\u0314"
-      - "\u1F03"
-      - "\u1F05"
-      - "\u1F07"
-      - "\u1F81"
-      - "\u1F83"
-      - "\u1F85"
-      - "\u1F87"
-    "\u1F09":
-      - "\u0391\u0314"
-      - "\u1F89"
-      - "\u1F8B"
-      - "\u1F8D"
-      - "\u1F8F"
-      - "\u1F0B"
-      - "\u1F0D"
-      - "\u1F0F"
+    "\u1F01":  # ἁ 	Greek Small Letter Alpha With Dasia
+      - "\u03B1\u0314" # Small alpha + combining reversed comma above
+      - "\u1F81"  # ᾁ 	Greek Small Letter Alpha With Dasia And Ypogegrammeni
+    "\u1F03":  # ἃ 	Greek Small Letter Alpha With Dasia And Varia
+      - "\u1F05"  # ἅ 	Greek Small Letter Alpha With Dasia And Oxia
+      - "\u1F07"  # ἇ 	Greek Small Letter Alpha With Dasia And Perispomeni
+      - "\u1F83"  # ᾃ 	Greek Small Letter Alpha With Dasia And Varia And Ypogegrammeni
+      - "\u1F85"  # ᾅ 	Greek Small Letter Alpha With Dasia And Oxia And Ypogegrammeni
+      - "\u1F87"  # ᾇ 	Greek Small Letter Alpha With Dasia And Perispomeni And Ypogegrammeni
+    "\u1F09":  # Ἁ 	Greek Capital Letter Alpha With Dasia
+      - "\u0391\u0314" # Capital alpha + combining reversed comma above
+      - "\u1F89"  # ᾉ 	Greek Capital Letter Alpha With Dasia And Prosgegrammeni
+    "\u1F0B":  # Ἃ 	Greek Capital Letter Alpha With Dasia And Varia
+      - "\u1F8B"  # ᾋ 	Greek Capital Letter Alpha With Dasia And Varia And Prosgegrammeni
+      - "\u1F8D"  # ᾍ 	Greek Capital Letter Alpha With Dasia And Oxia And Prosgegrammeni
+      - "\u1F8F"  # ᾏ 	Greek Capital Letter Alpha With Dasia And Perispomeni And Prosgegrammeni
+      - "\u1F0D"  # Ἅ 	Greek Capital Letter Alpha With Dasia And Oxia
+      - "\u1F0F"  # Ἇ 	Greek Capital Letter Alpha With Dasia And Perispomeni
     # Epsilon
-    "\u03B5":
-      - "\u03AD"
-      - "\u1F10"
-      - "\u1F12"
-      - "\u1F14"
-      - "\u1F72"
-      - "\u1F73"
-    "\u0395":
-      - "\u1F18"
-      - "\u1F1A"
-      - "\u1F1C"
+    "\u03B5":  # ε 	Greek Small Letter Epsilon
+      - "\u1F10"  # ἐ 	Greek Small Letter Epsilon With Psili
+    "\u1F72":  # ὲ 	Greek Small Letter Epsilon With Varia
+      - "\u03AD"  # έ 	Greek Small Letter Epsilon With Tonos
+      - "\u1F12"  # ἒ 	Greek Small Letter Epsilon With Psili And Varia
+      - "\u1F14"  # ἔ 	Greek Small Letter Epsilon With Psili And Oxia
+      - "\u1F73"  # έ 	Greek Small Letter Epsilon With Oxia
+    "\u0395":  # Ε 	Greek Capital Letter Epsilon
+      - "\u1F18"  # Ἐ 	Greek Capital Letter Epsilon With Psili
+    "\u1F1A":  # Ἒ 	Greek Capital Letter Epsilon With Psili And Varia
+      - "\u1F1C"  # Ἔ 	Greek Capital Letter Epsilon With Psili And Oxia
     # Rough epsilon
-    "\u1F11":
-      - "\u03B5\u0314"
-      - "\u1F13"
-      - "\u1F15"
-    "\u1F19":
-      - "\u0395\u0314"
-      - "\u1F1B"
-      - "\u1F1D"
+    "\u1F11":  #  ἑ 	Greek Small Letter Epsilon With Dasia
+      - "\u03B5\u0314"  # Small epsilon + combination Dasia
+    "\u1F13":  # ἓ 	Greek Small Letter Epsilon With Dasia And Varia
+      - "\u1F15"  # ἕ 	Greek Small Letter Epsilon With Dasia And Oxia
+    "\u1F19":  # Ἑ 	Greek Capital Letter Epsilon With Dasia
+      - "\u0395\u0314"  # Capital epsilon + combination Dasia
+    "\u1F1B":  # Ἓ 	Greek Capital Letter Epsilon With Dasia And Varia
+      - "\u1F1D"  # Ἕ 	Greek Capital Letter Epsilon With Dasia And Oxia
     # Eta
-    "\u03B7":
-      - "\u03AE"
-      - "\u1F20"
-      - "\u1F22"
-      - "\u1F24"
-      - "\u1F26"
-      - "\u1F74"
-      - "\u1F75"
-      - "\u1F90"
-      - "\u1F92"
-      - "\u1F94"
-      - "\u1F96"
-      - "\u1FC2"
-      - "\u1FC3"
-      - "\u1FC4"
-      - "\u1FC6"
-      - "\u1FC7"
-    "\u0397":
-      - "\u1F28"
-      - "\u1F2A"
-      - "\u1F2C"
-      - "\u1F2E"
-      - "\u1F98"
-      - "\u1F9A"
-      - "\u1F9C"
-      - "\u1F9E"
-      - "\u1FCC"
+    "\u03B7":  # η 	Greek Small Letter Eta
+      - "\u03AE"  # ή 	Greek Small Letter Eta With Tonos
+      - "\u1F20"  # ἠ 	Greek Small Letter Eta With Psili
+      - "\u1FC3"  # ῃ 	Greek Small Letter Eta With Ypogegrammeni
+      - "\u1F90"  # ᾐ 	Greek Small Letter Eta With Psili And Ypogegrammeni
+    "\u1F74":  # ὴ 	Greek Small Letter Eta With Varia
+      - "\u1F22"  # ἢ 	Greek Small Letter Eta With Psili And Varia
+      - "\u1F24"  # ἤ 	Greek Small Letter Eta With Psili And Oxia
+      - "\u1F26"  # ἦ 	Greek Small Letter Eta With Psili And Perispomeni
+      - "\u1F75"  # ή 	Greek Small Letter Eta With Oxia
+      - "\u1F92"  # ᾒ 	Greek Small Letter Eta With Psili And Varia And Ypogegrammeni
+      - "\u1F94"  # ᾔ 	Greek Small Letter Eta With Psili And Oxia And Ypogegrammeni
+      - "\u1F96"  # ᾖ 	Greek Small Letter Eta With Psili And Perispomeni And Ypogegrammeni
+      - "\u1FC2"  # ῂ 	Greek Small Letter Eta With Varia And Ypogegrammeni
+      - "\u1FC4"  # ῄ 	Greek Small Letter Eta With Oxia And Ypogegrammeni
+      - "\u1FC6"  # ῆ 	Greek Small Letter Eta With Perispomeni
+      - "\u1FC7"  # ῇ 	Greek Small Letter Eta With Perispomeni And Ypogegrammen
+    "\u0397":  # Η 	Greek Capital Letter Eta
+      - "\u1F28"  # Ἠ 	Greek Capital Letter Eta With Psili
+      - "\u1F98"  # ᾘ 	Greek Capital Letter Eta With Psili And Prosgegrammeni
+      - "\u1FCC"  # ῌ 	Greek Capital Letter Eta With Prosgegrammeni
+    "\u1F2A":  # Ἢ 	Greek Capital Letter Eta With Psili And Varia
+      - "\u1F2C"  # Ἤ 	Greek Capital Letter Eta With Psili And Oxia
+      - "\u1F2E"  # Ἦ 	Greek Capital Letter Eta With Psili And Perispomeni
+      - "\u1F9A"  # ᾚ 	Greek Capital Letter Eta With Psili And Varia And Prosgegrammeni
+      - "\u1F9C"  # ᾜ 	Greek Capital Letter Eta With Psili And Oxia And Prosgegrammeni
+      - "\u1F9E"  # ᾞ 	Greek Capital Letter Eta With Psili And Perispomeni And Prosgegrammeni
     # Rough eta
-    "\u1F21":
-      - "\u03B7\u0314"
-      - "\u1F23"
-      - "\u1F25"
-      - "\u1F27"
-      - "\u1F91"
-      - "\u1F93"
-      - "\u1F95"
-      - "\u1F97"
-    "\u1F29":
-      - "\u0397\u0314"
-      - "\u1F2B"
-      - "\u1F2D"
-      - "\u1F2F"
-      - "\u1F99"
-      - "\u1F9B"
-      - "\u1F9D"
-      - "\u1F9F"
+    "\u1F21":  # ἡ 	Greek Small Letter Eta With Dasia
+      - "\u03B7\u0314"  # Small eta + cmbination dasia
+      - "\u1F91"  # ᾑ 	Greek Small Letter Eta With Dasia And Ypogegrammeni
+    "\u1F23":  # ἣ 	Greek Small Letter Eta With Dasia And Varia
+      - "\u1F25"  # ἥ 	Greek Small Letter Eta With Dasia And Oxia
+      - "\u1F27"  # ἧ 	Greek Small Letter Eta With Dasia And Perispomeni
+      - "\u1F93"  # ᾓ 	Greek Small Letter Eta With Dasia And Varia And Ypogegrammeni
+      - "\u1F95"  # ᾕ 	Greek Small Letter Eta With Dasia And Oxia And Ypogegrammeni
+      - "\u1F97"  # ᾗ 	Greek Small Letter Eta With Dasia And Perispomeni And Ypogegrammeni
+    "\u1F29":  # Ἡ 	Greek Capital Letter Eta With Dasia
+      - "\u0397\u0314"  # Capital Eta + combination dasia
+      - "\u1F99"  # ᾙ 	Greek Capital Letter Eta With Dasia And Prosgegrammeni
+    "\u1F2B":  # Ἣ 	Greek Capital Letter Eta With Dasia And Varia
+      - "\u1F2D"  # Ἥ 	Greek Capital Letter Eta With Dasia And Oxia
+      - "\u1F2F"  # Ἧ 	Greek Capital Letter Eta With Dasia And Perispomeni
+      - "\u1F9B"  # ᾛ 	Greek Capital Letter Eta With Dasia And Varia And Prosgegrammeni
+      - "\u1F9D"  # ᾝ 	Greek Capital Letter Eta With Dasia And Oxia And Prosgegrammeni
+      - "\u1F9F"  # ᾟ 	Greek Capital Letter Eta With Dasia And Perispomeni And Prosgegrammeni
     # Iota
+    # TODO clarify about possible hiatus combinations with upsilon.
     "\u03B9":
       - "\u0390"
       - "\u03AF"
@@ -169,26 +174,26 @@ script_to_roman:
       - "\u1F3F"
         # ὶ
     # Omicron
-    "\u03BF":
-      - "\u03cc"
-      - "\u1F40"
-      - "\u1F42"
-      - "\u1F44"
-      - "\u1F78"
-      - "\u1F79"
-    "\u039F":
-      - "\u1F48"
-      - "\u1F4A"
-      - "\u1F4C"
+    "\u03BF":  # ο 	Greek Small Letter Omicron
+      - "\u03cc"  # ό 	Greek Small Letter Omicron With Tonos
+      - "\u1F40"  # ὀ 	Greek Small Letter Omicron With Psili
+    "\u1F78":  # ὸ 	Greek Small Letter Omicron With Varia
+      - "\u1F42"  # ὂ 	Greek Small Letter Omicron With Psili And Varia
+      - "\u1F44"  # ὄ 	Greek Small Letter Omicron With Psili And Oxia
+      - "\u1F79"  # ό 	Greek Small Letter Omicron With Oxia
+    "\u039F":  # Ο 	Greek Capital Letter Omicron
+      - "\u1F48"  # Ὀ 	Greek Capital Letter Omicron With Psili
+    "\u1F4A":  # Ὂ 	Greek Capital Letter Omicron With Psili And Varia
+      - "\u1F4C"  # Ὄ 	Greek Capital Letter Omicron With Psili And Oxia
     # Rough Omicron
-    "\u1F41":
-      - "\u03BF\u0314"
-      - "\u1F43"
-      - "\u1F45"
-    "\u1F49":
-      - "\u039F\u0314"
-      - "\u1F4B"
-      - "\u1F4D"
+    "\u1F41":  # ὁ 	Greek Small Letter Omicron With Dasia
+      - "\u03BF\u0314"  # Small omicron + combination dasia
+    "\u1F43":  # ὃ 	Greek Small Letter Omicron With Dasia And Varia
+      - "\u1F45"  # ὅ 	Greek Small Letter Omicron With Dasia And Oxia
+    "\u1F49":  # Ὁ 	Greek Capital Letter Omicron With Dasia
+      - "\u039F\u0314"  # Capital omicron + combination dasia
+    "\u1F4B":  # Ὃ 	Greek Capital Letter Omicron With Dasia And Varia
+      - "\u1F4D"  # Ὅ 	Greek Capital Letter Omicron With Dasia And Oxia
     # Rho
     "\u03C1":
       - "\u1FE4"
@@ -200,8 +205,6 @@ script_to_roman:
 
     # Upsilon
     "\u03C5":
-      - "\u03B0"
-      - "\u03CB"
       - "\u03CD"
       - "\u1F50"
       - "\u1F52"
@@ -212,6 +215,8 @@ script_to_roman:
       - "\u1F7B"
       - "\u1FE0"
       - "\u1FE1"
+    "\u03CB":  # ϋ 	Greek Small Letter Upsilon With Dialytika
+      - "\u03B0"
       - "\u1FE2"
       - "\u1FE3"
       - "\u1FE7"
@@ -231,56 +236,59 @@ script_to_roman:
       - "\u1F5B"
       - "\u1F5D"
       - "\u1F5F"
-    # Omega
-    "\u03C9":
-      - "\u03CE"
-      - "\u1F60"
-      - "\u1F62"
-      - "\u1F64"
-      - "\u1F66"
-      - "\u1F7C"
-      - "\u1F7D"
-      - "\u1FA0"
-      - "\u1FA2"
-      - "\u1FA4"
-      - "\u1FA6"
-      - "\u1FF2"
-      - "\u1FF3"
-      - "\u1FF4"
-      - "\u1FF6"
-      - "\u1FF7"
-    "\u03A9":
-      - "\u1F68"
-      - "\u1F6A"
-      - "\u1F6C"
-      - "\u1F6E"
-      - "\u1FA8"
-      - "\u1FAA"
-      - "\u1FAC"
-      - "\u1FAE"
-      - "\u1FFC"
-    # Rough omega
-    "\u1F61":
-      - "\u03C9\u0314"
-      - "\u1F63"
-      - "\u1F65"
-      - "\u1F67"
-      - "\u1FA1"
-      - "\u1FA3"
-      - "\u1FA5"
-      - "\u1FA7"
-    "\u1F69":
-      - "\u03A9\u0314"
-      - "\u1F6B"
-      - "\u1F6D"
-      - "\u1F6F"
-      - "\u1FA9"
-      - "\u1FAB"
-      - "\u1FAD"
-      - "\u1FAF"
 
-    # Remove all combining diacritics except for dasia.
+    # Omega
+    "\u03C9":  # ω 	Greek Small Letter Omega
+      - "\u03CE"  # ώ 	Greek Small Letter Omega With Tonos
+      - "\u1F60"  # ὠ 	Greek Small Letter Omega With Psili
+      - "\u1FA0"  # ᾠ 	Greek Small Letter Omega With Psili And Ypogegrammeni
+      - "\u1FF3"  # ῳ 	Greek Small Letter Omega With Ypogegrammeni
+    "\u1F7C":  # ὼ 	Greek Small Letter Omega With Varia
+      - "\u1F62"  # ὢ 	Greek Small Letter Omega With Psili And Varia
+      - "\u1F64"  # ὤ 	Greek Small Letter Omega With Psili And Oxia
+      - "\u1F66"  # ὦ 	Greek Small Letter Omega With Psili And Perispomeni
+      - "\u1F7D"  # ώ 	Greek Small Letter Omega With Oxia
+      - "\u1FA2"  # ᾢ 	Greek Small Letter Omega With Psili And Varia And Ypogegrammeni
+      - "\u1FA4"  # ᾤ 	Greek Small Letter Omega With Psili And Oxia And Ypogegrammeni
+      - "\u1FA6"  # ᾦ 	Greek Small Letter Omega With Psili And Perispomeni And Ypogegrammeni
+      - "\u1FF2"  # ῲ 	Greek Small Letter Omega With Varia And Ypogegrammeni
+      - "\u1FF4"  # ῴ 	Greek Small Letter Omega With Oxia And Ypogegrammeni
+      - "\u1FF6"  # ῶ 	Greek Small Letter Omega With Perispomeni
+      - "\u1FF7"  # ῷ 	Greek Small Letter Omega With Perispomeni And Ypogegrammeni
+    "\u03A9":  # Ω 	Greek Capital Letter Omega
+      - "\u1F68"  # Ὠ 	Greek Capital Letter Omega With Psili
+      - "\u1FA8"  # ᾨ 	Greek Capital Letter Omega With Psili And Prosgegrammeni
+      - "\u1FFC"  # ῼ 	Greek Capital Letter Omega With Prosgegrammeni
+    "\u1FFA":  # Ὼ 	Greek Capital Letter Omega With Varia
+      - "\u1F6A"  # Ὢ 	Greek Capital Letter Omega With Psili And Varia
+      - "\u1F6C"  # Ὤ 	Greek Capital Letter Omega With Psili And Oxia
+      - "\u1F6E"  # Ὦ 	Greek Capital Letter Omega With Psili And Perispomeni
+      - "\u1FAA"  # ᾪ 	Greek Capital Letter Omega With Psili And Varia And Prosgegrammeni
+      - "\u1FAC"  # ᾬ 	Greek Capital Letter Omega With Psili And Oxia And Prosgegrammeni
+      - "\u1FAE"  # ᾮ 	Greek Capital Letter Omega With Psili And Perispomeni And Prosgegrammeni
+    # Rough omega
+    "\u1F61":  # ὡ 	Greek Small Letter Omega With Dasia
+      - "\u03C9\u0314"  # Small omega + combination dasia
+      - "\u1FA1"  # ᾡ 	Greek Small Letter Omega With Dasia And Ypogegrammeni
+    "\u1F63":  # ὣ 	Greek Small Letter Omega With Dasia And Varia
+      - "\u1F65"  # ὥ 	Greek Small Letter Omega With Dasia And Oxia
+      - "\u1F67"  # ὧ 	Greek Small Letter Omega With Dasia And Perispomeni
+      - "\u1FA3"  # ᾣ 	Greek Small Letter Omega With Dasia And Varia And Ypogegrammeni
+      - "\u1FA5"  # ᾥ 	Greek Small Letter Omega With Dasia And Oxia And Ypogegrammeni
+      - "\u1FA7"  # ᾧ 	Greek Small Letter Omega With Dasia And Perispomeni And Ypogegrammeni
+    "\u1F69":  # Ὡ 	Greek Capital Letter Omega With Dasia
+      - "\u03A9\u0314"  # Capital omega + combination dasia
+      - "\u1FA9"  # ᾩ 	Greek Capital Letter Omega With Dasia And Prosgegrammeni
+    "\u1F6B":  # Ὣ 	Greek Capital Letter Omega With Dasia And Varia
+      - "\u1F6D"  # Ὥ 	Greek Capital Letter Omega With Dasia And Oxia
+      - "\u1F6F"  # Ὧ 	Greek Capital Letter Omega With Dasia And Perispomeni
+      - "\u1FAB"  # ᾫ 	Greek Capital Letter Omega With Dasia And Varia And Prosgegrammeni
+      - "\u1FAD"  # ᾭ 	Greek Capital Letter Omega With Dasia And Oxia And Prosgegrammeni
+      - "\u1FAF"  # ᾯ 	Greek Capital Letter Omega With Dasia And Perispomeni And Prosgegrammeni
+
+    # Remove all combining diacritics.
     "":
+      - "\u0314"
       - "\u0342"
       - "\u0343"
       - "\u0344"
