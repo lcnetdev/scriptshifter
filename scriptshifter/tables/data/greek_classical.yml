@@ -14,7 +14,8 @@ script_to_roman:
   normalize:
     # Assimilate all vowels that can be in a diphthong with upsilon to a
     # non-tonal and a tonal form, so that a hiatus can be established.
-    # The accent used for the assimilated form is Varia.
+    # The accent used for the assimilated form is Varia, which is used for the
+    # transliteration rules of hiatuses further down.
 
     # Alpha
     "\u03B1":  # α 	Greek Small Letter Alpha
@@ -42,8 +43,9 @@ script_to_roman:
       - "\u1FB8"  # Ᾰ 	Greek Capital Letter Alpha With Vrachy
       - "\u1FB9"  # Ᾱ 	Greek Capital Letter Alpha With Macron
       - "\u1FBC"  # ᾼ 	Greek Capital Letter Alpha With Prosgegrammeni
-    "\u1F0A":  # Ἂ 	Greek Capital Letter Alpha With Psili And Varia
+    "\u1FBA":  # Ὰ 	Greek Capital Letter Alpha With Varia
       - "\u0386"  # Ά 	Greek Capital Letter Alpha With Tonos
+      - "\u1F0A"  # Ἂ 	Greek Capital Letter Alpha With Psili And Varia
       - "\u1F0C"  # Ἄ 	Greek Capital Letter Alpha With Psili And Oxia
       - "\u1F8A"  # ᾊ 	Greek Capital Letter Alpha With Psili And Varia And Prosgegrammeni
       - "\u1F8C"  # ᾌ 	Greek Capital Letter Alpha With Psili And Oxia And Prosgegrammeni
@@ -79,6 +81,7 @@ script_to_roman:
       - "\u1F18"  # Ἐ 	Greek Capital Letter Epsilon With Psili
     "\u1F1A":  # Ἒ 	Greek Capital Letter Epsilon With Psili And Varia
       - "\u1F1C"  # Ἔ 	Greek Capital Letter Epsilon With Psili And Oxia
+      - "\u0388"
     # Rough epsilon
     "\u1F11":  #  ἑ 	Greek Small Letter Epsilon With Dasia
       - "\u03B5\u0314"  # Small epsilon + combination Dasia
@@ -90,11 +93,11 @@ script_to_roman:
       - "\u1F1D"  # Ἕ 	Greek Capital Letter Epsilon With Dasia And Oxia
     # Eta
     "\u03B7":  # η 	Greek Small Letter Eta
-      - "\u03AE"  # ή 	Greek Small Letter Eta With Tonos
       - "\u1F20"  # ἠ 	Greek Small Letter Eta With Psili
       - "\u1FC3"  # ῃ 	Greek Small Letter Eta With Ypogegrammeni
       - "\u1F90"  # ᾐ 	Greek Small Letter Eta With Psili And Ypogegrammeni
     "\u1F74":  # ὴ 	Greek Small Letter Eta With Varia
+      - "\u03AE"  # ή 	Greek Small Letter Eta With Tonos
       - "\u1F22"  # ἢ 	Greek Small Letter Eta With Psili And Varia
       - "\u1F24"  # ἤ 	Greek Small Letter Eta With Psili And Oxia
       - "\u1F26"  # ἦ 	Greek Small Letter Eta With Psili And Perispomeni
@@ -111,6 +114,7 @@ script_to_roman:
       - "\u1F98"  # ᾘ 	Greek Capital Letter Eta With Psili And Prosgegrammeni
       - "\u1FCC"  # ῌ 	Greek Capital Letter Eta With Prosgegrammeni
     "\u1F2A":  # Ἢ 	Greek Capital Letter Eta With Psili And Varia
+      - "\u0389"
       - "\u1F2C"  # Ἤ 	Greek Capital Letter Eta With Psili And Oxia
       - "\u1F2E"  # Ἦ 	Greek Capital Letter Eta With Psili And Perispomeni
       - "\u1F9A"  # ᾚ 	Greek Capital Letter Eta With Psili And Varia And Prosgegrammeni
@@ -154,6 +158,7 @@ script_to_roman:
       - "\u1FD6"
       - "\u1FD7"
     "\u0399":
+      - "\u038A"
       - "\u03AA"
       - "\u1F38"
       - "\u1F3A"
@@ -172,18 +177,18 @@ script_to_roman:
       - "\u1F3B"
       - "\u1F3D"
       - "\u1F3F"
-        # ὶ
     # Omicron
     "\u03BF":  # ο 	Greek Small Letter Omicron
-      - "\u03cc"  # ό 	Greek Small Letter Omicron With Tonos
       - "\u1F40"  # ὀ 	Greek Small Letter Omicron With Psili
     "\u1F78":  # ὸ 	Greek Small Letter Omicron With Varia
+      - "\u03CC"  # ό 	Greek Small Letter Omicron With Tonos
       - "\u1F42"  # ὂ 	Greek Small Letter Omicron With Psili And Varia
       - "\u1F44"  # ὄ 	Greek Small Letter Omicron With Psili And Oxia
       - "\u1F79"  # ό 	Greek Small Letter Omicron With Oxia
     "\u039F":  # Ο 	Greek Capital Letter Omicron
-      - "\u1F48"  # Ὀ 	Greek Capital Letter Omicron With Psili
+      - "\u1F48"  # Ὀ 	Greek Capital Letter Omicron With Psili
     "\u1F4A":  # Ὂ 	Greek Capital Letter Omicron With Psili And Varia
+      - "\u038C"
       - "\u1F4C"  # Ὄ 	Greek Capital Letter Omicron With Psili And Oxia
     # Rough Omicron
     "\u1F41":  # ὁ 	Greek Small Letter Omicron With Dasia
@@ -205,26 +210,31 @@ script_to_roman:
 
     # Upsilon
     "\u03C5":
-      - "\u03CD"
-      - "\u1F50"
-      - "\u1F52"
-      - "\u1F54"
-      - "\u1F56"
-      - "\u1FE6"
-      - "\u1F7A"
-      - "\u1F7B"
-      - "\u1FE0"
-      - "\u1FE1"
+      - "\u03CD"  # ύ 	Greek Small Letter Upsilon With Tonos
+      - "\u1F50"  # ὐ 	Greek Small Letter Upsilon With Psili
+      - "\u1F52"  # ὒ 	Greek Small Letter Upsilon With Psili And Varia
+      - "\u1F54"  # ὔ 	Greek Small Letter Upsilon With Psili And Oxia
+      - "\u1F56"  # ὖ 	Greek Small Letter Upsilon With Psili And Perispomeni
+      - "\u1F7A"  # ὺ 	Greek Small Letter Upsilon With Varia
+      - "\u1F7B"  # ύ 	Greek Small Letter Upsilon With Oxia
+      - "\u1FE0"  # ῠ 	Greek Small Letter Upsilon With Vrachy
+      - "\u1FE1"  # ῡ 	Greek Small Letter Upsilon With Macron
+      - "\u1FE6"  # ῦ 	Greek Small Letter Upsilon With Perispomeni
     "\u03CB":  # ϋ 	Greek Small Letter Upsilon With Dialytika
-      - "\u03B0"
-      - "\u1FE2"
-      - "\u1FE3"
-      - "\u1FE7"
+      - "\u03B0"  # ΰ 	Greek Small Letter Upsilon With Dialytika And Tonos
+      - "\u1FE2"  # ῢ 	Greek Small Letter Upsilon With Dialytika And Varia
+      - "\u1FE3"  # ΰ 	Greek Small Letter Upsilon With Dialytika And Oxia
+      - "\u1FE7"  # ῧ 	Greek Small Letter Upsilon With Dialytika And Perispomeni
     "\u03A5":
         # NOTE: Capital upsilon + psili seems to be absent from Unicode table.
-      - "\u03AB"
-      - "\u1FE8"
-      - "\u1FE9"
+      - "\u03AB"  # Ϋ 	Greek Capital Letter Upsilon With Dialytika
+      - "\u1F59"  # Ὑ 	Greek Capital Letter Upsilon With Dasia
+      - "\u1FE8"  # Ῠ 	Greek Capital Letter Upsilon With Vrachy
+      - "\u1FE9"  # Ῡ 	Greek Capital Letter Upsilon With Macron
+    "\u1FEA":  # Ὺ 	Greek Capital Letter Upsilon With Varia
+      - "\u1F5B"  # Ὓ 	Greek Capital Letter Upsilon With Dasia And Varia
+      - "\u1F5D"  # Ὕ 	Greek Capital Letter Upsilon With Dasia And Oxia
+      - "\u1F5F"  # Ὗ 	Greek Capital Letter Upsilon With Dasia And Perispomeni
     # Rough Upsilon
     "\u1F51":
       - "\u03C5\u0314"
@@ -239,11 +249,11 @@ script_to_roman:
 
     # Omega
     "\u03C9":  # ω 	Greek Small Letter Omega
-      - "\u03CE"  # ώ 	Greek Small Letter Omega With Tonos
       - "\u1F60"  # ὠ 	Greek Small Letter Omega With Psili
       - "\u1FA0"  # ᾠ 	Greek Small Letter Omega With Psili And Ypogegrammeni
       - "\u1FF3"  # ῳ 	Greek Small Letter Omega With Ypogegrammeni
     "\u1F7C":  # ὼ 	Greek Small Letter Omega With Varia
+      - "\u03CE"  # ώ 	Greek Small Letter Omega With Tonos
       - "\u1F62"  # ὢ 	Greek Small Letter Omega With Psili And Varia
       - "\u1F64"  # ὤ 	Greek Small Letter Omega With Psili And Oxia
       - "\u1F66"  # ὦ 	Greek Small Letter Omega With Psili And Perispomeni
@@ -260,11 +270,12 @@ script_to_roman:
       - "\u1FA8"  # ᾨ 	Greek Capital Letter Omega With Psili And Prosgegrammeni
       - "\u1FFC"  # ῼ 	Greek Capital Letter Omega With Prosgegrammeni
     "\u1FFA":  # Ὼ 	Greek Capital Letter Omega With Varia
+      - "\u038F"  # Ώ 	Greek Capital Letter Omega With Tonos
       - "\u1F6A"  # Ὢ 	Greek Capital Letter Omega With Psili And Varia
       - "\u1F6C"  # Ὤ 	Greek Capital Letter Omega With Psili And Oxia
       - "\u1F6E"  # Ὦ 	Greek Capital Letter Omega With Psili And Perispomeni
       - "\u1FAA"  # ᾪ 	Greek Capital Letter Omega With Psili And Varia And Prosgegrammeni
-      - "\u1FAC"  # ᾬ 	Greek Capital Letter Omega With Psili And Oxia And Prosgegrammeni
+      - "\u1FAC"  # ᾬ 	Greek Capital Letter Omega With Psili And Oxia And Prosgegrammeni
       - "\u1FAE"  # ᾮ 	Greek Capital Letter Omega With Psili And Perispomeni And Prosgegrammeni
     # Rough omega
     "\u1F61":  # ὡ 	Greek Small Letter Omega With Dasia
@@ -294,6 +305,8 @@ script_to_roman:
       - "\u0344"
       - "\u0345"
       - "\u037A"
+      - "\u0384"
+      - "\u0385"
       - "\u1FBD"
       - "\u1FBE"
       - "\u1FBF"
@@ -305,18 +318,6 @@ script_to_roman:
       - "\u1FED"
       - "\u1FEE"
       - "\u1FFD"
-
-  map_initial:
-    "\u0393\u03BA": "Gk"
-    "\u03B3\u03BA": "gk"
-    "\u039C\u03C0": "B"
-    "\u03BC\u03C0": "b"
-    "\u039D\u03C4": "\u1E0E"
-    "\u03BD\u03C4": "\u1E0F"
-
-  map_final:
-    "\u0393\u03BA": "Gk"
-    "\u03B3\u03BA": "gk"
 
   map:
     "\u201C": "\"\u0332"
@@ -368,22 +369,34 @@ script_to_roman:
     "\u038F": "\u014C\u0301"
     "\u0390": "i\u0308\u0301"
     "\u1F09": "Ha"
+    "\u1F0B": "Ha"
     "\u0391\u1F31": "Hai"
     "\u0391\u1F51": "Hau"
     "\u0391\u1F61": "Ha\u014D"
     "\u0391\u03C5": "Au"
+    "\u1FBA\u03C5": "Ay"  # Tonos on preceding vowel
     "\u0391": "A"
+    "\u1FBA": "A"
     "\u0392": "B"
     "\u0393": "G"
     "\u0394": "D"
-    "\u1F19": "He"
     "\u0395\u03C5": "Eu"
+    "\u1F19": "He"
+    "\u1F1B": "He"
+    "\u1F19\u03C5": "Heu"
+    "\u1F1A\u03C5": "Ey"  # Tonos on preceding vowel
+    "\u1F1B\u03C5": "Hey"  # Tonos on preceding vowel
     "\u0395": "E"
+    "\u1F1A": "E"
     "\u0396": "Z"
     "\u1F29": "H\u0113"
+    "\u1F2B": "H\u0113"
     "\u0397": "\u0112"
+    "\u1F2A": "\u0112"
     "\u0397\u03C5": "\u0112u"
-    "\u0397\u1F51": "H\u0113u"
+    "\u1F2A\u03C5": "\u0112y"  # Tonos on preceding vowel
+    "\u1F29\u1F51": "H\u0113u"
+    "\u1F2B\u1F51": "H\u0113y"  # Tonos on preceding vowel
     "\u0398": "Th"
     "\u1F39": "Hi"
     "\u0399\u03C5": "Iu"
@@ -392,12 +405,15 @@ script_to_roman:
     "\u039B": "L"
     "\u039C\u03C0%": "B"
     "\u039C": "M"
-    # "\u039D\u03C4%": "D\u0332"
+    "\u039D\u03C4%": "\u1E0E"
     "\u039D": "N"
     "\u039E": "X"
     "\u1F49": "Ho"
+    "\u1F4B": "Ho"
     "\u039F\u03C5": "Ou"
+    "\u1F4A\u03C5": "Oy"  # Tonos on preceding vowel
     "\u039F": "O"
+    "\u1F4A": "O"
     "\u03A0": "P"
     "\u1FEC": "Rh"
     "\u03A1": "R"
@@ -412,8 +428,13 @@ script_to_roman:
     "\u03A7": "Ch"
     "\u03A8": "Ps"
     "\u1F69": "H\u014D"
+    "\u1F6B": "H\u014D"
+    "\u1F69\u03C5": "H\u014Du"
+    "\u1F6B\u03C5": "H\u014Dy"  # Tonos on preceding vowel
     "\u03A9": "\u014C"
+    "\u1FFA": "\u014C"
     "\u03A9\u03C5": "\u014Cu"
+    "\u1FFA\u03C5": "\u014Cy"  # Tonos on preceding vowel
     "\u03AA": "I\u0308"
     "\u03AB": "Y\u0308"
     "\u03AC\u0314": "ha\u0301"
@@ -425,44 +446,68 @@ script_to_roman:
     "\u03AF\u0314": "hi\u0301"
     "\u03AF": "i\u0301"
     "\u03B0": "y\u0308\u0301"
-    "\u1F01": "ha"
-    "\u1F01\u1F31": "hai"
-    "\u1F01\u03C5": "hau"
+    "\u03B1": "a"
+    "\u1F70": "a"
+    "\u03B1\u03C5": "au"
     "\u03B1\u1F31": "hai"
     "\u03B1\u1F51": "hau"
     "\u03B1\u1F61": "ha\u014D"
-    "\u03B1\u03C5": "au"
-    "\u03B1": "a"
+    "\u1F01": "ha"
+    "\u1F03": "ha"
+    "\u1F01\u03C5": "hau"
+    "\u1F01\u1F31": "hai"
+    "\u1F03\u03C5": "hay"  # Tonos on preceding vowel
+    "\u1f70\u03C5": "ay"  # Tonos on preceding vowel
     "\u03B2": "b"
     "\u03B3\u03B3": "ng"
-    "%\u03B3\u03BA%": "nk"
+    "\u03B3\u03BA": "nk"
+    "\u0393\u03BA%": "Gk"
+    "\u03B3\u03BA%": "gk"
+    "%\u0393\u03BA": "Gk"
+    "%\u03B3\u03BA": "gk"
     "\u03B3\u03BE": "nx"
     "\u03B3\u03C7": "nch"
     "\u03B3": "g"
     "\u03B4": "d"
     "\u1F11": "he"
+    "\u1F13": "he"
     "\u03B5\u03C5": "eu"
+    "\u1F72\u03C5": "ey"  # Tonos on preceding vowel
     "\u03B5\u1F51": "heu"
+    "\u1F13\u1F51": "hey"  # Tonos on preceding vowel
     "\u03B5": "e"
+    "\u1F72": "e"
     "\u03B6": "z"
-    "\u1F21": "h\u0113"
     "\u03B7": "\u0113"
+    "\u1F74": "\u0113"
     "\u03B7\u03C5": "\u0113u"
+    "\u1F74\u03C5": "\u0113y"  # Tonos on preceding vowel
+    "\u1F21": "h\u0113"
+    "\u1F23": "h\u0113"
+    "\u1F21\u03C5": "h\u0113u"
     "\u03B7\u1F51": "h\u0113u"
+    "\u1F23\u03C5": "h\u0113y"  # Tonos on preceding vowel
     "\u03B8": "th"
     "\u1F31": "hi"
+    "\u1F31\u03C5": "hiu"
     "\u03B9\u03C5": "iu"
     "\u03B9": "i"
     "\u03BA": "k"
     "\u03BB": "l"
     "\u03BC\u03C0%": "b"
     "\u03BC": "m"
-    # "\u03BD\u03C4%": "d\u0332"
+    "\u03BD\u03C4%": "\u1E0F"
     "\u03BD": "n"
     "\u03BE": "x"
     "\u1F41": "ho"
-    "\u03BF\u03C5": "ou"
+    "\u1F43": "ho"
+    "\u1F41\u03C5": "hou"
+    "\u03BF\u1F51": "hou"
+    "\u1F43\u03C5": "hoy"  # Tonos on preceding vowel
     "\u03BF": "o"
+    "\u1F78": "o"
+    "\u03BF\u03C5": "ou"
+    "\u1F78\u03C5": "oy"  # Tonos on preceding vowel
     "\u03C0": "p"
     "\u1FE5": "rh"
     "\u03C1": "r"
@@ -470,17 +515,25 @@ script_to_roman:
     "\u03C3": "s"
     "\u03C4": "t"
     "\u1F51": "hy"
+    "\u1F59": "Hy"
     "\u03C5": "y"
+    "\u03CB": "y"
     "\u03C5\u03B9": "ui"
     "\u03C5\u1F31": "hui"
     "\u03C6": "ph"
     "\u03C7": "ch"
     "\u03C8": "ps"
-    "\u1F61": "h\u014D"
     "\u03C9": "\u014D"
+    "\u1F7C": "\u014D"
     "\u03C9\u03C5": "\u014Du"
+    "\u1F7C\u03C5": "\u014Dy"  # Tonos on preceding vowel
+    "\u1F61": "h\u014D"
+    "\u1F63": "h\u014D"
+    "\u1F61\u03C5": "h\u014Du"
+    "\u03C9\u1F51": "h\u014Du"
+    "\u1F63\u03C5": "h\u014Dy"  # Tonos on preceding vowel
     "\u03CA": "i\u0308"
-    "\u03CB": "y\u0308"
+    "\u03CB": "y"
     "\u03CC": "o\u0301"
     "\u03CD": "y\u0301"
     "\u03CE": "\u014D\u0301"
@@ -564,8 +617,8 @@ script_to_roman:
       "Ch": "\u03A7"
       "ch": "\u03C7"
       "c\u030C": "\u03EB"
-      "D\u0332": "\u039D\u03C4"
-      "d\u0332": "\u03BD\u03C4"
+      "\u1E0E": "\u039D\u03C4"
+      "\u1E0F": "\u03BD\u03C4"
       "D": "\u0394"
       "d": "\u03B4"
       "Eu": "\u0395\u03C5"

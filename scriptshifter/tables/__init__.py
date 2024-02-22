@@ -44,6 +44,15 @@ HOOK_PKG_PATH = "scriptshifter.hooks"
 # Default characters defining a word boundary. This is configurable per-table.
 WORD_BOUNDARY = " \n\t:;.,\"'-()[]{}"
 
+# Token word boundary marker. Used in maps to distinguish special
+# transliterations for initial, final, and standalone tokens.
+TOKEN_WB_MARKER = "%"
+
+# Word boundary bitwise flags.
+BOW = 1 << 1
+EOW = 1 << 0
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -55,8 +64,21 @@ class Token(str):
     in a way that prioritizes a longer string over a shorter one with identical
     root.
     """
+    flags = 0
+
     def __init__(self, content):
         self.content = content
+
+        # Assign special precedence based on token position.
+        # Standalone has precedence, then initial, then final, then medial.
+        # This is somewhat arbitrary and may change if special cases arise.
+        # WB markers are moved to flags to allow default comparison.
+        if self.content.endswith(TOKEN_WB_MARKER):
+            self.flags |= BOW
+            self.content = self.content.rstrip(TOKEN_WB_MARKER)
+        if self.content.startswith(TOKEN_WB_MARKER):
+            self.flags |= EOW
+            self.content = self.content.lstrip(TOKEN_WB_MARKER)
 
     def __lt__(self, other):
         """
@@ -76,6 +98,17 @@ class Token(str):
         self_len = len(self.content)
         other_len = len(other.content)
         min_len = min(self_len, other_len)
+
+        # Check word boundary flags only if tokens are identical.
+        # Higher flag value has precedence.
+        if (
+                (self.flags > 0 or other.flags > 0)
+                and self.content == other.content):
+            logger.debug(f"{self.content} flags: {self.flags}")
+            logger.debug(f"{other.content} flags: {other.flags}")
+            logger.debug("Performing flags comparison.")
+
+            return self.flags > other.flags
 
         # If one of the strings is entirely contained in the other string...
         if self.content[:min_len] == other.content[:min_len]:
@@ -148,7 +181,7 @@ def load_table(tname):
                 Token(k): v
                 for k, v in tdata["script_to_roman"].get("map", {}).items()}
         tdata["script_to_roman"]["map"] = tuple(
-                (k.content, tokens[k]) for k in sorted(tokens))
+                (k, tokens[k]) for k in sorted(tokens))
 
         # Normalization.
         normalize = {}
@@ -184,7 +217,7 @@ def load_table(tname):
             for k, v in tdata["roman_to_script"].get("map", {}).items()
         }
         tdata["roman_to_script"]["map"] = tuple(
-                (k.content, tokens[k]) for k in sorted(tokens))
+                (k, tokens[k]) for k in sorted(tokens))
 
         # Ignore regular expression patterns.
         # Patterns are evaluated in the order they are listed in the config.
