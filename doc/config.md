@@ -194,6 +194,28 @@ that:
   before "BA" but after "AD");
 - strings beginning with different characters are sorted alphabetically.
 
+
+#### `roman_to_script.normalize`
+
+Type: key-value pairs; value is a list of strings.
+
+Normalization rules. Each key is paired with one or more tokens that are
+replaced with the key before the transliteration. E.g. if we have (from the
+classical Greek config):
+
+```
+normalize:
+"\u03B1":  # α 	Greek Small Letter Alpha
+  - "\u1F00"  # ἀ 	Greek Small Letter Alpha With Psili
+  - "\u1F80"  # ᾀ 	Greek Small Letter Alpha With Psili And Ypogegrammeni
+  - "\u1FB0"  # ᾰ 	Greek Small Letter Alpha With Vrachy
+  - "\u1FB1"  # ᾱ 	Greek Small Letter Alpha With Macron
+  - "\u1FB3"  # ᾳ 	Greek Small Letter Alpha With Ypogegrammeni
+```
+
+then all ἀ, ᾀ, ᾰ, etc. are normalized to α; only this last token needs to be
+mapped for transliteration.
+
 #### `roman_to_script.map`
 
 Type: key-value pairs
@@ -204,13 +226,27 @@ Transliteration rules. Each rule takes the following form:
   "<source>": "<destination>"
 ```
 
-Unicode code points on either side are written using the YAML notation:
-`\u????`
+Unicode code points on either side can be written using the YAML notation
+(`\u????`) or the literal Unicode characters.
 
 These rules can be written in any order, however writing longer
 strings such as full names before individual phonemes and characters makes the
 file more readable. The strings are sorted by the application using the same
 rules dscribed above for the ignore list.
+
+To create specific rules for initial, final, and standalone tokens, the `%`
+character is used to mark the word boundary. Hence:
+
+```
+  "token%": "transliteration of token at beginning of word"
+  "%token": "transliteration of token at end of word"
+  "%token%": "transliteration of standalone token"
+  "token": "transliteration of token anywhere else not specified"
+```
+
+The order of priority is: standalone, initial, final, and medial. As for the
+other tokens, these can be in any order in the configuration and will be
+reordered when the table is loaded.
 
 
 #### `roman_to_script.hooks`
