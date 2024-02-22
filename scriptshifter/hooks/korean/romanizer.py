@@ -585,11 +585,7 @@ def _hancha2hangul(data):
     # FKR173: Chinese characters 烈(렬)의 발음 처리
     # FKR174: Chinese characters 裂(렬)의 발음 처리
     # FKR175: Chinese characters 劣(렬)의 발음 처리
-    # FKR176: Chinese characters 律(률)의 발음 처리
-    # FKR177: Chinese characters 率(률)의 발음 처리
-    # FKR178: Chinese characters 慄(률)의 발음 처리
-    # FKR179: Chinese characters 栗(률)의 발음 처리
-    for char in KCONF["fkr172-179"]:
+    for char in KCONF["fkr172-175"]:
         idx = [i for i, item in enumerate(data) if item == char]
         for i in idx:
             val = ord(data[i - 1])
@@ -598,6 +594,20 @@ def _hancha2hangul(data):
                 data = data.replace(char, "열", 1)
             else:
                 data = data.replace(char, "렬", 1)
+
+    # FKR176: Chinese characters 律(률)의 발음 처리
+    # FKR177: Chinese characters 率(률)의 발음 처리
+    # FKR178: Chinese characters 慄(률)의 발음 처리
+    # FKR179: Chinese characters 栗(률)의 발음 처리
+    for char in KCONF["fkr176-179"]:
+        idx = [i for i, item in enumerate(data) if item == char]
+        for i in idx:
+            val = ord(data[i - 1])
+            coda_value = (val - CP_MIN) % 28
+            if coda_value == 0 or coda_value == 4 or val < 100:  # TODO verify
+                data = data.replace(char, "율", 1)
+            else:
+                data = data.replace(char, "률", 1)
 
     # FKR180: Katakana
     _fkr_log(180)
