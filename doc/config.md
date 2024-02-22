@@ -195,27 +195,6 @@ that:
 - strings beginning with different characters are sorted alphabetically.
 
 
-#### `roman_to_script.normalize`
-
-Type: key-value pairs; value is a list of strings.
-
-Normalization rules. Each key is paired with one or more tokens that are
-replaced with the key before the transliteration. E.g. if we have (from the
-classical Greek config):
-
-```
-normalize:
-"\u03B1":  # α 	Greek Small Letter Alpha
-  - "\u1F00"  # ἀ 	Greek Small Letter Alpha With Psili
-  - "\u1F80"  # ᾀ 	Greek Small Letter Alpha With Psili And Ypogegrammeni
-  - "\u1FB0"  # ᾰ 	Greek Small Letter Alpha With Vrachy
-  - "\u1FB1"  # ᾱ 	Greek Small Letter Alpha With Macron
-  - "\u1FB3"  # ᾳ 	Greek Small Letter Alpha With Ypogegrammeni
-```
-
-then all ἀ, ᾀ, ᾰ, etc. are normalized to α; only this last token needs to be
-mapped for transliteration.
-
 #### `roman_to_script.map`
 
 Type: key-value pairs
@@ -310,3 +289,27 @@ Type: list
 
 This is only a valid subsection of S2R. It removes double capitalization rules
 from the inherited list.
+
+#### `script_to_roman.normalize`
+
+Type: key-value pairs; value is a list of strings.
+
+Normalization rules. Each key is paired with one or more tokens that are
+replaced with the key before the transliteration. E.g. if we have (from the
+classical Greek config):
+
+```
+normalize:
+"\u03B1":  # α 	Greek Small Letter Alpha
+  - "\u1F00"  # ἀ 	Greek Small Letter Alpha With Psili
+  - "\u1F80"  # ᾀ 	Greek Small Letter Alpha With Psili And Ypogegrammeni
+  - "\u1FB0"  # ᾰ 	Greek Small Letter Alpha With Vrachy
+  - "\u1FB1"  # ᾱ 	Greek Small Letter Alpha With Macron
+  - "\u1FB3"  # ᾳ 	Greek Small Letter Alpha With Ypogegrammeni
+```
+
+then all ἀ, ᾀ, ᾰ, etc. are normalized to α; only this last token needs to be
+mapped for transliteration.
+
+This section is only available for S2R at the moment. It is inherited by
+child configurations.
