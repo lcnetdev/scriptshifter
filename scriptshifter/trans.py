@@ -2,15 +2,11 @@ import logging
 import re
 
 from scriptshifter.exceptions import BREAK, CONT
-from scriptshifter.tables import WORD_BOUNDARY, load_table
+from scriptshifter.tables import BOW, EOW, WORD_BOUNDARY, load_table
 
 
 # Match multiple spaces.
 MULTI_WS_RE = re.compile(r"\s{2,}")
-
-# Cursor bitwise flags.
-CUR_BOW = 1 << 0
-CUR_EOW = 1 << 1
 
 logger = logging.getLogger(__name__)
 
@@ -25,11 +21,11 @@ class Context:
 
     @src.setter
     def src(self):
-        raise NotImplementedError("Atribute is read-only.")
+        raise NotImplementedError("Attribute is read-only.")
 
     @src.deleter
     def src(self):
-        raise NotImplementedError("Atribute is read-only.")
+        raise NotImplementedError("Attribute is read-only.")
 
     def __init__(self, src, general, langsec, options={}):
         """
@@ -110,11 +106,18 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     if _run_hook("post_config", ctx, langsec_hooks) == BREAK:
         return getattr(ctx, "dest", ""), ctx.warnings
 
+    if "normalize" in ctx.langsec:
+        _normalize_src(ctx)
+
+    if _run_hook("post_normalize", ctx, langsec_hooks) == BREAK:
+        return getattr(ctx, "dest", ""), ctx.warnings
+
     # Loop through source characters. The increment of each loop depends on
     # the length of the token that eventually matches.
     ignore_list = langsec.get("ignore", [])  # Only present in R2S
     ctx.cur = 0
     word_boundary = langsec.get("word_boundary", WORD_BOUNDARY)
+
     while ctx.cur < len(ctx.src):
         # Reset cursor position flags.
         # Carry over extended "beginning of word" flag.
@@ -122,19 +125,14 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
         cur_char = ctx.src[ctx.cur]
 
         # Look for a word boundary and flag word beginning/end it if found.
-        if (ctx.cur == 0 or ctx.src[ctx.cur - 1] in word_boundary) and (
-                cur_char not in word_boundary):
+        if _is_bow(ctx.cur, ctx, word_boundary):
             # Beginning of word.
             logger.debug(f"Beginning of word at position {ctx.cur}.")
-            ctx.cur_flags |= CUR_BOW
-        if (
-            ctx.cur == len(ctx.src) - 1
-            or ctx.src[ctx.cur + 1] in word_boundary
-        ) and (cur_char not in word_boundary):
-            # Beginning of word.
+            ctx.cur_flags |= BOW
+        if _is_eow(ctx.cur, ctx, word_boundary):
             # End of word.
             logger.debug(f"End of word at position {ctx.cur}.")
-            ctx.cur_flags |= CUR_EOW
+            ctx.cur_flags |= EOW
 
         # This hook may skip the parsing of the current
         # token or exit the scanning loop altogether.
@@ -183,28 +181,45 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
         # Begin transliteration token lookup.
         ctx.match = False
-        for ctx.src_tk, ctx.dest_tk in langsec["map"]:
+
+        for ctx.src_tk, ctx.dest_str in langsec["map"]:
             hret = _run_hook("pre_tx_token", ctx, langsec_hooks)
             if hret == BREAK:
                 break
             if hret == CONT:
                 continue
 
-            step = len(ctx.src_tk)
+            step = len(ctx.src_tk.content)
+            # If the token is longer than the remaining of the string,
+            # it surely won't match.
+            if ctx.cur + step > len(ctx.src):
+                continue
 
             # If the first character of the token is greater (= higher code
             # point value) than the current character, then break the loop
             # without a match, because we know there won't be any more match
             # due to the alphabetical ordering.
-            if ctx.src_tk[0] > cur_char:
+            if ctx.src_tk.content[0] > cur_char:
                 logger.debug(
-                        f"{ctx.src_tk} is after "
+                        f"{ctx.src_tk.content} is after "
                         f"{ctx.src[ctx.cur:ctx.cur + step]}. Breaking loop.")
                 break
 
+            # If src_tk has a WB flag but the token is not at WB, skip.
+            if (
+                (ctx.src_tk.flags & BOW and not ctx.cur_flags & BOW)
+                or
+                # Can't rely on EOW flag, we must check on the last character
+                # of the potential match.
+                (ctx.src_tk.flags & EOW and not _is_eow(
+                        ctx.cur + step - 1, ctx, word_boundary))
+            ):
+                continue
+
             # Longer tokens should be guaranteed to be scanned before their
             # substrings at this point.
-            if ctx.src_tk == ctx.src[ctx.cur:ctx.cur + step]:
+            # Similarly, flagged tokens are evaluated first.
+            if ctx.src_tk.content == ctx.src[ctx.cur:ctx.cur + step]:
                 ctx.match = True
                 # This hook may skip this token or break out of the token
                 # lookup for the current position.
@@ -223,20 +238,21 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                     or
                     (
                         ctx.options["capitalize"] == "all"
-                        and ctx.cur_flags & CUR_BOW
+                        and ctx.cur_flags & BOW
                     )
                 ):
                     logger.info("Capitalizing token.")
                     double_cap = False
                     for dcap_rule in ctx.langsec.get("double_cap", []):
-                        if ctx.dest_tk == dcap_rule:
-                            ctx.dest_tk = ctx.dest_tk.upper()
+                        if ctx.dest_str == dcap_rule:
+                            ctx.dest_str = ctx.dest_str.upper()
                             double_cap = True
                             break
                     if not double_cap:
-                        ctx.dest_tk = ctx.dest_tk[0].upper() + ctx.dest_tk[1:]
+                        ctx.dest_str = (
+                                ctx.dest_str[0].upper() + ctx.dest_str[1:])
 
-                ctx.dest_ls.append(ctx.dest_tk)
+                ctx.dest_ls.append(ctx.dest_str)
                 ctx.cur += step
                 break
 
@@ -279,6 +295,24 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     ctx.dest = re.sub(MULTI_WS_RE, ' ', ctx.dest.strip())
 
     return ctx.dest, ctx.warnings
+
+
+def _normalize_src(ctx):
+    for nk, nv in ctx.langsec.get("normalize", {}).items():
+        ctx._src = ctx.src.replace(nk, nv)
+    logger.debug(f"Normalized source: {ctx.src}")
+
+
+def _is_bow(cur, ctx, word_boundary):
+    return (cur == 0 or ctx.src[cur - 1] in word_boundary) and (
+            ctx.src[cur] not in word_boundary)
+
+
+def _is_eow(cur, ctx, word_boundary):
+    return (
+        cur == len(ctx.src) - 1
+        or ctx.src[cur + 1] in word_boundary
+    ) and (ctx.src[cur] not in word_boundary)
 
 
 def _run_hook(hname, ctx, hooks):

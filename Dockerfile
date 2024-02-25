@@ -4,10 +4,6 @@ RUN apt update
 RUN apt install -y build-essential tzdata gfortran libopenblas-dev libboost-all-dev
 
 ENV TZ=America/New_York
-
-# Copy and compile Kakadu codec.
-WORKDIR ${_workroot}
-
 ENV _workroot "/usr/local/scriptshifter/src"
 
 WORKDIR ${_workroot}

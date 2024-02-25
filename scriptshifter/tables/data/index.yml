@@ -50,10 +50,14 @@ ethiopic:
   name: Ethiopic (Amharic)
 even-evenki_cyrillic:
   name: Even/Evenki (Cyrillic)
-georgian:
-  name: Georgian
 gagauz_cyrillic:
   name: Gagauz (Cyrillic)
+georgian:
+  name: Georgian
+greek_classical:
+  name: Greek (classical)
+greek_modern:
+  name: Greek (modern)
 hebrew:
   name: Hebrew
 hindi:

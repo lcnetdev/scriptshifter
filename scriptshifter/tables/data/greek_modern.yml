@@ -1,0 +1,14 @@
+general:
+  name: Greek (modern)
+  parents:
+    - greek_classical
+
+script_to_roman:
+  map:
+    "\u0392": "V"
+    "\u03B2": "v"
+
+roman_to_script:
+  map:
+    "V": "\u0392"
+    "v": "\u03B2"
