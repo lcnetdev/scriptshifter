@@ -8,7 +8,7 @@ ENV _workroot "/usr/local/scriptshifter/src"
 
 WORKDIR ${_workroot}
 COPY requirements.txt ./
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Remove development packages.
 RUN apt remove -y build-essential
