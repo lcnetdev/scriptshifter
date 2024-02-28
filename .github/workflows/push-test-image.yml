@@ -2,7 +2,7 @@ name: Push test image to Docker Hub.
 on:
   push:
     branch:
-      - "main"
+      - "test"
 
 env:
   DOCKER_USER: lcnetdev

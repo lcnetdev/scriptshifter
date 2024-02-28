@@ -7,3 +7,4 @@ python-dotenv>=1.0,<2
 pyyaml>=6.0,<7
 repackage>=0.7.3
 uwsgi>=2.0,<2.1
+./ext/yiddish
