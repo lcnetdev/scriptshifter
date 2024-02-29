@@ -13,9 +13,22 @@ jobs:
   push-image-to-docker-hub:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout repo
+        uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: checkout yiddish submodules (1/2)
+        uses: actions/checkout@v4
+        with:
+          repository: ibleaman/loshn-koydesh-pronunciation
+          path: ext/yiddish/yiddish/submodules/loshn-koydesh-pronunciation
+
+      - name: checkout yiddish submodules (2/2)
+        uses: actions/checkout@v4
+        with:
+          repository: ibleaman/hasidify_lexicon
+          path: ext/yiddish/yiddish/submodules/hasidify_lexicon
 
       - name: Build the Docker image
         run: docker build . --tag $DOCKER_USER/$REPO_NAME:test
