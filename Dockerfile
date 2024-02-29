@@ -15,8 +15,8 @@ COPY entrypoint.sh uwsgi.ini wsgi.py ./
 COPY ext ./ext/
 # Github actions checkout won't sync these submodules recursively.
 RUN apt install -y git
-RUN git submodule add https://github.com/ibleaman/loshn-koydesh-pronunciation.git ext/yiddish/yiddish/submodules/loshn-koydesh-pronunciation
-RUN git submodule add  https://github.com/ibleaman/hasidify_lexicon.git yiddish/submodules/hasidify_lexicon
+RUN git clone https://github.com/ibleaman/loshn-koydesh-pronunciation.git ext/yiddish/yiddish/submodules/loshn-koydesh-pronunciation
+RUN git clone https://github.com/ibleaman/hasidify_lexicon.git yiddish/submodules/hasidify_lexicon
 COPY scriptshifter ./scriptshifter/
 
 COPY requirements.txt ./
