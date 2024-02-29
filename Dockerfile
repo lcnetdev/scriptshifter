@@ -21,7 +21,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Remove development packages.
 RUN apt remove -y build-essential git
 RUN apt autoremove -y
-RUN rm -rf ext/yiddish
 
 RUN chmod +x ./entrypoint.sh
 RUN chown -R www:www ${_workroot} .
