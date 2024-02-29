@@ -10,18 +10,17 @@ RUN addgroup --system www
 RUN adduser --system www
 RUN gpasswd -a www www
 
+WORKDIR ${_workroot}
 COPY entrypoint.sh uwsgi.ini wsgi.py ./
 COPY ext ./ext/
 COPY scriptshifter ./scriptshifter/
 
-WORKDIR ${_workroot}
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Remove development packages.
 RUN apt remove -y build-essential git
 RUN apt autoremove -y
-RUN rm -rf ext/yiddish
 
 RUN chmod +x ./entrypoint.sh
 RUN chown -R www:www ${_workroot} .

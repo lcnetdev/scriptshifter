@@ -3,5 +3,5 @@
 	url = https://github.com/fadhleryani/Arabic_ALA-LC_Romanization.git
 [submodule "ext/yiddish"]
 	path = ext/yiddish
-	url = https://github.com/ibleaman/yiddish.git
+	url = https://github.com/scossu/yiddish.git
 	branch = loc
