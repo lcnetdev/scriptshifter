@@ -3,12 +3,25 @@ general: # Section names and other keywords are all snake_cased.
   parents:
     - _ignore_base
 
+options:
+  - id: marc_field
+    label: MARC field
+    description: Romanize according to a specific MARC field format. Leave blank if not applicable.
+    type: string
+    default:
+
 script_to_roman:
   directives: # Directives section.
     # Capitalize the first letter of the string only; TODO
     # Implement a list that includes all punctuation marks that
     # want the following letter capitalized.
     capitalize: true
+
+  hooks:
+    post_assembly:
+      -
+        - chinese.parse_numerals
+
   map: # Mapping section.
     "\u5DF4\u57FA\u65AF\u5766\u4F0A\u65AF\u862D\u5171\u548C\u570B": "Bajisitan Yisilan Gongheguo "
     "\u5DF4\u57FA\u65AF\u5766\u4F0A\u65AF\u5170\u5171\u548C\u56FD": "Bajisitan Yisilan Gongheguo "
