@@ -2,32 +2,10 @@ __doc__ = """Chinese hooks."""
 
 
 from logging import getLogger
-from os import path
 from re import I, compile, search, sub
 
-from yaml import load
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
-
-
-HOOK_DIR = path.dirname(path.realpath(__file__))
 
 logger = getLogger(__name__)
-
-
-def merge_numerals_pre_config(tdata):
-    """
-    Add numerals mapping to configuration.
-
-    This overrides the existing character mappings.
-    """
-    num_map_yml = path.join(HOOK_DIR, "numerals.yml")
-    with open(num_map_yml, "r") as fh:
-        num_map = load(fh, Loader=Loader)
-
-    tdata["script_to_roman"]["map"].update(num_map)
 
 
 def parse_numerals(ctx):
@@ -37,7 +15,7 @@ def parse_numerals(ctx):
     This is run at post-assembly.
     """
     # Only apply to specific MARC fields.
-    use_num_v = ctx.options.get("marc_field") in ("245", "830")
+    use_num_v = ctx.options.get("marc_field") in ("245n", "830n")
 
     # tokens = split(r"[\W^#]", ctx.dest)  # Original logic.
     tokens = [tk.strip() for tk in ctx.dest_ls]
