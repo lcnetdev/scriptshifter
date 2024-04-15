@@ -4,11 +4,13 @@ __doc__ = """Chinese hooks."""
 from logging import getLogger
 from re import I, compile, search, sub
 
+from scriptshifter.hooks.general import normalize_spacing_post_assembly
+
 
 logger = getLogger(__name__)
 
 
-def parse_numerals(ctx):
+def parse_numerals_pre_assembly(ctx):
     """
     Parse Chinese numerals in the already romanized result.
 
@@ -18,9 +20,8 @@ def parse_numerals(ctx):
     use_num_v = ctx.options.get("marc_field") in ("245n", "830n")
 
     # tokens = split(r"[\W^#]", ctx.dest)  # Original logic.
-    tokens = [tk.strip() for tk in ctx.dest_ls]
-    tk_ct = len(tokens)
-    token_ptn = compile(r"^([A-Za-z]+)#([0-9]*)$")
+    tk_ct = len(ctx.dest_ls)
+    token_ptn = compile(r"^([A-Za-z]+)#([0-9]*)(\s*)$")
 
     output = ""
 
@@ -28,7 +29,7 @@ def parse_numerals(ctx):
     i = 0
 
     while i < tk_ct:
-        tk_i = tokens[i]
+        tk_i = ctx.dest_ls[i]
         if search(token_ptn, tk_i):
             # When a numerical token (containing #) is reached, the inner loop
             # consumes it and all consecutive numerical tokens found after it.
@@ -39,10 +40,10 @@ def parse_numerals(ctx):
             # encountered, the string of numerical tokens is evaluated to
             # determine which version should be used in the output string.
             # The outer loop then continues where the inner loop left off.
-            logger.debug(f"Match number: {tk_i}")
+            logger.debug(f"Match number: {tk_i}.")
             text_v = num_v = ""
             for j in range(i, tk_ct):
-                tk_j = tokens[j]
+                tk_j = ctx.dest_ls[j]
                 m = search(token_ptn, tk_j)
                 # if m:
                 #     logger.debug(f"m[1]: {m[1]} - m[2]: {m[2]}")
@@ -51,10 +52,10 @@ def parse_numerals(ctx):
                     logger.debug(f"Next token is not numeric: {tk_j}")
                     # If this runs, then we are on the last token and it is
                     # numeric. Add text after # (if present) to numerical
-                    # version
+                    # version and captured whitespace after the number.
                     if m:
-                        text_v += m[1] + " "
-                        num_v += m[2] if len(m[2]) else m[1]
+                        text_v += m[1] + m[3]
+                        num_v += m[2] + m[3] if len(m[2]) else m[1] + m[3]
                         # Append white space.
                         num_v += " "
                     elif j == tk_ct - 1:
@@ -68,7 +69,7 @@ def parse_numerals(ctx):
                         search("^di [0-9]", num_v, flags=I) or
                         search("[0-9] [0-9] [0-9] [0-9]", num_v) or
                         search("[0-9]+ nian [0-9]+ yue", num_v, flags=I) or
-                        search("\"[0-9]+ yue [0-9]+ ri", num_v, flags=I)
+                        search("[0-9]+ yue [0-9]+ ri", num_v, flags=I)
                     ):
                         use_num_v = True
                         # At this point, string may contain literal
@@ -97,8 +98,6 @@ def parse_numerals(ctx):
                             while search("[0-9] [0-9]", num_v):
                                 num_v = sub("([0-9]) ([0-9])", r"\1\2", num_v)
 
-                    logger.debug(f"num_v: {num_v}")
-                    logger.debug(f"text_v: {text_v}")
                     output += num_v if use_num_v else text_v
 
                     # if the end of the string is not reached, backtrack to the
@@ -111,17 +110,22 @@ def parse_numerals(ctx):
 
                 # this is run when we are not yet at the end of the string and
                 # have not yet reached a non-numerical token. This is identical
-                # to the code that is run above when the last token is numeric.
+                # to the code that is run above when the last token is numeric,
+                # except that whitespace after the token is stripped.
                 m = search(token_ptn, tk_j)
                 text_v += m[1] + " "
                 num_v += m[2] if len(m[2]) else m[1]
                 num_v += " "
 
         else:
-            logger.debug(f"No match: adding {tk_i}.")
-            output += tk_i + " "
+            logger.debug(f"No numeric match: adding {tk_i}.")
+            output += tk_i
 
         i += 1
 
-    print(f"Use num version: {use_num_v}")
+    logger.debug(f"Use num version: {use_num_v}")
     ctx.dest = output
+
+    # Skip main transliterate function joining.
+
+    return normalize_spacing_post_assembly(ctx)

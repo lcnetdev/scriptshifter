@@ -25,9 +25,9 @@ script_to_roman:
     capitalize: true
 
   hooks:
-    post_assembly:
+    pre_assembly:
       -
-        - chinese.parse_numerals
+        - chinese.parse_numerals_pre_assembly
 
   map:
     "〇": "ling#0 "

@@ -45605,7 +45605,7 @@ script_to_roman:
     "\u300D": "\" "
     "\u300C": "\" "
     "\u300B": "\" "
-    "\u300A": "\" "
+    "\u300A": "\""  # NOTE removed whitespace after opening quote.
     "\u3009": "\" "
     "\u3008": "\" "
     "\u201D": "\" "
