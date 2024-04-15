@@ -8,19 +8,6 @@ from re import compile
 from scriptshifter.trans import MULTI_WS_RE
 
 
-NORM_MAP = (
-    (" .", "."),
-    (" ;", ";"),
-    (" ,", ","),
-    ("( ", "("),
-    ("[ ", "["),
-    ("{ ", "{"),
-    (" )", ")"),
-    (" ]", "]"),
-    (" }", "}"),
-    ("- -", "--"),
-)
-
 NORM1_RE = compile(r"([.,;:\)\]}])\s")
 NORM2_RE = compile(r"(\S)([.,;:\)\]}])")
 NORM3_RE = compile(r"\s([\)\]\}])")
@@ -40,9 +27,5 @@ def normalize_spacing_post_assembly(ctx):
     norm = NORM2_RE.sub(r"\1 \2", norm)
     norm = NORM3_RE.sub(r"\1", norm)
     norm = NORM4_RE.sub(r"\1 \2", norm)
-
-    # Normalize spacing around punctuation and parentheses.
-    for a, b in NORM_MAP:
-        norm = norm.replace(a, b)
 
     return norm

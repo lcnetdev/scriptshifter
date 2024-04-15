@@ -28,7 +28,6 @@ TABLE_DIR = environ.get("TXL_CONFIG_TABLE_DIR", DEFAULT_TABLE_DIR)
 
 # Available hook names.
 HOOKS = (
-    "pre_config",
     "post_config",
     "post_normalize",
     "begin_input_token",
