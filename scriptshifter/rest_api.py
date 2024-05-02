@@ -108,7 +108,9 @@ def transliterate_req():
     except (NotImplementedError, ValueError) as e:
         return (str(e), 400)
 
-    return {"output": out, "warnings": warnings}
+    return {
+            "output": out, "warnings": warnings,
+            "debug": {"form_data": request.form}}
 
 
 @app.route("/feedback", methods=["POST"])
