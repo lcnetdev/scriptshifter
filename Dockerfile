@@ -1,7 +1,7 @@
-FROM python:3.10-slim-bullseye
+FROM python:3.10-slim-bookworm
 
 RUN apt update
-RUN apt install -y build-essential tzdata gfortran libopenblas-dev libboost-all-dev
+RUN apt install -y build-essential tzdata gfortran libopenblas-dev libboost-all-dev libpcre2-dev
 
 ENV TZ=America/New_York
 ENV _workroot "/usr/local/scriptshifter/src"

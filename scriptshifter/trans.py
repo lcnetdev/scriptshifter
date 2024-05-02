@@ -1,12 +1,13 @@
 import logging
-import re
+
+from re import compile
 
 from scriptshifter.exceptions import BREAK, CONT
 from scriptshifter.tables import BOW, EOW, WORD_BOUNDARY, load_table
 
 
 # Match multiple spaces.
-MULTI_WS_RE = re.compile(r"\s{2,}")
+MULTI_WS_RE = compile(r"(\s){2,}")
 
 logger = logging.getLogger(__name__)
 
@@ -288,11 +289,11 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     # This hook may reassign the output string and/or cause the function to
     # return it immediately.
     hret = _run_hook("post_assembly", ctx, langsec_hooks)
-    if hret == "ret":
-        return ctx.dest, ctx.warnings
+    if hret is not None:
+        return hret, ctx.warnings
 
     # Strip multiple spaces and leading/trailing whitespace.
-    ctx.dest = re.sub(MULTI_WS_RE, ' ', ctx.dest.strip())
+    ctx.dest = MULTI_WS_RE.sub(r"\1", ctx.dest.strip())
 
     return ctx.dest, ctx.warnings
 

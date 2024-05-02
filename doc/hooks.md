@@ -333,7 +333,7 @@ and return it before any further default processing is done.
 
 #### Output
 
-`"ret"` or `None`. If `"ret"`, the transliteration function returns `ctx.dest`
+String or `None`. If a string, the transliteration function returns that
 immediately; otherwise it proceeds with standard adjustments of the output
 string before returning.
 
