@@ -1,8 +1,13 @@
-name: Push image to Docker Hub.
+name: Push app image
 on:
+  # This runs on v *.*.0 after the base image has been
+  # built and pushed, or on v
   push:
     tags:
-      - "v*.*.*"
+      - "v*.*.[1-9]*"
+  workflow_run:
+    workflows: ["Push base image"]
+    types: ["completed"]
 
 env:
   DOCKER_USER: lcnetdev

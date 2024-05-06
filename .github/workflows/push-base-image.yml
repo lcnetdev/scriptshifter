@@ -1,4 +1,4 @@
-name: Push base image to Docker Hub. Only on minor/major version update.
+name: Push base image
 on:
   push:
     tags:
