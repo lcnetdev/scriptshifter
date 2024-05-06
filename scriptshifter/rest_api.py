@@ -8,6 +8,7 @@ from os import environ, urandom
 from smtplib import SMTP
 
 from flask import Flask, jsonify, render_template, request
+from werkzeug.exceptions import BadRequest
 
 from scriptshifter import EMAIL_FROM, EMAIL_TO, SMTP_HOST, SMTP_PORT
 from scriptshifter.exceptions import ApiError
@@ -44,6 +45,20 @@ def handle_exception(e: ApiError):
         ],
         "output": "",
     }, e.status_code)
+
+
+@app.errorhandler(BadRequest)
+def handle_400(e):
+    if logging.DEBUG >= logging.root.level:
+        body = {
+            "debug": {
+                "form_data": request.form,
+            }
+        }
+    else:
+        body = ""
+
+    return body, 400
 
 
 @app.route("/", methods=["GET"])
