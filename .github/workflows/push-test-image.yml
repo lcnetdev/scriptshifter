@@ -18,20 +18,11 @@ jobs:
         with:
           submodules: recursive
 
-      - name: checkout yiddish submodules (1/2)
-        uses: actions/checkout@v4
-        with:
-          repository: ibleaman/loshn-koydesh-pronunciation
-          path: ext/yiddish/yiddish/submodules/loshn-koydesh-pronunciation
-
-      - name: checkout yiddish submodules (2/2)
-        uses: actions/checkout@v4
-        with:
-          repository: ibleaman/hasidify_lexicon
-          path: ext/yiddish/yiddish/submodules/hasidify_lexicon
-
       - name: Build the Docker image
-        run: docker build . --tag $DOCKER_USER/$REPO_NAME:test
+        run: >
+          docker build -f Dockerfile .
+          --tag $DOCKER_USER/$REPO_NAME:${{ github.ref_name }}
+          --tag $DOCKER_USER/$REPO_NAME:test
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
