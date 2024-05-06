@@ -1,4 +1,4 @@
-FROM lcnetdev/scriptshifter_base:latest
+FROM lcnetdev/scriptshifter-base:latest
 ARG WORKROOT "/usr/local/scriptshifter/src"
 
 # Copy core application files.
