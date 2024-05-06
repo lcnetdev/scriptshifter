@@ -1,0 +1,7 @@
+# External dependencies.
+aksharamukha>=2.1,<3
+camel-tools>=1.5
+funcy>=1.15,<2
+pymarc>=4.0,<5
+repackage>=0.7.3
+./ext/yiddish
