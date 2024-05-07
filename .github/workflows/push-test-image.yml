@@ -1,7 +1,7 @@
 name: Push test image
 on:
   push:
-    branch:
+    branches:
       - "test"
 
 env:

@@ -1,13 +1,15 @@
 name: Push app image
 on:
   # This runs on v *.*.0 after the base image has been
-  # built and pushed, or on v
+  # built and pushed, or on patch version tag.
   push:
     tags:
       - "v*.*.[1-9]*"
   workflow_run:
-    workflows: ["Push base image"]
-    types: ["completed"]
+    workflows: 
+      - "Push base image"
+    types:
+      - "completed"
 
 env:
   DOCKER_USER: lcnetdev
