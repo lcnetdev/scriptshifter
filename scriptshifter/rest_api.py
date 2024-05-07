@@ -3,7 +3,7 @@ import logging
 from base64 import b64encode
 from copy import deepcopy
 from email.message import EmailMessage
-from json import dumps, loads
+from json import dumps
 from os import environ, urandom
 from smtplib import SMTP
 
@@ -106,16 +106,16 @@ def get_options(lang):
 
 @app.route("/trans", methods=["POST"])
 def transliterate_req():
-    lang = request.form["lang"]
-    in_txt = request.form["text"]
-    capitalize = request.form.get("capitalize", False)
-    t_dir = request.form.get("t_dir", "s2r")
+    lang = request.json["lang"]
+    in_txt = request.json["text"]
+    capitalize = request.json.get("capitalize", False)
+    t_dir = request.json.get("t_dir", "s2r")
     if t_dir not in ("s2r", "r2s"):
         return f"Invalid direction: {t_dir}", 400
 
     if not len(in_txt):
         return ("No input text provided! ", 400)
-    options = loads(request.form.get("options", "{}"))
+    options = request.json.get("options", {})
     logger.debug(f"Extra options: {options}")
 
     try:
