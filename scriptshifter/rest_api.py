@@ -52,7 +52,7 @@ def handle_400(e):
     if logging.DEBUG >= logging.root.level:
         body = {
             "debug": {
-                "form_data": request.form,
+                "form_data": request.json or request.form,
             }
         }
     else:
