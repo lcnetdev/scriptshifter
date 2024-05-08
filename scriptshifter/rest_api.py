@@ -131,14 +131,9 @@ def feedback():
     """
     Allows users to provide feedback to improve a specific result.
     """
-    lang = request.form["lang"]
-    src = request.form["src"]
-    t_dir = request.form.get("t_dir", "s2r")
-    result = request.form["result"]
-    expected = request.form["expected"]
-    options = request.form.get("options", {})
-    notes = request.form.get("notes")
-    contact = request.form.get("contact")
+    t_dir = request.json.get("t_dir", "s2r")
+    options = request.json.get("options", {})
+    contact = request.json.get("contact")
 
     msg = EmailMessage()
     msg["subject"] = "Scriptshifter feedback report"
@@ -148,16 +143,16 @@ def feedback():
         msg["cc"] = contact
     msg.set_content(f"""
         *Scriptshifter feedback report from {contact or 'anonymous'}*\n\n
-        *Language:* {lang}\n
+        *Language:* {request.json['lang']}\n
         *Direction:* {
                     'Roman to Script' if t_dir == 'r2s'
                     else 'Script to Roman'}\n
-        *Source:* {src}\n
-        *Result:* {result}\n
-        *Expected result:* {expected}\n
+        *Source:* {request.json['src']}\n
+        *Result:* {request.json['result']}\n
+        *Expected result:* {request.json['expected']}\n
         *Applied options:* {dumps(options)}\n
         *Notes:*\n
-        {notes}""")
+        {request.json['notes']}""")
 
     # TODO This uses a test SMTP server:
     # python -m smtpd -n -c DebuggingServer localhost:1025

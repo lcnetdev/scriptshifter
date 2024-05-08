@@ -69,6 +69,10 @@ Transliterate an input string into a given language.
 
 ### POST body
 
+MIME type: `application/json`
+
+Content: JSON object with the following keys:
+
 - `lang`: Language code as given by the `/languages` endpoint. 
 - `text`: Input text to be transliterated.
 - `capitalize`: One of `first` (capitalize the first letter of the input),
@@ -92,3 +96,22 @@ Content: JSON object containing two keys: `ouput` containing the transliterated
 string; and `warnings` containing a list of warnings. Characters not found in
 the mapping are copied verbatim in the transliterated string (see
 "Configuration files" section for more information).
+
+## `POST /feedback`
+
+Send a feedback form about a transliteration result.
+
+### POST body
+
+MIME type: `application/json`
+
+Content: JSON object with the following keys:
+
+    `lang`: language of the transliteration. Mandatory.
+    `src`: source text. Mandatory.
+    `t_dir`: transliteration direction. If omitted, it defaults to `s2r`.
+    `result`: result of the transliteration. Mandatory.
+    `expected`: expected result. Mandatory.
+    `options`: options passed to the request, if any.
+    `notes`: optional user notes.
+    `contact`: contact email for feedback. Optional.
