@@ -94,33 +94,33 @@ document.getElementById('transliterate').addEventListener('submit',(event)=>{
     }
     document.getElementById('loader_results').classList.remove("hidden");
 
-    const data = new URLSearchParams();
-
     let t_dir = Array.from(document.getElementsByName("t_dir")).find(r => r.checked).value;
 
     let capitalize = Array.from(document.getElementsByName("capitalize")).find(r => r.checked).value;
 
 
-    data.append('text',document.getElementById('text').value)
-    data.append('lang',document.getElementById('lang').value)
-    data.append('t_dir',t_dir)
-    data.append('capitalize',capitalize)
+    const data = {
+        'text': document.getElementById('text').value,
+        'lang': document.getElementById('lang').value,
+        't_dir': t_dir,
+        'capitalize': capitalize,
+        'options': {}
+    }
 
-    let options = {};
     let option_inputs = document.getElementsByClassName("option_i");
     for (i = 0; i < option_inputs.length; i++) {
         let el = option_inputs[i];
         if (el.type == "checkbox") {
-            options[el.id] = el.checked;
+            data['options'][el.id] = el.checked;
         } else {
-            options[el.id] = el.value;
+            data['options'][el.id] = el.value;
         }
     };
-    data.append('options', JSON.stringify(options));
 
     fetch('/trans', {
         method: 'post',
-        body: data,
+        body: JSON.stringify(data),
+        headers: {"Content-Type": "application/json"}
     })
     .then(response=>response.json())
     .then((results)=>{
@@ -133,7 +133,7 @@ document.getElementById('transliterate').addEventListener('submit',(event)=>{
             fb_btn.classList.remove("hidden");
         }
 
-        if (results.warnings.length>0){
+        if (results.warnings && results.warnings.length>0){
             document.getElementById('warnings-toggle').classList.remove("hidden");
             document.getElementById('warnings').innerText = "WARNING:\n" + results.warnings.join("\n")
         }
@@ -167,26 +167,27 @@ if (fb_active) {
     })
 
     document.getElementById('feedback_form').addEventListener('submit',(event)=>{
-        const data = new URLSearchParams();
-        data.append('lang', document.getElementById('lang_fb_input').value);
-        data.append('src', document.getElementById('src_fb_input').value);
-        data.append('t_dir', document.getElementById('t_dir_fb_input').value);
-        data.append('result', document.getElementById('result_fb_input').value);
-        data.append('expected', document.getElementById('expected_fb_input').value);
-        data.append('contact', document.getElementById('contact_fb_input').value);
-        data.append('notes', document.getElementById('notes_fb_input').value);
+        const data = {
+            'lang': document.getElementById('lang_fb_input').value,
+            'src': document.getElementById('src_fb_input').value,
+            't_dir': document.getElementById('t_dir_fb_input').value,
+            'result': document.getElementById('result_fb_input').value,
+            'expected': document.getElementById('expected_fb_input').value,
+            'contact': document.getElementById('contact_fb_input').value,
+            'notes': document.getElementById('notes_fb_input').value,
+            'options': {}
+        };
 
-        let options = {};
         let option_inputs = document.getElementsByClassName("option_i");
         for (i = 0; i < option_inputs.length; i++) {
             let el = option_inputs[i];
-            options[el.getAttribute('id')] = el.value;
+            data['options'][el.getAttribute('id')] = el.value;
         };
-        data.append('options', JSON.stringify(options));
 
         fetch('/feedback', {
             method: 'post',
-            body: data,
+            body: JSON.stringify(data),
+            headers: {"Content-Type": "application/json"}
         })
         .then(response=>response.json())
         .then((results)=>{

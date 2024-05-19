@@ -11,7 +11,7 @@ try:
 except ImportError:
     from yaml import Loader
 
-from scriptshifter.exceptions import ConfigError
+from scriptshifter.exceptions import BREAK, ConfigError
 
 
 __doc__ = """
@@ -126,7 +126,10 @@ class Token(str):
 @cache
 def list_tables():
     """
-    List all the available tables.
+    List all the indexed tables.
+
+    Note that this may not correspond to all the table files in the data
+    folder, but only those exposed in the index.
     """
     with open(path.join(TABLE_DIR, "index.yml")) as fh:
         tdata = load(fh, Loader=Loader)
@@ -150,7 +153,18 @@ def load_table(tname):
     with open(fname) as fh:
         tdata = load(fh, Loader=Loader)
 
-    # NOTE Only one level of inheritance. No need for recursion for now.
+    # Pre-config hooks.
+    # If any of these hooks returns BREAK, interrupt the configuration
+    # parsing and return whatever is obtained so far.
+    if "hooks" in tdata:
+        tdata["hooks"] = load_hook_fn(tname, tdata)
+    pre_cfg_hooks = tdata.get("hooks", {}).get("pre_config", [])
+    for hook_def in pre_cfg_hooks:
+        kwargs = hook_def[1] if len(hook_def) > 1 else {}
+        ret = hook_def[0](tdata, **kwargs)
+        if ret == BREAK:
+            return tdata
+
     parents = tdata.get("general", {}).get("parents", [])
 
     if "script_to_roman" in tdata:

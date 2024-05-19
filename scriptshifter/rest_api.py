@@ -3,7 +3,7 @@ import logging
 from base64 import b64encode
 from copy import deepcopy
 from email.message import EmailMessage
-from json import dumps, loads
+from json import dumps
 from os import environ, urandom
 from smtplib import SMTP
 
@@ -52,7 +52,7 @@ def handle_400(e):
     if logging.DEBUG >= logging.root.level:
         body = {
             "debug": {
-                "form_data": request.form,
+                "form_data": request.json or request.form,
             }
         }
     else:
@@ -106,16 +106,16 @@ def get_options(lang):
 
 @app.route("/trans", methods=["POST"])
 def transliterate_req():
-    lang = request.form["lang"]
-    in_txt = request.form["text"]
-    capitalize = request.form.get("capitalize", False)
-    t_dir = request.form.get("t_dir", "s2r")
+    lang = request.json["lang"]
+    in_txt = request.json["text"]
+    capitalize = request.json.get("capitalize", False)
+    t_dir = request.json.get("t_dir", "s2r")
     if t_dir not in ("s2r", "r2s"):
         return f"Invalid direction: {t_dir}", 400
 
     if not len(in_txt):
         return ("No input text provided! ", 400)
-    options = loads(request.form.get("options", "{}"))
+    options = request.json.get("options", {})
     logger.debug(f"Extra options: {options}")
 
     try:
@@ -131,14 +131,9 @@ def feedback():
     """
     Allows users to provide feedback to improve a specific result.
     """
-    lang = request.form["lang"]
-    src = request.form["src"]
-    t_dir = request.form.get("t_dir", "s2r")
-    result = request.form["result"]
-    expected = request.form["expected"]
-    options = request.form.get("options", {})
-    notes = request.form.get("notes")
-    contact = request.form.get("contact")
+    t_dir = request.json.get("t_dir", "s2r")
+    options = request.json.get("options", {})
+    contact = request.json.get("contact")
 
     msg = EmailMessage()
     msg["subject"] = "Scriptshifter feedback report"
@@ -148,16 +143,16 @@ def feedback():
         msg["cc"] = contact
     msg.set_content(f"""
         *Scriptshifter feedback report from {contact or 'anonymous'}*\n\n
-        *Language:* {lang}\n
+        *Language:* {request.json['lang']}\n
         *Direction:* {
                     'Roman to Script' if t_dir == 'r2s'
                     else 'Script to Roman'}\n
-        *Source:* {src}\n
-        *Result:* {result}\n
-        *Expected result:* {expected}\n
+        *Source:* {request.json['src']}\n
+        *Result:* {request.json['result']}\n
+        *Expected result:* {request.json['expected']}\n
         *Applied options:* {dumps(options)}\n
         *Notes:*\n
-        {notes}""")
+        {request.json['notes']}""")
 
     # TODO This uses a test SMTP server:
     # python -m smtpd -n -c DebuggingServer localhost:1025

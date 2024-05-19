@@ -1,3 +1,7 @@
 [submodule "ext/arabic_rom"]
 	path = ext/arabic_rom
 	url = https://github.com/fadhleryani/Arabic_ALA-LC_Romanization.git
+[submodule "ext/yiddish"]
+	path = ext/yiddish
+	url = https://github.com/scossu/yiddish.git
+	branch = loc
