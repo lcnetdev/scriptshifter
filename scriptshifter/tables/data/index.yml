@@ -58,6 +58,8 @@ greek_classical:
   name: Greek (classical)
 greek_modern:
   name: Greek (modern)
+gujarati:
+  name: Gujarati
 hebrew:
   name: Hebrew
 hindi:
@@ -68,6 +70,8 @@ katakana:
   name: Japanese (Katakana)
 kalmyk_cyrillic:
   name: Kalmyk (Cyrillic)
+kannada:
+  name: Kannada
 kara-kalpak_cyrillic:
   name: Kara-Kalpak (Cyrillic)
 karachai-balkar_cyrillic:
@@ -80,6 +84,8 @@ khakass_cyrillic:
   name: Khakass (Cyrillic)
 khanty_cyrillic:
   name: Khanty (Cyrillic)
+khmer:
+  name: Khmer
 komi_cyrillic:
   name: Komi (Cyrillic)
 korean_nonames:
@@ -96,8 +102,12 @@ lithuanian_cyrillic:
   name: Lithuanian (Cyrillic)
 macedonian:
   name: Macedonian
+marathi:
+  name: Marathi (Devanagari)
 mansi_cyrillic:
   name: Mansi (Cyrillic)
+malayalam:
+  name: Malayalam
 moldovan_cyrillic:
   name: Moldovan (Cyrillic)
 mongolian_cyrillic:
@@ -108,8 +118,16 @@ mordvin_cyrillic:
   name: Mordvin (Cyrillic)
 nenets_cyrillic:
   name: Nenets (Cyrillic)
+oriya:
+  name: Oriya
 ossetic_cyrillic:
   name: Ossetic (Cyrillic)
+pali:
+  name: Pali
+panjabi:
+  name: Panjabi
+prakrit:
+  name: Prakrit (Devanagari)
 pulaar:
   name: Pulaar (Adlam)
 gurmukhi:
@@ -118,10 +136,14 @@ romani_cyrillic:
   name: Romani (Cyrillic)
 russian:
   name: Russian
+sanskrit:
+  name: Sanskrit (Devanagari)
 serbian:
   name: Serbian
 shor_cyrillic:
   name: Shor (Cyrillic)
+sinhalese:
+  name: Sinhalese
 syriac_cyrillic:
   name: Syriac (Cyrillic)
 tajik_cyrillic:
@@ -132,6 +154,8 @@ tamil_brahmi:
   name: Tamil Brahmi
 tamil_extended:
   name: Tamil (extended)
+telugu:
+  name: Telugu
 thai:
   name: Thai
 tatar-kryashen_cyrillic:
