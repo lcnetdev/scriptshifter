@@ -44,6 +44,8 @@ chuvash_cyrillic:
   name: Chuvash (Cyrillic)
 devanagari:
   name: Devanagari
+dogri_devanagari:
+  name: Dogri (Devanagari)
 dungan_cyrillic:
   name: Dungan (Cyrillic)
 ethiopic:
@@ -102,7 +104,7 @@ lithuanian_cyrillic:
   name: Lithuanian (Cyrillic)
 macedonian:
   name: Macedonian
-marathi:
+marathi_devanagari:
   name: Marathi (Devanagari)
 mansi_cyrillic:
   name: Mansi (Cyrillic)
@@ -118,6 +120,10 @@ mordvin_cyrillic:
   name: Mordvin (Cyrillic)
 nenets_cyrillic:
   name: Nenets (Cyrillic)
+newari_devanagari:
+  name: Newari (Devanagari)
+nepali_devanagari:
+  name: Nepali (Devanagari)
 oriya:
   name: Oriya
 ossetic_cyrillic:
@@ -126,17 +132,19 @@ pali:
   name: Pali
 panjabi:
   name: Panjabi
-prakrit:
+prakrit_devanagari:
   name: Prakrit (Devanagari)
 pulaar:
   name: Pulaar (Adlam)
+rajasthani_devanagari:
+  name: Rajasthani (Devanagari)
 gurmukhi:
   name: Punjabi (Gurmukhi)
 romani_cyrillic:
   name: Romani (Cyrillic)
 russian:
   name: Russian
-sanskrit:
+sanskrit_devanagari:
   name: Sanskrit (Devanagari)
 serbian:
   name: Serbian
