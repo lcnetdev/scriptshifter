@@ -1,0 +1,16 @@
+general:
+  name: Rajasthani (Devanagari)
+
+script_to_roman:
+  hooks:
+    post_config:
+      -
+        - aksharamukha.romanizer.s2r_post_config
+        - src_script: "Devanagari"
+
+roman_to_script:
+  hooks:
+    post_config:
+      -
+        - aksharamukha.romanizer.r2s_post_config
+        - dest_script: "Devanagari"
