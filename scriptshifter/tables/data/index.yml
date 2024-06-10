@@ -44,6 +44,8 @@ chuvash_cyrillic:
   name: Chuvash (Cyrillic)
 devanagari:
   name: Devanagari
+divehi_thaana:
+  name: Divehi (Thaana)
 dogri_devanagari:
   name: Dogri (Devanagari)
 dungan_cyrillic:
@@ -98,6 +100,8 @@ korean_names:
   description: Korean S2R for strings ONLY containing personal names formatted as last + first name. Separate multiple names with a comma or a center-dot (U+00B7).
 koryak_cyrillic:
   name: Koryak (Cyrillic)
+kurdish:
+  name: Kurdish
 kyrgyz_cyrillic:
   name: Kyrgyz (Cyrillic)
 lithuanian_cyrillic:
@@ -132,10 +136,14 @@ pali:
   name: Pali
 panjabi:
   name: Panjabi
+persian:
+  name: Persian
 prakrit_devanagari:
   name: Prakrit (Devanagari)
 pulaar:
   name: Pulaar (Adlam)
+pushto:
+  name: Pushto
 rajasthani_devanagari:
   name: Rajasthani (Devanagari)
 gurmukhi:
@@ -182,6 +190,8 @@ uighur_cyrillic:
   name: Uighur (Cyrillic)
 ukrainian:
   name: Ukrainian
+urdu:
+  name: Urdu
 uzbek_cyrillic:
   name: Uzbek (Cyrillic)
 yakut_cyrillic:
