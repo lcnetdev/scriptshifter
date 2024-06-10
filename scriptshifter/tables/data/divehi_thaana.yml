@@ -1,7 +1,7 @@
 general:
   name: Divehi (Thaana)
 
-script_to_roman:
+roman_to_script:
   map:
     # COMMON COMBINING CHARACTERS (always follow a base letter)
 
