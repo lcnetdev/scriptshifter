@@ -1,0 +1,435 @@
+general:
+  name: Divehi (Thaana)
+
+script_to_roman:
+  map:
+    # COMMON COMBINING CHARACTERS (always follow a base letter)
+
+    # combining acute \u0301
+    # combining tilde \u0303
+    # combining macron \u0304
+    # combining dot above \u0307
+    # combining dot below \u0323
+    # combining diaeresis below \u0324
+    # combining low line \u0332
+    # combining breve below \u032E
+    # ayn (spacing) \u02BB
+    # apostrophe (spacing) \u0027
+
+    # REGULAR LATIN ALPHABETIC CHARACTERS TO BE CONVERTED
+
+    # THAANA LETTER ALIF APPEARING MEDIALLY WITH ANY VOWEL IS ROMANIZED WITH APOSTROPHE
+    # ORIGINAL VOWEL ASSOCIATED WITH THE ALIF CANNOT BE REGENERATED DURING CONVERSION
+    "\u0027": "\u0787"
+
+    # THAANA LETTER SHAVIYANI WITH SUKUN(BREVE 032E)
+    "H\u032E": "\u0781\u07B0"
+    "hh": "\u0787\u07B0\u0780"
+    "h\u032E": "\u0781\u07B0"
+
+    # THAANA LETTER ALIFU FINAL WITH SUKUN (LOW LINE 0332)
+    "%H\u0332": "\u0787\u07B0"
+    "%h\u0332": "\u0787\u07B0"
+    "H": "\u0780"
+    "h": "\u0780"
+    "S\u0301": "\u0781"
+    "ss": "\u0787\u07B0\u0781"
+    "s\u0301": "\u0781"
+
+    # THAANA LETTER MEDIAL NOONU WITHOUT SUKUN (DOT ABOVE 0307)
+    "M\u0307": "\u0782"
+    "m\u0307": "\u0782"
+    "mm": "\u0787\u07B0\u0789"
+    "N": "\u0782"
+    "nn": "\u0787\u07B0\u0782"
+    "n": "\u0782"
+    "R": "\u0783"
+    "rr": "\u0787\u07B0\u0783"
+    "r": "\u0783"
+    "B": "\u0784"
+    "bb": "\u0787\u07B0\u0784"
+    "b": "\u0784"
+
+    # THAANA LETTER "L/l" WITH DOT BELOW (0323) 
+    "L\u0323": "\u0785"
+    "l\u0323": "\u0785"
+    "K": "\u0786"
+    "kk": "\u0787\u07B0\u0786"
+    "k": "\u0786"
+
+    # THAANA LETTER ALIF--OFTEN OMITTED IN ROMANIZATION (SEE VOWEL CONVERSION BELOW)
+    "\u0027": "\u0787"
+
+    "V": "\u0788"
+    "vv": "\u0787\u07B0\u0788"
+    "v": "\u0788"
+    "M": "\u0789"
+    "m": "\u0789"
+    "F": "\u078A"
+    "ff": "\u0787\u07B0\u078A"
+    "f": "\u078A"
+    # THAANA LETTER "D/d" WITH DOT BELOW (0323) 
+    "D\u0323": "\u0791"
+    "d\u0323": "\u0791"
+    "D": "\u078B"
+    "dd": "\u0787\u07B0\u078B"
+    "d": "\u078B"
+    # THAANA LETTER "T/t" WITH DOT BELOW (0323) 
+    "T\u0323": "\u0793"
+    "t\u0323": "\u0793"
+    "T\u0324T": "\u078C\u07B0\u078C"
+    "T\u0324t": "\u078C\u07B0\u078C"
+    "t\u0324t": "\u078C\u07B0\u078C"
+    "t\u0324T": "\u078C\u07B0\u078C"
+    "T": "\u078C"
+    "tt": "\u0787\u07B0\u078C"
+    "t": "\u078C"
+    "L": "\u078D"
+    "ll": "\u0787\u07B0\u078D"
+    "l": "\u078D"
+    "G": "\u078E"
+    "gg": "\u0787\u07B0\u078E"
+    "g": "\u078E"
+    # THAANA LETTER "N/n' WITH TILDE (0303)
+    "N\u0303": "\u078F"
+    "n\u0303": "\u078F"
+    "S": "\u0790"
+    "ss": "\u0787\u07B0\u0790"
+    "s": "\u0790"
+    "Z": "\u0792"
+    "zz": "\u0787\u07B0\u0792"
+    "z": "\u0792"
+    "Y": "\u0794"
+    "yy": "\u0787\u07B0\u0794"
+    "y": "\u0794"
+    "P": "\u0795"
+    "p": "\u0795"
+    "pp": "\u0787\u07B0\u0795"
+    "J": "\u0796"
+    "jj": "\u0787\u07B0\u0796"
+    "j": "\u0796"
+    "C": "\u0797"
+    "cc": "\u0787\u07B0\u0797"
+    "c": "\u0797"
+
+    # THAANA EXTENSION FOR ARABIC LOAN WORDS AND NAMES
+
+    # THAANA EXTENSION FOR ARABIC LETTER TTAA
+    "TH": "\u0798"
+    "Th": "\u0798"
+    "thth": "\u0787\u07B0\u0798"
+    "th": "\u0798"
+
+    # THAANA EXTENSION FOR ARABIC LETTER HHAA
+    "H\u0323": "\u0799"
+    "h\u0323": "\u0799"
+
+    # THAANA EXTENSION FOR ARABIC LETTER KHAA
+    "KH": "\u079A"
+    "Kh": "\u079A"
+    "khkh": "\u0787\u07B0\u079A"
+    "kh": "\u079A"
+
+    # THAANA EXTENSION FOR ARABIC LETTER THAALU
+    "DH": "\u079B"
+    "Dh": "\u079B"
+    "dhdh": "\u0787\u07B0\u079B"
+    "dh": "\u079B"
+
+    # THAANA EXTENSION FOR ARABIC LETTER ZAA (NEWER LETTER)
+    "Z\u0332": "\u079C"
+    "z\u0332": "\u079C"
+
+    # THAANA EXTENSION FOR ARABIC LETTER SHEENU
+    "SH": "\u079D"
+    "Sh": "\u079D"
+    "shsh": "\u0787\u07B0\u079D"
+    "sh": "\u079D"
+
+    # THAANA EXTENSION FOR ARABIC LETTER SAADHU
+    "S\u0323": "\u079E"
+    "s\u0323": "\u079E"
+
+    # THAANA EXTENSION FOR ARABIC LETTER TO
+    "T\u0324": "\u07A0"
+    "t\u0324": "\u07A0"
+
+    # THAANA EXTENSION FOR ARABIC LETTER ZO
+    "D\u0332": "\u07A1"
+    "d\u0332": "\u07A1"
+
+    # THAANA EXTENSION FOR ARABIC LETTER AINU
+    "\u02BB": "\u07A2"
+
+    # THAANA EXTENSION FOR ARABIC LETTER GHAINU
+    "GH": "\u07A3"
+    "Gh": "\u07A3"
+    "ghgh": "\u0787\u07B0\u07A3"
+    "gh": "\u07A3"
+
+    # THAANA EXTENSION FOR ARABIC LETTER QAAFU 
+    "Q": "\u07A4"
+    "qq": "\u0787\u07B0\u07A4"
+    "q": "\u07A4"
+
+    # THAANA EXTENSION FOR ARABIC LETTER WAAVU (NEWER LETTER)
+    "W": "\u07A5"
+    "ww": "\u0787\u07B0\u07A5"
+    "w": "\u07A5"
+
+    # INITIAL (AND UPPERCASE) VOWELS THAT CONVERT
+    # TO ALIF FOLLOWED BY VOWEL (ALIF OMITTED IN ROMANIZATION)
+    "A\u0304%": "\u0787\u07A7"
+    "A%": "\u0787\u07A6"
+    "\u0020a\u0304": "\u0020\u0787\u07A7"
+    "\u0020a": "\u0020\u0787\u07A6"
+    "E\u0304%": "\u0787\u07AD"
+    "E%": "\u0787\u07AC"
+    "\u0020e\u0304": "\u0020\u0787\u07AD"
+    "\u0020e": "\u0020\u0787\u07AC"
+    "I\u0304%": "\u0787\u07A9"
+    "I%": "\u0787\u07A8"
+    "\u0020i\u0304": "\u0020\u0787\u07A9"
+    "\u0020i": "\u0020\u0787\u07A8"
+    "O\u0304%": "\u0787\u07AF"
+    "O%": "\u0787\u07AE"
+    "\u0020o\u0304": "\u0020\u0787\u07AF"
+    "\u0020o": "\u0020\u0787\u07AE"
+    "U\u0304%": "\u0787\u07AB"
+    "U%": "\u0787\u07AB"
+    "\u0020u\u0304": "\u0020\u0787\u07AB"
+    "\u0020u": "\u0020\u0787\u07AB"
+
+    # THAANA MEDIAL OR FINAL VOWELS OVER ANY CONSONANT
+    # (THIS ASSUMES NO UPPERCASE VOWELS REMAIN)
+
+    "a\u0304": "\u07A7"
+    "a": "\u07A6"
+    "e\u0304": "\u07AD"
+    "e": "\u07AC"
+    "i\u0304": "\u07A9"
+    "i": "\u07A8"
+    "o\u0304": "\u07AF"
+    "o": "\u07AE"
+    "u\u0304": "\u07AB"
+    "u": "\u07AB"
+
+    # THAANA SUKUN (SILENCE) MARK; ONLY GENERATED IN OTHER COMBINATIONS
+    # "": "\u07B0"
+
+script_to_roman:
+  map:
+
+    # THAANA LETTER NOONU WITHOUT SUKUN FOLLOWED BY A CONSONANT
+    # IS ROMANIZED AS "m"+ DOT ABOVE (0307) THEN THE CONSONANT
+    # OTHERWISE LETTER NOONU MAPS TO "n"
+    "\u0782\u0780": "m\u0307\u0780"
+    "\u0782\u0781": "m\u0307\u0781"
+    "\u0782\u0783": "m\u0307\u0783"
+    "\u0782\u0784": "m\u0307\u0784"
+    "\u0782\u0785": "m\u0307\u0785"
+    "\u0782\u0786": "m\u0307\u0786"
+    "\u0782\u0788": "m\u0307\u0788"
+    "\u0782\u0789": "m\u0307\u0789"
+    "\u0782\u078A": "m\u0307\u078A"
+    "\u0782\u0791": "m\u0307\u0791"
+    "\u0782\u078B": "m\u0307\u078B"
+    "\u0782\u078C": "m\u0307\u078C"
+    "\u0782\u078D": "m\u0307\u078D"
+    "\u0782\u078E": "m\u0307\u078E"
+    "\u0782\u078F": "m\u0307\u078F"
+    "\u0782\u0790": "m\u0307\u0790"
+    "\u0782\u0792": "m\u0307\u0792"
+    "\u0782\u0794": "m\u0307\u0794"
+    "\u0782\u0795": "m\u0307\u0795"
+    "\u0782\u0796": "m\u0307\u0796"
+    "\u0782\u0797": "m\u0307\u0797"
+    "\u0782\u0798": "m\u0307\u0798"
+    "\u0782\u0799": "m\u0307\u0799"
+    "\u0782\u079A": "m\u0307\u079A"
+    "\u0782\u079B": "m\u0307\u079B"
+    "\u0782\u079C": "m\u0307\u079C"
+    "\u0782\u079D": "m\u0307\u079D"
+    "\u0782\u079E": "m\u0307\u079E"
+    "\u0782\u07A0": "m\u0307\u07A0"
+    "\u0782\u07A1": "m\u0307\u07A1"
+    "\u0782\u07A2": "m\u0307\u07A2"
+    "\u0782\u07A3": "m\u0307\u07A3"
+    "\u0782\u07A4": "m\u0307\u07A4"
+    "\u0782\u07A5": "m\u0307\u07A5"
+
+    # THAANA FINAL ALIFU WITH SUKUN (SILENCE) MARK
+    # IS ROMANIZED WITH "h"+LOW LINE (0332)
+    "\u0787\u07B0\u0020": "h\u0332\u0020"
+
+    # THAANA SHAVIYANI WITH SUKUN (SILENCE) MARK
+    # IS ROMANIZED WITH "h"+BREVE BELOW
+    "\u0781\u07B0": "h\u032E"
+
+    "\u0787\u07B0\u0780": "hh"
+    "\u0780": "h"
+
+    # THAANA ALIF WITH SUKUN AND SHAVIYANI
+    "\u0787\u07B0\u0781": "s\u0301s\u0301"
+
+    "\u0787\u07B0": "h\u0332"
+    "\u0781": "s\u0301"
+
+    "\u0787\u07B0\u0782": "nn"
+    "\u0782": "n"
+
+    "\u0787\u07B0\u0783": "rr"
+    "\u0783": "r"
+
+    "\u0787\u07B0\u0784": "bb"
+    "\u0784": "b"
+
+    "\u0787\u07B0\u0785": "l\u0323"
+    "\u0785": "l\u0323"
+
+    "\u0787\u07B0\u0786": "kk"
+    "\u0786": "k"
+
+    "\u0787\u07B0\u0788": "vv"
+    "\u0788": "v"
+
+    "\u0787\u07B0\u0789": "mm"
+    "\u0789": "m"
+
+    "\u0787\u07B0\u078A": "ff"
+    "\u078A": "f"
+
+    # THAANA LETTER "D/d" WITH DOT BELOW (0323) 
+    "\u0787\u07B0\u0791": "d\u0323d\u0323"
+    "\u0791": "d\u0323"
+
+    "\u0787\u07B0\u078B": "dd"
+    "\u078B": "d"
+
+    # THAANA LETTER "T/t" WITH DOT BELOW (0323)
+    "\u078C\u07B0\u078C": "t\u0324t"
+    "\u0787\u07B0\u078C": "tt"
+    "\u0793": "t\u0323"
+    "\u078C": "t"
+
+    "\u0787\u07B0\u078D": "ll"
+    "\u078D": "l"
+
+    "\u0787\u07B0\u078E": "gg"
+    "\u078E": "g"
+
+    # THAANA LETTER "N/n' WITH TILDE (0303)
+    "\u0787\u07B0\u078F": "n\u0303n\u0303"
+    "\u078F": "n\u0303"
+
+    "\u0787\u07B0\u0790": "ss"
+    "\u0790": "s"
+
+    "\u0787\u07B0\u0792": "zz"
+    "\u0792": "z"
+
+    "\u0787\u07B0\u0794": "yy"
+    "\u0794": "y"
+
+    "\u0787\u07B0\u0795": "pp"
+    "\u0795": "p"
+
+    "\u0787\u07B0\u0796": "jj"
+    "\u0796": "j"
+
+    "\u0787\u07B0\u0797": "cc"
+    "\u0797": "c"
+
+    # THAANA EXTENSION FOR ARABIC LETTER TTAA
+    "\u0787\u07B0\u0798": "thth"
+    "\u0798": "th"
+
+    # THAANA EXTENSION FOR ARABIC LETTER HHAA
+    "\u0787\u07B0\u0799": "h\u0323h\u0323"
+    "\u0799": "h\u0323"
+
+    # THAANA EXTENSION FOR ARABIC LETTER KHAA
+    "\u0787\u07B0\u079A": "khkh"
+    "\u079A": "kh"
+
+    # THAANA EXTENSION FOR ARABIC LETTER THAALU
+    "\u0787\u07B0\u079B": "dhdh"
+    "\u079B": "dh"
+
+    # THAANA EXTENSION FOR ARABIC LETTER ZAA (NEWER LETTER)
+    "\u0787\u07B0\u079C": "z\u0332z\u0332"
+    "\u079C": "z\u0332"
+
+    # THAANA EXTENSION FOR ARABIC LETTER SHEENU
+    "\u0787\u07B0\u079D": "shsh"
+    "\u079D": "sh"
+
+    # THAANA EXTENSION FOR ARABIC LETTER SAADHU
+    "\u0787U": "07B0\u079E=s\u0323s\u0323"
+    "\u079E": "s\u0323"
+
+    # THAANA EXTENSION FOR ARABIC LETTER TO
+    "\u0787U": "07B0\u07A0=t\u0324t\u0324"
+    "\u07A0": "t\u0324"
+
+    # THAANA EXTENSION FOR ARABIC LETTER ZO
+    "\u0787U": "07B0\u07A1=d\u0332d\u0332"
+    "\u07A1": "d\u0332"
+
+    # THAANA EXTENSION FOR ARABIC LETTER AINU
+    "\u0787U": "07B0\u07A2=\u02BB\u02BB"
+    "\u07A2": "\u02BB"
+
+    # THAANA EXTENSION FOR ARABIC LETTER GHAINU
+    "\u0787\u07B0\u07A3": "ghgh"
+    "\u07A3": "gh"
+
+    # THAANA EXTENSION FOR ARABIC LETTER QAAFU 
+    "\u0787\u07B0\u07A4": "qq"
+    "\u07A4": "q"
+
+    # THAANA EXTENSION FOR ARABIC LETTER WAAVU (NEWER LETTER)
+    "\u0787\u07B0\u07A5": "ww"
+    "\u07A5": "w"
+
+    # INITIAL VOWELS FOLLOWING ALIF (ALIF OMITTED IN ROMANIZATION)
+    "\u0020\u0787\u07A7": "\u0020a\u0304"
+    "\u0020\u0787\u07A6": "\u0020a"
+    "\u0020\u0787\u07AD": "\u0020e\u0304"
+    "\u0020\u0787\u07AC": "\u0020e"
+    "\u0020\u0787\u07A9": "\u0020i\u0304"
+    "\u0020\u0787\u07A8": "\u0020i"
+    "\u0020\u0787\u07AF": "\u0020o\u0304"
+    "\u0020\u0787\u07AE": "\u0020o"
+    "\u0020\u0787\u07AB": "\u0020u\u0304"
+    "\u0020\u0787\u07AB": "\u0020u"
+
+    # THAANA ALIF APPEARING MEDIALLY WITH ANY VOWEL
+    # IS ROMANIZED WITH APOSTROPHE FOLLOWED BY THE SAME VOWEL
+
+    "\u0787\u07A7": "\u0027a\u0304"
+    "\u0787\u07A6": "\u0027a"
+    "\u0787\u07AD": "\u0027e\u0304"
+    "\u0787\u07AC": "\u0027e"
+    "\u0787\u07A9": "\u0027i\u0304"
+    "\u0787\u07A8": "\u0027i"
+    "\u0787\u07AF": "\u0027o\u0304"
+    "\u0787\u07AE": "\u0027o"
+    "\u0787\u07AB": "\u0027u\u0304"
+    "\u0787\u07AB": "\u0027u"
+
+    # THAANA MEDIAL OR FINAL VOWELS OVER CONSONANTS EXCEPT ALIF
+    # THIS PRODUCES NO UPPERCASE UPPERCASE VOWELS
+    "\u07A7": "a\u0304"
+    "\u07A6": "a"
+    "\u07AD": "e\u0304"
+    "\u07AC": "e"
+    "\u07A9": "i\u0304"
+    "\u07A8": "i"
+    "\u07AF": "o\u0304"
+    "\u07AE": "o"
+    "\u07AB": "u\u0304"
+    "\u07AB": "u"
+
+    # THAANA LETTER ALIF--ANY REMAINING AFTER CONVERSION MAP TO APOSTROPHE
+    "\u0787": "\u0027"
