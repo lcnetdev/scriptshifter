@@ -174,7 +174,7 @@ roman_to_script:
     "ayy": "\u064A"
 
     # heh hamzah at end
-    "a\u0323h": "\u6C0"
+    "a\u0323h": "\u06C0"
 
     "A%": "\u0627"
     "a%": "\u0627"
