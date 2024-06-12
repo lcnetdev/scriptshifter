@@ -32,7 +32,7 @@ third-party library.
 |  [dogri_devanagari](../scriptshifter/tables/data/dogri_devanagari.yaml)  |  Dogri (Devanagari)  |  Y  |  Y  |    |  
 |  [dungan_cyrillic](../scriptshifter/tables/data/dungan_cyrillic.yaml)  |  Dungan (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [ethiopic](../scriptshifter/tables/data/ethiopic.yaml)  |  Ethiopic (Amharic)  |  Y  |  Y  |  beta  |  
-|  [even](../scriptshifter/tables/data/even.yaml)-evenki_cyrillic  |  Even/Evenki (Cyrillic)  |  Y  |  Y  |  stable  |  
+|  [even-evenki_cyrillic](../scriptshifter/tables/data/even.yaml)  |  Even/Evenki (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [gagauz_cyrillic](../scriptshifter/tables/data/gagauz_cyrillic.yaml)  |  Gagauz (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [georgian](../scriptshifter/tables/data/georgian.yaml)  |  Georgian  |  Y  |  Y  |  stable  |  
 |  [greek_classical](../scriptshifter/tables/data/greek_classical.yaml)  |  Greek (classical)  |  Y  |  Y  |  stable  |  
@@ -44,8 +44,8 @@ third-party library.
 |  [hiragana](../scriptshifter/tables/data/hiragana.yaml)  |  Japanese (Hiragana)  |  Y  |  Y  |    |  
 |  [kalmyk_cyrillic](../scriptshifter/tables/data/kalmyk_cyrillic.yaml)  |  Kalmyk (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [kannada](../scriptshifter/tables/data/kannada.yaml)  |  Kannada  |  Y  |  Y  |    |  s-to-r lacks capitalization
-|  [kara](../scriptshifter/tables/data/kara.yaml)-kalpak_cyrillic  |  Kara-Kalpak (Cyrillic)  |  Y  |  Y  |  stable  |  
-|  [karachai](../scriptshifter/tables/data/karachai.yaml)-balkar_cyrillic  |  Karachay-Balkar  (Cyrillic)  |  Y  |  Y  |  stable  |  
+|  [kara-kalpak_cyrillic](../scriptshifter/tables/data/kara.yaml)  |  Kara-Kalpak (Cyrillic)  |  Y  |  Y  |  stable  |  
+|  [karachai-balkar_cyrillic](../scriptshifter/tables/data/karachai.yaml)  |  Karachay-Balkar  (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [karelian_cyrillic](../scriptshifter/tables/data/karelian_cyrillic.yaml)  |  Karelian  (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [katakana](../scriptshifter/tables/data/katakana.yaml)  |  Japanese (Katakana)  |  Y  |  Y  |    |  
 |  [kazakh_cyrillic](../scriptshifter/tables/data/kazakh_cyrillic.yaml)  |  Kazakh (Cyrillic)  |  Y  |  Y  |  stable  |  
@@ -92,7 +92,7 @@ third-party library.
 |  [tamil](../scriptshifter/tables/data/tamil.yaml)  |  Tamil  |  Y  |  Y  |  beta  |  
 |  [tamil_brahmi](../scriptshifter/tables/data/tamil_brahmi.yaml)  |  Tamil Brahmi  |  Y  |  Y  |    |  
 |  [tamil_extended](../scriptshifter/tables/data/tamil_extended.yaml)  |  Tamil (extended)  |  Y  |  Y  |    |  
-|  [tatar](../scriptshifter/tables/data/tatar.yaml)-kryashen_cyrillic  |  Tatar-Kryashen (Cyrillic)  |  Y  |  Y  |  stable  |  
+|  [tatar-kryashen_cyrillic](../scriptshifter/tables/data/tatar.yaml)  |  Tatar-Kryashen (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [tatar_cyrillic](../scriptshifter/tables/data/tatar_cyrillic.yaml)  |  Tatar (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [telugu](../scriptshifter/tables/data/telugu.yaml)  |  Telugu  |  Y  |  Y  |    |  s-to-r lacks capitalization
 |  [thai](../scriptshifter/tables/data/thai.yaml)  |  Thai  |  Y  |  Y  |    |  
