@@ -2,6 +2,8 @@
 
 REST API service to convert non-Latin scripts to Latin, and vice versa.
 
+[View supported scripts](/doc/supported_scripts.md).
+
 ## Environment variables
 
 The provided `example.env` can be renamed to `.env` in your deployment and/or
