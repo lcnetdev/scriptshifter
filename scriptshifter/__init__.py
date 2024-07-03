@@ -10,6 +10,14 @@ env = load_dotenv()
 APP_ROOT = path.dirname(path.realpath(__file__))
 
 """
+SQLite database path.
+
+This DB stores all the runtime transliteration data.
+"""
+DB_PATH = environ.get(
+        "DB_PATH", path.join(APP_ROOT, "data", "scriptshifter.db"))
+
+"""
 SMTP server for sending email. For a dummy server that just echoes the
 messages, run: `python -m smtpd -n -c DebuggingServer localhost:1025`
 and set SMTP_HOST to "localhost".

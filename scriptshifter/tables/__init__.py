@@ -1,9 +1,10 @@
 import logging
 import re
+import sqlite3
 
 from functools import cache
 from importlib import import_module
-from os import environ, path, access, R_OK
+from os import R_OK, access, environ, makedirs, path, unlink
 
 from yaml import load
 try:
@@ -11,6 +12,7 @@ try:
 except ImportError:
     from yaml import Loader
 
+from scriptshifter import DB_PATH
 from scriptshifter.exceptions import BREAK, ConfigError
 
 
@@ -52,6 +54,10 @@ TOKEN_WB_MARKER = "%"
 BOW = 1 << 1
 EOW = 1 << 0
 
+# Feature flags used in database tables.
+FEAT_S2R = 1 << 0       # Has S2R
+FEAT_R2S = 1 << 1       # Has R2S
+FEAT_CASEI = 1 << 2     # Case-insensitive script.
 
 logger = logging.getLogger(__name__)
 
@@ -121,6 +127,38 @@ class Token(str):
 
     def __hash__(self):
         return hash(self.content)
+
+
+def init_db():
+    """
+    Populate database with language data.
+
+    This operation removes any preexisting database.
+
+    All tables in the index file (`./data/index.yml`) will be parsed
+    (including inheritance rules) and loaded into the designated DB.
+
+    This must be done only once at bootstrap. To update individual tables,
+    see populate_table(), which this function calls iteratively.
+    """
+    # Remove preexisting DB and create parent diretories if necessary.
+    makedirs(path.dirname(DB_PATH), exist_ok=True)
+    if path.isfile(DB_PATH):
+        unlink(DB_PATH)
+
+    conn = sqlite3.connect(DB_PATH)
+
+    # Initialize schema.
+    with open(path.join(path.dirname(DEFAULT_TABLE_DIR), "init.sql")) as fh:
+        conn.execute(fh.read())
+
+    # Populate tables.
+    for tname in list_tables().keys():
+        populate_table(tname)
+
+
+def populate_table(tname):
+    data = load_table(tname)
 
 
 @cache
