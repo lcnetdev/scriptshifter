@@ -8,6 +8,7 @@ from os import environ, urandom
 from smtplib import SMTP
 
 from flask import Flask, jsonify, render_template, request
+from flask_cors import CORS
 
 from scriptshifter import EMAIL_FROM, EMAIL_TO, SMTP_HOST, SMTP_PORT
 from scriptshifter.exceptions import ApiError
@@ -28,6 +29,7 @@ def create_app():
         "JSON_AS_ASCII": False,
         "JSONIFY_PRETTYPRINT_REGULAR": True,
     })
+    CORS(app)
 
     return app
 
