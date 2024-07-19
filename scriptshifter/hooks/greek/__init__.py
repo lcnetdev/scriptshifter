@@ -77,12 +77,17 @@ def parse_numeral(ctx):
     characters mixed with letter characters without a space. Therefore,
     "͵ακακαα" would transliterate "1021kaa", and "͵αακαα", "1001kaa".
     """
-    # Parse thousands.
+    # Parse ≥1000.
     if ctx.src[ctx.cur] == THOUSANDS_PREFIX:
         tk = ctx.src[ctx.cur + 1]
 
         try:
-            ctx.dest_ls.append(str(DIGITS[4][tk]))
+            # Exception for 2-letter digit.
+            if ctx.src[ctx.cur + 1: ctx.cur + 3] == "στ":
+                ctx.dest_ls.append(str(DIGITS[4]["στ"]))
+                ctx.cur += 1
+            else:
+                ctx.dest_ls.append(str(DIGITS[4][tk]))
             ctx.cur += 2
 
         except KeyError:
@@ -104,8 +109,13 @@ def parse_numeral(ctx):
                 ext[ext_cur] = str(DIGITS[3 - i][ctx.src[ctx.cur]])
                 ctx.cur += 1
             except KeyError:
-                # If the number char is not in the correct position, pad with 0
-                continue
+                # Exception for 2-letter digit.
+                if i == 2 and ctx.src[ctx.cur: ctx.cur + 2] == "στ":
+                    ext[ext_cur] = "6"
+                    ctx.cur += 2
+                else:
+                    # If the char is not in the correct position, pad with 0.
+                    continue
             finally:
                 ext_cur += 1
         ctx.dest_ls.extend(ext)
@@ -119,25 +129,51 @@ def parse_numeral(ctx):
     # transliterated characters.
     if ctx.src[ctx.cur] == NUM_SUFFIX:
         # Move back up to 3 positions.
-        breakpoint()
-        for i in range(1, 4):
-            cur = ctx.cur - i
+        offset = 0  # Added offset if στ is found.
+        parsed = 0  # Parsed numeral to replace the alpha characters.
+        breakout = False  # Break out of i loop.
+
+        i = 1  # Current position in the numeral. 1 = units, 2 = tens, etc.
+        mark_pos = ctx.cur  # Mark this position to resume parsing later.
+        while i < 4:
+            if breakout:
+                break
+            cur = ctx.cur - i - offset
             if cur >= 0:
                 num_tk = ctx.src[cur]  # Number to be parsed
-                if num_tk in DIGITS[i]:
-                    # Not yet reached word boundary.
-                    ctx.dest_ls[-i] = str(DIGITS[i][num_tk])
-                else:
-                    if ctx.src[cur] != " ":  # Word boundary.
-                        continue
-                        # Something's wrong.
+                # Exception for στ. Scan one character farther left.
+                if ctx.src[cur - 1:cur + 1] == "στ":
+                    num_tk = "στ"
+                    offset = 1
+                for j in range(i, 4):
+                    i = j
+                    if num_tk in DIGITS[j]:
+                        # Not yet reached word boundary.
+                        parsed += DIGITS[j][num_tk] * 10 ** (j - 1)
+                        break
+
+                    if num_tk == " " or cur == 0:  # Word boundary.
+                        breakout = True
+                        break
+
+                    # If we got here we tried all positions without finding a
+                    # match. Something's wrong.
+                    if j == 3:
+                        #     continue
                         ctx.warnings.append(
-                                f"Character `{ctx.src[cur] }` at position "
+                                f"Character `{num_tk}` at position "
                                 f"{cur} is not a valid digit character "
                                 f"at place #{4 - i} in a numeral.")
 
-                    ctx.cur += 1
-                    return CONT  # Continue normal parsing.
+                    # ctx.cur += 1 + offset
+                    # return CONT  # Continue normal parsing.
+            i += 1
 
-        ctx.cur += 1
+        if parsed > 0:
+            ctx.dest_ls = (
+                    ctx.dest_ls[:mark_pos - len(str(parsed)) - offset]
+                    + [str(parsed)])
+
+        ctx.cur = mark_pos + 1  # Skip past numeral suffix.
+
         return CONT
