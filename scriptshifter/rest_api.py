@@ -8,7 +8,6 @@ from os import environ, urandom
 from smtplib import SMTP
 
 from flask import Flask, jsonify, render_template, request
-from werkzeug.exceptions import BadRequest
 
 from scriptshifter import EMAIL_FROM, EMAIL_TO, SMTP_HOST, SMTP_PORT
 from scriptshifter.exceptions import ApiError
@@ -38,27 +37,29 @@ app = create_app()
 
 @app.errorhandler(ApiError)
 def handle_exception(e: ApiError):
-    return ({
-        "warnings": [
-            "ScriptShifter HTTP request failed with status code "
-            f"{e.status_code}: {e.msg}"
-        ],
-        "output": "",
-    }, e.status_code)
-
-
-@app.errorhandler(BadRequest)
-def handle_400(e):
-    if logging.DEBUG >= logging.root.level:
-        body = {
-            "debug": {
-                "form_data": request.json or request.form,
-            }
-        }
+    if e.status_code >= 500:
+        warnings = [
+            "An internal error occurred.",
+            "If the error persists, contact the technical support team."
+        ]
     else:
-        body = ""
+        warnings = [
+            "ScriptShifter API replied with status code "
+            f"{e.status_code}: {e.msg}"
+        ]
+        if e.status_code >= 400:
+            warnings.append(
+                    "Please review your input before repeating this request.")
 
-    return body, 400
+    body = {
+        "warnings": warnings,
+        "output": "",
+    }
+    if logging.DEBUG >= logging.root.level:
+        body["debug"] = {
+            "form_data": request.json or request.form,
+        }
+    return (body, e.status_code)
 
 
 @app.route("/", methods=["GET"])
@@ -121,7 +122,9 @@ def transliterate_req():
     try:
         out, warnings = transliterate(in_txt, lang, t_dir, capitalize, options)
     except (NotImplementedError, ValueError) as e:
-        return (str(e), 400)
+        raise ApiError(str(e), 400)
+    except Exception as e:
+        raise ApiError(str(e), 500)
 
     return {"output": out, "warnings": warnings}
 

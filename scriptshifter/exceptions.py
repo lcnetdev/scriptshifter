@@ -9,9 +9,11 @@ class ApiError(Exception):
     status_code = 400
     msg = "An undefined error occurred."
 
-    def __init__(self, msg=None):
+    def __init__(self, msg=None, status_code=None):
         if msg is not None:
             self.msg = msg
+        if status_code is not None:
+            self.status_code = status_code
 
     def to_json(self):
         return {
