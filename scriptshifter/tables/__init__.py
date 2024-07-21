@@ -67,7 +67,7 @@ class Token(str):
     flags = 0
 
     def __init__(self, content):
-        self.content = content
+        self.content = str(content)  # Normalize in case a token is passed.
 
         # Assign special precedence based on token position.
         # Standalone has precedence, then initial, then final, then medial.
