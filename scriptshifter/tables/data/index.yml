@@ -8,41 +8,64 @@
 # multiple-choice menu.
 
 abkhaz_cyrillic:
+  marc_code: abk
   name: Abkhaz (Cyrillic)
 altai_cyrillic:
+  marc_code: alt
   name: Altai (Cyrillic)
 arabic:
+  description: Arabic-to-Roman transliterator using the ArabicTransliterator external
+    library.
+  marc_code: ara
   name: Arabic (S2R)
-  description: Arabic-to-Roman transliterator using the ArabicTransliterator external library.
 armenian:
+  marc_code: arm
   name: Armenian
-azerbaijani_cyrillic:
-  name: Azerbaijani (Cyrillic)
 asian_cyrillic:
+  description: 'Multi-purpose transliteration for non-Slavic Cyrillic scripts: Abaza,
+    Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar, Bashkir, Buryat, Chechen, Chukchi,
+    Chuvash, Dargwa, Dungan, Eskimo, Even, Evenki, Gagauz, Ingush, Inuit, Kabardian,
+    Kalmyk, Karachay, Karachay-Balkar, Karakalpak, Karelian, Khakass, Khanty, Komi,
+    Komi-Permyak, Koryak, Kumyk, Lak, Lapp, Lezghian, Lithuanian, Mansi, Mari, Moldovan,
+    Molodstov, Mordvin, Nanai, Nenets, Nivkh, Nogai, Ossetic, Permyak, Romanian, Romany,
+    Selkup, Shor, Tabasaran, Tat, Tuva, Udekhe, Udmurt, Yakut.'
+  marc_code: abk, ady, alt, ava, bak, che, chv, dar, ale, esk, kbd, xal, krc, kaa,
+    krl, kom, kum, lez, lit, chm, nog, oss, rum, rom, sel, udm, sah
   name: Asian Cyrillic
-  description: >
-    Multi-purpose transliteration for non-Slavic Cyrillic scripts: Abaza, Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar, Bashkir, Buryat, Chechen, Chukchi, Chuvash, Dargwa, Dungan, Eskimo, Even, Evenki, Gagauz, Ingush, Inuit, Kabardian, Kalmyk, Karachay, Karachay-Balkar, Karakalpak, Karelian, Khakass, Khanty, Komi, Komi-Permyak, Koryak, Kumyk, Lak, Lapp, Lezghian, Lithuanian, Mansi, Mari, Moldovan, Molodstov, Mordvin, Nanai, Nenets, Nivkh, Nogai, Ossetic, Permyak, Romanian, Romany, Selkup, Shor, Tabasaran, Tat, Tuva, Udekhe, Udmurt, Yakut.
+azerbaijani_cyrillic:
+  marc_code: aze
+  name: Azerbaijani (Cyrillic)
 bashkir_cyrillic:
+  marc_code: bak
   name: Bashkir (Cyrillic)
 belarusian:
+  marc_code: bel
   name: Belarusian
 bengali:
+  marc_code: ben
   name: Bengali
 bulgarian:
+  marc_code: bul
   name: Bulgarian
 buriat:
+  marc_code: bua
   name: Buriat (Cyrillic)
 burmese:
+  marc_code: bur
   name: Burmese (Myanmar)
 chinese:
+  marc_code: chi
   name: Chinese (Hanzi)
 chukchi_cyrillic:
   name: Chukchi (Cyrillic)
 church_slavonic:
+  marc_code: chu
   name: Church Slavonic
 chuvash_cyrillic:
+  marc_code: chv
   name: Chuvash (Cyrillic)
 devanagari:
+  marc_code: hin, san
   name: Devanagari
 divehi_thaana:
   name: Divehi (Thaana)
@@ -51,38 +74,51 @@ dogri_devanagari:
 dungan_cyrillic:
   name: Dungan (Cyrillic)
 ethiopic:
+  marc_code: amh, eth
   name: Ethiopic (Amharic)
 even-evenki_cyrillic:
   name: Even/Evenki (Cyrillic)
 gagauz_cyrillic:
   name: Gagauz (Cyrillic)
 georgian:
+  marc_code: geo
   name: Georgian
 greek_classical:
+  marc_code: grc
   name: Greek (classical)
 greek_modern:
+  marc_code: gre
   name: Greek (modern)
 gujarati:
   name: Gujarati
 hebrew:
+  marc_code: heb
   name: Hebrew
 hindi:
+  marc_code: hin
   name: Hindi (Devanagari)
 hiragana:
+  marc_code: jpn
   name: Japanese (Hiragana)
-katakana:
-  name: Japanese (Katakana)
 kalmyk_cyrillic:
+  marc_code: xal
   name: Kalmyk (Cyrillic)
 kannada:
   name: Kannada
 kara-kalpak_cyrillic:
+  marc_code: kaa
   name: Kara-Kalpak (Cyrillic)
 karachai-balkar_cyrillic:
+  marc_code: krc
   name: Karachay-Balkar  (Cyrillic)
 karelian_cyrillic:
+  marc_code: krl
   name: Karelian  (Cyrillic)
+katakana:
+  marc_code: jpn
+  name: Japanese (Katakana)
 kazakh_cyrillic:
+  marc_code: kaz
   name: Kazakh (Cyrillic)
 khakass_cyrillic:
   name: Khakass (Cyrillic)
@@ -91,48 +127,57 @@ khanty_cyrillic:
 khmer:
   name: Khmer
 komi_cyrillic:
+  marc_code: kom
   name: Komi (Cyrillic)
-korean_nonames:
-  name: Korean
-  description: Korean S2R for strings NOT containing any personal names.
 korean_names:
+  description: Korean S2R for strings ONLY containing personal names formatted as
+    last + first name. Separate multiple names with a comma or a center-dot (U+00B7).
+  marc_code: kor
   name: Korean (last + first names only)
-  description: Korean S2R for strings ONLY containing personal names formatted as last + first name. Separate multiple names with a comma or a center-dot (U+00B7).
+korean_nonames:
+  description: Korean S2R for strings NOT containing any personal names.
+  marc_code: kor
+  name: Korean
 koryak_cyrillic:
   name: Koryak (Cyrillic)
 kurdish:
   name: Kurdish
 kyrgyz_cyrillic:
+  marc_code: kir
   name: Kyrgyz (Cyrillic)
 lithuanian_cyrillic:
+  marc_code: lit
   name: Lithuanian (Cyrillic)
 macedonian:
+  marc_code: mac
   name: Macedonian
 malayalam:
   name: Malayalam
-marathi_devanagari:
-  name: Marathi (Devanagari)
 mansi_cyrillic:
   name: Mansi (Cyrillic)
-malayalam:
-  name: Malayalam
+marathi_devanagari:
+  name: Marathi (Devanagari)
 moldovan_cyrillic:
+  marc_code: mol
   name: Moldovan (Cyrillic)
 mongolian_cyrillic:
+  marc_code: mon
   name: Mongolian (Cyrillic)
 mongolian_mongol_bichig:
+  marc_code: mon
   name: Mongolian (Mongol bichig)
 mordvin_cyrillic:
   name: Mordvin (Cyrillic)
 nenets_cyrillic:
   name: Nenets (Cyrillic)
-newari_devanagari:
-  name: Newari (Devanagari)
 nepali_devanagari:
   name: Nepali (Devanagari)
+newari_devanagari:
+  name: Newari (Devanagari)
 oriya:
   name: Oriya
 ossetic_cyrillic:
+  marc_code: oss
   name: Ossetic (Cyrillic)
 pali:
   name: Pali
@@ -144,63 +189,83 @@ prakrit_devanagari:
   name: Prakrit (Devanagari)
 pulaar:
   name: Pulaar (Adlam)
+gurmukhi:
+  marc_code: pan
+  name: Punjabi (Gurmukhi)
 pushto:
   name: Pushto
 rajasthani_devanagari:
   name: Rajasthani (Devanagari)
-gurmukhi:
-  name: Punjabi (Gurmukhi)
 romani_cyrillic:
+  marc_code: rom
   name: Romani (Cyrillic)
 russian:
+  marc_code: rus
   name: Russian
 sanskrit_devanagari:
   name: Sanskrit (Devanagari)
 serbian:
+  marc_code: srp
   name: Serbian
 shor_cyrillic:
   name: Shor (Cyrillic)
 sinhalese:
   name: Sinhalese
 syriac_cyrillic:
+  marc_code: syc
   name: Syriac (Cyrillic)
 tajik_cyrillic:
+  marc_code: tgk
   name: Tajik (Cyrillic)
 tamil:
+  marc_code: tam
   name: Tamil
 tamil_brahmi:
+  marc_code: tam
   name: Tamil Brahmi
 tamil_extended:
+  marc_code: tam
   name: Tamil (extended)
-telugu:
-  name: Telugu
-thai:
-  name: Thai
-thai_alt:
-  name: Thai (alternative)
 tatar-kryashen_cyrillic:
   name: Tatar-Kryashen (Cyrillic)
 tatar_cyrillic:
+  marc_code: tat
   name: Tatar (Cyrillic)
+telugu:
+  name: Telugu
+thai:
+  marc_code: tha
+  name: Thai
+thai_alt:
+  name: Thai (alternative)
 tibetan:
+  marc_code: tib
   name: Tibetan
 turkmen_cyrillic:
+  marc_code: tuk
   name: Turkmen (Cyrillic)
 tuvinian_cyrillic:
+  marc_code: tyv
   name: Tuvinian (Cyrillic)
 udmurt_cyrillic:
+  marc_code: udm
   name: Udmurt (Cyrillic)
 uighur_cyrillic:
+  marc_code: uig
   name: Uighur (Cyrillic)
 ukrainian:
+  marc_code: ukr
   name: Ukrainian
 urdu:
   name: Urdu
 uzbek_cyrillic:
+  marc_code: uzb
   name: Uzbek (Cyrillic)
 yakut_cyrillic:
+  marc_code: sah
   name: Yakut (Cyrillic)
 yiddish:
+  marc_code: yid
   name: Yiddish
 yuit_cyrillic:
   name: Yuit (Cyrillic)

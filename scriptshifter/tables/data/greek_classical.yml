@@ -590,7 +590,7 @@ script_to_roman:
     "\u03FE": "(.\u0333"
     "\u03FF": ".)\u0333"
 
-  roman_to_script:
+roman_to_script:
     map:
       ".)\u0333": "\u03FF"
       ".)": "\u037D"

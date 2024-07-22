@@ -169,6 +169,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                     logger.info(f"Ignored token: {ctx.tk}")
                     ctx.dest_ls.append(ctx.tk)
                     ctx.cur += step
+                    cur_char = ctx.src[ctx.cur]
                     ctx.ignoring = True
                     break
             # We looked through all ignore tokens, not found any. Move on.
