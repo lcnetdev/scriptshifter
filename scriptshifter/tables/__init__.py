@@ -4,6 +4,7 @@ import sqlite3
 
 from functools import cache
 from importlib import import_module
+from json import dumps
 from os import R_OK, access, environ, makedirs, path, unlink
 
 from yaml import load
@@ -19,8 +20,9 @@ from scriptshifter.exceptions import BREAK, ConfigError
 __doc__ = """
 Transliteration tables.
 
-These tables contain all transliteration information, grouped by script and
-language (or language and script? TBD)
+These tables contain all transliteration information. The static YML files are
+transformed and loaded into a database, which is the effective data source at
+runtime.
 """
 
 
@@ -55,9 +57,10 @@ BOW = 1 << 1
 EOW = 1 << 0
 
 # Feature flags used in database tables.
-FEAT_S2R = 1 << 0       # Has S2R
-FEAT_R2S = 1 << 1       # Has R2S
+FEAT_S2R = 1 << 0       # Has S2R.
+FEAT_R2S = 1 << 1       # Has R2S.
 FEAT_CASEI = 1 << 2     # Case-insensitive script.
+FEAT_RE = 1 << 3        # Regular expression.
 
 logger = logging.getLogger(__name__)
 
@@ -150,15 +153,84 @@ def init_db():
 
     # Initialize schema.
     with open(path.join(path.dirname(DEFAULT_TABLE_DIR), "init.sql")) as fh:
-        conn.execute(fh.read())
+        with conn:
+            conn.execute(fh.read())
 
     # Populate tables.
-    for tname in list_tables().keys():
-        populate_table(tname)
+    try:
+        with conn:
+            for tname, tdata in list_tables().items():
+                res = conn.execute(
+                    """INSERT INTO tbl_language (
+                        name, label, marc_code, description
+                    ) (?, ?, ?, ?)""",
+                    (
+                        tname, tdata.get("name"), tdata.get("marc_code"),
+                        tdata.get("description"),
+                    )
+                )
+                populate_table(conn, res.lastrowid, tname)
+    finally:
+        conn.close()
 
 
-def populate_table(tname):
+def populate_table(conn, tid, tname):
     data = load_table(tname)
+    flags = 0
+    if "script_to_roman" in data:
+        flags |= FEAT_S2R
+    if "roman_to_script" in data:
+        flags |= FEAT_R2S
+
+    conn.execute(
+            "UPDATE tbl_language SET features = ? WHERE id = ?",
+            (flags, tid))
+
+    for t_dir in (FEAT_S2R, FEAT_R2S):
+        sec = "script_to_roman" if t_dir == FEAT_S2R else "roman_to_script"
+
+        # Transliteration map.
+        for k, v in data.get(sec, {}).get("map", {}).items():
+            conn.execute(
+                    """INSERT INTO tbl_trans_map (
+                        lang_id, dir, src, dest
+                    ) VALUES (? ? ? ?)""",
+                    (tid, t_dir, k, v))
+
+        # hooks.
+        for k, v in data.get(sec, {}).get("hooks", {}).items():
+            for i, hook_data in enumerate(v, start=1):
+                conn.execute(
+                        """INSERT INTO tbl_hook (
+                            lang_id, dir, name, order, fn, signature
+                        ) VALUES (? ? ? ?)""",
+                        (tid, t_dir, k, i, hook_data[0], dumps(hook_data[1:])))
+
+    # Ignore rules for R2S only.
+    for row in data.get("roman_to_script", {}).get("ignore", []):
+        if isinstance(row, dict):
+            if "re" in row:
+                flags = FEAT_RE
+                rule = row["re"]
+            else:
+                flags = 0
+                rule = row
+
+        conn.execute(
+                """INSERT INTO tbl_ignore (
+                    lang_id, rule, features
+                ) VALUES (? ? ?)""",
+                (tid, rule, flags))
+
+    # Double caps (S2R).
+    for rule in data.get("roman_to_script", {}).get("double_cap", []):
+        conn.execute(
+                """INSERT INTO tbl_double_cap (
+                    lang_id, rule
+                ) VALUES (? ?)""",
+                (tid, rule))
+
+    # Normalize (S2R).
 
 
 @cache
