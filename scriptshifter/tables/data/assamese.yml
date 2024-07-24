@@ -1,16 +1,16 @@
 general:
-  name: Malayalam
+  name: Assamese
 
 script_to_roman:
   hooks:
     post_config:
       -
         - aksharamukha.romanizer.s2r_post_config
-        - src_script: "Malayalam"
+        - src_script: "Assamese"
 
 roman_to_script:
   hooks:
     post_config:
       -
         - aksharamukha.romanizer.r2s_post_config
-        - dest_script: "Malayalam"
+        - dest_script: "Assamese"

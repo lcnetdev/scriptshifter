@@ -344,6 +344,7 @@ script_to_roman:
     "\u037C": "(."
     "\u037D": ".)"
     "\u037E": "?\u0333"
+    ";": "?"
     "\u037F": "J"
     # \u0380 reserved
     # \u0381 reserved
@@ -589,11 +590,12 @@ script_to_roman:
     "\u03FE": "(.\u0333"
     "\u03FF": ".)\u0333"
 
-  roman_to_script:
+roman_to_script:
     map:
       ".)\u0333": "\u03FF"
       ".)": "\u037D"
       "?\u0333": "\u037E"
+      "?": "\u037E"
       "\"\u0332": "\u201C"
       "\"\u0333": "\u201D"
       "'\u0332": "\u2018"
