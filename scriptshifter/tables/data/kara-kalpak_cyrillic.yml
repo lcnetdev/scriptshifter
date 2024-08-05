@@ -27,11 +27,11 @@ roman_to_script:
 script_to_roman:
   map:
     "\u040E": "W"
-    "\u045E"" "w"
+    "\u045E": "w"
     "\u0492": "Gh"
     "\u0493": "gh"
     "\u049A": "Q"
-    "\u-49B": "q"
+    "\u049B": "q"
     "\u04A2": "N\uFE20G\uFE21"
     "\u04A3": "n\uFE20g\uFE21"
     "\u04AE": "U\u0307"

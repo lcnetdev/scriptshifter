@@ -4,7 +4,7 @@ general:
 options:
   - id: loshn_koydesh
     label: Loshn Koydesh
-    description: [TODO]
+    description: "[TODO]"
     type: boolean
     default: false
 

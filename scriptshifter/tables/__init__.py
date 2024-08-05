@@ -6,6 +6,7 @@ from functools import cache
 from importlib import import_module
 from json import dumps
 from os import R_OK, access, environ, makedirs, path, unlink
+from shutil import move
 
 from yaml import load
 try:
@@ -25,6 +26,9 @@ transformed and loaded into a database, which is the effective data source at
 runtime.
 """
 
+
+TMP_DB_PATH = path.join(
+        path.dirname(DB_PATH), "~tmp." + path.basename(DB_PATH))
 
 DEFAULT_TABLE_DIR = path.join(path.dirname(path.realpath(__file__)), "data")
 # Can be overridden for tests.
@@ -144,17 +148,17 @@ def init_db():
     This must be done only once at bootstrap. To update individual tables,
     see populate_table(), which this function calls iteratively.
     """
-    # Remove preexisting DB and create parent diretories if necessary.
-    makedirs(path.dirname(DB_PATH), exist_ok=True)
-    if path.isfile(DB_PATH):
-        unlink(DB_PATH)
+    # Create parent diretories if necessary.
+    # If the DB already exists, it will be overwritten ONLY on success at
+    # thhis point.
+    makedirs(path.dirname(TMP_DB_PATH), exist_ok=True)
 
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(TMP_DB_PATH)
 
     # Initialize schema.
     with open(path.join(path.dirname(DEFAULT_TABLE_DIR), "init.sql")) as fh:
         with conn:
-            conn.execute(fh.read())
+            conn.executescript(fh.read())
 
     # Populate tables.
     try:
@@ -163,15 +167,22 @@ def init_db():
                 res = conn.execute(
                     """INSERT INTO tbl_language (
                         name, label, marc_code, description
-                    ) (?, ?, ?, ?)""",
+                    ) VALUES (?, ?, ?, ?)""",
                     (
                         tname, tdata.get("name"), tdata.get("marc_code"),
                         tdata.get("description"),
                     )
                 )
                 populate_table(conn, res.lastrowid, tname)
+
+        # If the DB already exists, it will be overwritten ONLY on success at
+        # thhis point.
+        move(TMP_DB_PATH, DB_PATH)
     finally:
         conn.close()
+        if path.isfile(TMP_DB_PATH):
+            # Remove leftover temp files from bungled up operation.
+            unlink(TMP_DB_PATH)
 
 
 def populate_table(conn, tid, tname):
@@ -187,50 +198,75 @@ def populate_table(conn, tid, tname):
             (flags, tid))
 
     for t_dir in (FEAT_S2R, FEAT_R2S):
-        sec = "script_to_roman" if t_dir == FEAT_S2R else "roman_to_script"
+        # BEGIN per-section loop.
+
+        sec_name = (
+                "script_to_roman" if t_dir == FEAT_S2R else "roman_to_script")
+        sec = data.get(sec_name)
+        if not sec:
+            continue
 
         # Transliteration map.
-        for k, v in data.get(sec, {}).get("map", {}).items():
+        for k, v in sec.get("map", {}):
             conn.execute(
                     """INSERT INTO tbl_trans_map (
                         lang_id, dir, src, dest
-                    ) VALUES (? ? ? ?)""",
+                    ) VALUES (?, ?, ?, ?)""",
                     (tid, t_dir, k, v))
 
         # hooks.
-        for k, v in data.get(sec, {}).get("hooks", {}).items():
+        for k, v in sec.get("hooks", {}).items():
             for i, hook_data in enumerate(v, start=1):
                 conn.execute(
                         """INSERT INTO tbl_hook (
-                            lang_id, dir, name, order, fn, signature
-                        ) VALUES (? ? ? ?)""",
-                        (tid, t_dir, k, i, hook_data[0], dumps(hook_data[1:])))
+                            lang_id, dir, name, sort, fn, signature
+                        ) VALUES (?, ?, ?, ?, ?, ?)""",
+                        (
+                            tid, t_dir, k, i,
+                            hook_data[0].__name__, dumps(hook_data[1:])))
 
-    # Ignore rules for R2S only.
-    for row in data.get("roman_to_script", {}).get("ignore", []):
-        if isinstance(row, dict):
-            if "re" in row:
-                flags = FEAT_RE
-                rule = row["re"]
+        # Ignore rules (R2S only).
+        for row in sec.get("ignore", []):
+            if isinstance(row, dict):
+                if "re" in row:
+                    flags = FEAT_RE
+                    rule = row["re"]
             else:
                 flags = 0
                 rule = row
 
-        conn.execute(
-                """INSERT INTO tbl_ignore (
-                    lang_id, rule, features
-                ) VALUES (? ? ?)""",
-                (tid, rule, flags))
+            conn.execute(
+                    """INSERT INTO tbl_ignore (
+                        lang_id, rule, features
+                    ) VALUES (?, ?, ?)""",
+                    (tid, rule, flags))
 
-    # Double caps (S2R).
-    for rule in data.get("roman_to_script", {}).get("double_cap", []):
-        conn.execute(
-                """INSERT INTO tbl_double_cap (
-                    lang_id, rule
-                ) VALUES (? ?)""",
-                (tid, rule))
+        # Double caps (S2R only).
+        for rule in sec.get("double_cap", []):
+            conn.execute(
+                    """INSERT INTO tbl_double_cap (
+                        lang_id, rule
+                    ) VALUES (?, ?)""",
+                    (tid, rule))
 
-    # Normalize (S2R).
+        # Normalize (S2R only).
+        for src, dest in sec.get("normalize", {}).items():
+            conn.execute(
+                    """INSERT INTO tbl_normalize (lang_id, src, dest)
+                    VALUES (?, ?, ?)""",
+                    (tid, src, dest))
+
+        # END per-section loop.
+
+    # UI options
+    for opt in data.get("options", []):
+        conn.execute(
+                """INSERT INTO tbl_option (
+                    lang_id, name, label, description, dtype, default_v
+                ) VALUES (?, ?, ?, ?, ?, ?)""",
+                (
+                    tid, opt["id"], opt["label"], opt["description"],
+                    opt["type"], opt["default"]))
 
 
 @cache

@@ -391,8 +391,8 @@ roman_to_script:
 script_to_roman:
   map:
     
-    "\u00AB": """
-    "\u00BB": """
+    "\u00AB": "\""
+    "\u00BB": "\""
     "\u2116": "No\u0332"
     "\u0400": "E\u0300"
     "\u0401": "E\u0308"
