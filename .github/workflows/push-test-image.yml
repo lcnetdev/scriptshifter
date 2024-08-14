@@ -19,7 +19,7 @@ jobs:
           submodules: recursive
 
       - name: update version info
-        run: >
+        run: |
           git fetch --tags
           git describe --tags >| VERSION
           git rev-parse HEAD >> VERSION
