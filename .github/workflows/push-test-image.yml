@@ -21,7 +21,7 @@ jobs:
       - name: update version info
         run: |
           git fetch --tags
-          git describe --tags >| VERSION
+          git describe --tags --always >| VERSION
           git rev-parse HEAD >> VERSION
 
       - name: Build the Docker image
