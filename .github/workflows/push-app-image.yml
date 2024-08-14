@@ -6,7 +6,7 @@ on:
     tags:
       - "v*.*.[1-9]*"
   workflow_run:
-    workflows: 
+    workflows:
       - "Push base image"
     types:
       - "completed"
@@ -24,6 +24,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+
+      - name: update version info
+        run: |
+          git describe --tags >| VERSION
+          git rev-parse HEAD >> VERSION
 
       - name: Build the Docker image
         run: >

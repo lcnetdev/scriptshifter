@@ -18,6 +18,11 @@ jobs:
         with:
           submodules: recursive
 
+      - name: update version info
+        run: |
+          git describe --tags >| VERSION
+          git rev-parse HEAD >> VERSION
+
       - name: Build the Docker image
         run: >
           docker build -f Dockerfile .
@@ -32,4 +37,3 @@ jobs:
 
       - name: Push to Docker Hub
         run: docker push $DOCKER_USER/$REPO_NAME:test
-
