@@ -19,10 +19,8 @@ jobs:
           submodules: recursive
 
       - name: update version info
-        run: |
-          git status
+        run: >
           git describe --tags >| VERSION
-          git rev-parse HEAD >> VERSION
 
       - name: Build the Docker image
         run: >
