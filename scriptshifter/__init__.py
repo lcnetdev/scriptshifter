@@ -18,6 +18,11 @@ The default is None in which causes the feedback form to be disabled.
 """
 SMTP_HOST = environ.get("TXL_SMTP_HOST")
 
+with open(path.join(path.dirname(APP_ROOT), "VERSION")) as fh:
+    version_info = fh.readlines()
+GIT_TAG = version_info[0].strip()
+GIT_COMMIT = version_info[1].strip()
+
 logging.basicConfig(
         # filename=environ.get("TXL_LOGFILE", "/dev/stdout"),
         level=environ.get("TXL_LOGLEVEL", logging.WARN))

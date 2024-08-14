@@ -3,7 +3,7 @@ ARG WORKROOT "/usr/local/scriptshifter/src"
 
 # Copy core application files.
 WORKDIR ${WORKROOT}
-COPY entrypoint.sh uwsgi.ini wsgi.py ./
+COPY entrypoint.sh uwsgi.ini wsgi.py VERSION ./
 COPY scriptshifter ./scriptshifter/
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
