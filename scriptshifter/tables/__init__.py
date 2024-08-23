@@ -277,8 +277,22 @@ def list_tables():
     Note that this may not correspond to all the table files in the data
     folder, but only those exposed in the index.
     """
-    with open(path.join(TABLE_DIR, "index.yml")) as fh:
-        tdata = load(fh, Loader=Loader)
+    conn = sqlite3.connect(DB_PATH)
+
+    with conn:
+        data = conn.execute(
+                """SELECT name, label, features, marc_code, description
+                FROM tbl_language""")
+        tdata = {
+            row[0]: {
+                "label": row[1],
+                "has_s2r": bool(row[2] & FEAT_S2R),
+                "has_r2s": bool(row[2] & FEAT_R2S),
+                "case_sensitive": not (row[2] & FEAT_CASEI),
+                "marc_code": row[3],
+                "description": row[4],
+            } for row in data
+        }
 
     return tdata
 
