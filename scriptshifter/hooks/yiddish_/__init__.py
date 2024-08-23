@@ -3,7 +3,8 @@
 __doc__ = """
 Yiddish transliteration module.
 
-Courtesy of Isaac Bleaman and Asher Lewis.
+Courtesy of Isaac Bleaman for the module and Asher Lewis for the LC overrides
+of loshn koydesh rules.
 
 https://github.com/ibleaman/yiddish.git
 
@@ -22,7 +23,6 @@ def s2r_post_config(ctx):
     """
     Script to Roman.
     """
-
     rom = transliterate(
             ctx.src, loc=True,
             loshn_koydesh=ctx.options.get("loshn_koydesh"))

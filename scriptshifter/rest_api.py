@@ -10,7 +10,10 @@ from smtplib import SMTP
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
 
-from scriptshifter import EMAIL_FROM, EMAIL_TO, SMTP_HOST, SMTP_PORT
+from scriptshifter import (
+        EMAIL_FROM, EMAIL_TO,
+        GIT_COMMIT, GIT_TAG,
+        SMTP_HOST, SMTP_PORT)
 from scriptshifter.exceptions import ApiError
 from scriptshifter.tables import list_tables, load_table
 from scriptshifter.trans import transliterate
@@ -69,6 +72,7 @@ def index():
     return render_template(
             "index.html",
             languages=list_tables(),
+            version_info=(GIT_TAG, GIT_COMMIT),
             feedback_form=SMTP_HOST is not None)
 
 
