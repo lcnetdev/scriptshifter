@@ -91,6 +91,7 @@ CREATE TABLE tbl_option (
     label TEXT NOT NULL,
     description TEXT,
     dtype TEXT,
+    options TEXT,
     default_v TEXT,
 
     FOREIGN KEY (lang_id) REFERENCES tbl_language(id) ON DELETE CASCADE

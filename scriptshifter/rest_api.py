@@ -1,7 +1,6 @@
 import logging
 
 from base64 import b64encode
-from copy import deepcopy
 from email.message import EmailMessage
 from json import dumps
 from os import environ, urandom
@@ -15,7 +14,7 @@ from scriptshifter import (
         GIT_COMMIT, GIT_TAG,
         SMTP_HOST, SMTP_PORT)
 from scriptshifter.exceptions import ApiError
-from scriptshifter.tables import list_tables, load_table
+from scriptshifter.tables import list_tables, get_language
 from scriptshifter.trans import transliterate
 
 
@@ -89,16 +88,9 @@ def list_languages():
 @app.route("/table/<lang>")
 def dump_table(lang):
     """
-    Dump parsed transliteration table for a language.
+    Dump a language configuration from the DB.
     """
-    tbl = deepcopy(load_table(lang))
-    for sec_name in ("roman_to_script", "script_to_roman"):
-        if sec_name in tbl:
-            for hname, fn_defs in tbl[sec_name].get("hooks", {}).items():
-                tbl[sec_name]["hooks"][hname] = [
-                        (fn.__name__, kw) for (fn, kw) in fn_defs]
-
-    return jsonify(tbl)
+    return get_language(lang)
 
 
 @app.route("/options/<lang>", methods=["GET"])
@@ -106,7 +98,7 @@ def get_options(lang):
     """
     Get extra options for a table.
     """
-    tbl = load_table(lang)
+    tbl = get_language(lang)
 
     return jsonify(tbl.get("options", []))
 
