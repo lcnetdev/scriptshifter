@@ -23,22 +23,28 @@ CREATE TABLE tbl_trans_map (
     dir TINYINT NOT NULL DEFAULT 0,  /* 1 = S2R; 2 = R2S */
     src TEXT NOT NULL,
     dest TEXT,
+    sort INT NOT NULL,  /* Smaller values have higher priority. */
 
     FOREIGN KEY (lang_id) REFERENCES tbl_language(id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX idx_trans_lookup ON tbl_trans_map (lang_id, dir, src);
+CREATE INDEX idx_trans_map_sort ON tbl_trans_map (sort ASC);
 
 /*
  * Processing hooks.
+ *
+ * Note that multiple functions may be grouped under the same hook, lang, and
+ * direction. These are ordered by `sort`.
  */
 CREATE TABLE tbl_hook (
     id INTEGER PRIMARY KEY,
     lang_id INTEGER NOT NULL,
     dir TINYINT NOT NULL DEFAULT 0,  /* 1 = S2R; 2 = R2S */
-    name TEXT NOT NULL,  /* Hook name. */
+    name TEXT NOT NULL, /* Hook name. */
     sort INT NOT NULL,  /* Function sorting order within the hook. */
+    module TEXT NOT NULL, /* Module name. */
     fn TEXT NOT NULL,   /* Function name. */
-    signature TEXT,     /* Arguments as JSON blob. */
+    kwargs TEXT,        /* KW arguments as JSON blob. */
 
     FOREIGN KEY (lang_id) REFERENCES tbl_language(id) ON DELETE CASCADE
 );

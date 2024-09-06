@@ -1,9 +1,13 @@
 import logging
 
+from importlib import import_module
 from re import compile
 
 from scriptshifter.exceptions import BREAK, CONT
-from scriptshifter.tables import BOW, EOW, WORD_BOUNDARY, load_table
+from scriptshifter.tables import (
+        BOW, EOW, WORD_BOUNDARY, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
+        get_connection, get_lang_dcap, get_lang_general, get_lang_hooks,
+        get_lang_ignore, get_lang_map, get_lang_normalize)
 
 
 # Match multiple spaces.
@@ -15,6 +19,8 @@ logger = logging.getLogger(__name__)
 class Context:
     """
     Context used within the transliteration and passed to hook functions.
+
+    Use within a `with` block for proper cleanup.
     """
     @property
     def src(self):
@@ -28,22 +34,34 @@ class Context:
     def src(self):
         raise NotImplementedError("Attribute is read-only.")
 
-    def __init__(self, src, general, langsec, options={}):
+    def __init__(self, lang, src, t_dir, options={}):
         """
         Initialize a context.
 
         Args:
             src (str): The original text. Read-only.
-            general (dict): general section of the current config.
-            langsec (dict): Language configuration section being used.
+            t_dir (int): the direction of transliteration.
+                    Either FEAT_R2S or FEAT_S2R.
             options (dict): extra options as a dict.
         """
+        self.lang = lang
         self._src = src
-        self.general = general
+        self.t_dir = t_dir
+        self.conn = get_connection()
+        with self.conn as conn:
+            general = get_lang_general(conn, self.lang)
+        self.general = general["data"]
+        self.lang_id = general["id"]
         self.options = options
-        self.langsec = langsec
+        self.hooks = get_lang_hooks(self.conn, self.lang_id, self.t_dir)
         self.dest_ls = []
         self.warnings = []
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.conn.close()
 
 
 def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
@@ -73,234 +91,224 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     Return:
         str: The transliterated string.
     """
-    source_str = "Latin" if t_dir == "r2s" else lang
-    target_str = lang if t_dir == "r2s" else "Latin"
+    # Map t_dir to constant.
+    t_dir = FEAT_S2R if t_dir == "s2r" else FEAT_R2S
+
+    source_str = "Roman" if t_dir == FEAT_S2R else lang
+    target_str = lang if t_dir == FEAT_R2S else "Roman"
     logger.info(f"Transliteration is from {source_str} to {target_str}.")
-
-    cfg = load_table(lang)
-    logger.info(f"Loaded table for {lang}.")
-
-    # General directives.
-    general = cfg.get("general", {})
-
-    if t_dir == "s2r" and "script_to_roman" not in cfg:
-        raise NotImplementedError(
-            f"Script-to-Roman transliteration not yet supported for {lang}."
-        )
-    elif t_dir == "r2s" and "roman_to_script" not in cfg:
-        raise NotImplementedError(
-            f"Roman-to-script transliteration not yet supported for {lang}."
-        )
-
-    langsec = (
-            cfg["script_to_roman"] if t_dir == "s2r"
-            else cfg["roman_to_script"])
-    # langsec_dir = langsec.get("directives", {})
-    langsec_hooks = langsec.get("hooks", {})
 
     src = src.strip()
     options["capitalize"] = capitalize
-    ctx = Context(src, general, langsec, options)
+    with Context(lang, src, t_dir, options) as ctx:
 
-    # This hook may take over the whole transliteration process or delegate it
-    # to some external process, and return the output string directly.
-    if _run_hook("post_config", ctx, langsec_hooks) == BREAK:
-        return getattr(ctx, "dest", ""), ctx.warnings
+        if t_dir == FEAT_S2R and not ctx.general["has_s2r"]:
+            raise NotImplementedError(
+                f"Script-to-Roman not yet supported for {lang}."
+            )
+        if t_dir == FEAT_R2S and not ctx.general["has_r2s"]:
+            raise NotImplementedError(
+                f"Roman-to-script not yet supported for {lang}."
+            )
 
-    if "normalize" in ctx.langsec:
-        _normalize_src(ctx)
+        # This hook may take over the whole transliteration process or delegate
+        # it to some external process, and return the output string directly.
+        if _run_hook("post_config", ctx) == BREAK:
+            return getattr(ctx, "dest", ""), ctx.warnings
 
-    if _run_hook("post_normalize", ctx, langsec_hooks) == BREAK:
-        return getattr(ctx, "dest", ""), ctx.warnings
+        _normalize_src(ctx, get_lang_normalize(ctx.conn, ctx.lang_id))
 
-    # Loop through source characters. The increment of each loop depends on
-    # the length of the token that eventually matches.
-    ignore_list = langsec.get("ignore", [])  # Only present in R2S
-    ctx.cur = 0
-    word_boundary = langsec.get("word_boundary", WORD_BOUNDARY)
+        if _run_hook("post_normalize", ctx) == BREAK:
+            return getattr(ctx, "dest", ""), ctx.warnings
 
-    while ctx.cur < len(ctx.src):
-        # Reset cursor position flags.
-        # Carry over extended "beginning of word" flag.
-        ctx.cur_flags = 0
-        cur_char = ctx.src[ctx.cur]
+        # Loop through source characters. The increment of each loop depends on
+        # the length of the token that eventually matches.
+        ctx.cur = 0
 
-        # Look for a word boundary and flag word beginning/end it if found.
-        if _is_bow(ctx.cur, ctx, word_boundary):
-            # Beginning of word.
-            logger.debug(f"Beginning of word at position {ctx.cur}.")
-            ctx.cur_flags |= BOW
-        if _is_eow(ctx.cur, ctx, word_boundary):
-            # End of word.
-            logger.debug(f"End of word at position {ctx.cur}.")
-            ctx.cur_flags |= EOW
+        while ctx.cur < len(ctx.src):
+            # Reset cursor position flags.
+            # Carry over extended "beginning of word" flag.
+            ctx.cur_flags = 0
+            cur_char = ctx.src[ctx.cur]
 
-        # This hook may skip the parsing of the current
-        # token or exit the scanning loop altogether.
-        hret = _run_hook("begin_input_token", ctx, langsec_hooks)
-        if hret == BREAK:
-            logger.debug("Breaking text scanning from hook signal.")
-            break
-        if hret == CONT:
-            logger.debug("Skipping scanning iteration from hook signal.")
-            continue
+            # Look for a word boundary and flag word beginning/end it if found.
+            if _is_bow(ctx.cur, ctx, WORD_BOUNDARY):
+                # Beginning of word.
+                logger.debug(f"Beginning of word at position {ctx.cur}.")
+                ctx.cur_flags |= BOW
+            if _is_eow(ctx.cur, ctx, WORD_BOUNDARY):
+                # End of word.
+                logger.debug(f"End of word at position {ctx.cur}.")
+                ctx.cur_flags |= EOW
 
-        # Check ignore list. Find as many subsequent ignore tokens
-        # as possible before moving on to looking for match tokens.
-        ctx.tk = None
-        while True:
-            ctx.ignoring = False
-            for ctx.tk in ignore_list:
-                hret = _run_hook("pre_ignore_token", ctx, langsec_hooks)
-                if hret == BREAK:
-                    break
-                if hret == CONT:
-                    continue
+            # This hook may skip the parsing of the current
+            # token or exit the scanning loop altogether.
+            hret = _run_hook("begin_input_token", ctx)
+            if hret == BREAK:
+                logger.debug("Breaking text scanning from hook signal.")
+                break
+            if hret == CONT:
+                logger.debug("Skipping scanning iteration from hook signal.")
+                continue
 
-                step = len(ctx.tk)
-                if ctx.tk == ctx.src[ctx.cur:ctx.cur + step]:
-                    # The position matches an ignore token.
-                    hret = _run_hook("on_ignore_match", ctx, langsec_hooks)
+            # Check ignore list. Find as many subsequent ignore tokens
+            # as possible before moving on to looking for match tokens.
+            ctx.tk = None
+            while True:
+                ctx.ignoring = False
+                for ctx.tk in get_lang_ignore(ctx.conn, ctx.lang_id):
+                    hret = _run_hook("pre_ignore_token", ctx)
                     if hret == BREAK:
                         break
                     if hret == CONT:
                         continue
 
-                    logger.info(f"Ignored token: {ctx.tk}")
-                    ctx.dest_ls.append(ctx.tk)
-                    ctx.cur += step
-                    cur_char = ctx.src[ctx.cur]
-                    ctx.ignoring = True
+                    step = len(ctx.tk)
+                    if ctx.tk == ctx.src[ctx.cur:ctx.cur + step]:
+                        # The position matches an ignore token.
+                        hret = _run_hook("on_ignore_match", ctx)
+                        if hret == BREAK:
+                            break
+                        if hret == CONT:
+                            continue
+
+                        logger.info(f"Ignored token: {ctx.tk}")
+                        ctx.dest_ls.append(ctx.tk)
+                        ctx.cur += step
+                        cur_char = ctx.src[ctx.cur]
+                        ctx.ignoring = True
+                        break
+                # We looked through all ignore tokens, not found any. Move on.
+                if not ctx.ignoring:
                     break
-            # We looked through all ignore tokens, not found any. Move on.
-            if not ctx.ignoring:
-                break
-            # Otherwise, if we found a match, check if the next position may be
-            # ignored as well.
+                # Otherwise, if we found a match, check if the next position
+                # may be ignored as well.
 
-        delattr(ctx, "tk")
-        delattr(ctx, "ignoring")
+            delattr(ctx, "tk")
+            delattr(ctx, "ignoring")
 
-        # Begin transliteration token lookup.
-        ctx.match = False
+            # Begin transliteration token lookup.
+            ctx.match = False
 
-        for ctx.src_tk, ctx.dest_str in langsec["map"]:
-            hret = _run_hook("pre_tx_token", ctx, langsec_hooks)
-            if hret == BREAK:
-                break
-            if hret == CONT:
-                continue
-
-            step = len(ctx.src_tk.content)
-            # If the token is longer than the remaining of the string,
-            # it surely won't match.
-            if ctx.cur + step > len(ctx.src):
-                continue
-
-            # If the first character of the token is greater (= higher code
-            # point value) than the current character, then break the loop
-            # without a match, because we know there won't be any more match
-            # due to the alphabetical ordering.
-            if ctx.src_tk.content[0] > cur_char:
-                logger.debug(
-                        f"{ctx.src_tk.content} is after "
-                        f"{ctx.src[ctx.cur:ctx.cur + step]}. Breaking loop.")
-                break
-
-            # If src_tk has a WB flag but the token is not at WB, skip.
-            if (
-                (ctx.src_tk.flags & BOW and not ctx.cur_flags & BOW)
-                or
-                # Can't rely on EOW flag, we must check on the last character
-                # of the potential match.
-                (ctx.src_tk.flags & EOW and not _is_eow(
-                        ctx.cur + step - 1, ctx, word_boundary))
-            ):
-                continue
-
-            # Longer tokens should be guaranteed to be scanned before their
-            # substrings at this point.
-            # Similarly, flagged tokens are evaluated first.
-            if ctx.src_tk.content == ctx.src[ctx.cur:ctx.cur + step]:
-                ctx.match = True
-                # This hook may skip this token or break out of the token
-                # lookup for the current position.
-                hret = _run_hook("on_tx_token_match", ctx, langsec_hooks)
+            for ctx.src_tk, ctx.dest_str in get_lang_map(
+                    ctx.conn, ctx.lang_id, ctx.t_dir):
+                hret = _run_hook("pre_tx_token", ctx)
                 if hret == BREAK:
                     break
                 if hret == CONT:
                     continue
 
-                # A match is found. Stop scanning tokens, append result, and
-                # proceed scanning the source.
+                step = len(ctx.src_tk.content)
+                # If the token is longer than the remaining of the string,
+                # it surely won't match.
+                if ctx.cur + step > len(ctx.src):
+                    continue
 
-                # Capitalization.
+                # If the first character of the token is greater (= higher code
+                # point value) than the current character, then break the loop
+                # without a match, because we know there won't be any more
+                # match due to the alphabetical ordering.
+                if ctx.src_tk.content[0] > cur_char:
+                    logger.debug(
+                            f"{ctx.src_tk.content} is after "
+                            f"{ctx.src[ctx.cur:ctx.cur + step]}. "
+                            "Breaking loop.")
+                    break
+
+                # If src_tk has a WB flag but the token is not at WB, skip.
                 if (
-                    (ctx.options["capitalize"] == "first" and ctx.cur == 0)
+                    (ctx.src_tk.flags & BOW and not ctx.cur_flags & BOW)
                     or
-                    (
-                        ctx.options["capitalize"] == "all"
-                        and ctx.cur_flags & BOW
-                    )
+                    # Can't rely on EOW flag, we must check on the last
+                    # character of the potential match.
+                    (ctx.src_tk.flags & EOW and not _is_eow(
+                            ctx.cur + step - 1, ctx, WORD_BOUNDARY))
                 ):
-                    logger.info("Capitalizing token.")
-                    double_cap = False
-                    for dcap_rule in ctx.langsec.get("double_cap", []):
-                        if ctx.dest_str == dcap_rule:
-                            ctx.dest_str = ctx.dest_str.upper()
-                            double_cap = True
-                            break
-                    if not double_cap:
-                        ctx.dest_str = (
-                                ctx.dest_str[0].upper() + ctx.dest_str[1:])
+                    continue
 
-                ctx.dest_ls.append(ctx.dest_str)
-                ctx.cur += step
-                break
+                # Longer tokens should be guaranteed to be scanned before their
+                # substrings at this point.
+                # Similarly, flagged tokens are evaluated first.
+                if ctx.src_tk.content == ctx.src[ctx.cur:ctx.cur + step]:
+                    ctx.match = True
+                    # This hook may skip this token or break out of the token
+                    # lookup for the current position.
+                    hret = _run_hook("on_tx_token_match", ctx)
+                    if hret == BREAK:
+                        break
+                    if hret == CONT:
+                        continue
 
-        if ctx.match is False:
-            delattr(ctx, "match")
-            hret = _run_hook("on_no_tx_token_match", ctx, langsec_hooks)
-            if hret == BREAK:
-                break
-            if hret == CONT:
-                continue
+                    # A match is found. Stop scanning tokens, append result,
+                    # and proceed scanning the source.
 
-            # No match found. Copy non-mapped character (one at a time).
-            logger.info(
-                    f"Token {cur_char} (\\u{hex(ord(cur_char))[2:]}) "
-                    f"at position {ctx.cur} is not mapped.")
-            ctx.dest_ls.append(cur_char)
-            ctx.cur += 1
-        else:
-            delattr(ctx, "match")
-        delattr(ctx, "cur_flags")
+                    # Capitalization.
+                    if (
+                        (ctx.options["capitalize"] == "first" and ctx.cur == 0)
+                        or
+                        (
+                            ctx.options["capitalize"] == "all"
+                            and ctx.cur_flags & BOW
+                        )
+                    ):
+                        logger.info("Capitalizing token.")
+                        double_cap = False
+                        for dcap_rule in get_lang_dcap(ctx.conn, ctx.lang_id):
+                            if ctx.dest_str == dcap_rule:
+                                ctx.dest_str = ctx.dest_str.upper()
+                                double_cap = True
+                                break
+                        if not double_cap:
+                            ctx.dest_str = (
+                                    ctx.dest_str[0].upper() + ctx.dest_str[1:])
 
-    delattr(ctx, "cur")
+                    ctx.dest_ls.append(ctx.dest_str)
+                    ctx.cur += step
+                    break
 
-    # This hook may take care of the assembly and cause the function to return
-    # its own return value.
-    hret = _run_hook("pre_assembly", ctx, langsec_hooks)
-    if hret is not None:
-        return hret, ctx.warnings
+            if ctx.match is False:
+                delattr(ctx, "match")
+                hret = _run_hook("on_no_tx_token_match", ctx)
+                if hret == BREAK:
+                    break
+                if hret == CONT:
+                    continue
 
-    logger.debug(f"Output list: {ctx.dest_ls}")
-    ctx.dest = "".join(ctx.dest_ls)
+                # No match found. Copy non-mapped character (one at a time).
+                logger.info(
+                        f"Token {cur_char} (\\u{hex(ord(cur_char))[2:]}) "
+                        f"at position {ctx.cur} is not mapped.")
+                ctx.dest_ls.append(cur_char)
+                ctx.cur += 1
+            else:
+                delattr(ctx, "match")
+            delattr(ctx, "cur_flags")
 
-    # This hook may reassign the output string and/or cause the function to
-    # return it immediately.
-    hret = _run_hook("post_assembly", ctx, langsec_hooks)
-    if hret is not None:
-        return hret, ctx.warnings
+        delattr(ctx, "cur")
 
-    # Strip multiple spaces and leading/trailing whitespace.
-    ctx.dest = MULTI_WS_RE.sub(r"\1", ctx.dest.strip())
+        # This hook may take care of the assembly and cause the function to
+        # return its own return value.
+        hret = _run_hook("pre_assembly", ctx)
+        if hret is not None:
+            return hret, ctx.warnings
 
-    return ctx.dest, ctx.warnings
+        logger.debug(f"Output list: {ctx.dest_ls}")
+        ctx.dest = "".join(ctx.dest_ls)
+
+        # This hook may reassign the output string and/or cause the function to
+        # return it immediately.
+        hret = _run_hook("post_assembly", ctx)
+        if hret is not None:
+            return hret, ctx.warnings
+
+        # Strip multiple spaces and leading/trailing whitespace.
+        ctx.dest = MULTI_WS_RE.sub(r"\1", ctx.dest.strip())
+
+        return ctx.dest, ctx.warnings
 
 
-def _normalize_src(ctx):
-    for nk, nv in ctx.langsec.get("normalize", {}).items():
+def _normalize_src(ctx, norm_rules):
+    for nk, nv in norm_rules.items():
         ctx._src = ctx.src.replace(nk, nv)
     logger.debug(f"Normalized source: {ctx.src}")
 
@@ -317,11 +325,13 @@ def _is_eow(cur, ctx, word_boundary):
     ) and (ctx.src[cur] not in word_boundary)
 
 
-def _run_hook(hname, ctx, hooks):
+def _run_hook(hname, ctx):
     ret = None
-    for hook_def in hooks.get(hname, []):
-        kwargs = hook_def[1] if len(hook_def) > 1 else {}
-        ret = hook_def[0](ctx, **kwargs)
+    for hook_def in ctx.hooks.get(hname, []):
+        fn = getattr(
+                import_module("." + hook_def["module_name"], HOOK_PKG_PATH),
+                hook_def["fn_name"])
+        ret = fn(ctx, **hook_def["kwargs"])
         if ret in (BREAK, CONT):
             # This will stop parsing hooks functions and tell the caller to
             # break out of the outer loop or skip iteration.

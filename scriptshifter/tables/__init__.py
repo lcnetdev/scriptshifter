@@ -2,6 +2,7 @@ import logging
 import re
 import sqlite3
 
+from collections import defaultdict
 from importlib import import_module
 from json import dumps as jdumps, loads as jloads
 from os import R_OK, access, environ, makedirs, path, unlink
@@ -184,6 +185,15 @@ def init_db():
             unlink(TMP_DB_PATH)
 
 
+def get_connection():
+    """
+    Get the default DB connection object.
+
+    To be closed by the caller or used as a context.
+    """
+    return sqlite3.connect(DB_PATH)
+
+
 def populate_table(conn, tid, tname):
     data = load_table(tname)
     flags = 0
@@ -206,23 +216,25 @@ def populate_table(conn, tid, tname):
             continue
 
         # Transliteration map.
+        sort = 1
         for k, v in sec.get("map", {}):
             conn.execute(
                     """INSERT INTO tbl_trans_map (
-                        lang_id, dir, src, dest
-                    ) VALUES (?, ?, ?, ?)""",
-                    (tid, t_dir, k, v))
+                        lang_id, dir, src, dest, sort
+                    ) VALUES (?, ?, ?, ?, ?)""",
+                    (tid, t_dir, k, v, sort))
+            sort += 1
 
         # hooks.
         for k, v in sec.get("hooks", {}).items():
             for i, hook_data in enumerate(v, start=1):
                 conn.execute(
                         """INSERT INTO tbl_hook (
-                            lang_id, dir, name, sort, fn, signature
-                        ) VALUES (?, ?, ?, ?, ?, ?)""",
+                            lang_id, dir, name, sort, module, fn, kwargs
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?)""",
                         (
-                            tid, t_dir, k, i,
-                            hook_data[0].__name__, jdumps(hook_data[1:])))
+                            tid, t_dir, k, i, hook_data[0],
+                            hook_data[1].__name__, jdumps(hook_data[2])))
 
         # Ignore rules (R2S only).
         for row in sec.get("ignore", []):
@@ -277,7 +289,7 @@ def list_tables():
     Note that this may not correspond to all the table files in the data
     folder, but only those exposed in the index.
     """
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_connection()
 
     with conn:
         data = conn.execute(
@@ -463,7 +475,7 @@ def load_hook_fn(cname, sec):
                     f"Hook function {fnname} defined in {cname} configuration "
                     f"not found in module {HOOK_PKG_PATH}.{modname}!"
                 )
-            hook_fn[cfg_hook].append((fn, fn_kwargs))
+            hook_fn[cfg_hook].append((modname, fn, fn_kwargs))
 
     return hook_fn
 
@@ -471,32 +483,16 @@ def load_hook_fn(cname, sec):
 def get_language(lang):
     """ Get all language options from the DB. """
 
-    conn = sqlite3.connect(DB_PATH)
+    conn = get_connection()
 
     with conn:
-        lang_q = conn.execute(
-                """SELECT id, name, label, features, marc_code, description
-                FROM tbl_language WHERE name = ?""", (lang,))
-        lang_data = lang_q.fetchone()
-        lang_id = lang_data[0]
-
-        data = {
-            "name": lang_data[1],
-            "label": lang_data[2],
-            "has_s2r": bool(lang_data[3] & FEAT_S2R),
-            "has_r2s": bool(lang_data[3] & FEAT_R2S),
-            "case_sensitive": not (lang_data[3] & FEAT_CASEI),
-            "marc_code": lang_data[4],
-            "description": lang_data[5],
-        }
+        general = get_lang_general(conn, lang)
+        lang_id = general["id"]
+        data = general["data"]
 
         # Normalization.
 
-        norm_q = conn.execute(
-                """SELECT src, dest FROM tbl_normalize
-                WHERE lang_id = ?""",
-                (lang_id,))
-        norm_data = {row[0]: row[1] for row in norm_q}
+        norm_data = get_lang_normalize(conn, lang_id)
         if len(norm_data):
             data["normalize"] = norm_data
 
@@ -504,26 +500,12 @@ def get_language(lang):
 
         if data["has_s2r"]:
             data["script_to_roman"] = {}
-            s2r_q = conn.execute(
-                    """SELECT src, dest FROM tbl_trans_map
-                    WHERE lang_id = ? AND dir = ?""",
-                    (lang_id, FEAT_S2R))
-            s2r_map = tuple((row[0], row[1]) for row in s2r_q)
+            s2r_map = tuple(
+                    row for row in get_lang_map(conn, lang_id, FEAT_S2R))
             if len(s2r_map):
                 data["script_to_roman"]["map"] = s2r_map
 
-            hooks_q = conn.execute(
-                    """SELECT name, fn, signature
-                    FROM tbl_hook WHERE lang_id = ? AND dir = ?
-                    ORDER BY sort""",
-                    (lang_id, FEAT_S2R))
-            s2r_hooks = [
-                {
-                    "name": row[0],
-                    "fn": row[1],
-                    "signature": jloads(row[2]),
-                } for row in hooks_q
-            ]
+            s2r_hooks = get_lang_hooks(conn, lang_id, FEAT_S2R)
             if len(s2r_hooks):
                 data["script_to_roman"]["hooks"] = s2r_hooks
 
@@ -531,56 +513,136 @@ def get_language(lang):
 
         if data["has_r2s"]:
             data["roman_to_script"] = {}
-            r2s_q = conn.execute(
-                    """SELECT src, dest FROM tbl_trans_map
-                    WHERE lang_id = ? AND dir = ?""",
-                    (lang_id, FEAT_R2S))
-            r2s_map = tuple((row[0], row[1]) for row in r2s_q)
+            r2s_map = tuple(
+                    row for row in get_lang_map(conn, lang_id, FEAT_R2S))
             if len(r2s_map):
                 data["roman_to_script"]["map"] = r2s_map
 
-            ignore_q = conn.execute(
-                    """SELECT rule, features FROM tbl_ignore
-                    WHERE lang_id = ?""",
-                    (lang_id,))
-            # Features (regular expressions) not implemented yet.
-            r2s_ignore = tuple(row[0] for row in ignore_q)
+            r2s_ignore = get_lang_ignore(conn, lang_id)
             if len(r2s_ignore):
                 data["roman_to_script"]["ignore"] = r2s_ignore
 
-            hooks_q = conn.execute(
-                    """SELECT name, fn, signature
-                    FROM tbl_hook WHERE lang_id = ? AND dir = ?
-                    ORDER BY sort""",
-                    (lang_id, FEAT_R2S))
-            r2s_hooks = [
-                {
-                    "name": row[0],
-                    "fn": row[1],
-                    "signature": jloads(row[2]),
-                } for row in hooks_q
-            ]
+            r2s_hooks = get_lang_hooks(conn, lang_id, FEAT_R2S)
             if len(r2s_hooks):
                 data["roman_to_script"]["hooks"] = r2s_hooks
 
-        options_q = conn.execute(
-                """SELECT name, label, description, dtype, options, default_v
-                FROM tbl_option
-                WHERE lang_id = ?""",
-                (lang_id,))
-
-        opt_data = tuple(
-            {
-                "id": row[0],
-                "label": row[1],
-                "description": row[2],
-                "type": row[3],
-                "options": jloads(row[4]) if row[4] else None,
-                "default": row[5],
-            }
-            for row in options_q
-        )
+        opt_data = get_lang_options(conn, lang_id)
         if len(opt_data):
             data["options"] = opt_data
 
-        return data
+        double_cap = get_lang_dcap(conn, lang_id)
+        if len(double_cap):
+            data["double_cap"] = double_cap
+
+    conn.close()
+
+    return data
+
+
+def get_lang_general(conn, lang):
+    """ Language general attributes. """
+    lang_q = conn.execute(
+            """SELECT id, name, label, features, marc_code, description
+            FROM tbl_language WHERE name = ?""", (lang,))
+    lang_data = lang_q.fetchone()
+
+    return {
+        "id": lang_data[0],
+        "data": {
+            "name": lang_data[1],
+            "label": lang_data[2],
+            "has_s2r": bool(lang_data[3] & FEAT_S2R),
+            "has_r2s": bool(lang_data[3] & FEAT_R2S),
+            "case_sensitive": not (lang_data[3] & FEAT_CASEI),
+            "marc_code": lang_data[4],
+            "description": lang_data[5],
+        },
+    }
+
+
+def get_lang_normalize(conn, lang_id):
+    qry = conn.execute(
+            """SELECT src, dest FROM tbl_normalize
+            WHERE lang_id = ?""",
+            (lang_id,))
+    return {row[0]: row[1] for row in qry}
+
+
+def get_lang_ignore(conn, lang_id):
+    """
+    Ignore list as a tuple.
+    """
+    qry = conn.execute(
+            """SELECT rule, features FROM tbl_ignore
+            WHERE lang_id = ?""",
+            (lang_id,))
+    # Features (regular expressions) not implemented yet.
+    return tuple(row[0] for row in qry)
+
+
+def get_lang_map(conn, lang_id, t_dir):
+    """
+    S2R or R2S map.
+
+    Generator of tuples (source, destination).
+    """
+    qry = conn.execute(
+            """SELECT src, dest FROM tbl_trans_map
+            WHERE lang_id = ? AND dir = ?
+            ORDER BY sort ASC""",
+            (lang_id, FEAT_S2R))
+
+    for row in qry:
+        yield (Token(row[0]), row[1])
+
+
+def get_lang_options(conn, lang_id):
+    """ Language options as a tuple of dictionaries. """
+    qry = conn.execute(
+            """SELECT name, label, description, dtype, options, default_v
+            FROM tbl_option
+            WHERE lang_id = ?""",
+            (lang_id,))
+
+    return tuple(
+        {
+            "id": row[0],
+            "label": row[1],
+            "description": row[2],
+            "type": row[3],
+            "options": jloads(row[4]) if row[4] else None,
+            "default": row[5],
+        }
+        for row in qry
+    )
+
+
+def get_lang_hooks(conn, lang_id, t_dir):
+    """ Language hooks in sorting order. """
+    hooks = defaultdict(list)
+
+    qry = conn.execute(
+            """SELECT name, module, fn, kwargs
+            FROM tbl_hook WHERE lang_id = ? AND dir = ?
+            ORDER BY name, sort""",
+            (lang_id, t_dir))
+
+    for row in qry:
+        hooks[row[0]].append(
+            {
+                "module_name": row[1],
+                "fn_name": row[2],
+                "kwargs": jloads(row[3]),
+            }
+        )
+
+    return hooks
+
+
+def get_lang_dcap(conn, lang_id):
+    qry = conn.execute(
+            """SELECT rule
+            FROM tbl_double_cap WHERE lang_id = ?""",
+            (lang_id,))
+
+    return tuple(row[0] for row in qry)
