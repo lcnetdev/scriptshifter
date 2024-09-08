@@ -3,6 +3,7 @@ import re
 import sqlite3
 
 from collections import defaultdict
+from functools import cache
 from importlib import import_module
 from json import dumps as jdumps, loads as jloads
 from os import R_OK, access, environ, makedirs, path, unlink
@@ -282,6 +283,7 @@ def populate_table(conn, tid, tname):
                     opt["default"]))
 
 
+@cache
 def list_tables():
     """
     List all the indexed tables.
@@ -480,6 +482,7 @@ def load_hook_fn(cname, sec):
     return hook_fn
 
 
+@cache
 def get_language(lang):
     """ Get all language options from the DB. """
 
@@ -580,6 +583,7 @@ def get_lang_ignore(conn, lang_id):
     return tuple(row[0] for row in qry)
 
 
+@cache
 def get_lang_map(conn, lang_id, t_dir):
     """
     S2R or R2S map.
