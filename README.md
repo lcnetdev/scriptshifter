@@ -92,8 +92,8 @@ the drop-down automatically. The value must be one of the keys found in
 ## Command-line interface
 
 Various Scriptshifter commands can be accessed via the shell command `sscli`.
-Note: at the moment only `sscli admin init-db` is available. More commands
-will be made avaliable on an as-needed basis.
+At the moment only a few essential admin and testing tools are available. More
+commands can be made avaliable on an as-needed basis.
 
 Help menu:
 

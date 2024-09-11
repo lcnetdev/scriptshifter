@@ -5,8 +5,12 @@ __doc__ = """ Scriptshifter command line interface. """
 
 import click
 
+from glob import glob
+from os import path
+
 from scriptshifter import DB_PATH
 from scriptshifter.tables import init_db as _init_db
+from tests import test_sample
 
 
 @click.group()
@@ -27,6 +31,34 @@ def init_db():
     _init_db()
 
     click.echo(f"Initialized Scriptshifter DB in {DB_PATH}")
+
+
+@cli.group(name="test")
+def test_grp():
+    """ Test operations. """
+    pass
+
+
+@test_grp.command()
+def list_samples():
+    """ List string sample sets that can be tested. """
+    path_ptn = path.join(
+            path.dirname(path.realpath(__file__)),
+            "tests", "data", "script_samples", "*.csv")
+    samples = [path.splitext(path.basename(fn))[0] for fn in glob(path_ptn)]
+
+    click.echo("\n".join(samples))
+
+
+@test_grp.command()
+@click.argument("lang")
+def samples(lang):
+    """
+    Test sample strings for language LANG.
+
+    LANG must match one of the names obtained with `test list-samples` command.
+    """
+    return test_sample(lang)
 
 
 @cli.group(name="trans")
