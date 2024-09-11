@@ -73,10 +73,11 @@ string in a production environment.
 
 `TXL_LOGLEVEL`: Logging level. Use Python notation. The default is `WARN`.
 
-`TXL_SMTP_HOST`: SMTP host to send feedback messages through. Defaults to
-`localhost`.
+`TXL_SMTP_HOST`: SMTP host to send feedback messages through. If not defined,
+the feedback form will not be shown in the UI.
 
 `TXL_SMTP_PORT`: Port of the SMTP server. Defaults to `1025`.
+
 
 ## Web UI
 
@@ -86,6 +87,25 @@ Adding a language as a value of the `lang` URL parameter, the UI will start
 with that language selected. E.g. `/?lang=chinese` will select Chinese from
 the drop-down automatically. The value must be one of the keys found in
 `/languages`.
+
+
+## Command-line interface
+
+Various Scriptshifter commands can be accessed via the shell command `sscli`.
+Note: at the moment only `sscli admin init-db` is available. More commands
+will be made avaliable on an as-needed basis.
+
+Help menu:
+
+```
+/path/to/sscli --help
+```
+
+Section help:
+
+```
+/path/to/sscli admin --help
+```
 
 
 ## Contributing

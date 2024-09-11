@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+
+__doc__ = """ Scriptshifter command line interface. """
+
+
+import click
+
+from scriptshifter import DB_PATH
+from scriptshifter.tables import init_db as _init_db
+
+
+@click.group()
+def cli():
+    """ Scriptshifter CLI. """
+    pass
+
+
+@cli.group(name="admin")
+def admin_grp():
+    """ Admin operations. """
+    pass
+
+
+@admin_grp.command()
+def init_db():
+    """ Initialize SS database. """
+    _init_db()
+
+    click.echo(f"Initialized Scriptshifter DB in {DB_PATH}")
+
+
+@cli.group(name="trans")
+def trans_grp():
+    """ Transliteration and transcription operations. """
+    pass
+
+
+if __name__ == "__main__":
+    cli()

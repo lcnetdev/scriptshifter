@@ -121,6 +121,8 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
         if _run_hook("post_normalize", ctx) == BREAK:
             return getattr(ctx, "dest", ""), ctx.warnings
 
+        lang_map = get_lang_map(ctx.conn, ctx.lang_id, ctx.t_dir)
+
         # Loop through source characters. The increment of each loop depends on
         # the length of the token that eventually matches.
         ctx.cur = 0
@@ -190,8 +192,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             # Begin transliteration token lookup.
             ctx.match = False
 
-            for ctx.src_tk, ctx.dest_str in get_lang_map(
-                    ctx.conn, ctx.lang_id, ctx.t_dir):
+            for ctx.src_tk, ctx.dest_str in lang_map:
                 hret = _run_hook("pre_tx_token", ctx)
                 if hret == BREAK:
                     break
