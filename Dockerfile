@@ -5,6 +5,7 @@ ARG WORKROOT "/usr/local/scriptshifter/src"
 WORKDIR ${WORKROOT}
 COPY VERSION entrypoint.sh sscli uwsgi.ini wsgi.py ./
 COPY scriptshifter ./scriptshifter/
+COPY tests ./tests/
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
