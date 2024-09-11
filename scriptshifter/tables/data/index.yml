@@ -68,6 +68,7 @@ devanagari:
   marc_code: hin, san
   name: Devanagari
 divehi_thaana:
+  marc_code: div
   name: Divehi (Thaana)
 dogri_devanagari:
   name: Dogri (Devanagari)
@@ -90,6 +91,7 @@ greek_modern:
   marc_code: gre
   name: Greek (modern)
 gujarati:
+  marc_code: guj
   name: Gujarati
 hebrew:
   marc_code: heb
@@ -104,6 +106,7 @@ kalmyk_cyrillic:
   marc_code: xal
   name: Kalmyk (Cyrillic)
 kannada:
+  marc_code: kan
   name: Kannada
 kara-kalpak_cyrillic:
   marc_code: kaa
@@ -125,6 +128,7 @@ khakass_cyrillic:
 khanty_cyrillic:
   name: Khanty (Cyrillic)
 khmer:
+  marc_code: khm
   name: Khmer
 komi_cyrillic:
   marc_code: kom
@@ -141,6 +145,7 @@ korean_nonames:
 koryak_cyrillic:
   name: Koryak (Cyrillic)
 kurdish:
+  marc_code: kur
   name: Kurdish
 kyrgyz_cyrillic:
   marc_code: kir
@@ -152,10 +157,12 @@ macedonian:
   marc_code: mac
   name: Macedonian
 malayalam:
+  marc_code: mal
   name: Malayalam
 mansi_cyrillic:
   name: Mansi (Cyrillic)
 marathi_devanagari:
+  marc_code: mar
   name: Marathi (Devanagari)
 moldovan_cyrillic:
   marc_code: mol
@@ -171,21 +178,28 @@ mordvin_cyrillic:
 nenets_cyrillic:
   name: Nenets (Cyrillic)
 nepali_devanagari:
+  marc_code: nep
   name: Nepali (Devanagari)
 newari_devanagari:
+  marc_code: new
   name: Newari (Devanagari)
 oriya:
+  marc_code: ori
   name: Oriya
 ossetic_cyrillic:
   marc_code: oss
   name: Ossetic (Cyrillic)
 pali:
+  marc_code: pli
   name: Pali
 panjabi:
+  marc_code: pan
   name: Panjabi
 persian:
+  marc_code: per
   name: Persian
 prakrit_devanagari:
+  marc_code: pra
   name: Prakrit (Devanagari)
 pulaar:
   name: Pulaar (Adlam)
@@ -193,8 +207,10 @@ gurmukhi:
   marc_code: pan
   name: Punjabi (Gurmukhi)
 pushto:
+  marc_code: pus
   name: Pushto
 rajasthani_devanagari:
+  marc_code: raj
   name: Rajasthani (Devanagari)
 romani_cyrillic:
   marc_code: rom
@@ -203,6 +219,7 @@ russian:
   marc_code: rus
   name: Russian
 sanskrit_devanagari:
+  marc_code: san
   name: Sanskrit (Devanagari)
 serbian:
   marc_code: srp
@@ -210,6 +227,7 @@ serbian:
 shor_cyrillic:
   name: Shor (Cyrillic)
 sinhalese:
+  marc_code: sin
   name: Sinhalese
 syriac_cyrillic:
   marc_code: syc
@@ -232,11 +250,13 @@ tatar_cyrillic:
   marc_code: tat
   name: Tatar (Cyrillic)
 telugu:
+  marc_code: tel
   name: Telugu
 thai:
   marc_code: tha
   name: Thai
 thai_alt:
+  marc_code: tha
   name: Thai (alternative)
 tibetan:
   marc_code: tib
@@ -257,6 +277,7 @@ ukrainian:
   marc_code: ukr
   name: Ukrainian
 urdu:
+  marc_code: urd
   name: Urdu
 uzbek_cyrillic:
   marc_code: uzb
