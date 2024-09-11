@@ -600,7 +600,7 @@ def get_lang_map(conn, lang_id, t_dir):
             """SELECT src, dest FROM tbl_trans_map
             WHERE lang_id = ? AND dir = ?
             ORDER BY sort ASC""",
-            (lang_id, FEAT_S2R))
+            (lang_id, t_dir))
 
     for row in qry:
         yield (Token(row[0]), row[1])
