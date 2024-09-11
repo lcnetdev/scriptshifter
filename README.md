@@ -18,6 +18,21 @@ Currently, the following environment variables are defined:
 - `TXL_DICTA_EP`: Endpoint for the Dicta Hebrew transliteration service. This
   is mandatory for using the Hebrew module.
 
+## Initial setup
+
+In order to run Scriptshifter, a local SQLite database must be created. The
+simplest way to do that is via command-line:
+
+```bash
+./sscli admin init-db
+```
+
+This step is already included in the `entrypoint.sh` script that gets executed
+by Docker, so no additional action is necessary.
+
+Note that the DB must be recreated every time any of the configuration tables
+in `scriptshifter/tables/data` changes.
+
 ## Local development server
 
 For local development, it is easiest to run Flask without the WSGI wrapper,
