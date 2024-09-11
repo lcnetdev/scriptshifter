@@ -12,7 +12,7 @@ fi
 host=${TXL_WEBAPP_HOST:-"0.0.0.0"}
 port=${TXL_WEBAPP_PORT:-"8000"}
 
-./sscli admin init--db
+./sscli admin init-db
 
 if [ "${FLASK_ENV}" == "development" ]; then
     exec flask run -h $host -p $port

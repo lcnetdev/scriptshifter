@@ -151,8 +151,12 @@ def init_db():
     """
     # Create parent diretories if necessary.
     # If the DB already exists, it will be overwritten ONLY on success at
-    # thhis point.
-    makedirs(path.dirname(TMP_DB_PATH), exist_ok=True)
+    # hhis point.
+    if path.isfile(TMP_DB_PATH):
+        # Remove previous temp file (possibly from failed attempt)
+        unlink(TMP_DB_PATH)
+    else:
+        makedirs(path.dirname(TMP_DB_PATH), exist_ok=True)
 
     conn = sqlite3.connect(TMP_DB_PATH)
 
@@ -162,9 +166,11 @@ def init_db():
             conn.executescript(fh.read())
 
     # Populate tables.
+    with open(path.join(TABLE_DIR, "index.yml")) as fh:
+        tlist = load(fh, Loader=Loader)
     try:
         with conn:
-            for tname, tdata in list_tables().items():
+            for tname, tdata in tlist.items():
                 res = conn.execute(
                     """INSERT INTO tbl_language (
                         name, label, marc_code, description
