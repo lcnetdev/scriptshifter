@@ -94,7 +94,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
     # Map t_dir to constant.
     t_dir = FEAT_S2R if t_dir == "s2r" else FEAT_R2S
 
-    source_str = "Roman" if t_dir == FEAT_S2R else lang
+    source_str = "Roman" if t_dir == FEAT_R2S else lang
     target_str = lang if t_dir == FEAT_R2S else "Roman"
     logger.info(f"Transliteration is from {source_str} to {target_str}.")
 
@@ -121,7 +121,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
         if _run_hook("post_normalize", ctx) == BREAK:
             return getattr(ctx, "dest", ""), ctx.warnings
 
-        lang_map = get_lang_map(ctx.conn, ctx.lang_id, ctx.t_dir)
+        lang_map = list(get_lang_map(ctx.conn, ctx.lang_id, ctx.t_dir))
 
         # Loop through source characters. The increment of each loop depends on
         # the length of the token that eventually matches.

@@ -45,9 +45,10 @@ def list_samples():
     path_ptn = path.join(
             path.dirname(path.realpath(__file__)),
             "tests", "data", "script_samples", "*.csv")
-    samples = [path.splitext(path.basename(fn))[0] for fn in glob(path_ptn)]
 
-    click.echo("\n".join(samples))
+    click.echo("Sample string sets available for batch testing:")
+    for fn in glob(path_ptn):
+        click.echo(path.splitext(path.basename(fn))[0])
 
 
 @test_grp.command()
@@ -57,6 +58,8 @@ def samples(lang):
     Test sample strings for language LANG.
 
     LANG must match one of the names obtained with `test list-samples` command.
+
+    The command will generate a test report file.
     """
     return test_sample(lang)
 
