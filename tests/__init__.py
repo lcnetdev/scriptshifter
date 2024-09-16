@@ -20,7 +20,8 @@ def reload_tables():
     reload(scriptshifter.tables)  # Reload new config dir.
     from scriptshifter import tables
     tables.list_tables.cache_clear()
-    tables.load_table.cache_clear()
+    tables.get_language.cache_clear()
+    tables.get_lang_map.cache_clear()
 
     return tables
 

@@ -113,7 +113,7 @@ class TestHooks(TestCase):
                 tbl["script_to_roman"]["hooks"],
                 {
                     "begin_input_token": [
-                        (scriptshifter.hooks.test.rotate, {"n": -3})
+                        ("test", scriptshifter.hooks.test.rotate, {"n": -3})
                     ]
                 })
 

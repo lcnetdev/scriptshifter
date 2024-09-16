@@ -6,9 +6,9 @@ from logging import getLogger
 from scriptshifter.exceptions import CONT
 
 
-# Suffixed by ʹ
 # Indices are positions in the numeric string from the right
 DIGITS = {
+    # Suffixed by ʹ (U+0374)
     1: {  # Units
         "α": 1,
         "β": 2,
@@ -45,7 +45,7 @@ DIGITS = {
         "ω": 8,
         "ϡ": 9,
     },
-    # Prefixed by ͵
+    # Prefixed by ͵ (U+0375)
     4: {
         "α": 1,
         "β": 2,

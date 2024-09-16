@@ -47,7 +47,7 @@ bengali:
 bulgarian:
   marc_code: bul
   name: Bulgarian
-buriat:
+buriat_cyrillic:
   marc_code: bua
   name: Buriat (Cyrillic)
 burmese:
@@ -111,7 +111,7 @@ kannada:
 kara-kalpak_cyrillic:
   marc_code: kaa
   name: Kara-Kalpak (Cyrillic)
-karachai-balkar_cyrillic:
+karachay-balkar_cyrillic:
   marc_code: krc
   name: Karachay-Balkar  (Cyrillic)
 karelian_cyrillic:

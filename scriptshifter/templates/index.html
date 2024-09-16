@@ -60,7 +60,7 @@
             <label for="lang">Language</label>
             <select id="lang" name="lang">
                 {% for k, v in languages.items() %}
-                    <option value="{{ k }}">{{ v["name"] }}</option>
+                    <option value="{{ k }}">{{ v["label"] }}</option>
                 {% endfor %}
             </select>
         </fieldset>
