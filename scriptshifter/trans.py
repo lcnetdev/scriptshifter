@@ -5,7 +5,7 @@ from re import compile
 
 from scriptshifter.exceptions import BREAK, CONT
 from scriptshifter.tables import (
-        BOW, EOW, WORD_BOUNDARY, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
+        BOW, EOW, WORD_BOUNDARY, FEAT_CASEI, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
         get_connection, get_lang_dcap, get_lang_general, get_lang_hooks,
         get_lang_ignore, get_lang_map, get_lang_normalize)
 
@@ -110,6 +110,10 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             raise NotImplementedError(
                 f"Roman-to-script not yet supported for {lang}."
             )
+
+        # Normalize case before post_config and rule-based normalization.
+        if not ctx.general["case_sensitive"]:
+            ctx._src = ctx.src.lower()
 
         # This hook may take over the whole transliteration process or delegate
         # it to some external process, and return the output string directly.
@@ -309,6 +313,9 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
 
 def _normalize_src(ctx, norm_rules):
+    """
+    Normalize source text according to rules.
+    """
     for nk, nv in norm_rules.items():
         ctx._src = ctx.src.replace(nk, nv)
     logger.debug(f"Normalized source: {ctx.src}")

@@ -1,6 +1,8 @@
+---
 general:
   name: Hebrew
   description: Hebrew S2R.
+  case_sensitive: false
 
 options:
   - id: genre
@@ -19,4 +21,3 @@ script_to_roman:
     post_config:
       -
         - hebrew.dicta_api.s2r_post_config
-

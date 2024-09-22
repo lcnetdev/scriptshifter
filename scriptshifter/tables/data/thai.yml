@@ -1,5 +1,7 @@
+---
 general:
   name: Thai
+  case_sensitive: false
 
 options:
   - id: ThaiTranscription

@@ -16,7 +16,7 @@ except ImportError:
     from yaml import Loader
 
 from scriptshifter import DB_PATH
-from scriptshifter.exceptions import BREAK, ConfigError
+from scriptshifter.exceptions import BREAK, ApiError, ConfigError
 
 
 __doc__ = """
@@ -208,6 +208,9 @@ def populate_table(conn, tid, tname):
         flags |= FEAT_S2R
     if "roman_to_script" in data:
         flags |= FEAT_R2S
+
+    if not data.get("general", {}).get("case_sensitive", True):
+        flags |= FEAT_CASEI
 
     conn.execute(
             "UPDATE tbl_language SET features = ? WHERE id = ?",
@@ -554,6 +557,9 @@ def get_lang_general(conn, lang):
             """SELECT id, name, label, features, marc_code, description
             FROM tbl_language WHERE name = ?""", (lang,))
     lang_data = lang_q.fetchone()
+
+    if not lang_data:
+        raise ApiError(f"No language data found for {lang}", 404)
 
     return {
         "id": lang_data[0],

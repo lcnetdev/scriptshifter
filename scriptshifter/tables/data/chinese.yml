@@ -2,10 +2,13 @@
 #
 # All other Chinese mappings are kept in _chinese_base.yml. This mapping only
 # adds an overlay for parsing numerals and Scriptshifter-specific features.
+
+---
 general:
   name: Chinese
   parents:
     - _chinese_base
+  case_sensitive: false
 
 options:
   - id: marc_field
