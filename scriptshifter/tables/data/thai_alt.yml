@@ -1,5 +1,7 @@
+---
 general:
   name: Thai (alternative)
+  case_sensitive: false
 
 script_to_roman:
   map:

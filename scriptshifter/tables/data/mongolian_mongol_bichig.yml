@@ -1,7 +1,9 @@
+---
 general:
   name: Mongolian (Mongol bichig)
   parents:
     - _ignore_base
+  case_sensitive: false
 
 roman_to_script:
 

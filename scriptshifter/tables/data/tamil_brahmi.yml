@@ -1,5 +1,7 @@
+---
 general:
   name: Tamil Brahmi
+  case_sensitive: false
 
 script_to_roman:
   hooks:

@@ -1,5 +1,7 @@
+---
 general:
   name: Divehi (Thaana)
+  case_sensitive: false
 
 roman_to_script:
   map:
@@ -50,7 +52,7 @@ roman_to_script:
     "bb": "\u0787\u07B0\u0784"
     "b": "\u0784"
 
-    # THAANA LETTER "L/l" WITH DOT BELOW (0323) 
+    # THAANA LETTER "L/l" WITH DOT BELOW (0323)
     "L\u0323": "\u0785"
     "l\u0323": "\u0785"
     "K": "\u0786"

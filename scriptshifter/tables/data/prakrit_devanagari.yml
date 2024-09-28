@@ -1,5 +1,7 @@
+---
 general:
   name: Prakrit (Devanagari)
+  case_sensitive: false
 
 script_to_roman:
   hooks:
