@@ -1,5 +1,7 @@
+---
 general:
   name: Persian
+  case_sensitive: false
 
 roman_to_script:
   map:
@@ -10,7 +12,7 @@ roman_to_script:
     ";": "\u061B"
     "?": "\u061F"
 
-    # Exceptions for specific words 
+    # Exceptions for specific words
     # Allah
     "Alla\u0304h": "\u0627\u0644\u0644\u0647"
 

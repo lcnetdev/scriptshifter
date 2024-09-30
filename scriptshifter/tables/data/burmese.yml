@@ -1,5 +1,7 @@
+---
 general:
   name: Burmese (Myanmar)
+  case_sensitive: false
 
 script_to_roman:
   hooks:

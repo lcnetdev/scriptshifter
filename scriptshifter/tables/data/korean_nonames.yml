@@ -1,11 +1,11 @@
+---
 general:
   name: Korean (Non-names)
   description: Korean S2R.
+  case_sensitive: false
 
 script_to_roman:
   hooks:
     post_config:
       -
         - korean.romanizer.s2r_nonames_post_config
-
-

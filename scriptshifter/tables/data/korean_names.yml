@@ -1,6 +1,8 @@
+---
 general:
   name: Korean (Names)
   description: Korean names S2R.
+  case_sensitive: false
 
 options:
   - id: marc_field

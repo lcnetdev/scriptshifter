@@ -1,5 +1,7 @@
+---
 general:
   name: Yiddish
+  case_sensitive: false
 
 options:
   - id: loshn_koydesh
