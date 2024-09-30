@@ -270,6 +270,9 @@ tuvinian_cyrillic:
 udmurt_cyrillic:
   marc_code: udm
   name: Udmurt (Cyrillic)
+uighur_arabic:
+  marc_code: uig
+  name: Uighur (Arabic)
 uighur_cyrillic:
   marc_code: uig
   name: Uighur (Cyrillic)
