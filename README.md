@@ -88,10 +88,17 @@ string in a production environment.
 
 `TXL_LOGLEVEL`: Logging level. Use Python notation. The default is `WARN`.
 
-`TXL_SMTP_HOST`: SMTP host to send feedback messages through. If not defined,
-the feedback form will not be shown in the UI.
+`TXL_SMTP_HOST`: SMTP host to send feedback messages through.
 
 `TXL_SMTP_PORT`: Port of the SMTP server. Defaults to `1025`.
+
+`TXL_FEEDBACK_PATH`: if a SMTP server is not available, the feedback message
+may be written to a file under this given path for further processing. The file
+will have a random name and a `.txt` suffix. This option is only available if
+`TXL_SMTP_HOST` is not defined. If neither `TXL_SMTP_HOST` nor
+`TXL_FEEDBACK_PATH` is defined, the feedback form will not be shown in the UI
+and a POST request to the `/feedback` REST endpoint will result in a `501 Not
+Implemented` error.
 
 
 ## Web UI
