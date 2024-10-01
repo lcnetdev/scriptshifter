@@ -2,9 +2,11 @@ import logging
 
 from base64 import b64encode
 from email.message import EmailMessage
+from email.generator import Generator
 from json import dumps
 from os import environ, urandom
 from smtplib import SMTP
+from tempfile import NamedTemporaryFile
 
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
@@ -12,7 +14,8 @@ from flask_cors import CORS
 from scriptshifter import (
         EMAIL_FROM, EMAIL_TO,
         GIT_COMMIT, GIT_TAG,
-        SMTP_HOST, SMTP_PORT)
+        SMTP_HOST, SMTP_PORT,
+        FEEDBACK_PATH)
 from scriptshifter.exceptions import ApiError
 from scriptshifter.tables import list_tables, get_language
 from scriptshifter.trans import transliterate
@@ -72,7 +75,7 @@ def index():
             "index.html",
             languages=list_tables(),
             version_info=(GIT_TAG, GIT_COMMIT),
-            feedback_form=SMTP_HOST is not None)
+            feedback_form=SMTP_HOST is not None or FEEDBACK_PATH is not None)
 
 
 @app.route("/health", methods=["GET"])
@@ -132,6 +135,9 @@ def feedback():
     """
     Allows users to provide feedback to improve a specific result.
     """
+    if not SMTP_HOST and not FEEDBACK_PATH:
+        return {"message": "Feedback form is not configured."}, 501
+
     t_dir = request.json.get("t_dir", "s2r")
     options = request.json.get("options", {})
     contact = request.json.get("contact")
@@ -155,10 +161,18 @@ def feedback():
         *Notes:*\n
         {request.json['notes']}""")
 
-    # TODO This uses a test SMTP server:
-    # python -m smtpd -n -c DebuggingServer localhost:1025
-    smtp = SMTP(SMTP_HOST, SMTP_PORT)
-    smtp.send_message(msg)
-    smtp.quit()
+    if SMTP_HOST:
+        # TODO This uses a test SMTP server:
+        # python -m smtpd -n -c DebuggingServer localhost:1025
+        smtp = SMTP(SMTP_HOST, SMTP_PORT)
+        smtp.send_message(msg)
+        smtp.quit()
+
+    else:
+        with NamedTemporaryFile(
+                suffix=".txt", dir=FEEDBACK_PATH, delete=False) as fh:
+            gen = Generator(fh)
+            gen.write(msg.as_bytes())
+            logger.info(f"Feedback message generated at {fh.name}.")
 
     return {"message": "Feedback message sent."}
