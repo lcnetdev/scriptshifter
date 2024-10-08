@@ -13,8 +13,6 @@ logger = getLogger(__name__)
 def parse_numerals_pre_assembly(ctx):
     """
     Parse Chinese numerals in the already romanized result.
-
-    This is run at post-assembly.
     """
     # Only apply to specific MARC fields.
     use_num_v = ctx.options.get("marc_field") in ("245n", "830n")
