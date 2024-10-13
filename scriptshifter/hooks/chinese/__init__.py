@@ -143,4 +143,4 @@ def person_name_pre_assembly(ctx):
         if ctx.dest_ls[2][0] in "aeiou":
             ctx.dest_ls[1] += "'"
         ctx.dest_ls[1] += ctx_ls[2]
-        del(ctx_ls[2])
+        del(ctx.dest_ls[2])
