@@ -31,6 +31,8 @@ script_to_roman:
     pre_assembly:
       -
         - chinese.parse_numerals_pre_assembly
+      -
+        - chinese.person_name_pre_assembly
 
   map:
     "〇": "ling#0 "

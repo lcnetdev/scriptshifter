@@ -127,3 +127,20 @@ def parse_numerals_pre_assembly(ctx):
     # Skip main transliterate function joining.
 
     return normalize_spacing_post_assembly(ctx)
+
+
+def person_name_pre_assembly(ctx):
+    """
+    Parse a personal name from a specific MARC field.
+    """
+    if not ctx.options.get("marc_field") in ("100", "600", "700", "800"):
+        return
+
+    ctx.dest_ls[0] = ctx.dest_ls[0].capitalize().strip() + ", "
+    ctx.dest_ls[1] = ctx.dest_ls[1].capitalize()
+    if len(ctx.dest_ls) > 2:
+        ctx.dest_ls[1] = ctx.dest_ls[1].strip()
+        if ctx.dest_ls[2][0] in "aeiou":
+            ctx.dest_ls[1] += "'"
+        ctx.dest_ls[1] += ctx_ls[2]
+        del(ctx_ls[2])
