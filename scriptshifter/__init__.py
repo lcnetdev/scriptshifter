@@ -50,8 +50,10 @@ logger = logging.getLogger(__name__)
 if not env:
     logger.warn("No .env file found. Assuming env was passed externally.")
 
-EMAIL_FROM = environ["TXL_EMAIL_FROM"]
-EMAIL_TO = environ["TXL_EMAIL_TO"]
+if SMTP_HOST or FEEDBACK_PATH:
+    EMAIL_FROM = environ["TXL_EMAIL_FROM"]
+    EMAIL_TO = environ["TXL_EMAIL_TO"]
+
 try:
     SMTP_PORT = int(environ.get("TXL_SMTP_PORT", "1025"))
 except ValueError:

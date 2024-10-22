@@ -120,11 +120,12 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
         if _run_hook("post_config", ctx) == BREAK:
             return getattr(ctx, "dest", ""), ctx.warnings
 
-        _normalize_src(ctx, get_lang_normalize(ctx.conn, ctx.lang_id))
-
-        if _run_hook("post_normalize", ctx) == BREAK:
+        # _normalize_src returns the results of the post_normalize hook.
+        if _normalize_src(
+                ctx, get_lang_normalize(ctx.conn, ctx.lang_id)) == BREAK:
             return getattr(ctx, "dest", ""), ctx.warnings
 
+        logger.debug(f"Normalized source: {ctx.src}")
         lang_map = list(get_lang_map(ctx.conn, ctx.lang_id, ctx.t_dir))
 
         # Loop through source characters. The increment of each loop depends on
@@ -151,7 +152,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             # token or exit the scanning loop altogether.
             hret = _run_hook("begin_input_token", ctx)
             if hret == BREAK:
-                logger.debug("Breaking text scanning from hook signal.")
+                Logger.debug("Breaking text scanning from hook signal.")
                 break
             if hret == CONT:
                 logger.debug("Skipping scanning iteration from hook signal.")
@@ -315,10 +316,14 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 def _normalize_src(ctx, norm_rules):
     """
     Normalize source text according to rules.
+
+    NOTE: this manipluates the protected source attribute so it may not
+    correspond to the originally provided source.
     """
     for nk, nv in norm_rules.items():
         ctx._src = ctx.src.replace(nk, nv)
-    logger.debug(f"Normalized source: {ctx.src}")
+
+    return _run_hook("post_normalize", ctx)
 
 
 def _is_bow(cur, ctx, word_boundary):

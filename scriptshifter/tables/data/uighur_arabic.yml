@@ -1,5 +1,7 @@
+---
 general:
   name: Uighur (Arabic)
+  case_sensitive: false
 
 roman_to_script:
   map:
@@ -118,7 +120,7 @@ roman_to_script:
     "%zh": "\uFB8A"
     "zh": "\uFB8B"
     "%zh%": "\uFB8A"
-    
+
 script_to_roman:
   map:
     "\u0626\u0627": "a"
@@ -157,9 +159,9 @@ script_to_roman:
     "\uFEEB": "h"
     "\uFEEC": "h"
     "\u0640\u0629": "h"
-    "\uFEEA": "h"
+    "%\uFEEA": "h"
     "\u0629": "h"
-    "\u0647": "h"
+    "%\u0647%": "h"
     "\uFE8C": "i"
     "\uFBE8": "i"
     "\uFBE9": "i"
