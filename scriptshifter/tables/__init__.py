@@ -1,5 +1,4 @@
 import logging
-import re
 import sqlite3
 
 from collections import defaultdict
@@ -7,6 +6,7 @@ from functools import cache
 from importlib import import_module
 from json import dumps as jdumps, loads as jloads
 from os import R_OK, access, environ, makedirs, path, unlink
+from re import compile
 from shutil import move
 
 from yaml import load
@@ -247,20 +247,19 @@ def populate_table(conn, tid, tname):
                             hook_data[1].__name__, jdumps(hook_data[2])))
 
         # Ignore rules (R2S only).
-        for row in sec.get("ignore", []):
-            if isinstance(row, dict):
-                if "re" in row:
-                    flags = FEAT_RE
-                    rule = row["re"]
-            else:
-                flags = 0
-                rule = row
-
+        for rule in sec.get("ignore", []):
             conn.execute(
                     """INSERT INTO tbl_ignore (
                         lang_id, rule, features
                     ) VALUES (?, ?, ?)""",
-                    (tid, rule, flags))
+                    (tid, rule, 0))
+
+        for rule in sec.get("ignore_ptn", []):
+            conn.execute(
+                    """INSERT INTO tbl_ignore (
+                        lang_id, rule, features
+                    ) VALUES (?, ?, ?)""",
+                    (tid, rule, FEAT_RE))
 
         # Double caps (S2R only).
         for rule in sec.get("double_cap", []):
@@ -417,33 +416,22 @@ def load_table(tname):
 
         # Ignore regular expression patterns.
         # Patterns are evaluated in the order they are listed in the config.
-        ignore_ptn = [
-                re.compile(ptn)
-                for ptn in tdata["roman_to_script"].get("ignore_ptn", [])]
+        ignore_ptn = tdata["roman_to_script"].get("ignore_ptn", [])
         for parent in parents:
             parent_tdata = load_table(parent)
             # NOTE: duplicates are not removed.
-            ignore_ptn = [
-                re.compile(ptn)
-                for ptn in parent_tdata.get(
-                        "roman_to_script", {}).get("ignore_ptn", [])
-            ] + ignore_ptn
+            ignore_ptn = parent_tdata.get(
+                    "roman_to_script", {}).get("ignore_ptn", []) + ignore_ptn
         tdata["roman_to_script"]["ignore_ptn"] = ignore_ptn
 
         # Ignore plain strings.
-        ignore = {
-            Token(t)
-            for t in tdata["roman_to_script"].get("ignore", [])
-        }
+        ignore = set(tdata["roman_to_script"].get("ignore", []))
         for parent in parents:
             parent_tdata = load_table(parent)
             # No overriding occurs with the ignore list, only de-duplication.
-            ignore |= {
-                Token(t) for t in parent_tdata.get(
-                        "roman_to_script", {}).get("ignore", [])
-            }
-        tdata["roman_to_script"]["ignore"] = [
-                t.content for t in sorted(ignore)]
+            ignore |= set(parent_tdata.get(
+                        "roman_to_script", {}).get("ignore", []))
+        tdata["roman_to_script"]["ignore"] = sorted(ignore)
 
         # Hooks.
         if "hooks" in tdata["roman_to_script"]:
@@ -592,7 +580,9 @@ def get_lang_ignore(conn, lang_id):
             WHERE lang_id = ?""",
             (lang_id,))
     # Features (regular expressions) not implemented yet.
-    return tuple(row[0] for row in qry)
+    return tuple(
+            compile(row[0]) if row[1] & FEAT_RE else row[0]
+            for row in qry)
 
 
 @cache
