@@ -34,6 +34,9 @@ script_to_roman:
   hooks:
     post_config:
       -
+        - asian_tokenizer.s2r_tokenize
+        - model: "KoichiYasuoka/roberta-base-thai-spm-upos"
+      -
         - aksharamukha.romanizer.s2r_post_config
         - src_script: "Thai"
 

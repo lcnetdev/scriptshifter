@@ -4,6 +4,11 @@ general:
   case_sensitive: false
 
 script_to_roman:
+  hooks:
+    post_normalize:
+      -
+        - asian_tokenizer.s2r_tokenize
+        - model: "KoichiYasuoka/roberta-base-thai-spm-upos"
   map:
     # COMMON SPECIAL CHARACTERS
 
