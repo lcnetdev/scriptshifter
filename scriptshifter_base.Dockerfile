@@ -10,6 +10,8 @@ RUN addgroup --system www
 RUN adduser --system www
 RUN gpasswd -a www www
 
+ENV HF_DATASETS_CACHE /data/hf/datasets
+
 # Copy external dependencies.
 WORKDIR ${WORKROOT}
 COPY ext ./ext/
