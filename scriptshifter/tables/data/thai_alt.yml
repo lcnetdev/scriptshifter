@@ -8,7 +8,7 @@ script_to_roman:
     post_normalize:
       -
         - asian_tokenizer.s2r_tokenize
-        - model: "KoichiYasuoka/roberta-base-thai-spm-upos"
+        - model: "th"
   map:
     # COMMON SPECIAL CHARACTERS
 
