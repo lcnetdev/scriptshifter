@@ -14,6 +14,9 @@ port=${TXL_WEBAPP_PORT:-"8000"}
 
 ./sscli admin init-db
 
+# Preload Thai model.
+python -c 'from esupar import load; load("th")'
+
 if [ "${FLASK_ENV}" == "development" ]; then
     exec flask run -h $host -p $port
 else
