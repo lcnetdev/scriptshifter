@@ -2,6 +2,7 @@ general:
   name: Georgian
   parents:
     - _ignore_base
+  case_sensitive: false
 
 roman_to_script:
     # \u0304 combining macron above

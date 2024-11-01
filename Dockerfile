@@ -9,6 +9,9 @@ COPY tests ./tests/
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
+ENV HF_DATASETS_CACHE /data/hf/datasets
+RUN ./sscli admin init-db
+
 RUN chmod +x ./entrypoint.sh
 #RUN chown -R www:www ${WORKROOT} .
 
