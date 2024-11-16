@@ -1,11 +1,10 @@
 from csv import reader
 from difflib import ndiff
+from glob import glob
 from importlib import reload
 from json import loads as jloads
 from logging import getLogger
-from os import path
-
-import scriptshifter.tables
+from os import environ, path
 
 from scriptshifter.trans import transliterate
 
@@ -17,8 +16,20 @@ logger = getLogger(__name__)
 
 
 def reload_tables():
-    reload(scriptshifter.tables)  # Reload new config dir.
+    if "TXL_CONFIG_TABLE_DIR" in environ:
+        del environ["TXL_CONFIG_TABLE_DIR"]
+
+    # import here to set modified test config dir.
     from scriptshifter import tables
+
+    tables.init_db()
+
+    for fname in glob(path.join(TEST_DATA_DIR, "config", ".yml")):
+        tname = path.splitext(path.basename(filename))[1]
+        with tables.get_connection() as conn:
+            tables.populate_table(conn, tname, {"name": fname})
+
+
     tables.list_tables.cache_clear()
     tables.get_language.cache_clear()
     tables.get_lang_map.cache_clear()
@@ -41,7 +52,10 @@ def test_sample(dset):
 
     with open(dset_fpath, newline="") as fh:
         csv = reader(fh)
+        i = 1
         for row in csv:
+            logger.info(f"CSV row #{i}")
+            i += 1
             lang, script, rom = row[:3]
             if not lang:
                 continue

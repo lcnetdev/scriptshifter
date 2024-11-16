@@ -143,7 +143,7 @@ def init_db():
 
     This operation removes any preexisting database.
 
-    All tables in the index file (`./data/index.yml`) will be parsed
+    All tables in the index file (`./index.yml`) will be parsed
     (including inheritance rules) and loaded into the designated DB.
 
     This must be done only once at bootstrap. To update individual tables,
@@ -151,7 +151,7 @@ def init_db():
     """
     # Create parent diretories if necessary.
     # If the DB already exists, it will be overwritten ONLY on success at
-    # hhis point.
+    # this point.
     if path.isfile(TMP_DB_PATH):
         # Remove previous temp file (possibly from failed attempt)
         unlink(TMP_DB_PATH)
@@ -166,21 +166,12 @@ def init_db():
             conn.executescript(fh.read())
 
     # Populate tables.
-    with open(path.join(TABLE_DIR, "index.yml")) as fh:
+    with open(path.join(path.dirname(TABLE_DIR), "index.yml")) as fh:
         tlist = load(fh, Loader=Loader)
     try:
         with conn:
             for tname, tdata in tlist.items():
-                res = conn.execute(
-                    """INSERT INTO tbl_language (
-                        name, label, marc_code, description
-                    ) VALUES (?, ?, ?, ?)""",
-                    (
-                        tname, tdata.get("name"), tdata.get("marc_code"),
-                        tdata.get("description"),
-                    )
-                )
-                populate_table(conn, res.lastrowid, tname)
+                populate_table(conn, tname, tdata)
 
         # If the DB already exists, it will be overwritten ONLY on success at
         # thhis point.
@@ -201,7 +192,27 @@ def get_connection():
     return sqlite3.connect(DB_PATH)
 
 
-def populate_table(conn, tid, tname):
+def populate_table(conn, tname, tdata):
+    """
+    Populate an individual table with data from a configuration.
+
+    @param conn: SQLite connection.
+
+    @param tname(str): Table name.
+
+    @param tdata(dict): Table data.
+    """
+    res = conn.execute(
+        """INSERT INTO tbl_language (
+            name, label, marc_code, description
+        ) VALUES (?, ?, ?, ?)""",
+        (
+            tname, tdata.get("name"), tdata.get("marc_code"),
+            tdata.get("description"),
+        )
+    )
+    tid = res.lastrowid
+
     data = load_table(tname)
     flags = 0
     if "script_to_roman" in data:
@@ -579,7 +590,6 @@ def get_lang_ignore(conn, lang_id):
             """SELECT rule, features FROM tbl_ignore
             WHERE lang_id = ?""",
             (lang_id,))
-    # Features (regular expressions) not implemented yet.
     return tuple(
             compile(row[0]) if row[1] & FEAT_RE else row[0]
             for row in qry)

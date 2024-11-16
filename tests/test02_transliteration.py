@@ -8,7 +8,7 @@ from os import environ, path
 
 from tests import TEST_DATA_DIR, reload_tables
 from scriptshifter.trans import transliterate
-import scriptshifter.tables
+from scriptshifter.tables import get_language
 
 
 logger = logging.getLogger(__name__)
@@ -33,8 +33,8 @@ class TestTrans(TestCase):
         This function name won't start with `test_` otherwise will be
         automatically run without parameters.
         """
-        config = scriptshifter.tables.load_table(self.tbl)
-        if "script_to_roman" in config:
+        config = get_language(self.tbl)
+        if config["has_s2r"]:
             txl = transliterate(
                     self.script, self.tbl,
                     capitalize=self.options.get("capitalize", False),
@@ -51,8 +51,8 @@ class TestTrans(TestCase):
         This function name won't start with `test_` otherwise will be
         automatically run without parameters.
         """
-        config = scriptshifter.tables.load_table(self.tbl)
-        if "roman_to_script" in config:
+        config = get_language(self.tbl)
+        if config["has_r2s"]:
             txl = transliterate(
                     self.roman, self.tbl,
                     t_dir="r2s",
@@ -68,25 +68,24 @@ def make_suite():
     """
     Build parametrized test cases.
     """
-    if "TXL_CONFIG_TABLE_DIR" in environ:
-        del environ["TXL_CONFIG_TABLE_DIR"]
     reload_tables()
 
     suite = TestSuite()
 
-    for fpath in glob(path.join(TEST_DATA_DIR, "script_samples", "*.csv")):
-        with open(fpath, newline="") as fh:
-            csv = reader(fh)
-            for row in csv:
-                if len(row[0]):
-                    # Inject transliteration info in the test case.
-                    for tname in ("sample_s2r", "sample_r2s"):
-                        tcase = TestTrans(tname)
-                        tcase.tbl = row[0]
-                        tcase.script = row[1].strip()
-                        tcase.roman = row[2].strip()
-                        tcase.options = jloads(row[3]) if len(row[3]) else {}
-                        suite.addTest(tcase)
+    with open(path.join(
+        TEST_DATA_DIR, "script_samples", "unittest.csv"
+    ), newline="") as fh:
+        csv = reader(fh)
+        for row in csv:
+            if len(row[0]):
+                # Inject transliteration info in the test case.
+                for tname in ("sample_s2r", "sample_r2s"):
+                    tcase = TestTrans(tname)
+                    tcase.tbl = row[0]
+                    tcase.script = row[1].strip()
+                    tcase.roman = row[2].strip()
+                    tcase.options = jloads(row[3]) if len(row[3]) else {}
+                    suite.addTest(tcase)
 
     return suite
 
