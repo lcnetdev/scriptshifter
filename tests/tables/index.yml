@@ -1,0 +1,14 @@
+inherited:
+  name: Test inheritance leaf file
+  marc_code: inh
+  description: Test description.
+cap_base1:
+  name: Test capitalization base 1
+cap_base2:
+  name: Test capitalization base 2
+cap_inherited:
+  name: Test capitalization
+ordering:
+  name: Test ordering
+rot3:
+  name: Test ROT3 hooks

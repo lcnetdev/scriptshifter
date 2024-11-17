@@ -1,19 +1,22 @@
-from os import environ
+from os import environ, unlink
 from unittest import TestCase
 
 from scriptshifter.trans import transliterate
-from tests import TEST_DATA_DIR, reload_tables
+
+
+def setUpModule():
+    from scriptshifter.tables import init_db
+    init_db()
+
+
+def tearDownModule():
+    unlink(environ["TXL_DB_PATH"])
 
 
 class TestCapitalization(TestCase):
     """
     Test capitalization.
     """
-
-    def setUp(self):
-        environ["TXL_CONFIG_TABLE_DIR"] = TEST_DATA_DIR
-        self.tables = reload_tables()
-
     def test_cap(self):
         tbl = "cap_inherited"
         in_str = "зг іо"

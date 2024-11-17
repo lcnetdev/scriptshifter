@@ -15,7 +15,7 @@ SQLite database path.
 This DB stores all the runtime transliteration data.
 """
 DB_PATH = environ.get(
-        "DB_PATH", path.join(APP_ROOT, "data", "scriptshifter.db"))
+        "TXL_DB_PATH", path.join(APP_ROOT, "data", "scriptshifter.db"))
 
 """
 SMTP server for sending email. For a dummy server that just echoes the

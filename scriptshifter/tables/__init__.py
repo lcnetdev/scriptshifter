@@ -28,9 +28,6 @@ runtime.
 """
 
 
-TMP_DB_PATH = path.join(
-        path.dirname(DB_PATH), "~tmp." + path.basename(DB_PATH))
-
 DEFAULT_TABLE_DIR = path.join(path.dirname(path.realpath(__file__)), "data")
 # Can be overridden for tests.
 TABLE_DIR = environ.get("TXL_CONFIG_TABLE_DIR", DEFAULT_TABLE_DIR)
@@ -152,6 +149,8 @@ def init_db():
     # Create parent diretories if necessary.
     # If the DB already exists, it will be overwritten ONLY on success at
     # this point.
+    TMP_DB_PATH = path.join(
+            path.dirname(DB_PATH), "~tmp." + path.basename(DB_PATH))
     if path.isfile(TMP_DB_PATH):
         # Remove previous temp file (possibly from failed attempt)
         unlink(TMP_DB_PATH)
@@ -176,6 +175,7 @@ def init_db():
         # If the DB already exists, it will be overwritten ONLY on success at
         # thhis point.
         move(TMP_DB_PATH, DB_PATH)
+        logger.info(f"Database initialized at {DB_PATH}.")
     finally:
         conn.close()
         if path.isfile(TMP_DB_PATH):
@@ -520,6 +520,10 @@ def get_language(lang):
             if len(s2r_hooks):
                 data["script_to_roman"]["hooks"] = s2r_hooks
 
+            double_cap = get_lang_dcap(conn, lang_id)
+            if len(double_cap):
+                data["script_to_roman"]["double_cap"] = double_cap
+
         # Roman to script map, ignore list, and hooks.
 
         if data["has_r2s"]:
@@ -540,10 +544,6 @@ def get_language(lang):
         opt_data = get_lang_options(conn, lang_id)
         if len(opt_data):
             data["options"] = opt_data
-
-        double_cap = get_lang_dcap(conn, lang_id)
-        if len(double_cap):
-            data["double_cap"] = double_cap
 
     conn.close()
 
@@ -652,7 +652,7 @@ def get_lang_hooks(conn, lang_id, t_dir):
             }
         )
 
-    return hooks
+    return dict(hooks)
 
 
 def get_lang_dcap(conn, lang_id):

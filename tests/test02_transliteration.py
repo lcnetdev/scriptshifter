@@ -2,16 +2,24 @@ import logging
 
 from unittest import TestCase, TestSuite, TextTestRunner
 from csv import reader
-from glob import glob
 from json import loads as jloads
-from os import environ, path
+from os import environ, path, unlink
 
-from tests import TEST_DATA_DIR, reload_tables
 from scriptshifter.trans import transliterate
 from scriptshifter.tables import get_language
+from tests import TEST_DATA_DIR
 
 
 logger = logging.getLogger(__name__)
+
+
+def setUpModule():
+    from scriptshifter.tables import init_db
+    init_db()
+
+
+def tearDownModule():
+    unlink(environ["TXL_DB_PATH"])
 
 
 class TestTrans(TestCase):
@@ -68,8 +76,6 @@ def make_suite():
     """
     Build parametrized test cases.
     """
-    reload_tables()
-
     suite = TestSuite()
 
     with open(path.join(
