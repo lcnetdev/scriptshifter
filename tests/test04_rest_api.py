@@ -4,13 +4,13 @@ from os import environ, unlink
 from unittest import TestCase
 
 from scriptshifter.rest_api import app
+from scriptshifter.tables import init_db
 
 
 EP = "http://localhost:8000"
 
 
 def setUpModule():
-    from scriptshifter.tables import init_db
     init_db()
 
 

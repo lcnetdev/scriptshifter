@@ -2,10 +2,10 @@ from os import environ, unlink
 from unittest import TestCase
 
 from scriptshifter.trans import transliterate
+from scriptshifter.tables import init_db
 
 
 def setUpModule():
-    from scriptshifter.tables import init_db
     init_db()
 
 

@@ -1,11 +1,10 @@
 from os import environ, unlink
 from unittest import TestCase
 
-from scriptshifter.tables import get_language
+from scriptshifter.tables import get_language, init_db
 
 
 def setUpModule():
-    from scriptshifter.tables import init_db
     init_db()
 
 
