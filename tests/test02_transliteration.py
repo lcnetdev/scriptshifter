@@ -38,10 +38,13 @@ class TestTrans(TestCase):
         automatically run without parameters.
         """
         config = get_language(self.tbl)
-        if config["has_s2r"]:
+        t_dir = self.options.get("t_dir", "s2r")
+        if (
+                t_dir == "s2r" and config["has_s2r"]
+                or t_dir == "r2s" and config["has_r2s"]):
             txl = transliterate(
                     self.script, self.tbl,
-                    t_dir=self.options.get("t_dir", "s2r"),
+                    t_dir=t_dir,
                     capitalize=self.options.get("capitalize", False),
                     options=self.options)[0]
             self.assertEqual(

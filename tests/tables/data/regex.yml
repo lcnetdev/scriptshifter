@@ -1,0 +1,11 @@
+---
+# Test file for regex ignoring.
+
+general:
+  name: Test regex ignoring.
+  parents:
+    - inherited
+
+roman_to_script:
+  ignore_ptn:
+    - "[hH][aeu]llo"

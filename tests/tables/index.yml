@@ -1,3 +1,4 @@
+---
 inherited:
   name: Test inheritance leaf file
   marc_code: inh
@@ -10,5 +11,7 @@ cap_inherited:
   name: Test capitalization
 ordering:
   name: Test ordering
+regex:
+  name: inherited config + regex ignore.
 rot3:
   name: Test ROT3 hooks
