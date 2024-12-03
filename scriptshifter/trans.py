@@ -1,7 +1,7 @@
 import logging
 
 from importlib import import_module
-from re import compile
+from re import Pattern, compile
 
 from scriptshifter.exceptions import BREAK, CONT
 from scriptshifter.tables import (
@@ -152,7 +152,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             # token or exit the scanning loop altogether.
             hret = _run_hook("begin_input_token", ctx)
             if hret == BREAK:
-                Logger.debug("Breaking text scanning from hook signal.")
+                logger.debug("Breaking text scanning from hook signal.")
                 break
             if hret == CONT:
                 logger.debug("Skipping scanning iteration from hook signal.")
@@ -170,8 +170,21 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                     if hret == CONT:
                         continue
 
-                    step = len(ctx.tk)
-                    if ctx.tk == ctx.src[ctx.cur:ctx.cur + step]:
+                    _matching = False
+                    if type(ctx.tk) is Pattern:
+                        # Seach RE pattern beginning at cursor.
+                        if _ptn_match := ctx.tk.match(ctx.src[ctx.cur:]):
+                            ctx.tk = _ptn_match[0]
+                            logger.debug(f"Matched regex: {ctx.tk}")
+                            step = len(ctx.tk)
+                            _matching = True
+                    else:
+                        # Search exact match.
+                        step = len(ctx.tk)
+                        if ctx.tk == ctx.src[ctx.cur:ctx.cur + step]:
+                            _matching = True
+
+                    if _matching:
                         # The position matches an ignore token.
                         hret = _run_hook("on_ignore_match", ctx)
                         if hret == BREAK:
@@ -182,6 +195,12 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                         logger.info(f"Ignored token: {ctx.tk}")
                         ctx.dest_ls.append(ctx.tk)
                         ctx.cur += step
+                        if ctx.cur >= len(ctx.src):
+                            # reached end of string. Stop ignoring.
+                            # The outer loop will exit imediately after.
+                            ctx.ignoring = False
+                            break
+
                         cur_char = ctx.src[ctx.cur]
                         ctx.ignoring = True
                         break
@@ -193,6 +212,9 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
             delattr(ctx, "tk")
             delattr(ctx, "ignoring")
+
+            if ctx.cur >= len(ctx.src):
+                break
 
             # Begin transliteration token lookup.
             ctx.match = False

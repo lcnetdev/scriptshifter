@@ -8,4 +8,12 @@ general:
 
 roman_to_script:
   ignore_ptn:
-    - "[hH][aeu]llo"
+    - "[hH][ae]llo"
+
+  map:
+    "h": "1"
+    "H": "5"
+    "l": "2"
+    "a": "6"
+    "b": "7"
+    "c": "8"
