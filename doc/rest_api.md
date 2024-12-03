@@ -73,7 +73,7 @@ MIME type: `application/json`
 
 Content: JSON object with the following keys:
 
-- `lang`: Language code as given by the `/languages` endpoint. 
+- `lang`: Language code as given by the `/languages` endpoint.
 - `text`: Input text to be transliterated.
 - `capitalize`: One of `first` (capitalize the first letter of the input),
   `all` (capitalize all words separated by spaces), or null (default: apply no

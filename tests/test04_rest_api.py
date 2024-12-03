@@ -1,25 +1,28 @@
 import json
 
-from os import environ
+from os import environ, unlink
 from unittest import TestCase
 
 from scriptshifter.rest_api import app
-from tests import TEST_DATA_DIR, reload_tables
+from scriptshifter.tables import init_db
 
 
 EP = "http://localhost:8000"
 
 
+def setUpModule():
+    init_db()
+
+
+def tearDownModule():
+    unlink(environ["TXL_DB_PATH"])
+
+
 class TestRestAPI(TestCase):
     """ Test REST API interaction. """
-    def setUp(self):
-        environ["TXL_CONFIG_TABLE_DIR"] = TEST_DATA_DIR
-        # if "TXL_CONFIG_TABLE_DIR" in environ:
-        #     del environ["TXL_CONFIG_TABLE_DIR"]
-        reload_tables()
-
-        # Start webapp.
-        app.testing = True
+    # def setUp(self):
+    #     # Start webapp.
+    #     app.testing = True
 
     def test_health(self):
         with app.test_client() as c:
@@ -35,7 +38,7 @@ class TestRestAPI(TestCase):
 
         data = json.loads(rsp.get_data(as_text=True))
         self.assertIn("inherited", data)
-        self.assertIn("name", data["inherited"])
+        self.assertIn("label", data["inherited"])
         self.assertNotIn("_base1", data)
         self.assertNotIn("_base2", data)
         self.assertNotIn("_base3", data)
@@ -47,14 +50,17 @@ class TestRestAPI(TestCase):
         self.assertEqual(rsp.status_code, 200)
         data = json.loads(rsp.get_data(as_text=True))
 
-        self.assertIn("general", data)
+        self.assertIn("case_sensitive", data)
+        self.assertIn("description", data)
         self.assertIn("roman_to_script", data)
         self.assertIn("map", data["roman_to_script"])
+        self.assertEqual(data["has_r2s"], True)
+        self.assertEqual(data["has_s2r"], False)
         self.assertEqual(data["roman_to_script"]["map"][0], ["ABCD", ""])
 
     def test_trans_api_s2r(self):
         with app.test_client() as c:
-            rsp = c.post("/trans", data={"lang": "rot3", "text": "defg"})
+            rsp = c.post("/trans", json={"lang": "rot3", "text": "defg"})
 
         self.assertEqual(rsp.status_code, 200)
         data = json.loads(rsp.get_data(as_text=True))
@@ -64,7 +70,7 @@ class TestRestAPI(TestCase):
     def test_trans_api_r2s(self):
         with app.test_client() as c:
             rsp = c.post(
-                "/trans", data={
+                "/trans", json={
                     "lang": "rot3",
                     "text": "abcd",
                     "t_dir": "r2s"
@@ -80,7 +86,7 @@ class TestRestAPI(TestCase):
         with app.test_client() as c:
             rsp = c.post(
                 "/trans",
-                data={
+                json={
                     "lang": "rot3",
                     "capitalize": "first",
                     "text": "bcde",

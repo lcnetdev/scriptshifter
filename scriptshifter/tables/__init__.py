@@ -1,5 +1,4 @@
 import logging
-import re
 import sqlite3
 
 from collections import defaultdict
@@ -7,6 +6,7 @@ from functools import cache
 from importlib import import_module
 from json import dumps as jdumps, loads as jloads
 from os import R_OK, access, environ, makedirs, path, unlink
+from re import compile
 from shutil import move
 
 from yaml import load
@@ -27,9 +27,6 @@ transformed and loaded into a database, which is the effective data source at
 runtime.
 """
 
-
-TMP_DB_PATH = path.join(
-        path.dirname(DB_PATH), "~tmp." + path.basename(DB_PATH))
 
 DEFAULT_TABLE_DIR = path.join(path.dirname(path.realpath(__file__)), "data")
 # Can be overridden for tests.
@@ -143,7 +140,7 @@ def init_db():
 
     This operation removes any preexisting database.
 
-    All tables in the index file (`./data/index.yml`) will be parsed
+    All tables in the index file (`./index.yml`) will be parsed
     (including inheritance rules) and loaded into the designated DB.
 
     This must be done only once at bootstrap. To update individual tables,
@@ -151,7 +148,9 @@ def init_db():
     """
     # Create parent diretories if necessary.
     # If the DB already exists, it will be overwritten ONLY on success at
-    # hhis point.
+    # this point.
+    TMP_DB_PATH = path.join(
+            path.dirname(DB_PATH), "~tmp." + path.basename(DB_PATH))
     if path.isfile(TMP_DB_PATH):
         # Remove previous temp file (possibly from failed attempt)
         unlink(TMP_DB_PATH)
@@ -166,25 +165,17 @@ def init_db():
             conn.executescript(fh.read())
 
     # Populate tables.
-    with open(path.join(TABLE_DIR, "index.yml")) as fh:
+    with open(path.join(path.dirname(TABLE_DIR), "index.yml")) as fh:
         tlist = load(fh, Loader=Loader)
     try:
         with conn:
             for tname, tdata in tlist.items():
-                res = conn.execute(
-                    """INSERT INTO tbl_language (
-                        name, label, marc_code, description
-                    ) VALUES (?, ?, ?, ?)""",
-                    (
-                        tname, tdata.get("name"), tdata.get("marc_code"),
-                        tdata.get("description"),
-                    )
-                )
-                populate_table(conn, res.lastrowid, tname)
+                populate_table(conn, tname, tdata)
 
         # If the DB already exists, it will be overwritten ONLY on success at
         # thhis point.
         move(TMP_DB_PATH, DB_PATH)
+        logger.info(f"Database initialized at {DB_PATH}.")
     finally:
         conn.close()
         if path.isfile(TMP_DB_PATH):
@@ -201,7 +192,27 @@ def get_connection():
     return sqlite3.connect(DB_PATH)
 
 
-def populate_table(conn, tid, tname):
+def populate_table(conn, tname, tdata):
+    """
+    Populate an individual table with data from a configuration.
+
+    @param conn: SQLite connection.
+
+    @param tname(str): Table name.
+
+    @param tdata(dict): Table data.
+    """
+    res = conn.execute(
+        """INSERT INTO tbl_language (
+            name, label, marc_code, description
+        ) VALUES (?, ?, ?, ?)""",
+        (
+            tname, tdata.get("name"), tdata.get("marc_code"),
+            tdata.get("description"),
+        )
+    )
+    tid = res.lastrowid
+
     data = load_table(tname)
     flags = 0
     if "script_to_roman" in data:
@@ -247,20 +258,19 @@ def populate_table(conn, tid, tname):
                             hook_data[1].__name__, jdumps(hook_data[2])))
 
         # Ignore rules (R2S only).
-        for row in sec.get("ignore", []):
-            if isinstance(row, dict):
-                if "re" in row:
-                    flags = FEAT_RE
-                    rule = row["re"]
-            else:
-                flags = 0
-                rule = row
-
+        for rule in sec.get("ignore", []):
             conn.execute(
                     """INSERT INTO tbl_ignore (
                         lang_id, rule, features
                     ) VALUES (?, ?, ?)""",
-                    (tid, rule, flags))
+                    (tid, rule, 0))
+
+        for rule in sec.get("ignore_ptn", []):
+            conn.execute(
+                    """INSERT INTO tbl_ignore (
+                        lang_id, rule, features
+                    ) VALUES (?, ?, ?)""",
+                    (tid, rule, FEAT_RE))
 
         # Double caps (S2R only).
         for rule in sec.get("double_cap", []):
@@ -417,33 +427,22 @@ def load_table(tname):
 
         # Ignore regular expression patterns.
         # Patterns are evaluated in the order they are listed in the config.
-        ignore_ptn = [
-                re.compile(ptn)
-                for ptn in tdata["roman_to_script"].get("ignore_ptn", [])]
+        ignore_ptn = tdata["roman_to_script"].get("ignore_ptn", [])
         for parent in parents:
             parent_tdata = load_table(parent)
             # NOTE: duplicates are not removed.
-            ignore_ptn = [
-                re.compile(ptn)
-                for ptn in parent_tdata.get(
-                        "roman_to_script", {}).get("ignore_ptn", [])
-            ] + ignore_ptn
+            ignore_ptn = parent_tdata.get(
+                    "roman_to_script", {}).get("ignore_ptn", []) + ignore_ptn
         tdata["roman_to_script"]["ignore_ptn"] = ignore_ptn
 
         # Ignore plain strings.
-        ignore = {
-            Token(t)
-            for t in tdata["roman_to_script"].get("ignore", [])
-        }
+        ignore = set(tdata["roman_to_script"].get("ignore", []))
         for parent in parents:
             parent_tdata = load_table(parent)
             # No overriding occurs with the ignore list, only de-duplication.
-            ignore |= {
-                Token(t) for t in parent_tdata.get(
-                        "roman_to_script", {}).get("ignore", [])
-            }
-        tdata["roman_to_script"]["ignore"] = [
-                t.content for t in sorted(ignore)]
+            ignore |= set(parent_tdata.get(
+                        "roman_to_script", {}).get("ignore", []))
+        tdata["roman_to_script"]["ignore"] = sorted(ignore)
 
         # Hooks.
         if "hooks" in tdata["roman_to_script"]:
@@ -521,6 +520,10 @@ def get_language(lang):
             if len(s2r_hooks):
                 data["script_to_roman"]["hooks"] = s2r_hooks
 
+            double_cap = get_lang_dcap(conn, lang_id)
+            if len(double_cap):
+                data["script_to_roman"]["double_cap"] = double_cap
+
         # Roman to script map, ignore list, and hooks.
 
         if data["has_r2s"]:
@@ -541,10 +544,6 @@ def get_language(lang):
         opt_data = get_lang_options(conn, lang_id)
         if len(opt_data):
             data["options"] = opt_data
-
-        double_cap = get_lang_dcap(conn, lang_id)
-        if len(double_cap):
-            data["double_cap"] = double_cap
 
     conn.close()
 
@@ -591,8 +590,9 @@ def get_lang_ignore(conn, lang_id):
             """SELECT rule, features FROM tbl_ignore
             WHERE lang_id = ?""",
             (lang_id,))
-    # Features (regular expressions) not implemented yet.
-    return tuple(row[0] for row in qry)
+    return tuple(
+            compile(row[0]) if row[1] & FEAT_RE else row[0]
+            for row in qry)
 
 
 @cache
@@ -652,7 +652,7 @@ def get_lang_hooks(conn, lang_id, t_dir):
             }
         )
 
-    return hooks
+    return dict(hooks)
 
 
 def get_lang_dcap(conn, lang_id):
