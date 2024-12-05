@@ -1,20 +1,21 @@
+from os import environ, unlink
 from unittest import TestCase
 
-from os import environ
+from scriptshifter.tables import get_language, init_db
 
-import scriptshifter
 
-from tests import TEST_DATA_DIR, reload_tables
+def setUpModule():
+    init_db()
+
+
+def tearDownModule():
+    unlink(environ["TXL_DB_PATH"])
 
 
 class TestConfig(TestCase):
     """ Test configuration parsing. """
-    def setUp(self):
-        environ["TXL_CONFIG_TABLE_DIR"] = TEST_DATA_DIR
-        self.tables = reload_tables()
-
     def test_ordering(self):
-        tbl = self.tables.load_table("ordering")
+        tbl = get_language("ordering")
         exp_order = ["ABCD", "AB", "A", "BCDE", "BCD", "BEFGH", "B"]
 
         self.assertEqual(
@@ -23,19 +24,17 @@ class TestConfig(TestCase):
 
 class TestOverride(TestCase):
     """ Test configuration overrides. """
-    def setUp(self):
-        environ["TXL_CONFIG_TABLE_DIR"] = TEST_DATA_DIR
-        self.tables = reload_tables()
-
     def test_override_map(self):
-        tbl = self.tables.load_table("inherited")
+        tbl = get_language("inherited")
 
-        self.assertEqual(tbl["general"]["name"], "Test inheritance leaf file")
+        self.assertEqual(tbl["label"], "Test inheritance leaf file")
+        self.assertEqual(tbl["marc_code"], "inh")
+        self.assertEqual(tbl["description"], "Test description.")
 
         # Entries are additive.
         self.assertEqual(
                 tbl["roman_to_script"]["ignore"],
-                ["Fritter my wig", "Hi", "Ho", "Thing-um-a-jig"])
+                ("Fritter my wig", "Hi", "Ho", "Thing-um-a-jig"))
         self.assertEqual(
                 tbl["roman_to_script"]["map"],
                 (
@@ -102,34 +101,31 @@ class TestOverride(TestCase):
 
 class TestHooks(TestCase):
     """ Test parsing of hook functions. """
-    def setUp(self):
-        environ["TXL_CONFIG_TABLE_DIR"] = TEST_DATA_DIR
-        self.tables = reload_tables()
-
     def test_rot3(self):
-        tbl = self.tables.load_table("rot3")
+        tbl = get_language("rot3")
 
         self.assertEqual(
-                tbl["script_to_roman"]["hooks"],
-                {
-                    "begin_input_token": [
-                        ("test", scriptshifter.hooks.test.rotate, {"n": -3})
-                    ]
-                })
+            tbl["script_to_roman"]["hooks"],
+            {
+                "begin_input_token": [
+                    {
+                        "module_name": "test",
+                        "fn_name": "rotate",
+                        "kwargs": {"n": -3},
+                    }
+                ]
+            }
+        )
 
 
 class TestDoubleCaps(TestCase):
     """ Test double capitalization configuration. """
-    def setUp(self):
-        environ["TXL_CONFIG_TABLE_DIR"] = TEST_DATA_DIR
-        self.tables = reload_tables()
-
     def test_dcaps_base1(self):
-        cap_base1 = self.tables.load_table("cap_base1")
+        cap_base1 = get_language("cap_base1")
         assert "z︠h︡" in cap_base1["script_to_roman"]["double_cap"]
 
     def test_dcaps_base2(self):
-        cap_base2 = self.tables.load_table("cap_base2")
+        cap_base2 = get_language("cap_base2")
         dcap = cap_base2["script_to_roman"]["double_cap"]
 
         assert len(dcap) == 2
@@ -137,7 +133,7 @@ class TestDoubleCaps(TestCase):
         assert "i︠o︡" in dcap
 
     def test_dcaps_inherited(self):
-        cap_inherited = self.tables.load_table("cap_inherited")
+        cap_inherited = get_language("cap_inherited")
         dcap = cap_inherited["script_to_roman"]["double_cap"]
 
         assert len(dcap) == 1

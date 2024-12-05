@@ -1,0 +1,8 @@
+inherited,abcd,9078,,
+inherited,TUVX,tuvx,"{""t_dir"": ""r2s""}",
+rot3,defg,abcd,,
+rot3,HIJK,KLMN,"{""t_dir"": ""r2s""}",
+rot3,st uv,Vw xy,"{""t_dir"": ""r2s"", ""capitalize"": ""first""}",
+rot3,st uv,Vw Xy,"{""t_dir"": ""r2s"", ""capitalize"": ""all""}",
+regex,Hello abc,Hello 678,"{""t_dir"": ""r2s""}",
+regex,Hullo abc,5u22o 678,"{""t_dir"": ""r2s""}",

@@ -15,7 +15,7 @@ SQLite database path.
 This DB stores all the runtime transliteration data.
 """
 DB_PATH = environ.get(
-        "DB_PATH", path.join(APP_ROOT, "data", "scriptshifter.db"))
+        "TXL_DB_PATH", path.join(APP_ROOT, "data", "scriptshifter.db"))
 
 """
 SMTP server for sending email. For a dummy server that just echoes the
@@ -50,8 +50,10 @@ logger = logging.getLogger(__name__)
 if not env:
     logger.warn("No .env file found. Assuming env was passed externally.")
 
-EMAIL_FROM = environ["TXL_EMAIL_FROM"]
-EMAIL_TO = environ["TXL_EMAIL_TO"]
+if SMTP_HOST or FEEDBACK_PATH:
+    EMAIL_FROM = environ["TXL_EMAIL_FROM"]
+    EMAIL_TO = environ["TXL_EMAIL_TO"]
+
 try:
     SMTP_PORT = int(environ.get("TXL_SMTP_PORT", "1025"))
 except ValueError:

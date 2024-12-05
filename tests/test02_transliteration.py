@@ -2,16 +2,23 @@ import logging
 
 from unittest import TestCase, TestSuite, TextTestRunner
 from csv import reader
-from glob import glob
 from json import loads as jloads
-from os import environ, path
+from os import environ, path, unlink
 
-from tests import TEST_DATA_DIR, reload_tables
 from scriptshifter.trans import transliterate
-import scriptshifter.tables
+from scriptshifter.tables import get_language, init_db
+from tests import TEST_DATA_DIR
 
 
 logger = logging.getLogger(__name__)
+
+
+def setUpModule():
+    init_db()
+
+
+def tearDownModule():
+    unlink(environ["TXL_DB_PATH"])
 
 
 class TestTrans(TestCase):
@@ -23,20 +30,21 @@ class TestTrans(TestCase):
     TODO use a comprehensive sample table and report errors for unsupported
     languages.
     """
-
-    maxDiff = None
-
-    def sample_s2r(self):
+    def sample(self):
         """
-        Test S2R transliteration for one CSV sample.
+        Test transliteration for one CSV row.
 
         This function name won't start with `test_` otherwise will be
         automatically run without parameters.
         """
-        config = scriptshifter.tables.load_table(self.tbl)
-        if "script_to_roman" in config:
+        config = get_language(self.tbl)
+        t_dir = self.options.get("t_dir", "s2r")
+        if (
+                t_dir == "s2r" and config["has_s2r"]
+                or t_dir == "r2s" and config["has_r2s"]):
             txl = transliterate(
                     self.script, self.tbl,
+                    t_dir=t_dir,
                     capitalize=self.options.get("capitalize", False),
                     options=self.options)[0]
             self.assertEqual(
@@ -44,49 +52,27 @@ class TestTrans(TestCase):
                     f"S2R transliteration error for {self.tbl}!\n"
                     f"Original: {self.script}")
 
-    def sample_r2s(self):
-        """
-        Test R2S transliteration for one CSV sample.
-
-        This function name won't start with `test_` otherwise will be
-        automatically run without parameters.
-        """
-        config = scriptshifter.tables.load_table(self.tbl)
-        if "roman_to_script" in config:
-            txl = transliterate(
-                    self.roman, self.tbl,
-                    t_dir="r2s",
-                    capitalize=self.options.get("capitalize", False),
-                    options=self.options)[0]
-            self.assertEqual(
-                    txl, self.script,
-                    f"R2S transliteration error for {self.tbl}!\n"
-                    f"Original: {self.roman}")
-
 
 def make_suite():
     """
     Build parametrized test cases.
     """
-    if "TXL_CONFIG_TABLE_DIR" in environ:
-        del environ["TXL_CONFIG_TABLE_DIR"]
-    reload_tables()
-
     suite = TestSuite()
 
-    for fpath in glob(path.join(TEST_DATA_DIR, "script_samples", "*.csv")):
-        with open(fpath, newline="") as fh:
-            csv = reader(fh)
-            for row in csv:
-                if len(row[0]):
-                    # Inject transliteration info in the test case.
-                    for tname in ("sample_s2r", "sample_r2s"):
-                        tcase = TestTrans(tname)
-                        tcase.tbl = row[0]
-                        tcase.script = row[1].strip()
-                        tcase.roman = row[2].strip()
-                        tcase.options = jloads(row[3]) if len(row[3]) else {}
-                        suite.addTest(tcase)
+    with open(path.join(
+        TEST_DATA_DIR, "script_samples", "unittest.csv"
+    ), newline="") as fh:
+        csv = reader(fh)
+        for row in csv:
+            if len(row[0]):
+                # Inject transliteration info in the test case.
+                tcase = TestTrans("sample")
+                tcase.tbl = row[0]
+                tcase.script = row[1].strip()
+                tcase.roman = row[2].strip()
+                tcase.options = jloads(row[3]) if len(row[3]) else {}
+
+                suite.addTest(tcase)
 
     return suite
 

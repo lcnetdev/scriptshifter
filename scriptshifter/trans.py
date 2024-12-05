@@ -1,7 +1,7 @@
 import logging
 
 from importlib import import_module
-from re import compile
+from re import Pattern, compile
 
 from scriptshifter.exceptions import BREAK, CONT
 from scriptshifter.tables import (
@@ -120,11 +120,12 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
         if _run_hook("post_config", ctx) == BREAK:
             return getattr(ctx, "dest", ""), ctx.warnings
 
-        _normalize_src(ctx, get_lang_normalize(ctx.conn, ctx.lang_id))
-
-        if _run_hook("post_normalize", ctx) == BREAK:
+        # _normalize_src returns the results of the post_normalize hook.
+        if _normalize_src(
+                ctx, get_lang_normalize(ctx.conn, ctx.lang_id)) == BREAK:
             return getattr(ctx, "dest", ""), ctx.warnings
 
+        logger.debug(f"Normalized source: {ctx.src}")
         lang_map = list(get_lang_map(ctx.conn, ctx.lang_id, ctx.t_dir))
 
         # Loop through source characters. The increment of each loop depends on
@@ -169,8 +170,21 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                     if hret == CONT:
                         continue
 
-                    step = len(ctx.tk)
-                    if ctx.tk == ctx.src[ctx.cur:ctx.cur + step]:
+                    _matching = False
+                    if type(ctx.tk) is Pattern:
+                        # Seach RE pattern beginning at cursor.
+                        if _ptn_match := ctx.tk.match(ctx.src[ctx.cur:]):
+                            ctx.tk = _ptn_match[0]
+                            logger.debug(f"Matched regex: {ctx.tk}")
+                            step = len(ctx.tk)
+                            _matching = True
+                    else:
+                        # Search exact match.
+                        step = len(ctx.tk)
+                        if ctx.tk == ctx.src[ctx.cur:ctx.cur + step]:
+                            _matching = True
+
+                    if _matching:
                         # The position matches an ignore token.
                         hret = _run_hook("on_ignore_match", ctx)
                         if hret == BREAK:
@@ -181,6 +195,12 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                         logger.info(f"Ignored token: {ctx.tk}")
                         ctx.dest_ls.append(ctx.tk)
                         ctx.cur += step
+                        if ctx.cur >= len(ctx.src):
+                            # reached end of string. Stop ignoring.
+                            # The outer loop will exit imediately after.
+                            ctx.ignoring = False
+                            break
+
                         cur_char = ctx.src[ctx.cur]
                         ctx.ignoring = True
                         break
@@ -192,6 +212,9 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
             delattr(ctx, "tk")
             delattr(ctx, "ignoring")
+
+            if ctx.cur >= len(ctx.src):
+                break
 
             # Begin transliteration token lookup.
             ctx.match = False
@@ -315,10 +338,14 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 def _normalize_src(ctx, norm_rules):
     """
     Normalize source text according to rules.
+
+    NOTE: this manipluates the protected source attribute so it may not
+    correspond to the originally provided source.
     """
     for nk, nv in norm_rules.items():
         ctx._src = ctx.src.replace(nk, nv)
-    logger.debug(f"Normalized source: {ctx.src}")
+
+    return _run_hook("post_normalize", ctx)
 
 
 def _is_bow(cur, ctx, word_boundary):
