@@ -1,3 +1,4 @@
+---
 # Map index file.
 #
 # Configurations not listed here will not show in the UI drop-down menu or
@@ -14,7 +15,8 @@ altai_cyrillic:
   marc_code: alt
   name: Altai (Cyrillic)
 arabic:
-  description: Arabic-to-Roman transliterator using the ArabicTransliterator external
+  description: >
+    Arabic-to-Roman transliterator using the ArabicTransliterator external
     library.
   marc_code: ara
   name: Arabic (S2R)
@@ -22,14 +24,17 @@ armenian:
   marc_code: arm
   name: Armenian
 asian_cyrillic:
-  description: 'Multi-purpose transliteration for non-Slavic Cyrillic scripts: Abaza,
-    Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar, Bashkir, Buryat, Chechen, Chukchi,
-    Chuvash, Dargwa, Dungan, Eskimo, Even, Evenki, Gagauz, Ingush, Inuit, Kabardian,
-    Kalmyk, Karachay, Karachay-Balkar, Karakalpak, Karelian, Khakass, Khanty, Komi,
-    Komi-Permyak, Koryak, Kumyk, Lak, Lapp, Lezghian, Lithuanian, Mansi, Mari, Moldovan,
-    Molodstov, Mordvin, Nanai, Nenets, Nivkh, Nogai, Ossetic, Permyak, Romanian, Romany,
-    Selkup, Shor, Tabasaran, Tat, Tuva, Udekhe, Udmurt, Yakut.'
-  marc_code: abk, ady, alt, ava, bak, che, chv, dar, ale, esk, kbd, xal, krc, kaa,
+  description: >
+    Multi-purpose transliteration for non-Slavic Cyrillic scripts: Abaza,
+    Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar, Bashkir, Buryat,
+    Chechen, Chukchi, Chuvash, Dargwa, Dungan, Eskimo, Even, Evenki, Gagauz,
+    Ingush, Inuit, Kabardian, Kalmyk, Karachay, Karachay-Balkar, Karakalpak,
+    Karelian, Khakass, Khanty, Komi, Komi-Permyak, Koryak, Kumyk, Lak, Lapp,
+    Lezghian, Lithuanian, Mansi, Mari, Moldovan, Molodstov, Mordvin, Nanai,
+    Nenets, Nivkh, Nogai, Ossetic, Permyak, Romanian, Romany, Selkup, Shor,
+    Tabasaran, Tat, Tuva, Udekhe, Udmurt, Yakut.
+  marc_code: >
+    abk, ady, alt, ava, bak, che, chv, dar, ale, esk, kbd, xal, krc, kaa,
     krl, kom, kum, lez, lit, chm, nog, oss, rum, rom, sel, udm, sah
   name: Asian Cyrillic
 azerbaijani_cyrillic:
@@ -134,8 +139,9 @@ komi_cyrillic:
   marc_code: kom
   name: Komi (Cyrillic)
 korean_names:
-  description: Korean S2R for strings ONLY containing personal names formatted as
-    last + first name. Separate multiple names with a comma or a center-dot (U+00B7).
+  description: >
+    Korean S2R for strings ONLY containing personal names formatted as last +
+    first name. Separate multiple names with a comma or a center-dot (U+00B7).
   marc_code: kor
   name: Korean (last + first names only)
 korean_nonames:
@@ -255,9 +261,6 @@ telugu:
 thai:
   marc_code: tha
   name: Thai
-thai_alt:
-  marc_code: tha
-  name: Thai (alternative)
 tibetan:
   marc_code: tib
   name: Tibetan
