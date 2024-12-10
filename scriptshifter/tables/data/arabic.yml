@@ -7,6 +7,390 @@ general:
   description: Arabic S2R using a 3rd party library.
   case_sensitive: false
 
+
+roman_to_script:
+  map:
+
+    # Original table by David Bucknum
+    # Last updated 25 January 2019
+    # Modified by WK with testing by Arabic Cat Staff LOC-CAIRO 
+    # Additional info from R. Vassie, [n.d.] "Marrying the Arabic and Latin Scripts Conceptually" 
+
+    # RDA boilerplate phrases not transliterated:
+    "Place of publication not identified": "Place of publication not identified"
+    "publisher not identified": "publisher not identified"
+    "‡a": "‡a"
+    "‡b": "‡b"
+    "‡c": "‡c"
+    "‡d": "‡d"
+    "‡e": "‡e"
+    "/": "/"
+
+
+
+    # Punctuation marks:
+    "# %": "\u066A ; cannot transliterate the truncation character"
+    "*": "\u066D"
+    ",": "\u060C"
+    ";": "\u061B"
+    "?": "\u061F"
+
+    # Exceptions for specific words 
+    # Allah
+    "Alla\u0304h": "\u0627\u0644\u0644\u0647"
+
+    # Qur'an
+    "Qur\u02BCa\u0304n": "\u0642\u0631\u0622\u0646"
+
+    # lillah
+    "lilla\u0304h": "\u0644\u0644\u0647"
+
+    # billah
+    "billa\u0304h": "\u0628\u0644\u0644\u0647"
+
+    # Rahman
+    "Rah\u0323ma\u0304n": "\u0631\u062D\u0645\u0646"
+
+    # Ruwat
+    "Ruwa\u0304t": "\u0631\u0648\u0627\u0629"
+    "ruwa\u0304t": "\u0631\u0648\u0627\u0629"
+
+    # Hadha
+    "Ha\u0304dha\u0304": "\u0647\u0630\u0627"
+    "ha\u0304dha\u0304": "\u0647\u0630\u0627"
+
+    # Hadhihi
+    "Ha\u0304dhi\u0304hi": "\u0647\u0630\u0647"
+    "ha\u0304dhi\u0304hi": "\u0647\u0630\u0647"
+
+    # dhalika
+    "dha\u0304lika": "\u0630\u0644\u0643"
+
+    # Ibn when it appears in the middle of a name sequence
+    "ibn": "\u0628\u0646"
+
+    # H[dot below]aya[macron]t
+    "h\u0323aya\u0304t": "\u062D\u064A\u0627\u0629"
+    "H\u0323aya\u0304t": "\u062D\u064A\u0627\u0629"
+
+    # "sh[dot below] as in "Ishaq"
+
+    "%sh\u0323%": "\u0633\u062D"
+
+    # "s[prime]h" combos
+
+    "%s\u02B9h%": "\u0633\u0647"
+
+    # "th[dot below]"
+
+    "%th\u0323%": "\u062A\u062D"
+
+    # dh[dot under] 
+
+    "%dh\u0323%": "\u062F\u062D"
+
+    # La-hu
+
+    "la-hu": "\u0644\u0647"
+
+    # Mi'ah
+    "Mi\u02BEah": "\u0645\u0627\u0626\u0629"
+    "Mi\u02BCah": "\u0645\u0627\u0626\u0629"
+    "mi\u02BEah": "\u0645\u0627\u0626\u0629"
+    "mi\u02BCah": "\u0645\u0627\u0626\u0629"
+
+    # Mi'at
+    "Mi\u02BEat": "\u0645\u0627\u0626\u0629"
+    "Mi\u02BCat": "\u0645\u0627\u0626\u0629"
+    "mi\u02BEat": "\u0645\u0627\u0626\u0629"
+    "mi\u02BCat": "\u0645\u0627\u0626\u0629"
+
+    # Numbers (I have set these to Hindi numbers. Note that Persian and Urdu will technically use \u06F0-06F9. This needs further discussion with PSD as RLIN21 used Hindi numbers, Connexion and Voyager does not.)
+
+    # Edition statements with Latin number
+    "al-T\u0323ab\u02BBah 1": "\u0627\u0644\u0637\u0628\u0639\u0629 1"
+    "al-T\u0323ab\u02BBah 2": "\u0627\u0644\u0637\u0628\u0639\u0629 2"
+    "al-T\u0323ab\u02BBah 3": "\u0627\u0644\u0637\u0628\u0639\u0629 3"
+    "al-T\u0323ab\u02BBah 4": "\u0627\u0644\u0637\u0628\u0639\u0629 4"
+    "al-T\u0323ab\u02BBah 5": "\u0627\u0644\u0637\u0628\u0639\u0629 5"
+    "al-T\u0323ab\u02BBah 6": "\u0627\u0644\u0637\u0628\u0639\u0629 6"
+    "al-T\u0323ab\u02BBah 7": "\u0627\u0644\u0637\u0628\u0639\u0629 7"
+    "al-T\u0323ab\u02BBah 8": "\u0627\u0644\u0637\u0628\u0639\u0629 8"
+    "al-T\u0323ab\u02BBah 9": "\u0627\u0644\u0637\u0628\u0639\u0629 9"
+
+    # Use Basic Arabic-Indic \u0660-0669
+    "0": "\u0660"
+    "1": "\u0661"
+    "2": "\u0662"
+    "3": "\u0663"
+    "4": "\u0664"
+    "5": "\u0665"
+    "6": "\u0666"
+    "7": "\u0667"
+    "8": "\u0668"
+    "9": "\u0669"
+
+    # Hyphenated prefixes:
+    "wa-": "\u0648"
+    "bi-": "\u0628"
+    "al-": "\u0627\u0644"
+    "lil-": "\u0644\u0644"
+    "li-": "\u0644"
+    "la\u0304-": "\u0644"
+    "fi\u0304-": "\u0641\u064A"
+    "ka-": "\u0643"
+
+    # Vowels and vowel/consonant combinations
+    "%ah": "\u0629"
+    "%at": "\u0629"
+
+    #tanwin
+    "%an": "\u0627"
+
+    # ayn-alif combo
+    "%\u02BBa\u0304\u02BE": "\u0639\u0627\u0621"
+    "%\u02BBa\u0304\u02BC": "\u0639\u0627\u0621"
+
+    "\u02BBA\u0304": "\u0639\u0627"
+    "\u02BBa\u0304": "\u0639\u0627"
+
+    "\u02BBI\u0304": "\u0639\u064A"
+    "\u02BBi\u0304": "\u0639\u064A"
+
+    "\u02BBU\u0304": "\u0639\u0648"
+    "\u02BBu\u0304": "\u0639\u0648"
+    "\u02BBU": "\u0639"
+    "\u02BBu": "\u0639"
+
+    "\u02BBA%": "\u0639"
+    "#\u02BBa%": "\u0639"
+
+    # alif and hamzas for all occasions
+
+    # truncation necessary? It seems to work fine with. 
+
+    "%i\u0304\u02BEah": "\u064A\u0626\u0629"
+    "%i\u0304\u02BCah": "\u064A\u0626\u0629"
+
+    "%i\u0304\u02BEat": "\u064A\u0626\u0629"
+    "%i\u0304\u02BCat": "\u064A\u0626\u0629"
+
+    "%i\u02BEa\u0304": "\u0626\u0627"
+    "%i\u02BCa\u0304": "\u0626\u0627"
+
+    "%i\u02BE": "\u0626"
+    "%i\u02BC": "\u0626"
+    "a\u0304\u02BEa\u0304": "\u0627\u0621\u0627"
+    "a\u0304\u02BCa\u0304": "\u0627\u0621\u0627"
+     
+    "a\u02BE": "\u0623"
+    "a\u02BC": "\u0623"
+    "\u02BEi": "\u0626"
+    "\u02BCi": "\u0626"
+    "\u02BEa\u0304": "\u0622"
+    "\u02BCa\u0304": "\u0622"
+    "\u02BEa": "\u0623"
+    "\u02BCa": "\u0623"
+
+    "y\u02BCah": "\u064A\u0626\u0629"
+    "y\u02BEah": "\u064A\u0626\u0629"
+
+    "y\u02BCat": "\u064A\u0626\u0629"
+    "y\u02BEat": "\u064A\u0626\u0629"
+
+    # A
+
+    "a\u0304\u02BCi\u0304": "\u0627\u0626\u064A"
+    "a\u0304\u02BEi\u0304": "\u0627\u0626\u064A"
+
+    "a\u0304\u02BCi": "\u0627\u0626"
+    "a\u0304\u02BEi": "\u0627\u0626"
+    "a\u0304\u02BC": "\u0627\u0621"
+    "a\u0304\u02BE": "\u0627\u0621"
+    "A\u0304%": "\u0622"
+    "a\u0304%": "\u0622"
+    "A\u0304": "\u0627"
+    "a\u0304": "\u0627"
+
+    # These next two lines were intended to convert to alif-ayn when it is at the beginning of a word, definite or indefinine (i.e. al-a[ayn]ma[macron]l or [space]a[ayn]ma[macron]l" 
+    "A\u02BB%": "\u0623\u0639"
+    "a\u02BB%": "\u0623\u0639"
+    "a\u02BB": "\u0639"
+    "A\u0301": "\u0649"
+    "a\u0301": "\u0649"
+
+    "ayy": "\u064A"
+    "A%": "\u0623"
+    "a%": "\u0627"
+    "A": "\u0623"
+    "a": ""
+
+    # I - Capital I at beginning of word is usually alif hamzah-below.
+
+    "%i\u0304": "\u064A"
+    "i\u0304y": "\u064A"
+    "iy": "\u064A"
+    "I\u0304%": "\u0625\u064A"
+    "i\u0304": "\u064A"
+    "\u02BBI%": "\u0639"
+
+    "#i\u02BB": "\u0625\u0639"
+
+    "I\u02BE": "\u0627\u0626"
+    "I\u02BC": "\u0627\u0626"
+    "i\u02BE": "\u0626"
+    "i\u02BC": "\u0627\u0626"
+
+    "I%": "\u0625"
+    "i%": "\u0625"
+    "I": "\u0625"
+    "i": ""
+
+    # U 
+
+    "u\u0304\u02BE": "\u0624"
+    "u\u0304\u02BC": "\u0624"
+    "U\u0304w%": "\u0623\u0648"
+    "u\u0304w%": "\u0623\u0648"
+    "U\u0304%": "\u0623\u0648"
+    "u\u0304%": "\u0623\u0648"
+    "u\u0304w": "\u0648"
+    "u\u0304": "\u0648"
+    "u\u02BE": "\u0624"
+    "u\u02BC": "\u0624"
+
+    "U%": "\u0623"
+    "u%": "\u0623"
+    "U": "\u0623"
+    "u": ""
+
+    # Consonants, with tashdid added 
+
+    "B": "\u0628"
+    "bb": "\u0628"
+    "b": "\u0628"
+    "Th": "\u062B"
+    "thth": "\u062B"
+    "th": "\u062B"
+    "T\u0323": "\u0637"
+    "t\u0323t\u0323": "\u0637"
+    "t\u0323": "\u0637"
+    "T": "\u062A"
+    "tt": "\u062A"
+    "t": "\u062A"
+    "J": "\u062C"
+    "jj": "\u062C"
+    "j": "\u062C"
+    "H\u0323": "\u062D"
+    "h\u0323h\u0323": "\u062D"
+    "h\u0323": "\u062D"
+    "H": "\u0647"
+    "hh": "\u0647"
+    "h": "\u0647"
+    "Kh": "\u062E"
+    "khkh": "\u062E"
+    "kh": "\u062E"
+    "K": "\u0643"
+    "kk": "\u0643"
+    "k": "\u0643"
+    "Dh": "\u0630"
+    "dhdh": "\u0630"
+    "dh": "\u0630"
+    "D\u0323": "\u0636"
+    "d\u0323d\u0323": "\u0636"
+    "d\u0323": "\u0636"
+    "D": "\u062F"
+    "dd": "\u062F"
+    "d": "\u062F"
+    "R": "\u0631"
+    "rr": "\u0631"
+    "r": "\u0631"
+    "Z\u0323": "\u0638"
+    "z\u0323z\u0323": "\u0638"
+    "z\u0323": "\u0638"
+    "Z": "\u0632"
+    "zz": "\u0632"
+    "z": "\u0632"
+    "Sh": "\u0634"
+    "shsh": "\u0634"
+    "sh": "\u0634"
+    "S\u0323": "\u0635"
+    "s\u0323s\u0323": "\u0635"
+    "s\u0323": "\u0635"
+    "S": "\u0633"
+    "ss": "\u0633"
+    "s": "\u0633"
+    "Gh": "\u063A"
+    "ghgh": "\u063A"
+    "gh": "\u063A"
+    "F": "\u0641"
+    "ff": "\u0641"
+    "f": "\u0641"
+    "Q": "\u0642"
+    "qq": "\u0642"
+    "q": "\u0642"
+    "L": "\u0644"
+    "ll": "\u0644"
+    "l": "\u0644"
+    "M": "\u0645"
+    "mm": "\u0645"
+    "m": "\u0645"
+    "N": "\u0646"
+    "nn": "\u0646"
+    "n": "\u0646"
+    "W": "\u0648"
+    "ww": "\u0648"
+    "w": "\u0648"
+    "Y": "\u064A"
+    "yy": "\u064A"
+    "y": "\u064A"
+
+    # non-Arabic consonants:
+    "P": "\u067E"
+    "p": "\u067E"
+    "Ch": "\u0686"
+    "ch": "\u0686"
+    "V": "\u06A4"
+    "v": "\u06A4"
+    "G": "\u06AF"
+    "g": "\u06AF"
+
+    # Diacritic characters:
+    # ain (\u0639) - not transliterated alone:
+    "\u02BB": "\u0639"
+    # hamza - not romanized
+    # "\u0621"
+    # hamza (alone in final position)
+    "%\u02BE": "\u0621"
+    "%\u02BC": "\u0621"
+
+    # Do not know what, if anything, is needed here:
+    # tatweel:
+    # "\u0640"
+    # fathatan:
+    # "\u064B"
+    # dammatan:
+    # "\u064C"
+    # kasratan:
+    # "\u064D"
+    # fatha:
+    # "\u064E"
+    # damma:
+    # "\u064F"
+    # kasra:
+    # "\u0650"
+    # shadda:
+    # "\u0651"
+    # sukun:
+    # "\u0652"
+    # superscript alef:
+    # "\u0670"
+    # alef wasla
+    # "\u0671"
+
+
+
+
 script_to_roman:
   hooks:
     post_config:
