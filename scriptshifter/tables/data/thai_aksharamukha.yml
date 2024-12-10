@@ -1,0 +1,49 @@
+---
+general:
+  name: Thai (Aksharamukha)
+  comment: "Note: not ALA-LC compliant."
+  case_sensitive: false
+
+options:
+  - id: ThaiTranscription
+    label: Thai Orthography
+    description: พุทฺธ → พุทธะ
+    type: boolean
+    default: false
+  - id: ThaiSajjhayaOrthography
+    label: Sajjhāya orthography
+    description: พุทฺธ → พุท์ธ
+    type: boolean
+    default: false
+  - id: ThaiSajjhayawithA
+    label: Nativized sajjhaya
+    description: พุทฺธํ → พุท์ธัง
+    type: boolean
+    default: false
+  - id: ThaiNativeConsonants
+    label: Thai phonetic
+    description: พุทฺธตฺว → บุดธะต͜วะ
+    type: boolean
+    default: false
+  - id: ThaiVisargaSaraA
+    label: Sara a ะ as Visarga
+    description: พุทฺธ → พุทธะ
+    type: boolean
+    default: false
+
+script_to_roman:
+  hooks:
+    post_config:
+      -
+        - asian_tokenizer.s2r_tokenize
+        - model: "KoichiYasuoka/roberta-base-thai-spm-upos"
+      -
+        - aksharamukha.romanizer.s2r_post_config
+        - src_script: "Thai"
+
+roman_to_script:
+  hooks:
+    post_config:
+      -
+        - aksharamukha.romanizer.r2s_post_config
+        - dest_script: "Thai"

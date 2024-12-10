@@ -32,15 +32,14 @@ def test_sample(dset):
             lang, script, rom = row[:3]
             if not lang:
                 continue
-            opts = jloads(row[3]) if len(row) > 3 and row[3] else {}
-            trans, warnings = transliterate(
-                    script, lang, t_dir="s2r",
-                    capitalize=opts.get("capitalize"), options=opts)
-            if (trans == rom):
-                print(".", end="")
-            else:
-                print("F", end="")
-                deltas.append((lang, script, ndiff([trans], [rom])))
+            t_dir = row[3] if len(row) > 3 else None
+            opts = jloads(row[4]) if len(row) > 4 and row[4] else {}
+
+        if t_dir:
+            _trans(script, lang, t_dir, opts, rom, deltas)
+        else:
+            _trans(script, lang, "s2r", opts, rom, deltas)
+            _trans(script, lang, "r2s", opts, rom, deltas)
 
     with open(log_fpath, "w") as fh:
         # If no deltas, just truncate the file.
@@ -56,3 +55,14 @@ def test_sample(dset):
         print(f"{ct} failed tests. See report at {log_fpath}")
     else:
         print("All tests passed.")
+
+
+def _trans(script, lang, t_dir, opts, rom, deltas):
+    trans, warnings = transliterate(
+            script, lang, t_dir=t_dir,
+            capitalize=opts.get("capitalize"), options=opts)
+    if (trans == rom):
+        print(".", end="")
+    else:
+        print("F", end="")
+        deltas.append((lang, script, ndiff([trans], [rom])))
