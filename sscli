@@ -10,7 +10,7 @@ from os import path
 
 from scriptshifter import DB_PATH
 from scriptshifter.tables import init_db as _init_db
-from tests.integration_tests import test_sample
+from test.integration import test_sample
 
 
 @click.group()

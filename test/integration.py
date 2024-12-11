@@ -5,7 +5,7 @@ from logging import getLogger
 from os import path
 
 from scriptshifter.trans import transliterate
-from tests import TEST_DATA_DIR
+from test import TEST_DATA_DIR
 
 logger = getLogger(__name__)
 
