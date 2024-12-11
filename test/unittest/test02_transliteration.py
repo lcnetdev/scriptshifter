@@ -7,7 +7,7 @@ from os import environ, path, unlink
 
 from scriptshifter.trans import transliterate
 from scriptshifter.tables import get_language, init_db
-from tests import TEST_DATA_DIR
+from test import TEST_DATA_DIR
 
 
 logger = logging.getLogger(__name__)

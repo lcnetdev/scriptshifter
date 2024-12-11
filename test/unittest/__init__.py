@@ -6,12 +6,11 @@ import scriptshifter
 from scriptshifter import tables
 
 
-TEST_DIR = path.dirname(path.realpath(__file__))
-TEST_DATA_DIR = path.join(TEST_DIR, "data")
-TEST_CONFIG_DIR = path.join(TEST_DIR, "tables", "data")
+UNITTEST_CONFIG_DIR = path.join(
+        path.dirname(path.realpath(__file__)), "tables", "data")
 
 # Reload main SS modules after changing environment variables.
 environ["TXL_DB_PATH"] = path.join(gettempdir(), "scriptshifter_unittest.db")
 reload(scriptshifter)
-environ["TXL_CONFIG_TABLE_DIR"] = TEST_CONFIG_DIR
+environ["TXL_CONFIG_TABLE_DIR"] = UNITTEST_CONFIG_DIR
 reload(tables)
