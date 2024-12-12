@@ -19,20 +19,8 @@ roman_to_script:
     # Modified by WK with testing by Arabic Cat Staff LOC-CAIRO 
     # Additional info from R. Vassie, [n.d.] "Marrying the Arabic and Latin Scripts Conceptually" 
 
-    # RDA boilerplate phrases not transliterated:
-    "Place of publication not identified": "Place of publication not identified"
-    "publisher not identified": "publisher not identified"
-    "‡a": "‡a"
-    "‡b": "‡b"
-    "‡c": "‡c"
-    "‡d": "‡d"
-    "‡e": "‡e"
-    "/": "/"
 
-
-
-    # Punctuation marks:
-    "# %": "\u066A ; cannot transliterate the truncation character"
+    # Punctuation marks:    
     "*": "\u066D"
     ",": "\u060C"
     ";": "\u061B"
@@ -166,7 +154,7 @@ roman_to_script:
     "\u02BBu": "\u0639"
 
     "\u02BBA%": "\u0639"
-    "#\u02BBa%": "\u0639"
+    #"\u02BBa%": "\u0639"
 
     # alif and hamzas for all occasions
 
@@ -237,7 +225,7 @@ roman_to_script:
     "i\u0304": "\u064A"
     "\u02BBI%": "\u0639"
 
-    "#i\u02BB": "\u0625\u0639"
+    #"i\u02BB": "\u0625\u0639"
 
     "I\u02BE": "\u0627\u0626"
     "I\u02BC": "\u0627\u0626"
