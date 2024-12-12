@@ -7,6 +7,9 @@ general:
   description: Arabic R2S using a conversion table and S2R using a 3rd party library.
   case_sensitive: false
 
+  parents:
+    - _ignore_base
+
 
 roman_to_script:
   map:
