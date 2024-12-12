@@ -4,7 +4,7 @@
 ---
 general:
   name: Arabic
-  description: Arabic S2R using a 3rd party library.
+  description: Arabic R2S using a conversion table and S2R using a 3rd party library.
   case_sensitive: false
 
 
