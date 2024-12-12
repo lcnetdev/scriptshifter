@@ -19,7 +19,7 @@ arabic:
     Arabic-to-Roman transliterator using the ArabicTransliterator external
     library.
   marc_code: ara
-  name: Arabic (S2R)
+  name: Arabic
 armenian:
   marc_code: arm
   name: Armenian
