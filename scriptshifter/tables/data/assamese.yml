@@ -1,5 +1,6 @@
 general:
   name: Assamese
+  case_sensitive: false
 
 script_to_roman:
   hooks:
