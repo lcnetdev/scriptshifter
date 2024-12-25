@@ -28,7 +28,6 @@ def test_sample(dset):
         i = 1
         for row in csv:
             logger.debug(f"CSV row #{i}")
-            i += 1
             lang, script, rom = row[:3]
             if not lang:
                 continue
@@ -40,6 +39,7 @@ def test_sample(dset):
             else:
                 _trans(script, lang, "s2r", opts, rom, deltas)
                 _trans(rom, lang, "r2s", opts, script, deltas)
+            i += 1
 
     with open(log_fpath, "w") as fh:
         # If no deltas, just truncate the file.

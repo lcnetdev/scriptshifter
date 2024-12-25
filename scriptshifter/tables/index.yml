@@ -200,9 +200,9 @@ ossetic_cyrillic:
 pali:
   marc_code: pli
   name: Pali
-panjabi:
+panjabi_gurmukhi:
   marc_code: pan
-  name: Panjabi
+  name: Panjabi (Gurmukhi)
 persian:
   marc_code: per
   name: Persian

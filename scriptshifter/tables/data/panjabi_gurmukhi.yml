@@ -1,6 +1,6 @@
 ---
 general:
-  name: Panjabi
+  name: Panjabi (Gurmukhi)
   case_sensitive: false
 
 script_to_roman:
@@ -8,11 +8,11 @@ script_to_roman:
     post_config:
       -
         - aksharamukha.romanizer.s2r_post_config
-        - src_script: "Punjabi"
+        - src_script: "Gurmukhi"
 
 roman_to_script:
   hooks:
     post_config:
       -
         - aksharamukha.romanizer.r2s_post_config
-        - dest_script: "Punjabi"
+        - dest_script: "Gurmukhi"
