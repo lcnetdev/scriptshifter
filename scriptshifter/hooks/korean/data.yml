@@ -1,8 +1,9 @@
+---
 fkr001-002:
-# FKR001
+  # FKR001
   - [["金", "金"], "김"]
   - [["李", "李"], "이"]
-# FKR002 - Use same logic as FKR001, hence single-element arrays.
+  # FKR002 - Use same logic as FKR001, hence single-element arrays.
   - [["리"], "이"]
   - [["라"], "나"]
   - [["류"], "유"]
@@ -375,7 +376,7 @@ fkr041:
   " ㅎ ": " 히읗 "
 
 fkr045:
-  " Kyŏnggi ": "" # Handle special case of empty string
+  " Kyŏnggi ": ""  # Handle special case of empty string
   " Kyŏngsang ": "• kyŏngsang, IF 경상 is NOT :慶尙 (Province)"
   " Kyŏngju ": "• kyŏngju, IF 경주 is NOT :慶州 (City)"
   " Koryŏ ": "• koryŏ, IF 고려 is NOT :高麗 (Country)"
@@ -467,210 +468,55 @@ fkr047:
     "f0": ""
 
 fkr050:
-  # TODO Try to consolidate and handle spacing by logic.
-  rule1:
-    " ! ": " SB01KQ "
-    " \" ": " SB02KQ "
-    " # ": " SB03KQ "
-    " $ ": " SB04KQ "
-    " % ": " SB05KQ "
-    " & ": " SB06KQ "
-    " ' ": " SB07KQ "
-    " ( ": " SB08KQ "
-    " ) ": " SB09KQ "
-    " * ": " SB10KQ "
-    " + ": " SB11KQ "
-    " , ": " SB12KQ "
-    " - ": " SB13KQ "
-    " . ": " SB14KQ "
-    " / ": " SB15KQ "
-    " : ": " SB16KQ "
-    " ; ": " SB17KQ "
-    " < ": " SB18KQ "
-    " = ": " SB19KQ "
-    " > ": " SB20KQ "
-    " ? ": " SB21KQ "
-    " ・ ": " SB22KQ "
-    " ǂ ": " SB23KQ "
-    " 「 ": " SB24KQ "
-    " 」 ": " SB25KQ "
-    " 『 ": " SB26KQ "
-    " 』 ": " SB27KQ "
-    " @ ": " SB28KQ "
-    " [ ": " SB29KQ "
-    " \\ ": " SB30KQ "
-    " ] ": " SB31KQ "
-    " ^ ": " SB32KQ "
-    " _ ": " SB33KQ "
-    " ` ": " SB34KQ "
-    " { ": " SB35KQ "
-    " | ": " SB36KQ "
-    " } ": " SB37KQ "
-    " ~ ": " SB38KQ "
-    " ‡ ": " SB39KQ "
-    " ‰  ": " SB40KQ "
-    " ‘ ": " SB41KQ "
-    " ’ ": " SB42KQ "
-    " “ ": " SB43KQ "
-    " ” ": " SB44KQ "
-    " – ": " SB45KQ "
-    " — ": " SB46KQ "
-    " ˜ ": " SB47KQ "
-    " © ": " SB48KQ "
-    " · ": " SB49KQ "
-
-  rule2:
-    " !": " SB01CQ "
-    " \"": " SB02CQ "
-    " #": " SB03CQ "
-    " $": " SB04CQ "
-    " %": " SB05CQ "
-    " &": " SB06CQ "
-    " '": " SB07CQ "
-    " (": " SB08CQ "
-    " )": " SB09CQ "
-    " *": " SB10CQ "
-    " +": " SB11CQ "
-    " ,": " SB12CQ "
-    " -": " SB13CQ "
-    " .": " SB14CQ "
-    " /": " SB15CQ "
-    " :": " SB16CQ "
-    " ;": " SB17CQ "
-    " <": " SB18CQ "
-    " =": " SB19CQ "
-    " >": " SB20CQ "
-    " ?": " SB21CQ "
-    " ・": " SB22CQ "
-    " ǂ": " SB23CQ "
-    " 「": " SB24CQ "
-    " 」": " SB25CQ "
-    " 『": " SB26CQ "
-    " 』": " SB27CQ "
-    " @": " SB28CQ "
-    " [": " SB29CQ "
-    " \\": " SB30CQ "
-    " ]": " SB31CQ "
-    " ^": " SB32CQ "
-    " _": " SB33CQ "
-    " `": " SB34CQ "
-    " {": " SB35CQ "
-    " |": " SB36CQ "
-    " }": " SB37CQ "
-    " ~": " SB38CQ "
-    " ‡": " SB39CQ "
-    " ‰ ": " SB40CQ "
-    " ‘": " SB41CQ "
-    " ’": " SB42CQ "
-    " “": " SB43CQ "
-    " ”": " SB44CQ "
-    " –": " SB45CQ "
-    " —": " SB46CQ "
-    " ˜": " SB47CQ "
-    " ©": " SB48CQ "
-    " ·": " SB49CQ "
-
-  rule3:
-    "! ": " SB01TQ "
-    "\" ": " SB02TQ "
-    "# ": " SB03TQ "
-    "$ ": " SB04TQ "
-    "% ": " SB05TQ "
-    "& ": " SB06TQ "
-    "' ": " SB07TQ "
-    "( ": " SB08TQ "
-    ") ": " SB09TQ "
-    "* ": " SB10TQ "
-    "+ ": " SB11TQ "
-    ", ": " SB12TQ "
-    "- ": " SB13TQ "
-    ". ": " SB14TQ "
-    "/ ": " SB15TQ "
-    ": ": " SB16TQ "
-    "; ": " SB17TQ "
-    "< ": " SB18TQ "
-    "= ": " SB19TQ "
-    "> ": " SB20TQ "
-    "? ": " SB21TQ "
-    "・ ": " SB22TQ "
-    "ǂ ": " SB23TQ "
-    "「 ": " SB24TQ "
-    "」 ": " SB25TQ "
-    "『 ": " SB26TQ "
-    "』 ": " SB27TQ "
-    "@ ": " SB28TQ "
-    "[ ": " SB29TQ "
-    "\\ ": " SB30TQ "
-    "] ": " SB31TQ "
-    "^ ": " SB32TQ "
-    "_ ": " SB33TQ "
-    "` ": " SB34TQ "
-    "{ ": " SB35TQ "
-    "| ": " SB36TQ "
-    "} ": " SB37TQ "
-    "~ ": " SB38TQ "
-    "‡ ": " SB39TQ "
-    "‰  ": " SB40TQ "
-    "‘ ": " SB41TQ "
-    "’ ": " SB42TQ "
-    "“ ": " SB43TQ "
-    "” ": " SB44TQ "
-    "– ": " SB45TQ "
-    "— ": " SB46TQ "
-    "˜ ": " SB47TQ "
-    "© ": " SB48TQ "
-    "· ": " SB49TQ "
-
-  rule4:
-    "!": " SB01PQ "
-    "\"": " SB02PQ "
-    "#": " SB03PQ "
-    "$": " SB04PQ "
-    "%": " SB05PQ "
-    "&": " SB06PQ "
-    "'": " SB07PQ "
-    "(": " SB08PQ "
-    ")": " SB09PQ "
-    "*": " SB10PQ "
-    "+": " SB11PQ "
-    ",": " SB12PQ "
-    "-": " SB13PQ "
-    ".": " SB14PQ "
-    "/": " SB15PQ "
-    ":": " SB16PQ "
-    ";": " SB17PQ "
-    "<": " SB18PQ "
-    "=": " SB19PQ "
-    ">": " SB20PQ "
-    "?": " SB21PQ "
-    "・": " SB22PQ "
-    "ǂ": " SB23PQ "
-    "「": " SB24PQ "
-    "」": " SB25PQ "
-    "『": " SB26PQ "
-    "』": " SB27PQ "
-    "@": " SB28PQ "
-    "[": " SB29PQ "
-    "\\": " SB30PQ "
-    "]": " SB31PQ "
-    "^": " SB32PQ "
-    "_": " SB33PQ "
-    "`": " SB34PQ "
-    "{": " SB35PQ "
-    "|": " SB36PQ "
-    "}": " SB37PQ "
-    "~": " SB38PQ "
-    "‡": " SB39PQ "
-    "‰ ": " SB40PQ "
-    "‘": " SB41PQ "
-    "’": " SB42PQ "
-    "“": " SB43PQ "
-    "”": " SB44PQ "
-    "–": " SB45PQ "
-    "—": " SB46PQ "
-    "˜": " SB47PQ "
-    "©": " SB48PQ "
-    "·": " SB49PQ "
+  "!": "SB01KQ"
+  "\"": "SB02KQ"
+  "#": "SB03KQ"
+  "$": "SB04KQ"
+  "%": "SB05KQ"
+  "&": "SB06KQ"
+  "'": "SB07KQ"
+  "(": "SB08KQ"
+  ")": "SB09KQ"
+  "*": "SB10KQ"
+  "+": "SB11KQ"
+  ",": "SB12KQ"
+  "-": "SB13KQ"
+  ".": "SB14KQ"
+  "/": "SB15KQ"
+  ":": "SB16KQ"
+  ";": "SB17KQ"
+  "<": "SB18KQ"
+  "=": "SB19KQ"
+  ">": "SB20KQ"
+  "?": "SB21KQ"
+  "・": "SB22KQ"
+  "ǂ": "SB23KQ"
+  "「": "SB24KQ"
+  "」": "SB25KQ"
+  "『": "SB26KQ"
+  "』": "SB27KQ"
+  "@": "SB28KQ"
+  "[": "SB29KQ"
+  "\\": "SB30KQ"
+  "]": "SB31KQ"
+  "^": "SB32KQ"
+  "_": "SB33KQ"
+  "`": "SB34KQ"
+  "{": "SB35KQ"
+  "|": "SB36KQ"
+  "}": "SB37KQ"
+  "~": "SB38KQ"
+  "‡": "SB39KQ"
+  "‰": "SB40KQ"
+  "‘": "SB41KQ"
+  "’": "SB42KQ"
+  "“": "SB43KQ"
+  "”": "SB44KQ"
+  "–": "SB45KQ"
+  "—": "SB46KQ"
+  "˜": "SB47KQ"
+  "©": "SB48KQ"
+  "·": "SB49KQ"
 
 fkr052:
   rule_nu:
@@ -2056,10 +1902,7 @@ fkr052:
 
 fkr060:
   "-nyŏn ": "-yŏn "
-  "-nyŏn ": "-yŏn "
   "-nyŏndo ": "-yŏndo "
-  "-nyŏndo ": "-yŏndo "
-  "-nyŏndae ": "-yŏndae "
   "-nyŏndae ": "-yŏndae "
   "-nyŏnsa ": "-yŏnsa "
   "-nyŏnsaeng ": "-yŏnsaeng "
@@ -2543,92 +2386,92 @@ fkr062:
   " ch'angwŏn'gun ": " Ch'angwŏn-gun "
 
 # Also commented out in L1235
-#fkr063_rule_kn:
-#  " ch'ang taewang ": " Ch'ang Taewang "
-#  " ch'ang wang ": " Ch'ang Wang "
-#  " ch'angwang ": " Ch'ang Wang "
-#  " Ch'ŏlchong taewang ": " ch'ŏlchong Taewang "
-#  " ch'ŏnch'u t'aehu ": " Ch'ŏnch'u T'aehu "
-#  " Chŏngjo taewang ": " Chŏngjo Taewang "
-#  " Chŏngjong taewang ": " Chŏngjong Taewang "
-#  " ch'unghye taewang ": " Ch'unghye Taewang "
-#  " ch'unghye wang ": " Ch'unghye Wang "
-#  " ch'unghyewang ": " Ch'unghye Wang "
-#  " Chungjong taewang ": " Chungjong Taewang "
-#  " ch'ungjŏng taewang ": " Ch'ungjŏng Taewang "
-#  " ch'ungjŏng wang ": " Ch'ungjŏng Wang "
-#  " ch'ungjŏngwang ": " Ch'ungjŏng Wang "
-#  " ch'ungmogwang ": " Ch'ungmok Wang "
-#  " ch'ungmok taewang ": " Ch'ungmok Taewang "
-#  " ch'ungmok wang ": " Ch'ungmok Wang "
-#  " ch'ungnyŏl taewang ": " Ch'ungnyŏl Taewang "
-#  " ch'ungnyŏl wang ": " Ch'ungnyŏl Wang "
-#  " ch'ungnyŏrwang ": " Ch'ungnyŏl Wang "
-#  " ch'ungsŏn taewang ": " Ch'ungsŏn Taewang "
-#  " ch'ungsŏn wang ": " Ch'ungsŏn Wang "
-#  " ch'ungsŏnwang ": " Ch'ungsŏn Wang "
-#  " ch'ungsugwang ": " Ch'ungsuk Wang "
-#  " ch'ungsuk taewang ": " Ch'ungsuk Taewang "
-#  " ch'ungsuk wang ": " Ch'ungsuk Wang "
-#  " Hŏnjong taewang ": " Hŏnjong Taewang "
-#  " hot'ae wang ": " Hot'ae Wang "
-#  " hot'aewang ": " Hot'ae Wang "
-#  " Hŭijong taewang ": " Hŭijong Taewang "
-#  " Hyejong taewang ": " Hyejong Taewang "
-#  " Hyojong taewang ": " Hyojong Taewang "
-#  " Hyŏnjong taewang ": " Hyŏnjong Taewang "
-#  " Injo taewang ": " Injo Taewang "
-#  " Injong taewang ": " Injong Taewang "
-#  " Kangjong taewang ": " Kangjong Taewang "
-#  " Kojong hwangje ": " Kojong Hwangje "
-#  " Kojong taewang ": " Kojong Taewang "
-#  " kongmin taewang ": " Kongmin Taewang "
-#  " kongmin wang ": " Kongmin Wang "
-#  " kongminwang ": " Kongmin Wang "
-#  " kongyang taewang ": " Kongyang Taewang "
-#  " kongyang wang ": " Kongyang Wang "
-#  " kongyangwang ": " Kongyang Wang "
-#  " kwanggaet'o taewang ": " Kwanggaet'o Taewang "
-#  " kwanggaet'o t'aewang ": " Kwanggaet'o T'aewang "
-#  " kwanggaet'o wang ": " Kwanggaet'o Wang "
-#  " kwanggaet'owang ": " Kwanggaet'o Wang "
-#  " kwanghae kun ": " Kwanghae Kun "
-#  " kwanghae taewang ": " Kwanghae Taewang "
-#  " kwanghaegun ": " Kwanghae Kun "
-#  " Kwangjong taewang ": " Kwangjong Taewang "
-#  " Kyŏngjong taewang ": " Kyŏngjong Taewang "
-#  " Mokchong taewang ": " Mokchong Taewang "
-#  " Munjong taewang ": " Munjong Taewang "
-#  " Myŏngjong taewang ": " Myŏngjong Taewang "
-#  " myŏngsŏng hwanghu ": " Myŏngsŏng Hwanghu "
-#  " Sejo taewang ": " Sejo Taewang "
-#  " Sejong taewang ": " Sejong Taewang "
-#  " Sinjong taewang ": " Sinjong Taewang "
-#  " sohyŏn seja ": " Sohyŏn Seja "
-#  " Sŏngjong taewang ": " Sŏngjong Taewang "
-#  " Sŏnjong taewang ": " Sŏnjong Taewang "
-#  " Sukchong taewang ": " Sukchong Taewang "
-#  " Sunjo taewang ": " Sunjo Taewang "
-#  " sunjong hwangje ": " Sunjong Hwangje "
-#  " T'aejo taewang ": " T'aejo Taewang "
-#  " T'aejong taewang ": " T'aejong Taewang "
-#  " Tanjong taewang ": " Tanjong Taewang "
-#  " Tŏkchong taewang ": " Tŏkchong Taewang "
-#  " u taewang ": " U Taewang "
-#  " u wang ": " U Wang "
-#  " ŭi ch'inwang ": " Ŭi Ch'inwang "
-#  " ŭich'inwang ": " Ŭi Ch'inwang "
-#  " Ŭijong taewang ": " Ŭijong Taewang "
-#  " uwang ": " U Wang "
-#  " Wŏnjong taewang ": " Wŏnjong Taewang "
-#  " Yejong taewang ": " Yejong Taewang "
-#  " yŏng ch'inwang ": " Yŏng Ch'inwang "
-#  " yŏngch'inwang ": " Yŏng Ch'inwang "
-#  " Yŏngjo taewang ": " Yŏngjo Taewang "
-#  " Yŏngjong taewang ": " Yŏngjong Taewang "
-#  " yŏnsan kun ": " Yŏnsan Kun "
-#  " yŏnsan taewang ": " Yŏnsan Taewang "
-#  " yŏnsan'gun ": " Yŏnsan Kun "
+# fkr063_rule_kn:
+#   " ch'ang taewang ": " Ch'ang Taewang "
+#   " ch'ang wang ": " Ch'ang Wang "
+#   " ch'angwang ": " Ch'ang Wang "
+#   " Ch'ŏlchong taewang ": " ch'ŏlchong Taewang "
+#   " ch'ŏnch'u t'aehu ": " Ch'ŏnch'u T'aehu "
+#   " Chŏngjo taewang ": " Chŏngjo Taewang "
+#   " Chŏngjong taewang ": " Chŏngjong Taewang "
+#   " ch'unghye taewang ": " Ch'unghye Taewang "
+#   " ch'unghye wang ": " Ch'unghye Wang "
+#   " ch'unghyewang ": " Ch'unghye Wang "
+#   " Chungjong taewang ": " Chungjong Taewang "
+#   " ch'ungjŏng taewang ": " Ch'ungjŏng Taewang "
+#   " ch'ungjŏng wang ": " Ch'ungjŏng Wang "
+#   " ch'ungjŏngwang ": " Ch'ungjŏng Wang "
+#   " ch'ungmogwang ": " Ch'ungmok Wang "
+#   " ch'ungmok taewang ": " Ch'ungmok Taewang "
+#   " ch'ungmok wang ": " Ch'ungmok Wang "
+#   " ch'ungnyŏl taewang ": " Ch'ungnyŏl Taewang "
+#   " ch'ungnyŏl wang ": " Ch'ungnyŏl Wang "
+#   " ch'ungnyŏrwang ": " Ch'ungnyŏl Wang "
+#   " ch'ungsŏn taewang ": " Ch'ungsŏn Taewang "
+#   " ch'ungsŏn wang ": " Ch'ungsŏn Wang "
+#   " ch'ungsŏnwang ": " Ch'ungsŏn Wang "
+#   " ch'ungsugwang ": " Ch'ungsuk Wang "
+#   " ch'ungsuk taewang ": " Ch'ungsuk Taewang "
+#   " ch'ungsuk wang ": " Ch'ungsuk Wang "
+#   " Hŏnjong taewang ": " Hŏnjong Taewang "
+#   " hot'ae wang ": " Hot'ae Wang "
+#   " hot'aewang ": " Hot'ae Wang "
+#   " Hŭijong taewang ": " Hŭijong Taewang "
+#   " Hyejong taewang ": " Hyejong Taewang "
+#   " Hyojong taewang ": " Hyojong Taewang "
+#   " Hyŏnjong taewang ": " Hyŏnjong Taewang "
+#   " Injo taewang ": " Injo Taewang "
+#   " Injong taewang ": " Injong Taewang "
+#   " Kangjong taewang ": " Kangjong Taewang "
+#   " Kojong hwangje ": " Kojong Hwangje "
+#   " Kojong taewang ": " Kojong Taewang "
+#   " kongmin taewang ": " Kongmin Taewang "
+#   " kongmin wang ": " Kongmin Wang "
+#   " kongminwang ": " Kongmin Wang "
+#   " kongyang taewang ": " Kongyang Taewang "
+#   " kongyang wang ": " Kongyang Wang "
+#   " kongyangwang ": " Kongyang Wang "
+#   " kwanggaet'o taewang ": " Kwanggaet'o Taewang "
+#   " kwanggaet'o t'aewang ": " Kwanggaet'o T'aewang "
+#   " kwanggaet'o wang ": " Kwanggaet'o Wang "
+#   " kwanggaet'owang ": " Kwanggaet'o Wang "
+#   " kwanghae kun ": " Kwanghae Kun "
+#   " kwanghae taewang ": " Kwanghae Taewang "
+#   " kwanghaegun ": " Kwanghae Kun "
+#   " Kwangjong taewang ": " Kwangjong Taewang "
+#   " Kyŏngjong taewang ": " Kyŏngjong Taewang "
+#   " Mokchong taewang ": " Mokchong Taewang "
+#   " Munjong taewang ": " Munjong Taewang "
+#   " Myŏngjong taewang ": " Myŏngjong Taewang "
+#   " myŏngsŏng hwanghu ": " Myŏngsŏng Hwanghu "
+#   " Sejo taewang ": " Sejo Taewang "
+#   " Sejong taewang ": " Sejong Taewang "
+#   " Sinjong taewang ": " Sinjong Taewang "
+#   " sohyŏn seja ": " Sohyŏn Seja "
+#   " Sŏngjong taewang ": " Sŏngjong Taewang "
+#   " Sŏnjong taewang ": " Sŏnjong Taewang "
+#   " Sukchong taewang ": " Sukchong Taewang "
+#   " Sunjo taewang ": " Sunjo Taewang "
+#   " sunjong hwangje ": " Sunjong Hwangje "
+#   " T'aejo taewang ": " T'aejo Taewang "
+#   " T'aejong taewang ": " T'aejong Taewang "
+#   " Tanjong taewang ": " Tanjong Taewang "
+#   " Tŏkchong taewang ": " Tŏkchong Taewang "
+#   " u taewang ": " U Taewang "
+#   " u wang ": " U Wang "
+#   " ŭi ch'inwang ": " Ŭi Ch'inwang "
+#   " ŭich'inwang ": " Ŭi Ch'inwang "
+#   " Ŭijong taewang ": " Ŭijong Taewang "
+#   " uwang ": " U Wang "
+#   " Wŏnjong taewang ": " Wŏnjong Taewang "
+#   " Yejong taewang ": " Yejong Taewang "
+#   " yŏng ch'inwang ": " Yŏng Ch'inwang "
+#   " yŏngch'inwang ": " Yŏng Ch'inwang "
+#   " Yŏngjo taewang ": " Yŏngjo Taewang "
+#   " Yŏngjong taewang ": " Yŏngjong Taewang "
+#   " yŏnsan kun ": " Yŏnsan Kun "
+#   " yŏnsan taewang ": " Yŏnsan Taewang "
+#   " yŏnsan'gun ": " Yŏnsan Kun "
 
 fkr063:
   " adalla isagŭm ": " Adalla Isagŭm "
@@ -2922,209 +2765,55 @@ fkr065:
   " ch'ŏlchong ": " Ch'ŏlchong "
 
 fkr066:
-  rule1:
-    " SB01KQ ": " ! "
-    " SB02KQ ": " \" "
-    " SB03KQ ": " # "
-    " SB04KQ ": " $ "
-    " SB05KQ ": " % "
-    " SB06KQ ": " & "
-    " SB07KQ ": " ' "
-    " SB08KQ ": " ( "
-    " SB09KQ ": " ) "
-    " SB10KQ ": " * "
-    " SB11KQ ": " + "
-    " SB12KQ ": " , "
-    " SB13KQ ": " - "
-    " SB14KQ ": " . "
-    " SB15KQ ": " / "
-    " SB16KQ ": " : "
-    " SB17KQ ": " ; "
-    " SB18KQ ": " < "
-    " SB19KQ ": " = "
-    " SB20KQ ": " > "
-    " SB21KQ ": " ? "
-    " SB22KQ ": " , "
-    " SB23KQ ": " ǂ "
-    " SB24KQ ": " 「 "
-    " SB25KQ ": " 」 "
-    " SB26KQ ": " 『 "
-    " SB27KQ ": " 』 "
-    " SB28KQ ": " @ "
-    " SB29KQ ": " [ "
-    " SB30KQ ": " \\ "
-    " SB31KQ ": " ] "
-    " SB32KQ ": " ^ "
-    " SB33KQ ": " _ "
-    " SB34KQ ": " ` "
-    " SB35KQ ": " { "
-    " SB36KQ ": " | "
-    " SB37KQ ": " } "
-    " SB38KQ ": " ~ "
-    " SB39KQ ": " ‡ "
-    " SB40KQ ": " ‰  "
-    " SB41KQ ": " ‘ "
-    " SB42KQ ": " ’ "
-    " SB43KQ ": " “ "
-    " SB44KQ ": " ” "
-    " SB45KQ ": " – "
-    " SB46KQ ": " — "
-    " SB47KQ ": " ˜ "
-    " SB48KQ ": " © "
-    " SB49KQ ": " , "
-
-  rule2:
-    " SB01CQ ": " !"
-    " SB02CQ ": " \""
-    " SB03CQ ": " #"
-    " SB04CQ ": " $"
-    " SB05CQ ": " %"
-    " SB06CQ ": " &"
-    " SB07CQ ": " '"
-    " SB08CQ ": " ("
-    " SB09CQ ": " )"
-    " SB10CQ ": " *"
-    " SB11CQ ": " +"
-    " SB12CQ ": " ,"
-    " SB13CQ ": " -"
-    " SB14CQ ": " ."
-    " SB15CQ ": " /"
-    " SB16CQ ": " :"
-    " SB17CQ ": " ;"
-    " SB18CQ ": " <"
-    " SB19CQ ": " ="
-    " SB20CQ ": " >"
-    " SB21CQ ": " ?"
-    " SB22CQ ": ","
-    " SB23CQ ": " ǂ"
-    " SB24CQ ": " 「"
-    " SB25CQ ": " 」"
-    " SB26CQ ": " 『"
-    " SB27CQ ": " 』"
-    " SB28CQ ": " @"
-    " SB29CQ ": " ["
-    " SB30CQ ": " \\"
-    " SB31CQ ": " ]"
-    " SB32CQ ": " ^"
-    " SB33CQ ": " _"
-    " SB34CQ ": " `"
-    " SB35CQ ": " {"
-    " SB36CQ ": " |"
-    " SB37CQ ": " }"
-    " SB38CQ ": " ~"
-    " SB39CQ ": " ‡"
-    " SB40CQ ": " ‰ "
-    " SB41CQ ": " ‘"
-    " SB42CQ ": " ’"
-    " SB43CQ ": " “"
-    " SB44CQ ": " ”"
-    " SB45CQ ": " –"
-    " SB46CQ ": " —"
-    " SB47CQ ": " ˜"
-    " SB48CQ ": " ©"
-    " SB49CQ ": ", "
-
-  rule3:
-    " SB01TQ ": "! "
-    " SB02TQ ": "\" "
-    " SB03TQ ": "# "
-    " SB04TQ ": "$ "
-    " SB05TQ ": "% "
-    " SB06TQ ": "& "
-    " SB07TQ ": "' "
-    " SB08TQ ": "( "
-    " SB09TQ ": ") "
-    " SB10TQ ": "* "
-    " SB11TQ ": "+ "
-    " SB12TQ ": ", "
-    " SB13TQ ": "- "
-    " SB14TQ ": ". "
-    " SB15TQ ": "/ "
-    " SB16TQ ": ": "
-    " SB17TQ ": "; "
-    " SB18TQ ": "< "
-    " SB19TQ ": "= "
-    " SB20TQ ": "> "
-    " SB21TQ ": "? "
-    " SB22TQ ": ", "
-    " SB23TQ ": "ǂ "
-    " SB24TQ ": "「 "
-    " SB25TQ ": "」 "
-    " SB26TQ ": "『 "
-    " SB27TQ ": "』 "
-    " SB28TQ ": "@ "
-    " SB29TQ ": "[ "
-    " SB30TQ ": "\\ "
-    " SB31TQ ": "] "
-    " SB32TQ ": "^ "
-    " SB33TQ ": "_ "
-    " SB34TQ ": "` "
-    " SB35TQ ": "{ "
-    " SB36TQ ": "| "
-    " SB37TQ ": "} "
-    " SB38TQ ": "~ "
-    " SB39TQ ": "‡ "
-    " SB40TQ ": "‰  "
-    " SB41TQ ": "‘ "
-    " SB42TQ ": "’ "
-    " SB43TQ ": "“ "
-    " SB44TQ ": "” "
-    " SB45TQ ": "– "
-    " SB46TQ ": "— "
-    " SB47TQ ": "˜ "
-    " SB48TQ ": "© "
-    " SB49TQ ": ", "
-
-  rule4:
-    " SB01PQ ": "!"
-    " SB02PQ ": "\""
-    " SB03PQ ": "#"
-    " SB04PQ ": "$"
-    " SB05PQ ": "%"
-    " SB06PQ ": "&"
-    " SB07PQ ": "'"
-    " SB08PQ ": "("
-    " SB09PQ ": ")"
-    " SB10PQ ": "*"
-    " SB11PQ ": "+"
-    " SB12PQ ": ","
-    " SB13PQ ": "-"
-    " SB14PQ ": "."
-    " SB15PQ ": "/"
-    " SB16PQ ": ":"
-    " SB17PQ ": ";"
-    " SB18PQ ": "<"
-    " SB19PQ ": "="
-    " SB20PQ ": ">"
-    " SB21PQ ": "?"
-    " SB22PQ ": ","
-    " SB23PQ ": "ǂ"
-    " SB24PQ ": "「"
-    " SB25PQ ": "」"
-    " SB26PQ ": "『"
-    " SB27PQ ": "』"
-    " SB28PQ ": "@"
-    " SB29PQ ": "["
-    " SB30PQ ": "\\"
-    " SB31PQ ": "]"
-    " SB32PQ ": "^"
-    " SB33PQ ": "_"
-    " SB34PQ ": "`"
-    " SB35PQ ": "{"
-    " SB36PQ ": "|"
-    " SB37PQ ": "}"
-    " SB38PQ ": "~"
-    " SB39PQ ": "‡"
-    " SB40PQ ": "‰ "
-    " SB41PQ ": "‘"
-    " SB42PQ ": "’"
-    " SB43PQ ": "“"
-    " SB44PQ ": "”"
-    " SB45PQ ": "–"
-    " SB46PQ ": "—"
-    " SB47PQ ": "˜"
-    " SB48PQ ": "©"
-    " SB49PQ ": ", "
+  "SB01KQ": "!"
+  "SB02KQ": "\""
+  "SB03KQ": "#"
+  "SB04KQ": "$"
+  "SB05KQ": "%"
+  "SB06KQ": "&"
+  "SB07KQ": "'"
+  "SB08KQ": "("
+  "SB09KQ": ")"
+  "SB10KQ": "*"
+  "SB11KQ": "+"
+  "SB12KQ": ","
+  "SB13KQ": "-"
+  "SB14KQ": "."
+  "SB15KQ": "/"
+  "SB16KQ": ":"
+  "SB17KQ": ";"
+  "SB18KQ": "<"
+  "SB19KQ": "="
+  "SB20KQ": ">"
+  "SB21KQ": "?"
+  "SB22KQ": ","
+  "SB23KQ": "ǂ"
+  "SB24KQ": "「"
+  "SB25KQ": "」"
+  "SB26KQ": "『"
+  "SB27KQ": "』"
+  "SB28KQ": "@"
+  "SB29KQ": "["
+  "SB30KQ": "\\"
+  "SB31KQ": "]"
+  "SB32KQ": "^"
+  "SB33KQ": "_"
+  "SB34KQ": "`"
+  "SB35KQ": "{"
+  "SB36KQ": "|"
+  "SB37KQ": "}"
+  "SB38KQ": "~"
+  "SB39KQ": "‡"
+  "SB40KQ": "‰"
+  "SB41KQ": "‘"
+  "SB42KQ": "’"
+  "SB43KQ": "“"
+  "SB44KQ": "”"
+  "SB45KQ": "–"
+  "SB46KQ": "—"
+  "SB47KQ": "˜"
+  "SB48KQ": "©"
+  "SB49KQ": ","
 
 fkr069:
   "학여울역": "학여울력"
@@ -3186,10 +2875,10 @@ fkr069:
   "첫애": "처대"
 
 fkr073:
-    "f7~i11#m20": "f0~i12#m20"
-    "f7~i11#m6": "f0~i12#m6"
-    "f7~i18#m20": "f0~i14#m20"
-    "f7~i18#m6": "f0~i14#m6"
+  "f7~i11#m20": "f0~i12#m20"
+  "f7~i11#m6": "f0~i12#m6"
+  "f7~i18#m20": "f0~i14#m20"
+  "f7~i18#m6": "f0~i14#m6"
 
 fkr074:
   "f25~i11#m20": "f0~i14#m20"
@@ -3275,7 +2964,7 @@ fkr088:
   "f15~i12#": "f8~i14#"
 
 fkr089:
-   "f16~i5#": "f16~i2#"
+  "f16~i5#": "f16~i2#"
 
 fkr090:
   "f17~i2#": "f16~i2#"
@@ -3522,7 +3211,7 @@ fkr111:
   "lr": "ll"
 
 fkr113-115:
-# rule1
+  # rule1
   - "냐"
   - "뉴"
   - "니"
@@ -3585,7 +3274,7 @@ fkr113-115:
   - "릿"
   - "링"
 
-# loan_w_set
+  # loan_w_set
   - "녀석"
   - "라디"
   - "라마"
@@ -4416,71 +4105,70 @@ fkr136:
 # Logic on LL2296-2527
 fkr140:
   # In order: ambiguous characters, normalized character, possible readings.
-  - [["樂","樂","樂","樂"], "樂", ["악", "락", "요"]]
+  - [["樂", "樂", "樂", "樂"], "樂", ["악", "락", "요"]]
 fkr141:
-  - [["契","契","契"], "契", ["계", "글", "설"]]
-  - [["寧","寧","寧"], "寧", ["녕", "령", "영"]]
-  - [["率","率","率"], "率", ["솔", "률", "율"]]
-  - [["說","說","說"], "說", ["설", "세", "열"]]
-  - [["龜","龜","龜"], "龜", ["구", "귀", "균"]]
-  - [["則","則"], "則", ["칙", "즉"]]
-  - [["豈","豈"], "豈", ["기", "개"]]
-  - [["更","更"], "更", ["경", "갱"]]
-  - [["車","車"], "車", ["차", "거"]]
-  - [["賈","賈"], "賈", ["가", "고"]]
-  - [["滑","滑"], "滑", ["활", "골"]]
-  - [["串","串"], "串", ["곶", "관"]]
-  - [["句","句"], "句", ["구", "귀"]]
-  - [["金","金"], "金", ["김", "금"]]
-  - [["奈","奈"], "奈", ["내", "나"]]
-  - [["讀","讀"], "讀", ["독", "두"]]
-  - [["丹","丹"], "丹", ["단", "란"]]
-  - [["怒","怒"], "怒", ["노", "로"]]
-  - [["北","北"], "北", ["북", "배"]]
-  - [["磻","磻"], "磻", ["반", "번"]]
-  - [["便","便"], "便", ["편", "변"]]
-  - [["復","復"], "復", ["복", "부"]]
-  #- [["不","不"], "不", ["부", "불"]]
-  - [["泌","泌"], "泌", ["필", "비"]]
-  #- [["數","數"], "數", ["수", "삭"]]
-  - [["參","參"], "參", ["참", "삼"]]
-  - [["塞","塞"], "塞", ["새", "색"]]
-  - [["省","省"], "省", ["성", "생"]]
-  - [["葉","葉"], "葉", ["엽", "섭"]]
-  - [["殺","殺"], "殺", ["살", "쇄"]]
-  - [["辰","辰"], "辰", ["진", "신"]]
-  - [["沈","沈"], "沈", ["침", "심"]]
-  - [["拾","拾"], "拾", ["습", "십"]]
-  - [["咽","咽"], "咽", ["인", "열"]]
-  - [["瑩","瑩"], "瑩", ["형", "영"]]
-  - [["惡","惡"], "惡", ["악", "오"]]
-  - [["暈","暈"], "暈", ["훈", "운"]]
-  - [["阮","阮"], "阮", ["완", "원"]]
-  - [["易","易"], "易", ["역", "이"]]
-  - [["狀","狀"], "狀", ["상", "장"]]
-  - [["炙","炙"], "炙", ["자", "적"]]
-  - [["識","識"], "識", ["식", "지"]]
-  - [["什","什"], "什", ["십", "집"]]
-  - [["茶","茶"], "茶", ["다", "차"]]
-  - [["切","切"], "切", ["절", "체"]]
-  - [["度","度"], "度", ["도", "탁"]]
-  - [["拓","拓"], "拓", ["척", "탁"]]
-  - [["糖","糖"], "糖", ["당", "탕"]]
-  - [["宅","宅"], "宅", ["댁", "택"]]
-  - [["洞","洞"], "洞", ["동", "통"]]
-  - [["暴","暴"], "暴", ["폭", "포"]]
-  - [["輻","輻"], "輻", ["복", "폭"]]
-  - [["行","行"], "行", ["행", "항"]]
-  - [["降","降"], "降", ["강", "항"]]
-  - [["見","見"], "見", ["견", "현"]]
-  - [["廓","廓"], "廓", ["곽", "확"]]
+  - [["契", "契", "契"], "契", ["계", "글", "설"]]
+  - [["寧", "寧", "寧"], "寧", ["녕", "령", "영"]]
+  - [["率", "率", "率"], "率", ["솔", "률", "율"]]
+  - [["說", "說", "說"], "說", ["설", "세", "열"]]
+  - [["龜", "龜", "龜"], "龜", ["구", "귀", "균"]]
+  - [["則", "則"], "則", ["칙", "즉"]]
+  - [["豈", "豈"], "豈", ["기", "개"]]
+  - [["更", "更"], "更", ["경", "갱"]]
+  - [["車", "車"], "車", ["차", "거"]]
+  - [["賈", "賈"], "賈", ["가", "고"]]
+  - [["滑", "滑"], "滑", ["활", "골"]]
+  - [["串", "串"], "串", ["곶", "관"]]
+  - [["句", "句"], "句", ["구", "귀"]]
+  - [["金", "金"], "金", ["김", "금"]]
+  - [["奈", "奈"], "奈", ["내", "나"]]
+  - [["讀", "讀"], "讀", ["독", "두"]]
+  - [["丹", "丹"], "丹", ["단", "란"]]
+  - [["怒", "怒"], "怒", ["노", "로"]]
+  - [["北", "北"], "北", ["북", "배"]]
+  - [["磻", "磻"], "磻", ["반", "번"]]
+  - [["便", "便"], "便", ["편", "변"]]
+  - [["復", "復"], "復", ["복", "부"]]
+  # - [["不", "不"], "不", ["부", "불"]]
+  - [["泌", "泌"], "泌", ["필", "비"]]
+  # - [["數", "數"], "數", ["수", "삭"]]
+  - [["參", "參"], "參", ["참", "삼"]]
+  - [["塞", "塞"], "塞", ["새", "색"]]
+  - [["省", "省"], "省", ["성", "생"]]
+  - [["葉", "葉"], "葉", ["엽", "섭"]]
+  - [["殺", "殺"], "殺", ["살", "쇄"]]
+  - [["辰", "辰"], "辰", ["진", "신"]]
+  - [["沈", "沈"], "沈", ["침", "심"]]
+  - [["拾", "拾"], "拾", ["습", "십"]]
+  - [["咽", "咽"], "咽", ["인", "열"]]
+  - [["瑩", "瑩"], "瑩", ["형", "영"]]
+  - [["惡", "惡"], "惡", ["악", "오"]]
+  - [["暈", "暈"], "暈", ["훈", "운"]]
+  - [["阮", "阮"], "阮", ["완", "원"]]
+  - [["易", "易"], "易", ["역", "이"]]
+  - [["狀", "狀"], "狀", ["상", "장"]]
+  - [["炙", "炙"], "炙", ["자", "적"]]
+  - [["識", "識"], "識", ["식", "지"]]
+  - [["什", "什"], "什", ["십", "집"]]
+  - [["茶", "茶"], "茶", ["다", "차"]]
+  - [["切", "切"], "切", ["절", "체"]]
+  - [["度", "度"], "度", ["도", "탁"]]
+  - [["拓", "拓"], "拓", ["척", "탁"]]
+  - [["糖", "糖"], "糖", ["당", "탕"]]
+  - [["宅", "宅"], "宅", ["댁", "택"]]
+  - [["洞", "洞"], "洞", ["동", "통"]]
+  - [["暴", "暴"], "暴", ["폭", "포"]]
+  - [["輻", "輻"], "輻", ["복", "폭"]]
+  - [["行", "行"], "行", ["행", "항"]]
+  - [["降", "降"], "降", ["강", "항"]]
+  - [["見", "見"], "見", ["견", "현"]]
+  - [["廓", "廓"], "廓", ["곽", "확"]]
   - [["諸"], "諸", ["제", "저"]]
-  - [["羨","羡"], "羨", ["선", "연"]]
+  - [["羨", "羡"], "羨", ["선", "연"]]
 
 fkr142:
   "塜": "塚"
   "暦": "曆"
-  "査": "查"
   "査": "查"
   "歴": "歷"
   "豈": "豈"

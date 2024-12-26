@@ -33,6 +33,10 @@ from scriptshifter.tools import capitalize
 
 PWD = path.dirname(path.realpath(__file__))
 CP_MIN = 44032
+ALL_PUNCT_STR = (
+    r'[\!"#$%&\'\(\)\*\+\,\-./:;<=>?・ǂ「」『』@\[\\\]\^_`{|}~‡‰‘’“”–—˜©·]')
+# Capture adjacent punctuation symbols and remove spacing in between.
+PUNCT_SPACING_RE = re.compile(f"({ALL_PUNCT_STR})\\s+({ALL_PUNCT_STR})")
 
 # Buid FKR index for better logging.
 with open(path.join(PWD, "FKR_index.csv"), newline='') as fh:
@@ -317,9 +321,7 @@ def _kor_corp_name_rom(src):
 def _romanize_oclc_auto(kor):
     # FKR050: Starts preprocessing symbol
     _fkr_log(50)
-    for rname, rule in KCONF["fkr050"].items():
-        logger.debug(f"Applying fkr050[{rname}]")
-        kor = _replace_map(kor, rule)
+    # kor = _replace_map(kor, KCONF["fkr050"])
 
     # See https://github.com/lcnetdev/scriptshifter/issues/19
     kor = re.sub("제([0-9])", "제 \\1", kor)
@@ -338,6 +340,7 @@ def _romanize_oclc_auto(kor):
     logger.debug(f"Korean before romanization: {kor}")
 
     rom_ls = []
+    breakpoint()
     for word in kor.split(" "):
         rom_ls.append(_kor_rom(word))
     rom = " ".join(rom_ls)
@@ -363,12 +366,11 @@ def _romanize_oclc_auto(kor):
 
     # FKR066: Starts restore symbols
     _fkr_log(66)
-    for rname, rule in KCONF["fkr066"].items():
-        logger.debug(f"Applying FKR066[{rname}]")
-        rom = _replace_map(rom, rule)
-
-    # Remove spaces from before punctuation signs.
-    rom = re.sub(r" (?=[,.;:?!])", "", rom.strip())
+    rom = _replace_map(rom, KCONF["fkr066"])
+    # Remove spacing between punctuation symbols.
+    rom = PUNCT_SPACING_RE.sub(r"\1\2", rom.strip())
+    # Remove spaces from before symbols.
+    rom = re.sub(r" (?=[,.;:?!])", "", rom)
     rom = re.sub(r"\s{2,}", " ", rom)
 
     return rom
