@@ -35,8 +35,8 @@ PWD = path.dirname(path.realpath(__file__))
 CP_MIN = 44032
 ALL_PUNCT_STR = (
     r'[\!"#$%&\'\(\)\*\+\,\-./:;<=>?・ǂ「」『』@\[\\\]\^_`{|}~‡‰‘’“”–—˜©·]')
-# Capture adjacent punctuation symbols and remove spacing in between.
-PUNCT_SPACING_RE = re.compile(f"({ALL_PUNCT_STR})\\s+({ALL_PUNCT_STR})")
+LEAD_PUNCT_RE = re.compile(r"([^\w\s])(\w)")
+TRAIL_PUNCT_RE = re.compile(r"(\w)([^\w\s])")
 
 # Buid FKR index for better logging.
 with open(path.join(PWD, "FKR_index.csv"), newline='') as fh:
@@ -319,9 +319,9 @@ def _kor_corp_name_rom(src):
 
 
 def _romanize_oclc_auto(kor):
-    # FKR050: Starts preprocessing symbol
-    _fkr_log(50)
-    # kor = _replace_map(kor, KCONF["fkr050"])
+    # Separate punctuation following words without a space.
+    kor = LEAD_PUNCT_RE.sub("\\1 \\2", kor)
+    kor = TRAIL_PUNCT_RE.sub("\\1 \\2", kor)
 
     # See https://github.com/lcnetdev/scriptshifter/issues/19
     kor = re.sub("제([0-9])", "제 \\1", kor)
@@ -340,7 +340,6 @@ def _romanize_oclc_auto(kor):
     logger.debug(f"Korean before romanization: {kor}")
 
     rom_ls = []
-    breakpoint()
     for word in kor.split(" "):
         rom_ls.append(_kor_rom(word))
     rom = " ".join(rom_ls)
@@ -364,14 +363,9 @@ def _romanize_oclc_auto(kor):
         _fkr_log(i)
         rom = _replace_map(rom, KCONF[f"fkr{i:03}"])
 
-    # FKR066: Starts restore symbols
-    _fkr_log(66)
-    rom = _replace_map(rom, KCONF["fkr066"])
-    # Remove spacing between punctuation symbols.
-    rom = PUNCT_SPACING_RE.sub(r"\1\2", rom.strip())
-    # Remove spaces from before symbols.
-    rom = re.sub(r" (?=[,.;:?!])", "", rom)
-    rom = re.sub(r"\s{2,}", " ", rom)
+    rom = re.sub(r"\s{2,}", " ", rom.strip())
+    rom = re.sub(r" (?=[,.;:?!\]\)\}])", "", rom)
+    rom = re.sub(r"(?<=[\[\(\{]) ", "", rom)
 
     return rom
 
@@ -396,6 +390,9 @@ def _kor_rom(kor):
         if cp < CP_MIN:
             non_kor += 1
             kor = kor[1:]
+        else:
+            # Break as soon as a Korean code point is found.
+            break
 
     rom_ls = []
     if non_kor > 0:
@@ -403,6 +400,10 @@ def _kor_rom(kor):
         cpoints = tuple(ord(c) for c in kor)
     for i in range(len(kor)):
         cp = cpoints[i] - CP_MIN
+        if cp < 0:
+            # This accounts for punctuation attached to the end of the word.
+            rom_ls.append(kor[i])
+            continue
         ini = "i" + str(cp // 588)
         med = "m" + str((cp // 28) % 21)
         fin = "f" + str(cp % 28)
@@ -529,6 +530,7 @@ def _kor_rom(kor):
 
     # @TODO Move this to a generic normalization step (not only for K)
     rom = _replace_map(rom, {"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
+    logger.debug(f"Romanized token: {rom}")
 
     return rom
 
