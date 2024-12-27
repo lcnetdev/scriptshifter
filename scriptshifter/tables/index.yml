@@ -37,6 +37,8 @@ asian_cyrillic:
     abk, ady, alt, ava, bak, che, chv, dar, ale, esk, kbd, xal, krc, kaa,
     krl, kom, kum, lez, lit, chm, nog, oss, rum, rom, sel, udm, sah
   name: Asian Cyrillic
+assamese:
+  name: assamese
 azerbaijani_cyrillic:
   marc_code: aze
   name: Azerbaijani (Cyrillic)
@@ -198,9 +200,9 @@ ossetic_cyrillic:
 pali:
   marc_code: pli
   name: Pali
-panjabi:
+panjabi_gurmukhi:
   marc_code: pan
-  name: Panjabi
+  name: Panjabi (Gurmukhi)
 persian:
   marc_code: per
   name: Persian

@@ -1,5 +1,6 @@
 general:
   name: Bengali (Bangla)
+  case_sensitive: false
 
 script_to_roman:
   hooks:

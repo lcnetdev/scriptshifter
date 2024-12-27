@@ -21,26 +21,25 @@ def test_sample(dset):
     """
     deltas = []
     dset_fpath = path.join(TEST_DATA_DIR, "script_samples", dset + ".csv")
-    log_fpath = path.join(TEST_DATA_DIR, f"test_{dset}.log")
+    log_fpath = path.join(TEST_DATA_DIR, "log", f"test_{dset}.log")
 
     with open(dset_fpath, newline="") as fh:
         csv = reader(fh)
         i = 1
         for row in csv:
-            logger.info(f"CSV row #{i}")
-            i += 1
+            logger.debug(f"CSV row #{i}")
             lang, script, rom = row[:3]
             if not lang:
                 continue
-            opts = jloads(row[3]) if len(row) > 3 and row[3] else {}
-            trans, warnings = transliterate(
-                    script, lang, t_dir="s2r",
-                    capitalize=opts.get("capitalize"), options=opts)
-            if (trans == rom):
-                print(".", end="")
+            t_dir = row[3] if len(row) > 3 else None
+            opts = jloads(row[4]) if len(row) > 4 and row[4] else {}
+
+            if t_dir:
+                _trans(script, lang, t_dir, opts, rom, deltas)
             else:
-                print("F", end="")
-                deltas.append((lang, script, ndiff([trans], [rom])))
+                _trans(script, lang, "s2r", opts, rom, deltas)
+                _trans(rom, lang, "r2s", opts, script, deltas)
+            i += 1
 
     with open(log_fpath, "w") as fh:
         # If no deltas, just truncate the file.
@@ -53,6 +52,18 @@ def test_sample(dset):
 
     ct = len(deltas)
     if ct > 0:
-        print(f"{ct} failed tests. See report at {log_fpath}")
+        print(f"\n\n{ct} failed tests. See report at {log_fpath}")
     else:
         print("All tests passed.")
+
+
+def _trans(script, lang, t_dir, opts, rom, deltas):
+    logger.debug(f"Transliterating {lang}: {t_dir}")
+    trans, warnings = transliterate(
+            script, lang, t_dir=t_dir,
+            capitalize=opts.get("capitalize"), options=opts)
+    if (trans == rom):
+        print(".", end="")
+    else:
+        print("F", end="")
+        deltas.append((lang, script, ndiff([trans], [rom])))
