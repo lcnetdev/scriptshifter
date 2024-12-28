@@ -23,8 +23,8 @@ program and assistance in porting it to Python.
 import logging
 import re
 
-from os import path
 from csv import reader
+from os import path
 
 from scriptshifter.exceptions import BREAK
 from scriptshifter.hooks.korean import KCONF
@@ -37,6 +37,19 @@ ALL_PUNCT_STR = (
     r'[\!"#$%&\'\(\)\*\+\,\-./:;<=>?・ǂ「」『』@\[\\\]\^_`{|}~‡‰‘’“”–—˜©·]')
 LEAD_PUNCT_RE = re.compile(r"([^\w\s])(\w)")
 TRAIL_PUNCT_RE = re.compile(r"(\w)([^\w\s])")
+
+
+# Separator symbols for coded tokens.
+# Using esoteric characters most unlikely found in cataloging records.
+INI = "🜁"  # Initial prefix (was: i).
+MED = "🜊"  # Medial prefix (was: m).
+FIN = "🜔"  # Final prefix (was: f).
+EOP = "🜿"  # End of part (was: #).
+EOT = "🝎"  # End of token (was: ~).
+EON = "🜹"  # First-last name separator (was: +).
+EOD = "🝥"  # End of document (was: E).
+GLT = "🜄"  # Glottal (was: ^).
+
 
 # Buid FKR index for better logging.
 with open(path.join(PWD, "FKR_index.csv"), newline='') as fh:
@@ -181,13 +194,13 @@ def _romanize_name(src, options):
         warnings += _warnings
 
     if parsed:
-        if "~" in parsed:
-            lname, fname = parsed.split("~", 1)
+        if EOT in parsed:
+            lname, fname = parsed.split(EOT, 1)
             logger.debug(f"First name: {fname}; Last name: {lname}")
             fname_rom = _kor_fname_rom(fname)
 
             lname_rom_ls = []
-            for n in lname.split("+"):
+            for n in lname.split(EON):
                 _k = _kor_lname_rom(n)
                 logger.debug(f"Split last name part: {n}")
                 logger.debug(f"Split last name part romanized: {_k}")
@@ -253,33 +266,33 @@ def _parse_kor_name(src, options):
     # FKR007: 2 spaces (two family names)
     if ct_spaces == 2:
         logger.debug(f"Name {src} has 2 spaces.")
-        parsed = src.replace(" ", "+", 1).replace(" ", "~", 1)
+        parsed = src.replace(" ", EON, 1).replace(" ", EOT, 1)
     elif ct_spaces == 1:
         # FKR008: 1 space (2nd position)
         if src[1] == " ":
             logger.debug(f"Name {src} has 1 space in the 2nd position.")
-            parsed = src.replace(" ", "~")
+            parsed = src.replace(" ", EOT)
 
         # FKR009: 1 space (3nd position)
         if src[2] == " ":
             logger.debug(f"Name {src} has 1 space in the 3rd position.")
             if two_syl_lname:
-                parsed = "+" + src.replace(" ", "~")
+                parsed = EON + src.replace(" ", EOT)
 
     # FKR010: When there is no space
     else:
         logger.debug(f"Name {src} has no spaces.")
         if src_len == 2:
             logger.debug("Name has 2 characters.")
-            parsed = src[0] + "~" + src[1:]
+            parsed = src[0] + EOT + src[1:]
         elif src_len > 2:
             logger.debug("Name has more than 2 characters.")
             if two_syl_lname:
                 logger.debug("Last name has 2 syllables.")
-                parsed = src[:2] + "~" + src[2:]
+                parsed = src[:2] + EOT + src[2:]
             else:
                 logger.debug("Last name has 1 syllable.")
-                parsed = src[0] + "~" + src[1:]
+                parsed = src[0] + EOT + src[1:]
     return parsed, warnings
 
 
@@ -320,8 +333,8 @@ def _kor_corp_name_rom(src):
 
 def _romanize_oclc_auto(kor):
     # Separate punctuation following words without a space.
-    kor = LEAD_PUNCT_RE.sub("\\1 \\2", kor)
-    kor = TRAIL_PUNCT_RE.sub("\\1 \\2", kor)
+    # kor = LEAD_PUNCT_RE.sub("\\1 \\2", kor)
+    # kor = TRAIL_PUNCT_RE.sub("\\1 \\2", kor)
 
     # See https://github.com/lcnetdev/scriptshifter/issues/19
     kor = re.sub("제([0-9])", "제 \\1", kor)
@@ -335,7 +348,7 @@ def _romanize_oclc_auto(kor):
     # Strip end and multiple whitespace.
     kor = re.sub(r"\s{2,}", " ", kor.strip())
 
-    kor = kor.replace("^", " GLOTTAL ")
+    kor = kor.replace(GLT, " GLOTTAL ")
 
     logger.debug(f"Korean before romanization: {kor}")
 
@@ -379,9 +392,9 @@ def _kor_rom(kor):
     kor = _replace_map(kor, KCONF["fkr069"])
 
     # FKR070: [n] insertion position mark +
-    niun = kor.find("+")
+    niun = kor.find(EON)
     if niun > -1:
-        kor = kor.replace("+", "")
+        kor = kor.replace(EON, "")
         orig = kor
 
     non_kor = 0
@@ -404,34 +417,39 @@ def _kor_rom(kor):
             # This accounts for punctuation attached to the end of the word.
             rom_ls.append(kor[i])
             continue
-        ini = "i" + str(cp // 588)
-        med = "m" + str((cp // 28) % 21)
-        fin = "f" + str(cp % 28)
-        rom_ls.append("#".join((ini, med, fin)))
-    rom = "~".join(rom_ls)
+        ini = INI + str(cp // 588)
+        med = MED + str((cp // 28) % 21)
+        fin = FIN + str(cp % 28)
+        rom_ls.append(EOP.join((ini, med, fin)))
+    rom = EOT.join(rom_ls)
     if len(rom):
-        rom = rom + "E"
+        rom = rom + EOD
     logger.debug(f"Coded romanization before replacements: {rom}")
 
     # FKR071: [n] insertion
     if niun > -1:
-        niun_loc = rom.find("~")
-        # Advance until the niun'th occurrence of ~
+        niun_loc = rom.find(EOT)
+        # Advance until the niun'th occurrence of EOT
         # If niun is 0 or 1 the loop will be skipped.
         for i in range(niun - 1):
-            niun_loc = rom.find("~", niun_loc + 1)
+            niun_loc = rom.find(EOT, niun_loc + 1)
         rom_niun_a = rom[:niun_loc]
         rom_niun_b = rom[niun_loc + 1:]
-        if re.match("i11#m(?:2|6|12|17|20)", rom_niun_b):
+        if re.match(
+                f"{INI}11{EOP}"
+                f"{MED}(?:2|6|12|17|20)", rom_niun_b):
             _fkr_log(71)
-            rom_niun_b = rom_niun_b.replace("i11#m", "i2#m", 1)
+            rom_niun_b = rom_niun_b.replace(
+                    f"{INI}11{EOP}{MED}", f"{INI}2{EOP}{MED}", 1)
 
         # FKR072: [n]+[l] >[l] + [l]
-        if rom_niun_b.startswith("i5#") and rom_niun_a.endswith("f4"):
+        if (
+                rom_niun_b.startswith(f"{INI}5{EOP}")
+                and rom_niun_a.endswith(f"{FIN}4")):
             _fkr_log(72)
-            rom_niun_b = rom_niun_b.replace("i5#", "i2", 1)
+            rom_niun_b = rom_niun_b.replace(f"{INI}5{EOP}", f"{INI}2", 1)
 
-        rom = f"{rom_niun_a}~{rom_niun_b}"
+        rom = f"{rom_niun_a}{EOT}{rom_niun_b}"
 
     # FKR073: Palatalization: ㄷ+이,ㄷ+여,ㄷ+히,ㄷ+혀
     # FKR074: Palatalization: ㅌ+이,ㅌ+히,ㅌ+히,ㅌ+혀
@@ -470,10 +488,10 @@ def _kor_rom(kor):
     # FKR107: Exception for '쉬' = shi
     # FKR108: Exception for 'ㄴㄱ'= n'g
     for fkr_i in range(73, 109):
-        _fkr_log(fkr_i)
         _bk = rom
         rom = _replace_map(rom, KCONF[f"fkr{fkr_i:03}"])
         if _bk != rom:
+            _fkr_log(fkr_i)
             logger.debug(f"FKR{fkr_i} substitution: {rom} (was: {_bk})")
 
     logger.debug(f"Coded romanization after replacements: {rom}")
@@ -482,13 +500,19 @@ def _kor_rom(kor):
     for pos, data in KCONF["fkr109"].items():
         rom = _replace_map(rom, data)
 
-    # FKR110: Convert symbols
-    rom = _replace_map(rom, {"#": "", "~": ""})
+    # FKR110: Convert leftover separator symbols
+    rom = _replace_map(rom, {EOP: "", EOT: "", EOD: ""})
 
     if non_kor > 0:
+        logger.debug(f"Non-Korean part: {orig[:non_kor]}")
         # Modified from K-Romanizer:1727 in that it does not append a hyphen
         # if the whole word is non-Korean.
-        rom = f"{orig[:non_kor]}-{rom}" if len(rom) else orig
+        if all([char in ALL_PUNCT_STR for char in orig[:non_kor]]):
+            rom = f"{orig[:non_kor]}{rom}"
+        elif len(rom):
+            rom = f"{orig[:non_kor]}-{rom}"
+        else:
+            rom = orig
 
     # FKR111: ㄹ + 모음/ㅎ/ㄹ, ["lr","ll"] must be in the last of the array
     rom = _replace_map(rom, KCONF["fkr111"])
@@ -633,11 +657,11 @@ def _kor_fname_rom(fname):
     cpoints = tuple(ord(c) for c in fname)
     for i in range(len(fname)):
         cp = cpoints[i] - CP_MIN
-        ini = "i" + str(cp // 588)
-        med = "m" + str((cp // 28) % 21)
-        fin = "f" + str(cp % 28)
-        rom_ls.append("#".join((ini, med, fin)))
-    rom = "~".join(rom_ls) + "E"
+        ini = INI + str(cp // 588)
+        med = MED + str((cp // 28) % 21)
+        fin = FIN + str(cp % 28)
+        rom_ls.append(EOP.join((ini, med, fin)))
+    rom = EOT.join(rom_ls) + EOD
     logger.debug(f"Encoded first name: {rom}")
 
     # FKR011: Check native Korean name, by coda
@@ -666,7 +690,7 @@ def _kor_fname_rom(fname):
             break
 
     # FKR013: Check native Korean name, by ㅢ
-    if "m19#" in rom:
+    if f"{MED}19{EOP}" in rom:
         native_by_med = "의" not in fname and "희" not in fname
 
     # FKR014: Consonant assimilation ㄱ
@@ -695,14 +719,14 @@ def _kor_fname_rom(fname):
         logger.debug(f"Applying FKR030[\"{k}\"]")
         rom = _replace_map(rom, cmap)
 
-    rom = _replace_map(rom.replace("#", ""), {"swi": "shwi", "Swi": "Shwi"}, 1)
+    rom = _replace_map(rom.replace(EOP, ""), {"swi": "shwi", "Swi": "Shwi"}, 1)
 
     logger.debug(f"Partly romanized first name: {rom}")
     logger.debug(f"fname: {fname} ({len(fname)})")
     if len(fname) == 2:
-        rom = rom.replace("~", "-")
+        rom = _replace_map(rom, {EOT: "-", EOD: ""})
     else:
-        rom = _replace_map(rom, {"n~g": "n'g", "~": ""})
+        rom = _replace_map(rom, {f"n{EOT}g": "n'g", EOT: "", EOD: ""})
 
     # FKR031: ㄹ + vowels/ㅎ/ㄹ ["l-r","l-l"] does not work USE alternative
     _fkr_log(31)
