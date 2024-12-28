@@ -504,8 +504,9 @@ def _kor_rom(kor):
     if non_kor > 0:
         logger.debug(f"Non-Korean part: {orig[:non_kor]}")
         # Modified from K-Romanizer:1727 in that it does not append a hyphen
-        # if the whole word is non-Korean.
-        if all([char in ALL_PUNCT_STR for char in orig[:non_kor]]):
+        # if the whole word is non-Korean or if the last non-Korean character
+        # is a punctuation symbol.
+        if orig[non_kor - 1] in ALL_PUNCT_STR:
             rom = f"{orig[:non_kor]}{rom}"
         elif len(rom):
             rom = f"{orig[:non_kor]}-{rom}"
