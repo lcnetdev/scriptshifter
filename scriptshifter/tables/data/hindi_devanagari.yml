@@ -1,6 +1,6 @@
 ---
 general:
-  name: Hindi
+  name: Hindi (Devanagari)
   case_sensitive: false
 
 roman_to_script:
