@@ -33,10 +33,7 @@ from scriptshifter.tools import capitalize
 
 PWD = path.dirname(path.realpath(__file__))
 CP_MIN = 44032
-ALL_PUNCT_STR = (
-    r'[\!"#$%&\'\(\)\*\+\,\-./:;<=>?・ǂ「」『』@\[\\\]\^_`{|}~‡‰‘’“”–—˜©·]')
-LEAD_PUNCT_RE = re.compile(r"([^\w\s])(\w)")
-TRAIL_PUNCT_RE = re.compile(r"(\w)([^\w\s])")
+ALL_PUNCT_STR = r'[!"#$%&\'()*+,-.:;<=>?・ǂ「」『』@[\\]^_`{|}~‡‰‘’“”–—˜©·]'
 
 
 # Separator symbols for coded tokens.
@@ -332,9 +329,6 @@ def _kor_corp_name_rom(src):
 
 
 def _romanize_oclc_auto(kor):
-    # Separate punctuation following words without a space.
-    # kor = LEAD_PUNCT_RE.sub("\\1 \\2", kor)
-    # kor = TRAIL_PUNCT_RE.sub("\\1 \\2", kor)
 
     # See https://github.com/lcnetdev/scriptshifter/issues/19
     kor = re.sub("제([0-9])", "제 \\1", kor)
@@ -376,9 +370,13 @@ def _romanize_oclc_auto(kor):
         _fkr_log(i)
         rom = _replace_map(rom, KCONF[f"fkr{i:03}"])
 
+    # Replace Korean punctuation.
+    rom = _replace_map(rom, {"・": ", ", "·": ", "})
+
+    # Normalize punctuation spacing.
     rom = re.sub(r"\s{2,}", " ", rom.strip())
-    rom = re.sub(r" (?=[,.;:?!\]\)\}])", "", rom)
-    rom = re.sub(r"(?<=[\[\(\{]) ", "", rom)
+    rom = re.sub(r" (?=[,.;:?!\]\)\}’”])", "", rom)
+    rom = re.sub(r"(?<=[\[\(\{‘“]) ", "", rom)
 
     return rom
 
