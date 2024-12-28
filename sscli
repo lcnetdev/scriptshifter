@@ -10,6 +10,7 @@ from os import path
 
 from scriptshifter import DB_PATH
 from scriptshifter.tables import init_db as _init_db
+from scriptshifter.trans import transliterate as _transliterate
 from test.integration import test_sample
 
 
@@ -68,6 +69,41 @@ def samples(lang):
 def trans_grp():
     """ Transliteration and transcription operations. """
     pass
+
+
+@trans_grp.command()
+@click.argument("src", type=click.File("r"))
+@click.argument("lang")
+@click.option(
+        "-c", "--capitalize", default=None,
+        help="Capitalize output: `first`, `all`, ot none (the default).")
+@click.option(
+        "-d", "--t-dir", default="s2r",
+        help="Transliteration direction: `s2r' (default)) or `r2s'")
+@click.option(
+        "-o", "--option", multiple=True,
+        help=(
+            "Language=specific option. Format: key=value. Multiple -o entries "
+            "are possible."))
+def transliterate(src, lang, t_dir, capitalize, option):
+    """
+    Transliterate text from standard input.
+
+    e.g.: `echo "王正强" | /path/to/sscli trans transliterate chinese
+    -o "marc_field=100"'
+    """
+    options = {}
+    for opt in option:
+        k, v = opt.split("=", 1)
+        options[k] = v
+
+    trans, warnings = _transliterate(
+            src.read(), lang, t_dir, capitalize, options)
+
+    for w in warnings:
+        click.echo(click.style("WARNING: ", fg="yellow") + w)
+
+    click.echo(trans)
 
 
 if __name__ == "__main__":
