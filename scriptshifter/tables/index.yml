@@ -103,7 +103,7 @@ gujarati:
 hebrew:
   marc_code: heb
   name: Hebrew
-hindi:
+hindi_devanagari:
   marc_code: hin
   name: Hindi (Devanagari)
 hiragana:

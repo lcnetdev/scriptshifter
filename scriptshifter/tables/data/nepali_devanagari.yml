@@ -9,6 +9,7 @@ script_to_roman:
       -
         - aksharamukha.romanizer.s2r_post_config
         - src_script: "Devanagari"
+        - post: ["HindiMarathiRomanLoCFix"]
 
 roman_to_script:
   hooks:
@@ -16,3 +17,4 @@ roman_to_script:
       -
         - aksharamukha.romanizer.r2s_post_config
         - dest_script: "Devanagari"
+        - pre: ["HindiMarathiRomanLoCFix"]
