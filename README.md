@@ -114,8 +114,9 @@ the drop-down automatically. The value must be one of the keys found in
 ## Command-line interface
 
 Various Scriptshifter commands can be accessed via the shell command `sscli`.
-At the moment only a few essential admin and testing tools are available. More
-commands can be made avaliable on an as-needed basis.
+At the moment a few essential admin and testing tools are available, as well as
+a transliteration function. More commands can be made available on an as-needed
+basis.
 
 Help menu:
 
@@ -127,6 +128,12 @@ Section help:
 
 ```
 /path/to/sscli admin --help
+```
+
+Transliteration:
+
+```
+echo "王正强" | /path/to/sscli trans chinese -c first -o "marc_field=100"
 ```
 
 
