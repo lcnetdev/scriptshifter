@@ -5,8 +5,7 @@ from scriptshifter import APP_ROOT
 from scriptshifter.exceptions import BREAK
 
 
-CAMEL_DIR = path.join(path.dirname(APP_ROOT), "ext", "arabic_rom")
-MODULE_DIR = path.join(CAMEL_DIR, "src")
+MODULE_DIR = path.join(path.dirname(APP_ROOT), "ext", "arabic_rom", "src")
 
 MODEL_DIR = path.join(
         path.dirname(path.realpath(__file__)), "data", "model_mle")
