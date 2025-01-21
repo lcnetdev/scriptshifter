@@ -1,6 +1,7 @@
 ---
 general:
   name: Uighur (Arabic)
+  case_sensitive: false
 roman_to_script:
   map:
     "%a": "\u0626\u0627"
