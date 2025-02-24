@@ -118,7 +118,9 @@ registered as constants under `scriptshifter.exceptions`.
 
 The following members of the context object are available in all the hooks:
 
-- `ctx.src`: Source text. Read only.
+- `ctx.src`: Source text. This should not be changed except in `post_config`
+  and `post_normalize` hooks. It may also change after applying table-based
+  normalization rules.
 - `ctx.general`: Configuration general options.
 - `ctx.langsec`: language section (S2R or R2S) of configuration.
 - `ctx.options`: language-specific options defined in configuration and set
@@ -150,7 +152,17 @@ or REST API.
 
 `None` or `BREAK`. In the former case the application proceeds to the usual
 transliteration process; in the latter case, it returns the value of
-`ctx.dest`, which the hook function should have set.
+`ctx.dest`, which the hook function should have set, along with any warnings
+in `ctx.warnings`.
+
+### `post_normalize`
+
+This hook may be used to normalize the source after the table-based
+normalization rules are applied.
+
+#### Return
+
+- `BREAK`: return immediately an empty content and potentially warnings.
 
 ### `begin_input_token`
 
@@ -175,7 +187,7 @@ the parsing proceeds as normal. `CONT` causes the application to skip the
 parsing of the current token. `BREAK` interrupts the text scanning and
 proceeds directly to handling the result list for output. **CAUTION**: when
 returning CONT, it is the responsibility of the function to advance
-`ctx.cur` so that the loop doesn't become an infinite one. 
+`ctx.cur` so that the loop doesn't become an infinite one.
 
 ### `pre_ignore_token`
 

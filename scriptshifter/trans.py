@@ -5,7 +5,7 @@ from re import Pattern, compile
 
 from scriptshifter.exceptions import BREAK, CONT
 from scriptshifter.tables import (
-        BOW, EOW, WORD_BOUNDARY, FEAT_CASEI, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
+        BOW, EOW, WORD_BOUNDARY, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
         get_connection, get_lang_dcap, get_lang_general, get_lang_hooks,
         get_lang_ignore, get_lang_map, get_lang_normalize)
 
@@ -121,8 +121,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             return getattr(ctx, "dest", ""), ctx.warnings
 
         # _normalize_src returns the results of the post_normalize hook.
-        if _normalize_src(
-                ctx, get_lang_normalize(ctx.conn, ctx.lang_id)) == BREAK:
+        if _normalize_src(ctx) == BREAK:
             return getattr(ctx, "dest", ""), ctx.warnings
 
         logger.debug(f"Normalized source: {ctx.src}")
@@ -335,13 +334,15 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
         return ctx.dest, ctx.warnings
 
 
-def _normalize_src(ctx, norm_rules):
+def _normalize_src(ctx):
     """
     Normalize source text according to rules.
 
     NOTE: this manipluates the protected source attribute so it may not
     correspond to the originally provided source.
     """
+    norm_rules = get_lang_normalize(ctx.conn, ctx.lang_id)
+
     for nk, nv in norm_rules.items():
         ctx._src = ctx.src.replace(nk, nv)
 
