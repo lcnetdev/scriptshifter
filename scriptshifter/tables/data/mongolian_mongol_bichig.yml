@@ -8,12 +8,16 @@ general:
 roman_to_script:
 
   map:
-    "\u002Daca": "\u202F\u1820\u1834\u1820"
+    #U+0027 is for the Mongolian Free Variation Selector One.
+    "\u0027": "\u180B"
+    #U+0060 is for the Mongolian Free Variation Selector Three.
+    "\u0060": "u\180D"
+    "\u002Daca": "\u180E\u1820\u1834\u1820"
     "\u002DA": "\u180E\u1820"
     "\u002Da": "\u180E\u1820"
     "A": "\u1820"
     "a": "\u1820"
-    "\u002Dece": "\u202F\u1821\u1834\u1821"
+    "\u002Dece": "\u180E\u1821\u1834\u1821"
     "\u002DE": "\u180E\u1821"
     "\u002De": "\u180E\u1821"
     "\u002D": "\u202F"
@@ -33,6 +37,8 @@ roman_to_script:
     "u\u0307": "\u1826"
     "U": "\u1824"
     "u": "\u1824"
+    "nggl": "\u1829\u182D\u180D\u182F"
+    "ng\u0307": "\u1828\u182D"
     "NG": "\u1829"
     "nG": "\u1829"
     "ng": "\u1829"
@@ -110,6 +116,11 @@ roman_to_script:
     "H": "\u183E"
     "h": "\u183E"
     "-": "\u180E"
+    "...": "\u1801"
+    "..": "\u1803"
+    ".": "\u180A"
+    ",": "\u1802"
+    ":": "\u1804"
 
 script_to_roman:
   map:
@@ -146,11 +157,11 @@ script_to_roman:
     # eeg
     "\u1827\u182D": "e\u0307g"
     # qa
-    "\u182C\u1820": "q\u0307a"
+    "\u182C\u1820": "qa"
     # qo
-    "\u182C\u1823": "q\u0307o"
+    "\u182C\u1823": "qo"
     # qu
-    "\u182C\u1824": "q\u0307u"
+    "\u182C\u1824": "qu"
     # aq (should not occur)
     "\u1820\u182C": "aq"
     # oq (should not occur)
@@ -169,13 +180,13 @@ script_to_roman:
     "\u182C\u1827": "ke\u0307"
     # ek (should not occur)
     "\u1821\u182C": "ek"
-    # ik should not occur)
+    # ik (should not occur)
     "\u1822\u182C": "ik"
     # oek (should not occur)
     "\u1825\u182C": "o\u0307k"
     # uek (should not occur)
     "\u1826\u182C": "o\u0307k"
-    # eek should not occur)
+    # eek (should not occur)
     "\u1827\u182C": "e\u0307k"
     # non-connecting vowel a
     "\u180E\u1820": "\u002Da"
@@ -197,7 +208,10 @@ script_to_roman:
     "\u1807": "\u0020"
     "\u1808": ","
     "\u1809": "."
-    "\u180A": "-"
+    "\u180A": "."
+    "\u180B": "'"
+    "\u180D": "\u0060"
+    "\u180C": "&"
     "\u1810": "0"
     "\u1811": "1"
     "\u1812": "2"
