@@ -8,6 +8,10 @@ general:
 roman_to_script:
 
   map:
+    "\u0020Latin": "\u0020\u182F\u1820\u1832\u180B\u1822\u1828"
+    "\u0020latin": "\u0020\u182F\u1820\u1832\u180B\u1822\u1828"
+    "Mate\u0307riyal": "\u182E\u1820\u1832\u180B\u1827\u1837\u1822\u1836\u1820\u182F"
+    "mate\u0307riyal": "\u182E\u1820\u1832\u180B\u1827\u1837\u1822\u1836\u1820\u182F"
     "\u002Daca": "\u202F\u1820\u1834\u1820"
     "\u002DA": "\u180E\u1820"
     "\u002Da": "\u180E\u1820"
@@ -33,6 +37,9 @@ roman_to_script:
     "u\u0307": "\u1826"
     "U": "\u1824"
     "u": "\u1824"
+    # Feminine g control when followed by l
+    "nggl": "\u1829\u182D\u180D\u182F"
+    "ng\u0307": "\u1828\u182D"
     "NG": "\u1829"
     "nG": "\u1829"
     "ng": "\u1829"
@@ -72,8 +79,12 @@ roman_to_script:
     "s\u0301": "\u1831"
     "S": "\u1830"
     "s": "\u1830"
+    "T'": "\u1832\u180B"
+    "t'": "\u1832\u180B"
     "T": "\u1832"
     "t": "\u1832"
+    "D'": "\u1833\u180B"
+    "d'": "\u1833\u180B"
     "D": "\u1833"
     "d": "\u1833"
     "J": "\u1835"
@@ -109,10 +120,38 @@ roman_to_script:
     "c": "\u1834"
     "H": "\u183E"
     "h": "\u183E"
-    "-": "\u180E"
+    "...": "\u1801"
+    "..": "\u1803"
+    ".": "\u180A"
+    ",": "\u1802"
+    ":": "\u1804"
+    "-": "\u202F"
+    "&": "\u180A"
+    # Spacing grave to Mongolian Free Variation Selector Three
+    "`": "\u180D"
+    "'": "\u180B"
+    "*": "\u00B7"
+    # hyphen minus to Narrow no-break space
+    "002D": "\u202F"
+    # low line to Mongolian vowel separator
+    "\u005F": "\u180E"
+    "\u003C\u003C": "\u300A"
+    "\u003E\u003E": "\u300B"
+    "0": "\u1810"
+    "1": "\u1811"
+    "2": "\u1812"
+    "3": "\u1813"
+    "4": "\u1814"
+    "5": "\u1815"
+    "6": "\u1816"
+    "7": "\u1817"
+    "8": "\u1818"
+    "9": "\u1819"
 
 script_to_roman:
   map:
+    "\u0020\u182F\u1820\u1832\u180B\u1822\u1828": "\u0020latin"
+    "\u182E\u1820\u1832\u180B\u1827\u1837\u1822\u1836\u1820\u182F": "mate\u0307riyal"
     # ga
     "\u182D\u1820": "g\u0307a"
     # go
@@ -137,8 +176,6 @@ script_to_roman:
     "\u182D\u1827": "ge\u0307"
     # eg
     "\u1821\u182D": "eg"
-    # ig
-    "\u1822\u182D": "ig"
     # oeg
     "\u1825\u182D": "o\u0307g"
     # ueg
@@ -146,17 +183,11 @@ script_to_roman:
     # eeg
     "\u1827\u182D": "e\u0307g"
     # qa
-    "\u182C\u1820": "q\u0307a"
+    "\u182C\u1820": "qa"
     # qo
-    "\u182C\u1823": "q\u0307o"
+    "\u182C\u1823": "qo"
     # qu
-    "\u182C\u1824": "q\u0307u"
-    # aq (should not occur)
-    "\u1820\u182C": "aq"
-    # oq (should not occur)
-    "\u1823\u182C": "oq"
-    # uq (should not occur)
-    "\u1824\u182C": "uq"
+    "\u182C\u1824": "qu"
     # ke
     "\u182C\u1821": "ke"
     # ki
@@ -167,37 +198,29 @@ script_to_roman:
     "\u182C\u1826": "ku\u0307"
     # kee
     "\u182C\u1827": "ke\u0307"
-    # ek (should not occur)
-    "\u1821\u182C": "ek"
-    # ik should not occur)
-    "\u1822\u182C": "ik"
-    # oek (should not occur)
-    "\u1825\u182C": "o\u0307k"
-    # uek (should not occur)
-    "\u1826\u182C": "o\u0307k"
-    # eek should not occur)
-    "\u1827\u182C": "e\u0307k"
     # non-connecting vowel a
     "\u180E\u1820": "\u002Da"
+    "\u202F\u1820": "\u002Da"
     # non-connecting vowel e
     "\u180E\u1821": "\u002De"
-    # non-connectubg vowel i
+    "\u202F\u1821": "\u002De"
+    # non-connecting vowel i
     "\u180E\u1822": "\u002Di"
+    "\u202F\u1822": "\u002Di"
     # Other Mongolian vowel separators to hyphen
-    "\u180E": "\u002De"
+    "\u180E": "\u002D"
     # Narrow no-break space to hyphen
     "\u202F": "\u002D"
-    # Other Mongolian vowel NOT associated with g or k/q
     "\u1801": "..."
     "\u1802": ","
-    "\u1803": "."
+    "\u1803": ".."
     "\u1804": ":"
     "\u1805": "*"
     "\u1806": "-"
     "\u1807": "\u0020"
     "\u1808": ","
     "\u1809": "."
-    "\u180A": "-"
+    "\u180A": "."
     "\u1810": "0"
     "\u1811": "1"
     "\u1812": "2"
@@ -217,6 +240,8 @@ script_to_roman:
     "\u1825": "o\u0307"
     "\u1826": "u\u0307"
     "\u1827": "e\u0307"
+    # Feminine g control when followed by l
+    "\u1829\u182D\u180D\u182F": "nggl"
     "\u1828": "n"
     "\u1829": "ng"
     "\u182A": "b"
@@ -245,3 +270,6 @@ script_to_roman:
     "\u1841": "zh"
     "\u1842": "ch"
     "\u1878": "c\u0307"
+    # low line to Mongolian vowel separator
+    "\u300A": "\u003C\u003C"
+    "\u300B": "\u003E\u003E"

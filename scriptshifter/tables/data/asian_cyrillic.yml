@@ -1,5 +1,5 @@
 general:
-  name: Asian (Cyrillic)
+  name: Cyrillic (Generic)
   parents:
     - _cyrillic_base
 
@@ -384,15 +384,19 @@ roman_to_script:
     "(|)": "\u0482"
     "(^)": "\u0488"
     "(')": "\u0489"
-    
+
+    # Two Less-than signs mapped to Left-pointing double angle quotation mark    
     "\u003C\u003C": "\u00AB"
+    # Two Greater-than signs mapped to Right-pointing double angle quotation mark    
     "\u003E\u003E": "\u00BB"
 
 script_to_roman:
   map:
     
-    "\u00AB": "\""
-    "\u00BB": "\""
+    # Left-pointing double angle quotation mark mapped to Two Less-than signs
+    "\u00AB": "\u003C\u003C" 
+    # Right-pointing double angle quotation mark mapped to Two Greater-than signs
+    "\u00BB": "\u003E\u003E"
     "\u2116": "No\u0332"
     "\u0400": "E\u0300"
     "\u0401": "E\u0308"

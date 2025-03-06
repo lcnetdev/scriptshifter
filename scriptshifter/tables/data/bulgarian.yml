@@ -15,9 +15,8 @@ roman_to_script:
     # this conversion shouldn't be needed, but does no harm
     "I\uFE20e\uFE21": "\u0462"
     # this conversion shouldn't be needed, but does no harm
-    # this conversion shouldn't be needed, but does no harm
-    "I": "\u0418"
     "i\uFE20e\uFE21": "\u0463"
+    "I": "\u0418"
     "i": "\u0438"
     # this conversion shouldn't be needed, but does no harm
     "SHT": "\u0429"
@@ -27,19 +26,19 @@ roman_to_script:
     # this conversion shouldn't be needed, but does no harm
     "T\uFE20s\uFE21": "\u0426"
     "t\uFE20s\uFE21": "\u0446"
-    "U\u0310": "\u046A"
+    "U\u0306": "\u042A"
     "u\u0306": "\u044A"
+    "U\u0310": "\u046A"
     "u\u0310": "\u046B"
     # this conversion is ambiguous - \u042A is also theoretically possible
     "\u02BA": "\u044A"
+    # upper case hard sign is unlikely to occur
+    "\u02BA\u0332": "\u042A"
 
 script_to_roman:
   map:
-    "\u044C": ""
-    "\u042C": ""
-    "\u044A": ""
-    "\u042A%": "u\u0306"
-    "\u042A": ""
+    "\u044C": "\u02B9"
+    "\u042C": "\u02B9\u0332"
     "\u0413": "G"
     "\u0433": "g"
     "\u0416": "Zh"
@@ -52,7 +51,15 @@ script_to_roman:
     "\u0449": "sht"
     "\u0426": "T\uFE20S\uFE21"
     "\u0446": "t\uFE20s\uFE21"
+    "\u042A": "U\u0306"
+    "\
+    # Hard sign at the end of a word (rare)
+    "%\u042A": "\u02BA\u0332"
+    "\u042A": "U\u0306"
+    "\u042C": "\u02B9\u0332"
+    "%\u044A": "\u02BA"
+    "\u044A": "u\u0306"
+    "\u044C": "\u02B9"
     "\u046A": "U\u0310"
     "\u046B": "u\u0310"
-    "\u042A": "u\u016C"
-    "\u044A": "u\u016D"
+    
