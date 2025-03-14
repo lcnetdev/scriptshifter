@@ -261,6 +261,9 @@ thai_alt:
 tibetan:
   marc_code: tib
   name: Tibetan
+tod_mongolian:
+  marc_code: xal
+  name: Tod Mongolian
 turkmen_cyrillic:
   marc_code: tuk
   name: Turkmen (Cyrillic)
@@ -293,3 +296,4 @@ yiddish:
   name: Yiddish
 yuit_cyrillic:
   name: Yuit (Cyrillic)
+  
