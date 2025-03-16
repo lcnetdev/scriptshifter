@@ -2,10 +2,11 @@ import logging
 
 from importlib import import_module
 from re import Pattern, compile
+from unicode_data import normalize as precomp_normalize
 
 from scriptshifter.exceptions import BREAK, CONT
 from scriptshifter.tables import (
-        BOW, EOW, WORD_BOUNDARY, FEAT_CASEI, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
+        BOW, EOW, WORD_BOUNDARY, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
         get_connection, get_lang_dcap, get_lang_general, get_lang_hooks,
         get_lang_ignore, get_lang_map, get_lang_normalize)
 
@@ -342,6 +343,13 @@ def _normalize_src(ctx, norm_rules):
     NOTE: this manipluates the protected source attribute so it may not
     correspond to the originally provided source.
     """
+    # Normalize precomposed Unicode characters.
+    #
+    # In using diacritics, LC standards prefer the decomposed form (combining
+    # diacritic + base character) to the pre-composed form (single Unicode
+    # symbol for the letter with diacritic).
+    ctx._src = precomp_normalize("NFD", ctx.src)
+
     for nk, nv in norm_rules.items():
         ctx._src = ctx.src.replace(nk, nv)
 
