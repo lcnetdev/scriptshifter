@@ -89,7 +89,7 @@ script_to_roman:
     "\u0E01\u0E44\u0E22": "kai"
     "\u0E01\u0E44": "kai"
     # FINAL CONSONANT KO KAI WITH NO VOWEL
-    "%\u0E01": "k"
+    "\u0E01%": "k"
     "\u0E01": "ko"
 
     # CONSONANT KHO KHAI WITH VOWELS
@@ -148,7 +148,7 @@ script_to_roman:
     "\u0E02\u0E44\u0E22": "khai"
     "\u0E02\u0E44": "khai"
     # FINAL CONSONANT KHO KHAI WITH NO VOWEL
-    "%\u0E02": "k"
+    "\u0E02%": "k"
     "\u0E02": "kho"
 
     # CONSONANT KHO KHUAT WITH VOWELS
@@ -207,7 +207,7 @@ script_to_roman:
     "\u0E03\u0E44\u0E22": "khai"
     "\u0E03\u0E44": "khai"
     # FINAL CONSONANT KHO KHUAT WITH NO VOWEL
-    "%\u0E03": "k"
+    "\u0E03%": "k"
     "\u0E03": "kho"
 
     # CONSONANT KHO KHWAI WITH VOWELS
@@ -266,7 +266,7 @@ script_to_roman:
     "\u0E04\u0E44\u0E22": "khai"
     "\u0E04\u0E44": "khai"
     # FINAL CONSONANT KHO KHWAI WITH NO VOWEL
-    "%\u0E04": "k"
+    "\u0E04%": "k"
     "\u0E04": "kho"
 
     # CONSONANT KHO KHON WITH VOWELS
@@ -325,7 +325,7 @@ script_to_roman:
     "\u0E05\u0E44\u0E22": "khai"
     "\u0E05\u0E44": "khai"
     # FINAL CONSONANT KHO KHON WITH NO VOWEL
-    "%\u0E05": "k"
+    "\u0E05%": "k"
     "\u0E05": "kho"
 
     # CONSONANT KHO RAKHANG WITH VOWELS
@@ -384,7 +384,7 @@ script_to_roman:
     "\u0E06\u0E44\u0E22": "khai"
     "\u0E06\u0E44": "khai"
     # FINAL CONSONANT KHO RAKHANG WITH NO VOWEL
-    "%\u0E06": "k"
+    "\u0E06%": "k"
     "\u0E06": "kho"
 
     # CONSONANT NGO NGU WITH VOWELS
@@ -443,7 +443,7 @@ script_to_roman:
     "\u0E07\u0E44\u0E22": "ngai"
     "\u0E07\u0E44": "ngai"
     # FINAL CONSONANT NGO NGU WITH NO VOWEL
-    "%\u0E07": "ng"
+    "\u0E07%": "ng"
     "\u0E07": "ngo"
 
     # CONSONANT CHO CHAN WITH VOWELS
@@ -502,7 +502,7 @@ script_to_roman:
     "\u0E08\u0E44\u0E22": "c\u030Chai"
     "\u0E08\u0E44": "c\u030Chai"
     # FINAL CONSONANT CHO CHAN WITH NO VOWEL
-    "%\u0E08": "t"
+    "\u0E08%": "t"
     "\u0E08": "c\u030Cho"
 
     # CONSONANT CHO CHING WITH VOWELS
@@ -561,7 +561,7 @@ script_to_roman:
     "\u0E09\u0E44\u0E22": "chai"
     "\u0E09\u0E44": "chai"
     # FINAL CONSONANT CHO CHING WITH NO VOWEL
-    "%\u0E09": "t"
+    "\u0E09%": "t"
     "\u0E09": "cho"
 
     # CONSONANT CHO CHANG WITH VOWELS
@@ -620,7 +620,7 @@ script_to_roman:
     "\u0E0A\u0E44\u0E22": "chai"
     "\u0E0A\u0E44": "chai"
     # FINAL CONSONANT CHO CHANG WITH NO VOWEL
-    "%\u0E0A": "t"
+    "\u0E0A%": "t"
     "\u0E0A": "cho"
 
     # CONSONANT SO SO WITH VOWELS
@@ -679,7 +679,7 @@ script_to_roman:
     "\u0E0B\u0E44\u0E22": "sai"
     "\u0E0B\u0E44": "sai"
     # FINAL CONSONANT SO SO WITH NO VOWEL
-    "%\u0E0B": "t"
+    "\u0E0B%": "t"
     "\u0E0B": "so"
 
     # CONSONANT CHO CHOE WITH VOWELS
@@ -738,7 +738,7 @@ script_to_roman:
     "\u0E0C\u0E44\u0E22": "chai"
     "\u0E0C\u0E44": "chai"
     # FINAL CONSONANT CHO CHOE WITH NO VOWEL
-    "%\u0E0C": "t"
+    "\u0E0C%": "t"
     "\u0E0C": "cho"
 
     # CONSONANT YO YING WITH VOWELS
@@ -797,7 +797,7 @@ script_to_roman:
     "\u0E0D\u0E44\u0E22": "yai"
     "\u0E0D\u0E44": "yai"
     # FINAL CONSONANT YO YING WITH NO VOWEL
-    "%\u0E0D": "n"
+    "\u0E0D%": "n"
     "\u0E0D": "yo"
 
     # CONSONANT DO CHADA WITH VOWELS
@@ -856,7 +856,7 @@ script_to_roman:
     "\u0E0E\u0E44\u0E22": "dai"
     "\u0E0E\u0E44": "dai"
     # FINAL CONSONANT DO CHADA WITH NO VOWEL
-    "%\u0E0E": "t"
+    "\u0E0E%": "t"
     "\u0E0E": "do"
 
     # CONSONANT TO PATAK WITH VOWELS
@@ -915,7 +915,7 @@ script_to_roman:
     "\u0E0F\u0E44\u0E22": "tai"
     "\u0E0F\u0E44": "tai"
     # FINAL CONSONANT TO PATAK WITH NO VOWEL
-    "%\u0E0F": "t"
+    "\u0E0F%": "t"
     "\u0E0F": "to"
 
     # CONSONANT THO THAN WITH VOWELS
@@ -974,7 +974,7 @@ script_to_roman:
     "\u0E10\u0E44\u0E22": "thai"
     "\u0E10\u0E44": "thai"
     # FINAL CONSONANT THO THAN WITH NO VOWEL
-    "%\u0E10": "th"
+    "\u0E10%": "th"
     "\u0E10": "tho"
 
     # CONSONANT THO NANGMONTHO WITH VOWELS
@@ -1033,7 +1033,7 @@ script_to_roman:
     "\u0E11\u0E44\u0E22": "thai"
     "\u0E11\u0E44": "thai"
     # FINAL CONSONANT THO NANGMONTHO WITH NO VOWEL
-    "%\u0E11": "t"
+    "\u0E11%": "t"
     "\u0E11": "tho"
 
     # CONSONANT THO PHUTHAO WITH VOWELS
@@ -1092,7 +1092,7 @@ script_to_roman:
     "\u0E12\u0E44\u0E22": "thai"
     "\u0E12\u0E44": "thai"
     # FINAL CONSONANT THO PHUTHAO WITH NO VOWEL
-    "%\u0E12": "t"
+    "\u0E12%": "t"
     "\u0E12": "tho"
 
     # CONSONANT NO NEN WITH VOWELS
@@ -1151,7 +1151,7 @@ script_to_roman:
     "\u0E13\u0E44\u0E22": "nai"
     "\u0E13\u0E44": "nai"
     # FINAL CONSONANT NO NEN WITH NO VOWEL
-    "%\u0E13": "n"
+    "\u0E13%": "n"
     "\u0E13": "no"
 
     # CONSONANT DO DEK WITH VOWELS
@@ -1210,7 +1210,7 @@ script_to_roman:
     "\u0E14\u0E44\u0E22": "dai"
     "\u0E14\u0E44": "dai"
     # FINAL CONSONANT NO NEN WITH NO VOWEL
-    "%\u0E14": "t"
+    "\u0E14%": "t"
     "\u0E14": "do"
 
     # CONSONANT TO TAO WITH VOWELS
@@ -1269,7 +1269,7 @@ script_to_roman:
     "\u0E15\u0E44\u0E22": "tai"
     "\u0E15\u0E44": "tai"
     # FINAL CONSONANT TO TAO WITH NO VOWEL
-    "%\u0E15": "t"
+    "\u0E15%": "t"
     "\u0E15": "to"
 
     # CONSONANT THO THUNG WITH VOWELS
@@ -1328,7 +1328,7 @@ script_to_roman:
     "\u0E16\u0E44\u0E22": "thai"
     "\u0E16\u0E44": "thai"
     # FINAL CONSONANT THO THUNG WITH NO VOWEL
-    "%\u0E16": "t"
+    "\u0E16%": "t"
     "\u0E16": "tho"
 
     # CONSONANT THO THAHAN WITH VOWELS
@@ -1387,7 +1387,7 @@ script_to_roman:
     "\u0E17\u0E44\u0E22": "thai"
     "\u0E17\u0E44": "thai"
     # FINAL CONSONANT THO THAHAN WITH NO VOWEL
-    "%\u0E17": "t"
+    "\u0E17%": "t"
     "\u0E17": "tho"
 
     # CONSONANT THO THONG WITH VOWELS
@@ -1446,7 +1446,7 @@ script_to_roman:
     "\u0E18\u0E44\u0E22": "thai"
     "\u0E18\u0E44": "thai"
     # FINAL CONSONANT THO THONG WITH NO VOWEL
-    "%\u0E18": "t"
+    "\u0E18%": "t"
     "\u0E18": "tho"
 
     # CONSONANT NO NU WITH VOWELS
@@ -1505,7 +1505,7 @@ script_to_roman:
     "\u0E19\u0E44\u0E22": "nai"
     "\u0E19\u0E44": "nai"
     # FINAL CONSONANT NO NU WITH NO VOWEL
-    "%\u0E19": "n"
+    "\u0E19%": "n"
     "\u0E19": "no"
 
     # CONSONANT BO BAIMAI WITH VOWELS
@@ -1564,7 +1564,7 @@ script_to_roman:
     "\u0E1A\u0E44\u0E22": "bai"
     "\u0E1A\u0E44": "bai"
     # FINAL CONSONANT BO BAIMAI WITH NO VOWEL
-    "%\u0E1A": "p"
+    "\u0E1A%": "p"
     "\u0E1A": "bo"
 
     # CONSONANT PO PLA WITH VOWELS
@@ -1623,7 +1623,7 @@ script_to_roman:
     "\u0E1B\u0E44\u0E22": "pai"
     "\u0E1B\u0E44": "pai"
     # FINAL CONSONANT PO PLA WITH NO VOWEL
-    "%\u0E1B": "p"
+    "\u0E1B%": "p"
     "\u0E1B": "po"
 
     # CONSONANT PHO PHUNG WITH VOWELS
@@ -1682,7 +1682,7 @@ script_to_roman:
     "\u0E1C\u0E44\u0E22": "phai"
     "\u0E1C\u0E44": "phai"
     # FINAL CONSONANT PHO PHUNG WITH NO VOWEL
-    "%\u0E1C": "p"
+    "\u0E1C%": "p"
     "\u0E1C": "pho"
 
     # CONSONANT FO FA WITH VOWELS
@@ -1741,7 +1741,7 @@ script_to_roman:
     "\u0E1D\u0E44\u0E22": "fai"
     "\u0E1D\u0E44": "fai"
     # FINAL CONSONANT FO FA WITH NO VOWEL
-    "%\u0E1D": "p"
+    "\u0E1D%": "p"
     "\u0E1D": "fo"
 
     # CONSONANT PHO PHAN WITH VOWELS
@@ -1800,7 +1800,7 @@ script_to_roman:
     "\u0E1E\u0E44\u0E22": "phai"
     "\u0E1E\u0E44": "phai"
     # FINAL CONSONANT PHO PHAN WITH NO VOWEL
-    "%\u0E1E": "p"
+    "\u0E1E%": "p"
     "\u0E1E": "pho"
 
     # CONSONANT FO FAN WITH VOWELS
@@ -1859,7 +1859,7 @@ script_to_roman:
     "\u0E1F\u0E44\u0E22": "fai"
     "\u0E1F\u0E44": "fai"
     # FINAL CONSONANT FO FAN WITH NO VOWEL
-    "%\u0E1F": "p"
+    "\u0E1F%": "p"
     "\u0E1F": "fo"
 
     # CONSONANT PHO SAMPHAO WITH VOWELS
@@ -1918,7 +1918,7 @@ script_to_roman:
     "\u0E20\u0E44\u0E22": "phai"
     "\u0E20\u0E44": "phai"
     # FINAL CONSONANT PHO SAMPHAO WITH NO VOWEL
-    "%\u0E20": "p"
+    "\u0E20%": "p"
     "\u0E20": "pho"
 
     # CONSONANT MO MA WITH VOWELS
@@ -1977,7 +1977,7 @@ script_to_roman:
     "\u0E21\u0E44\u0E22": "mai"
     "\u0E21\u0E44": "mai"
     # FINAL CONSONANT MO MA WITH NO VOWEL
-    "%\u0E21": "m"
+    "\u0E21%": "m"
     "\u0E21": "mo"
 
     # CONSONANT YO YAK WITH VOWELS
@@ -2036,7 +2036,7 @@ script_to_roman:
     "\u0E22\u0E44\u0E22": "yai"
     "\u0E22\u0E44": "yai"
     # FINAL CONSONANT YO YAK WITH NO VOWEL
-    "%\u0E22": ""
+    "\u0E22%": ""
     "\u0E22": "yo"
 
     # CONSONANT RO RUA WITH VOWELS
@@ -2095,7 +2095,7 @@ script_to_roman:
     "\u0E23\u0E44\u0E22": "rai"
     "\u0E23\u0E44": "rai"
     # FINAL CONSONANT RO RUA WITH NO VOWEL
-    "%\u0E23": "n"
+    "\u0E23%": "n"
     "\u0E23": "ro"
 
     # CONSONANT LO LING WITH VOWELS
@@ -2154,7 +2154,7 @@ script_to_roman:
     "\u0E25\u0E44\u0E22": "lai"
     "\u0E25\u0E44": "lai"
     # FINAL CONSONANT LO LING WITH NO VOWEL
-    "%\u0E25": "n"
+    "\u0E25%": "n"
     "\u0E25": "lo"
 
     # CONSONANT WO WAEN WITH VOWELS
@@ -2213,7 +2213,7 @@ script_to_roman:
     "\u0E27\u0E44\u0E22": "wai"
     "\u0E27\u0E44": "wai"
     # FINAL CONSONANT WO WAEN WITH NO VOWEL
-    "%\u0E27": ""
+    "\u0E27%": ""
     "\u0E27": "wo"
 
     # CONSONANT SO SALA WITH VOWELS
@@ -2272,7 +2272,7 @@ script_to_roman:
     "\u0E28\u0E44\u0E22": "sai"
     "\u0E28\u0E44": "sai"
     # FINAL CONSONANT SO SALA WITH NO VOWEL
-    "%\u0E28": "t"
+    "\u0E28%": "t"
     "\u0E28": "so"
 
     # CONSONANT SO RUSI WITH VOWELS
@@ -2331,7 +2331,7 @@ script_to_roman:
     "\u0E29\u0E44\u0E22": "sai"
     "\u0E29\u0E44": "sai"
     # FINAL CONSONANT SO RUSI WITH NO VOWEL
-    "%\u0E29": "t"
+    "\u0E29%": "t"
     "\u0E29": "so"
 
     # CONSONANT SO SUA WITH VOWELS
@@ -2390,7 +2390,7 @@ script_to_roman:
     "\u0E2A\u0E44\u0E22": "sai"
     "\u0E2A\u0E44": "sai"
     # FINAL CONSONANT SO SUA WITH NO VOWEL
-    "%\u0E2A": "t"
+    "\u0E2A%": "t"
     "\u0E2A": "so"
 
     # CONSONANT HO HIP WITH VOWELS
@@ -2449,7 +2449,7 @@ script_to_roman:
     "\u0E2B\u0E44\u0E22": "hai"
     "\u0E2B\u0E44": "hai"
     # FINAL CONSONANT HO HIP WITH NO VOWEL
-    "%\u0E2B": ""
+    "\u0E2B%": ""
     "\u0E2B": "ho"
 
     # CONSONANT LO CHULA WITH VOWELS
@@ -2508,7 +2508,7 @@ script_to_roman:
     "\u0E2C\u0E44\u0E22": "lai"
     "\u0E2C\u0E44": "lai"
     # FINAL CONSONANT LO CHULA WITH NO VOWEL
-    "%\u0E2C": "n"
+    "\u0E2C%": "n"
     "\u0E2C": "lo"
 
     # CONSONANT O ANG WITH VOWELS ALONE (NO CONSONANT)
@@ -2624,7 +2624,7 @@ script_to_roman:
     "\u0E2E\u0E44\u0E22": "hai"
     "\u0E2E\u0E44": "hai"
     # FINAL CONSONANT HO NOKHUK WITH NO VOWEL
-    "%\u0E2E": ""
+    "\u0E2E%": ""
     "\u0E2E": "ho"
 
     "\u0E2F": ""

@@ -30,8 +30,8 @@ roman_to_script:
     "h\u032E": "\u0781\u07B0"
 
     # THAANA LETTER ALIFU FINAL WITH SUKUN (LOW LINE 0332)
-    "%H\u0332": "\u0787\u07B0"
-    "%h\u0332": "\u0787\u07B0"
+    "H\u0332%": "\u0787\u07B0"
+    "h\u0332%": "\u0787\u07B0"
     "H": "\u0780"
     "h": "\u0780"
     "S\u0301": "\u0781"
@@ -70,13 +70,13 @@ roman_to_script:
     "F": "\u078A"
     "ff": "\u0787\u07B0\u078A"
     "f": "\u078A"
-    # THAANA LETTER "D/d" WITH DOT BELOW (0323) 
+    # THAANA LETTER "D/d" WITH DOT BELOW (0323)
     "D\u0323": "\u0791"
     "d\u0323": "\u0791"
     "D": "\u078B"
     "dd": "\u0787\u07B0\u078B"
     "d": "\u078B"
-    # THAANA LETTER "T/t" WITH DOT BELOW (0323) 
+    # THAANA LETTER "T/t" WITH DOT BELOW (0323)
     "T\u0323": "\u0793"
     "t\u0323": "\u0793"
     "T\u0324T": "\u078C\u07B0\u078C"
@@ -169,7 +169,7 @@ roman_to_script:
     "ghgh": "\u0787\u07B0\u07A3"
     "gh": "\u07A3"
 
-    # THAANA EXTENSION FOR ARABIC LETTER QAAFU 
+    # THAANA EXTENSION FOR ARABIC LETTER QAAFU
     "Q": "\u07A4"
     "qq": "\u0787\u07B0\u07A4"
     "q": "\u07A4"
@@ -181,24 +181,24 @@ roman_to_script:
 
     # INITIAL (AND UPPERCASE) VOWELS THAT CONVERT
     # TO ALIF FOLLOWED BY VOWEL (ALIF OMITTED IN ROMANIZATION)
-    "A\u0304%": "\u0787\u07A7"
-    "A%": "\u0787\u07A6"
+    "%A\u0304": "\u0787\u07A7"
+    "%A": "\u0787\u07A6"
     "\u0020a\u0304": "\u0020\u0787\u07A7"
     "\u0020a": "\u0020\u0787\u07A6"
-    "E\u0304%": "\u0787\u07AD"
-    "E%": "\u0787\u07AC"
+    "%E\u0304": "\u0787\u07AD"
+    "%E": "\u0787\u07AC"
     "\u0020e\u0304": "\u0020\u0787\u07AD"
     "\u0020e": "\u0020\u0787\u07AC"
-    "I\u0304%": "\u0787\u07A9"
-    "I%": "\u0787\u07A8"
+    "%I\u0304": "\u0787\u07A9"
+    "%I": "\u0787\u07A8"
     "\u0020i\u0304": "\u0020\u0787\u07A9"
     "\u0020i": "\u0020\u0787\u07A8"
-    "O\u0304%": "\u0787\u07AF"
-    "O%": "\u0787\u07AE"
+    "%O\u0304": "\u0787\u07AF"
+    "%O": "\u0787\u07AE"
     "\u0020o\u0304": "\u0020\u0787\u07AF"
     "\u0020o": "\u0020\u0787\u07AE"
-    "U\u0304%": "\u0787\u07AB"
-    "U%": "\u0787\u07AB"
+    "%U\u0304": "\u0787\u07AB"
+    "%U": "\u0787\u07AB"
     "\u0020u\u0304": "\u0020\u0787\u07AB"
     "\u0020u": "\u0020\u0787\u07AB"
 
@@ -301,7 +301,7 @@ script_to_roman:
     "\u0787\u07B0\u078A": "ff"
     "\u078A": "f"
 
-    # THAANA LETTER "D/d" WITH DOT BELOW (0323) 
+    # THAANA LETTER "D/d" WITH DOT BELOW (0323)
     "\u0787\u07B0\u0791": "d\u0323d\u0323"
     "\u0791": "d\u0323"
 
@@ -386,7 +386,7 @@ script_to_roman:
     "\u0787\u07B0\u07A3": "ghgh"
     "\u07A3": "gh"
 
-    # THAANA EXTENSION FOR ARABIC LETTER QAAFU 
+    # THAANA EXTENSION FOR ARABIC LETTER QAAFU
     "\u0787\u07B0\u07A4": "qq"
     "\u07A4": "q"
 
