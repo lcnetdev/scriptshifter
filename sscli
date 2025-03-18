@@ -65,15 +65,9 @@ def samples(lang):
     return test_sample(lang)
 
 
-@cli.group(name="trans")
-def trans_grp():
-    """ Transliteration and transcription operations. """
-    pass
-
-
-@trans_grp.command()
-@click.argument("src", type=click.File("r"))
+@cli.command(name="trans")
 @click.argument("lang")
+@click.argument("src", type=click.File("r"), default="-")
 @click.option(
         "-c", "--capitalize", default=None,
         help="Capitalize output: `first`, `all`, ot none (the default).")
@@ -85,12 +79,11 @@ def trans_grp():
         help=(
             "Language=specific option. Format: key=value. Multiple -o entries "
             "are possible."))
-def transliterate(src, lang, t_dir, capitalize, option):
+def trans_(src, lang, t_dir, capitalize, option):
     """
     Transliterate text from standard input.
 
-    e.g.: `echo "王正强" | /path/to/sscli trans transliterate chinese
-    -o "marc_field=100"'
+    e.g.: `echo "王正强" | /path/to/sscli trans chinese -o "marc_field=100"'
     """
     options = {}
     for opt in option:

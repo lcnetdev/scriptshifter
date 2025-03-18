@@ -16,23 +16,15 @@ external package name.
 from yiddish import detransliterate, transliterate
 
 from scriptshifter.exceptions import BREAK
-from scriptshifter.tools import capitalize
 
 
 def s2r_post_config(ctx):
     """
     Script to Roman.
     """
-    rom = transliterate(
+    ctx.dest = transliterate(
             ctx.src, loc=True,
             loshn_koydesh=ctx.options.get("loshn_koydesh"))
-
-    if ctx.options["capitalize"] == "all":
-        rom = capitalize(rom)
-    elif ctx.options["capitalize"] == "first":
-        rom = rom[0].upper() + rom[1:]
-
-    ctx.dest = rom
 
     return BREAK
 
