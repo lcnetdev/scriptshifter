@@ -348,7 +348,11 @@ def _normalize_src(ctx, norm_rules):
     # In using diacritics, LC standards prefer the decomposed form (combining
     # diacritic + base character) to the pre-composed form (single Unicode
     # symbol for the letter with diacritic).
-    ctx._src = precomp_normalize("NFD", ctx.src)
+    #
+    # Note: only safe for R2S.
+    if ctx.t_dir == FEAT_R2S:
+        logger.debug("Normalizing pre-composed symbols.")
+        ctx._src = precomp_normalize("NFD", ctx.src)
 
     for nk, nv in norm_rules.items():
         ctx._src = ctx.src.replace(nk, nv)
