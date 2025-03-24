@@ -10,7 +10,7 @@ from test import TEST_DATA_DIR
 logger = getLogger(__name__)
 
 
-def test_sample(dset):
+def test_sample(dset, report=True):
     """
     Test an individual sample set and produce a human-readable report.
 
@@ -18,8 +18,12 @@ def test_sample(dset):
 
     @param dset (str): sample set name (without the .csv extension) found in
     the `data/script_samples` directory.
+
+    @param report (bool): if True (the default), print fail/success ticks and
+    write out a report to file at the end. Otherwise, raise an exception on
+    the first error encountered.
     """
-    deltas = []
+    deltas = [] if report else None
     dset_fpath = path.join(TEST_DATA_DIR, "script_samples", dset + ".csv")
     log_fpath = path.join(TEST_DATA_DIR, "log", f"test_{dset}.log")
 
@@ -41,20 +45,21 @@ def test_sample(dset):
                 _trans(rom, lang, "r2s", opts, script, deltas)
             i += 1
 
-    with open(log_fpath, "w") as fh:
-        # If no deltas, just truncate the file.
-        for lang, script, delta in deltas:
-            fh.write(f"Language: {lang}\n")
-            fh.write(f"Original: {script}\nDiff (result vs. expected):\n")
-            for dline in delta:
-                fh.write(dline.strip() + "\n")
-            fh.write("\n\n")
+    if report:
+        with open(log_fpath, "w") as fh:
+            # If no deltas, just truncate the file.
+            for lang, script, delta in deltas:
+                fh.write(f"Language: {lang}\n")
+                fh.write(f"Original: {script}\nDiff (result vs. expected):\n")
+                for dline in delta:
+                    fh.write(dline.strip() + "\n")
+                fh.write("\n\n")
 
-    ct = len(deltas)
-    if ct > 0:
-        print(f"\n\n{ct} failed tests. See report at {log_fpath}")
-    else:
-        print("All tests passed.")
+        ct = len(deltas)
+        if ct > 0:
+            print(f"\n\n{ct} failed tests. See report at {log_fpath}")
+        else:
+            print("All tests passed.")
 
 
 def _trans(script, lang, t_dir, opts, rom, deltas):
@@ -62,8 +67,14 @@ def _trans(script, lang, t_dir, opts, rom, deltas):
     trans, warnings = transliterate(
             script, lang, t_dir=t_dir,
             capitalize=opts.get("capitalize"), options=opts)
-    if (trans == rom):
-        print(".", end="")
+    try:
+        assert trans == rom
+    except AssertionError as e:
+        if deltas is not None:
+            print("F", end="")
+            deltas.append((lang, script, ndiff([trans], [rom])))
+        else:
+            raise e
     else:
-        print("F", end="")
-        deltas.append((lang, script, ndiff([trans], [rom])))
+        if deltas:
+            print(".", end="")
