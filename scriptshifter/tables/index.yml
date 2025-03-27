@@ -71,6 +71,8 @@ church_slavonic:
 chuvash_cyrillic:
   marc_code: chv
   name: Chuvash (Cyrillic)
+cyrillic_generic:
+  name: Cyrillic (generic)
 devanagari:
   marc_code: hin, san
   name: Devanagari

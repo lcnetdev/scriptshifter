@@ -1,7 +1,8 @@
+---
 general:
   name: Cyrillic (Generic)
   parents:
-    - _cyrillic_base
+    - _ignore_base
 
 # COMMON COMBINING CHARACTERS (always follow a base letter):
 # combining grave \u0300
@@ -48,10 +49,10 @@ roman_to_script:
     "a\u0308": "\u04D3"
     "A\u0310": "\u0518"
     "a\u0310": "\u0519"
-    
+
     "B": "\u0411"
     "b": "\u0431"
-    
+
     "C\u0301h\u0301": "\u04BE"
     "c\u0301h\u0301": "\u04BF"
     "C\u0301h": "\u04BC"
@@ -62,7 +63,7 @@ roman_to_script:
     "c\u0308h": "\u04F5"
     "C\u0323h": "\u04CB"
     "c\u0323h": "\u04CC"
-    
+
     "D\u0301": "\u0502"
     "d\u0301": "\u0503"
     "D\u0307": "\u0500"
@@ -77,7 +78,7 @@ roman_to_script:
     "dz\u030C": "\u045F"
     "D": "\u0414"
     "d": "\u0434"
-    
+
     "E\u0300": "\u0400"
     "e\u0300": "\u0450"
     "E\u0304": "\u0404"
@@ -94,12 +95,12 @@ roman_to_script:
     "e\u0308": "\u0451"
     "E\u0328": "\u0466"
     "e\u0328": "\u0467"
-    
+
     "F\u0307": "\u0472"
     "f\u0307": "\u0473"
     "F": "\u0424"
     "f": "\u0444"
-    
+
     "Gh\u0327": "\u04FA"
     "gh\u0327": "\u04FB"
     "Gh": "\u0492"
@@ -114,7 +115,7 @@ roman_to_script:
     "g\u0323": "\u04F7"
     "G\u0327": "\u0494"
     "g\u0327": "\u0495"
-    
+
     "H\u0304": "\u04FE"
     "h\u0304": "\u04FF"
     "H\u0327": "\u04FC"
@@ -123,7 +124,7 @@ roman_to_script:
     "h\u0307": "\u04BB"
     "H\u0308": "\u04C0"
     "h\u0308": "\u04CF"
-    
+
     "I\u0300": "\u040D"
     "i\u0300": "\u045D"
     "I\u0304\u0323": "\u04E2"
@@ -140,12 +141,12 @@ roman_to_script:
     "i\u0308": "\u0457"
     "I\u0310": "\u0408"
     "i\u0310": "\u0458"
-    
+
     "I\uFE20A\uFE21": "\u042F"
     "i\uFE20a\uFE21": "\u044F"
     "A": "\u0410"
     "a": "\u0430"
-    
+
     "I\uFE20E\uFE21\u0304": "\u0464"
     "i\uFE20e\uFE21\u0304": "\u0465"
     "I\uFE20E\uFE21\u0328": "\u0468"
@@ -154,14 +155,14 @@ roman_to_script:
     "i\uFE20e\uFE21": "\u0463"
     "E": "\u0415"
     "e": "\u0435"
-    
+
     "I\uFE20O\uFE21\u0328": "\u046C"
     "i\uFE20o\uFE21\u0328": "\u046D"
     "I\uFE20U\uFE21": "\u042E"
     "i\uFE20u\uFE21": "\u044E"
     "I": "\u0418"
     "i": "\u0438"
-    
+
     "J\u0304": "\u04B8"
     "j\u0304": "\u04B9"
     "J\u0306": "\u04C1"
@@ -170,7 +171,7 @@ roman_to_script:
     "j\u0302": "\u04B7"
     "J\u0308": "\u04DC"
     "j\u0308": "\u04DD"
-    
+
     "K\u0300": "\u051E"
     "k\u0300": "\u051F"
     "K\u0301": "\u040C"
@@ -183,7 +184,7 @@ roman_to_script:
     "k\uFE20s\uFE21": "\u046F"
     "K": "\u041A"
     "k": "\u043A"
-    
+
     "Lj": "\u0409"
     "lj": "\u0459"
     "Lkh\u0307": "\u0514"
@@ -200,12 +201,12 @@ roman_to_script:
     "l\u0324": "\u0521"
     "L": "\u041B"
     "l": "\u043B"
-    
+
     "M\u0323": "\u04CD"
     "m\u0323": "\u04CE"
     "M": "\u041C"
     "m": "\u043C"
-    
+
     "Nj": "\u040A"
     "nj": "\u045A"
     "N\u0301G\u0300": "\u04A4"
@@ -225,13 +226,13 @@ roman_to_script:
     "No\u0332": "\u2116"
     "N": "\u041D"
     "n": "\u043D"
-    
+
     "G": "\u0413"
     "g": "\u0433"
-    
+
     "J": "\u0496"
     "j": "\u0497"
-    
+
     "O\u0303": "\u047C"
     "o\u0303": "\u047D"
     "O\u0304\u0323": "\u047A"
@@ -252,7 +253,7 @@ roman_to_script:
     "o\uFE20u\uFE21": "\u0479"
     "O": "\u041E"
     "o": "\u043E"
-    
+
     "Ph": "\u04A6"
     "ph": "\u04A7"
     "P\u0323": "\u0524"
@@ -261,7 +262,7 @@ roman_to_script:
     "p\uFE20s\uFE21": "\u0471"
     "P": "\u041F"
     "p": "\u043F"
-    
+
     "Q\u0300": "\u04A0"
     "q\u0300": "\u04A1"
     "Q\u0302": "\u0480"
@@ -274,14 +275,14 @@ roman_to_script:
     "q\u0308": "\u051B"
     "Q": "\u049A"
     "q": "\u049B"
-    
+
     "Rkh\u0307": "\u0516"
     "rkh\u0307": "\u0517"
     "R\u0306": "\u048E"
     "r\u0306": "\u048F"
     "R": "\u0420"
     "r": "\u0440"
-    
+
     "Shch": "\u0429"
     "shch": "\u0449"
     "Sh\u0323": "\u0526"
@@ -292,12 +293,12 @@ roman_to_script:
     "s\u0301": "\u050D"
     "S\u0307": "\u0405"
     "s\u0307": "\u0455"
-    
+
     "Ch": "\u0427"
     "ch": "\u0447"
     "C": "\u0426"
     "c": "\u0446"
-    
+
     "Th": "\u04AA"
     "th": "\u04AB"
     "T\u0301": "\u050E"
@@ -310,13 +311,13 @@ roman_to_script:
     "t\uFE20s\uFE21": "\u0446"
     "T\uFE20S\uFE21\u0307": "\u04B4"
     "t\uFE20s\uFE21\u0307": "\u04B5"
-    
+
     "S": "\u0421"
     "s": "\u0441"
-    
+
     "T": "\u0422"
     "t": "\u0442"
-    
+
     "U\u0302": "\u04B0"
     "u\u0302": "\u04B1"
     "U\u0304": "\u04EE"
@@ -331,29 +332,29 @@ roman_to_script:
     "u\u030B": "\u04F3"
     "U": "\u0423"
     "u": "\u0443"
-    
+
     "V\u0307": "\u0474"
     "v\u0307": "\u0475"
     "V\u0308": "\u0476"
     "v\u0308": "\u0477"
     "V": "\u0412"
     "v": "\u0432"
-    
+
     "W\u0308": "\u051C"
     "w\u0308": "\u051D"
     "W": "\u04A8"
     "w": "\u04A9"
-    
+
     "X": "\u0058"
     "x": "\u0078"
-    
+
     "Y\u0307": "\u0474"
     "y\u0307": "\u0475"
     "Y\u0308": "\u04F8"
     "y\u0308": "\u04F9"
     "Y": "\u042B"
     "y": "\u044B"
-    
+
     "Zh": "\u0416"
     "zh": "\u0436"
     "Z\u0301": "\u0504"
@@ -366,10 +367,10 @@ roman_to_script:
     "z\u0327": "\u0507"
     "Z": "\u0417"
     "z": "\u0437"
-    
+
     "H": "\u0413"
     "h": "\u0433"
-    
+
     "\u0110": "\u0402"
     "\u0111": "\u0452"
     "\u02B9\u0333": "\u042C"
@@ -385,16 +386,16 @@ roman_to_script:
     "(^)": "\u0488"
     "(')": "\u0489"
 
-    # Two Less-than signs mapped to Left-pointing double angle quotation mark    
+    # Two Less-than signs mapped to Left-pointing double angle quotation mark
     "\u003C\u003C": "\u00AB"
-    # Two Greater-than signs mapped to Right-pointing double angle quotation mark    
+    # Two Greater-than signs mapped to Right-pointing double angle quotation mark
     "\u003E\u003E": "\u00BB"
 
 script_to_roman:
   map:
-    
+
     # Left-pointing double angle quotation mark mapped to Two Less-than signs
-    "\u00AB": "\u003C\u003C" 
+    "\u00AB": "\u003C\u003C"
     # Right-pointing double angle quotation mark mapped to Two Greater-than signs
     "\u00BB": "\u003E\u003E"
     "\u2116": "No\u0332"
