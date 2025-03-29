@@ -6,45 +6,94 @@ general:
 roman_to_script:
   map:
     "G\u0301": "\u0403"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01F4": "\u0403"
     "G": "\u0413"
     "g\u0301": "\u0453"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01F5": "\u0453"
     "g": "\u0433"
     "\u0110": "\u0402"
-    # this conversion shouldn't be needed, but does no harm
-    "DZ\u030C": "\u040F"
-    # this conversion shouldn't be needed, but does no harm
-    "DZ": "\u0405"
-    "Dz\u030C": "\u040F"
-    "Dz": "\u0405"
+    "D\uFE20Z\u030C\uFE21": "\040F"
+    "D\uFE20z\u030C\uFE21": "\040F"
+    "d\uFE20Z\u030C\uFE21": "\040F"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01C4": "\u040F"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01C5": "\u040F"
+    "d\uFE20z\u030C\uFE21": "\045F"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01C6": "\u045F"
+    "D\uFE20Z\uFE21": "\u0405"
+    "D\uFE20z\uFE21": "\u0405"
+    "d\uFE20Z\uFE21": "\u0405"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01F1": "\u0405"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01F2": "\u0405"
+    "d\uFE20z\uFE21": "\u0455"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01F3": "\u0455"
     "\u0111": "\u0452"
     "dz\u030C": "\u045F"
     "dz": "\u0455"
     "Z\u030C": "\u0416"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u017D": "\u0416"
     "z\u030C": "\u0436"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u017E": "\u0436"
     "z": "\u0437"
     "I": "\u0418"
     "i": "\u0438"
     "J": "\u0408"
     "j": "\u0458"
     "K\u0301": "\u040C"
-    "H": "\u0425"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u1E30": "\u040C"
     "k\u0301": "\u045C"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u1E31": "\u045C"
+    "H": "\u0425"
     "h": "\u0445"
-    # this conversion shouldn't be needed, but does no harm
     "LJ": "\u0409"
     "Lj": "\u0409"
+    "lJ": "\u0409"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01C7": "\u0409"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01C8": "\u0409"
     "lj": "\u0459"
-    # this conversion shouldn't be needed, but does no harm
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01C9": "\u0459"
     "NJ": "\u040A"
     "Nj": "\u040A"
+    "nJ": "\u040A"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01CA": "\u040A"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01CB": "\u040A"
     "nj": "\u045A"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u01CC": "\u045A"
     "S\u030C": "\u0428"
+    "\u0160": "\u0428"
     "s\u030C": "\u0448"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u0161": "\u0448"
     "C\u0301": "\u040B"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u0106": "\u040B"
     "C\u030C": "\u0427"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u010C": "\u0427"
     "C": "\u0426"
     "c\u0301": "\u045B"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u0107": "\u045B"
     "c\u030C": "\u0447"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u010D": "\u0447"
     "c": "\u0446"
 
 script_to_roman:
@@ -57,8 +106,8 @@ script_to_roman:
     "\u0452": "\u0111"
     "\u0416": "Z\u030C"
     "\u0436": "z\u030C"
-    "\u0405": "Dz"
-    "\u0455": "dz"
+    "\u0405": "D\uFE20Z\uFE21"
+    "\u0455": "d\uFE20z\uFE21"
     "\u0418": "I"
     "\u0438": "i"
     "\u0408": "J"
@@ -79,9 +128,6 @@ script_to_roman:
     "\u0446": "c"
     "\u0427": "C\u030C"
     "\u0447": "c\u030C"
-    "\u040F": "Dz\u030C"
-    "\u045F": "dz\u030C"
-    "\u1029": "D\uFE20Z\uFE21"
-    "\u0455": "d\uFE20z\uFE21"
     "\u040F": "D\uFE20Z\u030C\uFE21"
     "\u045F": "d\uFE20z\u030C\uFE21"
+
