@@ -1,7 +1,7 @@
 general:
   name: Nenets (Cyrillic)
   parents:
-    - _cyrillic_base
+    - cyrillic_generic
 
 roman_to_script:
   map:
