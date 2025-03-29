@@ -1,6 +1,6 @@
 ---
 general:
-  name: Manchu
+  name: Tod (Mongolian)
   parents:
     - _ignore_base
   case_sensitive: false
