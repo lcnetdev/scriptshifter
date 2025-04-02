@@ -23,6 +23,22 @@ arabic:
 armenian:
   marc_code: arm
   name: Armenian
+# asian_cyrillic:
+#   description: >
+#     Multi-purpose transliteration for non-Slavic Cyrillic scripts: Abaza,
+#     Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar, Bashkir, Buryat,
+#     Chechen, Chukchi, Chuvash, Dargwa, Dungan, Eskimo, Even, Evenki, Gagauz,
+#     Ingush, Inuit, Kabardian, Kalmyk, Karachay, Karachay-Balkar, Karakalpak,
+#     Karelian, Khakass, Khanty, Komi, Komi-Permyak, Koryak, Kumyk, Lak, Lapp,
+#     Lezghian, Lithuanian, Mansi, Mari, Moldovan, Molodstov, Mordvin, Nanai,
+#     Nenets, Nivkh, Nogai, Ossetic, Permyak, Romanian, Romany, Selkup, Shor,
+#     Tabasaran, Tat, Tuva, Udekhe, Udmurt, Yakut.
+#   marc_code: >
+#     abk, ady, alt, ava, bak, che, chv, dar, ale, esk, kbd, xal, krc, kaa,
+#     krl, kom, kum, lez, lit, chm, nog, oss, rum, rom, sel, udm, sah
+#   name: Asian Cyrillic
+assamese:
+  name: assamese
 azerbaijani_cyrillic:
   marc_code: aze
   name: Azerbaijani (Cyrillic)

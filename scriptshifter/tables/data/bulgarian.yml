@@ -1,58 +1,38 @@
 general:
   name: Bulgarian
   parents:
-    - _cyrillic_base
+    - cyrillic_generic
 
 roman_to_script:
   map:
-    "G": "\u0413"
-    "g": "\u0433"
-    # this conversion shouldn't be needed, but does no harm
-    "ZH": "\u0416"
-    "Zh": "\u0416"
-    "zh": "\u0436"
-    "I\uFE20E\uFE21": "\u0462"
-    # this conversion shouldn't be needed, but does no harm
-    "I\uFE20e\uFE21": "\u0462"
-    # this conversion shouldn't be needed, but does no harm
-    # this conversion shouldn't be needed, but does no harm
-    "I": "\u0418"
-    "i\uFE20e\uFE21": "\u0463"
-    "i": "\u0438"
-    # this conversion shouldn't be needed, but does no harm
     "SHT": "\u0429"
     "Sht": "\u0429"
     "sht": "\u0449"
-    "T\uFE20S\uFE21": "\u0426"
-    # this conversion shouldn't be needed, but does no harm
-    "T\uFE20s\uFE21": "\u0426"
-    "t\uFE20s\uFE21": "\u0446"
-    "U\u0310": "\u046A"
+    "U\u0306": "\u042A"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u016C": "\u042A"
     "u\u0306": "\u044A"
+    # Mapping from precomposed non-MARC-8 Latin equivalent
+    "\u016D": "\u044A"
+    "U\u0310": "\u046A"
     "u\u0310": "\u046B"
     # this conversion is ambiguous - \u042A is also theoretically possible
     "\u02BA": "\u044A"
+    # upper case hard sign is unlikely to occur
+    "\u02BA\u0332": "\u042A"
 
 script_to_roman:
   map:
-    "\u044C": ""
-    "\u042C": ""
-    "\u044A": ""
-    "\u042A%": ""  # Final
-    "\u042A": "u\u0306"
-    "\u0413": "G"
-    "\u0433": "g"
-    "\u0416": "Zh"
-    "\u0436": "zh"
-    "\u0462": "I\uFE20E\uFE21"
-    "\u0418": "I"
-    "\u0463": "i\uFE20e\uFE21"
-    "\u0438": "i"
     "\u0429": "Sht"
+    "\u042A": "U\u0306"
+    # Capital letter hard sign at the end of a word (rare)
+    "\u042A%": "\u02BA\u0332"
+    "\u042C": "\u02B9\u0332"
     "\u0449": "sht"
-    "\u0426": "T\uFE20S\uFE21"
-    "\u0446": "t\uFE20s\uFE21"
+    "\u044A": "u\u0306"
+    # Small letter hard sign at the end of a word (rare)
+    "\u044A%": "\u02BA"
+    "\u044C": "\u02B9"
     "\u046A": "U\u0310"
     "\u046B": "u\u0310"
-    "\u042A": "u\u016C"
-    "\u044A": "u\u016D"
+    

@@ -63,7 +63,7 @@ third-party library.
 |  [macedonian](../scriptshifter/tables/data/macedonian.yml)  |  Macedonian  |  Y  |  Y  |  stable  |  
 |  [malayalam](../scriptshifter/tables/data/malayalam.yml)  |  Malayalam  |  Y  |  Y  |    |  s-to-r lacks capitalization
 |  [mansi_cyrillic](../scriptshifter/tables/data/mansi_cyrillic.yml)  |  Mansi (Cyrillic)  |  Y  |  Y  |  stable  |  
-|  [marathi](../scriptshifter/tables/data/marathi.yml)  |  Marathi  |  Y  |  Y  |    |  s-to-r lacks capitalization
+|  [marathi](../scriptshifter/tables/data/marathi_devanagari.yml)  |  Marathi  |  Y  |  Y  |    |  s-to-r lacks capitalization
 |  [mari_cyrillic](../scriptshifter/tables/data/mari_cyrillic.yml)  |  Mari (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [moldovan_cyrillic](../scriptshifter/tables/data/moldovan_cyrillic.yml)  |  Moldovan (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [mongolian_cyrillic](../scriptshifter/tables/data/mongolian_cyrillic.yml)  |  Mongolian (Cyrillic)  |  Y  |  Y  |  stable  |  
@@ -86,13 +86,13 @@ third-party library.
 |  [sanskrit_devanagari](../scriptshifter/tables/data/sanskrit_devanagari.yml)  |  Sanskrit (Devanagari)  |  Y  |  Y  |    |  s-to-r lacks capitalization
 |  [serbian](../scriptshifter/tables/data/serbian.yml)  |  Serbian  |  Y  |  Y  |  stable  |  
 |  [shor_cyrillic](../scriptshifter/tables/data/shor_cyrillic.yml)  |  Shor (Cyrillic)  |  Y  |  Y  |  stable  |  
-|  [sinhalese_sinhala](../scriptshifter/tables/data/sinhalese_sinhala.yml)  |  Sinhalese (Sinhala)  |  Y  |  Y  |    |  s-to-r lacks capitalization
+|  [sinhalese_sinhala](../scriptshifter/tables/data/sinhalese.yml)  |  Sinhalese (Sinhala)  |  Y  |  Y  |    |  s-to-r lacks capitalization
 |  [syriac_cyrillic](../scriptshifter/tables/data/syriac_cyrillic.yml)  |  Syriac (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [tajik_cyrillic](../scriptshifter/tables/data/tajik_cyrillic.yml)  |  Tajik (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [tamil](../scriptshifter/tables/data/tamil.yml)  |  Tamil  |  Y  |  Y  |  beta  |  
 |  [tamil_brahmi](../scriptshifter/tables/data/tamil_brahmi.yml)  |  Tamil Brahmi  |  Y  |  Y  |    |  
 |  [tamil_extended](../scriptshifter/tables/data/tamil_extended.yml)  |  Tamil (extended)  |  Y  |  Y  |    |  
-|  [tatar-kryashen_cyrillic](../scriptshifter/tables/data/tatar.yml)  |  Tatar-Kryashen (Cyrillic)  |  Y  |  Y  |  stable  |  
+|  [tatar-kryashen_cyrillic](../scriptshifter/tables/data/tatar-kryashen_cyrillic.yml)  |  Tatar-Kryashen (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [tatar_cyrillic](../scriptshifter/tables/data/tatar_cyrillic.yml)  |  Tatar (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [telugu](../scriptshifter/tables/data/telugu.yml)  |  Telugu  |  Y  |  Y  |    |  s-to-r lacks capitalization
 |  [thai](../scriptshifter/tables/data/thai.yml)  |  Thai  |  Y  |  Y  |    |  
