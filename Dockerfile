@@ -7,7 +7,7 @@ COPY VERSION entrypoint.sh sscli uwsgi.ini wsgi.py ./
 COPY scriptshifter ./scriptshifter/
 COPY test ./test/
 COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt deps.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 ENV HF_DATASETS_CACHE /data/hf/datasets
 RUN ./sscli admin init-db
