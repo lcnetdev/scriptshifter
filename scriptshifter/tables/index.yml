@@ -261,9 +261,6 @@ telugu:
 thai:
   marc_code: tha
   name: Thai
-thai_alt:
-  marc_code: tha
-  name: Thai (alternative)
 tibetan:
   marc_code: tib
   name: Tibetan
