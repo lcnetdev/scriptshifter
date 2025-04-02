@@ -17,9 +17,9 @@ MULTI_WS_RE = compile(r"(\s){2,}")
 logger = logging.getLogger(__name__)
 
 
-class Context:
+class Transliterator:
     """
-    Context used within the transliteration and passed to hook functions.
+    Context carrying the state of transliteration process.
 
     Use within a `with` block for proper cleanup.
     """
@@ -34,6 +34,10 @@ class Context:
     @src.deleter
     def src(self):
         raise NotImplementedError("Attribute is read-only.")
+
+    @property
+    def cur_char(self):
+        return self.src[self.cur]
 
     def __init__(self, lang, src, t_dir, options={}):
         """
@@ -86,7 +90,6 @@ class Context:
         NOTE: this manipluates the protected source attribute so it may not
         correspond to the originally provided source.
         """
-        norm_rules = get_lang_normalize(self.conn, self.lang_id)
         # Normalize precomposed Unicode characters.
         #
         # In using diacritics, LC standards prefer the decomposed form
@@ -98,10 +101,38 @@ class Context:
             logger.debug("Normalizing pre-composed symbols.")
             self._src = precomp_normalize("NFD", self.src)
 
+        norm_rules = get_lang_normalize(self.conn, self.lang_id)
+
         for nk, nv in norm_rules.items():
             self._src = self.src.replace(nk, nv)
 
         return self.run_hook("post_normalize")
+
+    def cur_at_bow(self, cur=None):
+        """
+        Check if cursor is at the beginning of a word.
+
+        @param cur(int): Position to check. By default, the current cursor.
+        """
+        if cur is None:
+            cur = self.cur
+        return (
+            self.cur == 0
+            or self.src[cur - 1] in WORD_BOUNDARY
+        ) and (self.src[cur] not in WORD_BOUNDARY)
+
+    def cur_at_eow(self, cur=None):
+        """
+        Check if cursor is at the end of a word.
+
+        @param cur(int): Position to check. By default, the current cursor.
+        """
+        if cur is None:
+            cur = self.cur
+        return (
+            cur == len(self.src) - 1
+            or self.src[cur + 1] in WORD_BOUNDARY
+        ) and (self.src[cur] not in WORD_BOUNDARY)
 
 
 def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
@@ -140,7 +171,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
     src = src.strip()
     options["capitalize"] = capitalize
-    with Context(lang, src, t_dir, options) as ctx:
+    with Transliterator(lang, src, t_dir, options) as ctx:
 
         if t_dir == FEAT_S2R and not ctx.general["has_s2r"]:
             raise NotImplementedError(
@@ -175,14 +206,13 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             # Reset cursor position flags.
             # Carry over extended "beginning of word" flag.
             ctx.cur_flags = 0
-            cur_char = ctx.src[ctx.cur]
 
             # Look for a word boundary and flag word beginning/end it if found.
-            if _is_bow(ctx.cur, ctx, WORD_BOUNDARY):
+            if ctx.cur_at_bow():
                 # Beginning of word.
                 logger.debug(f"Beginning of word at position {ctx.cur}.")
                 ctx.cur_flags |= BOW
-            if _is_eow(ctx.cur, ctx, WORD_BOUNDARY):
+            if ctx.cur_at_eow():
                 # End of word.
                 logger.debug(f"End of word at position {ctx.cur}.")
                 ctx.cur_flags |= EOW
@@ -240,7 +270,6 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                             ctx.ignoring = False
                             break
 
-                        cur_char = ctx.src[ctx.cur]
                         ctx.ignoring = True
                         break
                 # We looked through all ignore tokens, not found any. Move on.
@@ -275,7 +304,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                 # point value) than the current character, then break the loop
                 # without a match, because we know there won't be any more
                 # match due to the alphabetical ordering.
-                if ctx.src_tk.content[0] > cur_char:
+                if ctx.src_tk.content[0] > ctx.cur_char:
                     logger.debug(
                             f"{ctx.src_tk.content} is after "
                             f"{ctx.src[ctx.cur:ctx.cur + step]}. "
@@ -285,11 +314,12 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                 # If src_tk has a WB flag but the token is not at WB, skip.
                 if (
                     (ctx.src_tk.flags & BOW and not ctx.cur_flags & BOW)
-                    or
-                    # Can't rely on EOW flag, we must check on the last
-                    # character of the potential match.
-                    (ctx.src_tk.flags & EOW and not _is_eow(
-                            ctx.cur + step - 1, ctx, WORD_BOUNDARY))
+                    or (
+                        # Can't rely on EOW flag, we must check on the last
+                        # character of the potential match.
+                        ctx.src_tk.flags & EOW
+                        and not ctx.cur_at_eow(ctx.cur + step - 1)
+                    )
                 ):
                     continue
 
@@ -346,9 +376,10 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
                 # No match found. Copy non-mapped character (one at a time).
                 logger.info(
-                        f"Token {cur_char} (\\u{hex(ord(cur_char))[2:]}) "
+                        f"Token {ctx.cur_char} "
+                        f"(\\u{hex(ord(ctx.cur_char))[2:]}) "
                         f"at position {ctx.cur} is not mapped.")
-                ctx.dest_ls.append(cur_char)
+                ctx.dest_ls.append(ctx.cur_char)
                 ctx.cur += 1
             else:
                 delattr(ctx, "match")
@@ -375,15 +406,3 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
         ctx.dest = MULTI_WS_RE.sub(r"\1", ctx.dest.strip())
 
         return ctx.dest, ctx.warnings
-
-
-def _is_bow(cur, ctx, word_boundary):
-    return (cur == 0 or ctx.src[cur - 1] in word_boundary) and (
-            ctx.src[cur] not in word_boundary)
-
-
-def _is_eow(cur, ctx, word_boundary):
-    return (
-        cur == len(ctx.src) - 1
-        or ctx.src[cur + 1] in word_boundary
-    ) and (ctx.src[cur] not in word_boundary)

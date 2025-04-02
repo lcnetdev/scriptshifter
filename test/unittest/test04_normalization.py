@@ -2,7 +2,7 @@ from csv import reader
 from os import environ, path, unlink
 from unittest import TestCase
 
-from scriptshifter.trans import Context, FEAT_R2S
+from scriptshifter.trans import Transliterator, FEAT_R2S
 from scriptshifter.tables import init_db
 
 from test import TEST_DATA_DIR
@@ -25,6 +25,6 @@ class TestNormalization(TestCase):
             data = reader(fh)
 
             for precomp, decomp in data:
-                with Context("rot3", precomp, FEAT_R2S, {}) as ctx:
+                with Transliterator("rot3", precomp, FEAT_R2S, {}) as ctx:
                     ctx.normalize_src()
                     self.assertEqual(ctx.src, decomp)
