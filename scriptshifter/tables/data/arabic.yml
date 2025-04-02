@@ -15,11 +15,12 @@ general:
 roman_to_script:
   map:
 
-    # Original table by David Bucknum
-    # Last updated 25 January 2019
+    # Original table by David Bucknum, 5 April 2010
+    # Updated, 25 January 2019
     # Modified by WK with testing by Arabic Cat Staff LOC-CAIRO
     # Additional info from R. Vassie, [n.d.] "Marrying the Arabic and Latin
     # Scripts Conceptually"
+    # Updated, 26 March 2025 by Randall K. Barry to reverse truncation marks for ScriptShifter
 
 
     # Punctuation marks:
@@ -135,11 +136,11 @@ roman_to_script:
     "fi\u0304-": "\u0641\u064A"
     "ka-": "\u0643"
 
-    # Vowels and vowel/consonant combinations
+    # Vowels and vowel/consonant combinations - ta-marbutah at end of word
     "ah%": "\u0629"
     "at%": "\u0629"
 
-    # tanwin
+    # tanwin at end of word
     "an%": "\u0627"
 
     # ayn-alif combo
@@ -149,6 +150,8 @@ roman_to_script:
     "\u02BBA\u0304": "\u0639\u0627"
     "\u02BBa\u0304": "\u0639\u0627"
 
+    "\u02BBI\u0304Y": "\u0639\u064A"
+    "\u02BBi\u0304y": "\u0639\u064A"
     "\u02BBI\u0304": "\u0639\u064A"
     "\u02BBi\u0304": "\u0639\u064A"
 
