@@ -14,14 +14,14 @@ roman_to_script:
     "\u01F5": "\u0453"
     "g": "\u0433"
     "\u0110": "\u0402"
-    "D\uFE20Z\u030C\uFE21": "\040F"
-    "D\uFE20z\u030C\uFE21": "\040F"
-    "d\uFE20Z\u030C\uFE21": "\040F"
+    "D\uFE20Z\u030C\uFE21": "\u040F"
+    "D\uFE20z\u030C\uFE21": "\u040F"
+    "d\uFE20Z\u030C\uFE21": "\u040F"
     # Mapping from precomposed non-MARC-8 Latin equivalent
     "\u01C4": "\u040F"
     # Mapping from precomposed non-MARC-8 Latin equivalent
     "\u01C5": "\u040F"
-    "d\uFE20z\u030C\uFE21": "\045F"
+    "d\uFE20z\u030C\uFE21": "\u045F"
     # Mapping from precomposed non-MARC-8 Latin equivalent
     "\u01C6": "\u045F"
     "D\uFE20Z\uFE21": "\u0405"
