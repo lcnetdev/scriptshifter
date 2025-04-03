@@ -84,12 +84,12 @@ class Token(str):
         # Standalone has precedence, then initial, then final, then medial.
         # This is somewhat arbitrary and may change if special cases arise.
         # WB markers are moved to flags to allow default comparison.
-        if self.content.endswith(TOKEN_WB_MARKER):
-            self.flags |= BOW
-            self.content = self.content.rstrip(TOKEN_WB_MARKER)
         if self.content.startswith(TOKEN_WB_MARKER):
-            self.flags |= EOW
+            self.flags |= BOW
             self.content = self.content.lstrip(TOKEN_WB_MARKER)
+        if self.content.endswith(TOKEN_WB_MARKER):
+            self.flags |= EOW
+            self.content = self.content.rstrip(TOKEN_WB_MARKER)
 
     def __lt__(self, other):
         """
@@ -115,9 +115,9 @@ class Token(str):
         if (
                 (self.flags > 0 or other.flags > 0)
                 and self.content == other.content):
-            logger.debug(f"{self.content} flags: {self.flags}")
-            logger.debug(f"{other.content} flags: {other.flags}")
-            logger.debug("Performing flags comparison.")
+            # logger.debug(f"{self.content} flags: {self.flags}")
+            # logger.debug(f"{other.content} flags: {other.flags}")
+            # logger.debug("Performing flags comparison.")
 
             return self.flags > other.flags
 
@@ -202,6 +202,8 @@ def populate_table(conn, tname, tdata):
 
     @param tdata(dict): Table data.
     """
+    logger.info(f"Populating table: {tname}")
+
     res = conn.execute(
         """INSERT INTO tbl_language (
             name, label, marc_code, description
