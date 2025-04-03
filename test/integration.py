@@ -69,12 +69,12 @@ def _trans(script, lang, t_dir, opts, rom, deltas):
             capitalize=opts.get("capitalize"), options=opts)
     try:
         assert trans == rom
-    except AssertionError as e:
+    except AssertionError:
         if deltas is not None:
             print("F", end="")
             deltas.append((lang, script, ndiff([trans], [rom])))
         else:
-            raise e
+            raise AssertionError(f"Result: {trans}\nExpected: {rom}")
     else:
         if deltas:
             print(".", end="")

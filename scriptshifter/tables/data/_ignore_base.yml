@@ -1,9 +1,9 @@
+---
 general:
   name: Common ignore list.
 
 roman_to_script:
   ignore:
-    - " "
     - "at head of title"
     - "colophon"
     - "date of publication not identified"
@@ -38,8 +38,6 @@ roman_to_script:
     - "\\b[\u2021$][0-9a-z]\\b"
 
 script_to_roman:
-  ignore:
-    - " "
   ignore_ptn:
     # MARC sub-field markers.
     - "\\b[\u2021$][0-9a-z]\\b"

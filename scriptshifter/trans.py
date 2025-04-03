@@ -17,9 +17,9 @@ MULTI_WS_RE = compile(r"(\s){2,}")
 logger = logging.getLogger(__name__)
 
 
-class Context:
+class Transliterator:
     """
-    Context used within the transliteration and passed to hook functions.
+    Context carrying the state of transliteration process.
 
     Use within a `with` block for proper cleanup.
     """
@@ -34,6 +34,10 @@ class Context:
     @src.deleter
     def src(self):
         raise NotImplementedError("Attribute is read-only.")
+
+    @property
+    def cur_char(self):
+        return self.src[self.cur]
 
     def __init__(self, lang, src, t_dir, options={}):
         """
@@ -63,6 +67,72 @@ class Context:
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.conn.close()
+
+    def run_hook(self, hname):
+        ret = None
+        for hook_def in self.hooks.get(hname, []):
+            fn = getattr(
+                import_module("." + hook_def["module_name"], HOOK_PKG_PATH),
+                hook_def["fn_name"]
+            )
+            ret = fn(self, **hook_def["kwargs"])
+            if ret in (BREAK, CONT):
+                # This will stop parsing hooks functions and tell the caller to
+                # break out of the outer loop or skip iteration.
+                return ret
+
+        return ret
+
+    def normalize_src(self):
+        """
+        Normalize source text according to rules.
+
+        NOTE: this manipluates the protected source attribute so it may not
+        correspond to the originally provided source.
+        """
+        # Normalize precomposed Unicode characters.
+        #
+        # In using diacritics, LC standards prefer the decomposed form
+        # (combining diacritic + base character) to the pre-composed form
+        # (single Unicode symbol for the letter with diacritic).
+        #
+        # Note: only safe for R2S.
+        if self.t_dir == FEAT_R2S:
+            logger.debug("Normalizing pre-composed symbols.")
+            self._src = precomp_normalize("NFD", self.src)
+
+        norm_rules = get_lang_normalize(self.conn, self.lang_id)
+
+        for nk, nv in norm_rules.items():
+            self._src = self.src.replace(nk, nv)
+
+        return self.run_hook("post_normalize")
+
+    def cur_at_bow(self, cur=None):
+        """
+        Check if cursor is at the beginning of a word.
+
+        @param cur(int): Position to check. By default, the current cursor.
+        """
+        if cur is None:
+            cur = self.cur
+        return (
+            self.cur == 0
+            or self.src[cur - 1] in WORD_BOUNDARY
+        ) and (self.src[cur] not in WORD_BOUNDARY)
+
+    def cur_at_eow(self, cur=None):
+        """
+        Check if cursor is at the end of a word.
+
+        @param cur(int): Position to check. By default, the current cursor.
+        """
+        if cur is None:
+            cur = self.cur
+        return (
+            cur == len(self.src) - 1
+            or self.src[cur + 1] in WORD_BOUNDARY
+        ) and (self.src[cur] not in WORD_BOUNDARY)
 
 
 def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
@@ -101,7 +171,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
     src = src.strip()
     options["capitalize"] = capitalize
-    with Context(lang, src, t_dir, options) as ctx:
+    with Transliterator(lang, src, t_dir, options) as ctx:
 
         if t_dir == FEAT_S2R and not ctx.general["has_s2r"]:
             raise NotImplementedError(
@@ -118,12 +188,11 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
         # This hook may take over the whole transliteration process or delegate
         # it to some external process, and return the output string directly.
-        if _run_hook("post_config", ctx) == BREAK:
+        if ctx.run_hook("post_config") == BREAK:
             return getattr(ctx, "dest", ""), ctx.warnings
 
-        # _normalize_src returns the results of the post_normalize hook.
-        if _normalize_src(
-                ctx, get_lang_normalize(ctx.conn, ctx.lang_id)) == BREAK:
+        # ctx.normalize_src returns the results of the post_normalize hook.
+        if ctx.normalize_src() == BREAK:
             return getattr(ctx, "dest", ""), ctx.warnings
 
         logger.debug(f"Normalized source: {ctx.src}")
@@ -137,21 +206,20 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             # Reset cursor position flags.
             # Carry over extended "beginning of word" flag.
             ctx.cur_flags = 0
-            cur_char = ctx.src[ctx.cur]
 
             # Look for a word boundary and flag word beginning/end it if found.
-            if _is_bow(ctx.cur, ctx, WORD_BOUNDARY):
+            if ctx.cur_at_bow():
                 # Beginning of word.
                 logger.debug(f"Beginning of word at position {ctx.cur}.")
                 ctx.cur_flags |= BOW
-            if _is_eow(ctx.cur, ctx, WORD_BOUNDARY):
+            if ctx.cur_at_eow():
                 # End of word.
                 logger.debug(f"End of word at position {ctx.cur}.")
                 ctx.cur_flags |= EOW
 
             # This hook may skip the parsing of the current
             # token or exit the scanning loop altogether.
-            hret = _run_hook("begin_input_token", ctx)
+            hret = ctx.run_hook("begin_input_token")
             if hret == BREAK:
                 logger.debug("Breaking text scanning from hook signal.")
                 break
@@ -165,7 +233,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             while True:
                 ctx.ignoring = False
                 for ctx.tk in get_lang_ignore(ctx.conn, ctx.lang_id):
-                    hret = _run_hook("pre_ignore_token", ctx)
+                    hret = ctx.run_hook("pre_ignore_token")
                     if hret == BREAK:
                         break
                     if hret == CONT:
@@ -187,7 +255,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
                     if _matching:
                         # The position matches an ignore token.
-                        hret = _run_hook("on_ignore_match", ctx)
+                        hret = ctx.run_hook("on_ignore_match")
                         if hret == BREAK:
                             break
                         if hret == CONT:
@@ -202,7 +270,6 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                             ctx.ignoring = False
                             break
 
-                        cur_char = ctx.src[ctx.cur]
                         ctx.ignoring = True
                         break
                 # We looked through all ignore tokens, not found any. Move on.
@@ -221,7 +288,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             ctx.match = False
 
             for ctx.src_tk, ctx.dest_str in lang_map:
-                hret = _run_hook("pre_tx_token", ctx)
+                hret = ctx.run_hook("pre_tx_token")
                 if hret == BREAK:
                     break
                 if hret == CONT:
@@ -237,7 +304,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                 # point value) than the current character, then break the loop
                 # without a match, because we know there won't be any more
                 # match due to the alphabetical ordering.
-                if ctx.src_tk.content[0] > cur_char:
+                if ctx.src_tk.content[0] > ctx.cur_char:
                     logger.debug(
                             f"{ctx.src_tk.content} is after "
                             f"{ctx.src[ctx.cur:ctx.cur + step]}. "
@@ -247,11 +314,12 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                 # If src_tk has a WB flag but the token is not at WB, skip.
                 if (
                     (ctx.src_tk.flags & BOW and not ctx.cur_flags & BOW)
-                    or
-                    # Can't rely on EOW flag, we must check on the last
-                    # character of the potential match.
-                    (ctx.src_tk.flags & EOW and not _is_eow(
-                            ctx.cur + step - 1, ctx, WORD_BOUNDARY))
+                    or (
+                        # Can't rely on EOW flag, we must check on the last
+                        # character of the potential match.
+                        ctx.src_tk.flags & EOW
+                        and not ctx.cur_at_eow(ctx.cur + step - 1)
+                    )
                 ):
                     continue
 
@@ -262,7 +330,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                     ctx.match = True
                     # This hook may skip this token or break out of the token
                     # lookup for the current position.
-                    hret = _run_hook("on_tx_token_match", ctx)
+                    hret = ctx.run_hook("on_tx_token_match")
                     if hret == BREAK:
                         break
                     if hret == CONT:
@@ -300,7 +368,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
             if ctx.match is False:
                 delattr(ctx, "match")
-                hret = _run_hook("on_no_tx_token_match", ctx)
+                hret = ctx.run_hook("on_no_tx_token_match")
                 if hret == BREAK:
                     break
                 if hret == CONT:
@@ -308,9 +376,10 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
                 # No match found. Copy non-mapped character (one at a time).
                 logger.info(
-                        f"Token {cur_char} (\\u{hex(ord(cur_char))[2:]}) "
+                        f"Token {ctx.cur_char} "
+                        f"(\\u{hex(ord(ctx.cur_char))[2:]}) "
                         f"at position {ctx.cur} is not mapped.")
-                ctx.dest_ls.append(cur_char)
+                ctx.dest_ls.append(ctx.cur_char)
                 ctx.cur += 1
             else:
                 delattr(ctx, "match")
@@ -320,7 +389,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
         # This hook may take care of the assembly and cause the function to
         # return its own return value.
-        hret = _run_hook("pre_assembly", ctx)
+        hret = ctx.run_hook("pre_assembly")
         if hret is not None:
             return hret, ctx.warnings
 
@@ -329,7 +398,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
         # This hook may reassign the output string and/or cause the function to
         # return it immediately.
-        hret = _run_hook("post_assembly", ctx)
+        hret = ctx.run_hook("post_assembly")
         if hret is not None:
             return hret, ctx.warnings
 
@@ -337,54 +406,3 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
         ctx.dest = MULTI_WS_RE.sub(r"\1", ctx.dest.strip())
 
         return ctx.dest, ctx.warnings
-
-
-def _normalize_src(ctx, norm_rules):
-    """
-    Normalize source text according to rules.
-
-    NOTE: this manipluates the protected source attribute so it may not
-    correspond to the originally provided source.
-    """
-    # Normalize precomposed Unicode characters.
-    #
-    # In using diacritics, LC standards prefer the decomposed form (combining
-    # diacritic + base character) to the pre-composed form (single Unicode
-    # symbol for the letter with diacritic).
-    #
-    # Note: only safe for R2S.
-    if ctx.t_dir == FEAT_R2S:
-        logger.debug("Normalizing pre-composed symbols.")
-        ctx._src = precomp_normalize("NFD", ctx.src)
-
-    for nk, nv in norm_rules.items():
-        ctx._src = ctx.src.replace(nk, nv)
-
-    return _run_hook("post_normalize", ctx)
-
-
-def _is_bow(cur, ctx, word_boundary):
-    return (cur == 0 or ctx.src[cur - 1] in word_boundary) and (
-            ctx.src[cur] not in word_boundary)
-
-
-def _is_eow(cur, ctx, word_boundary):
-    return (
-        cur == len(ctx.src) - 1
-        or ctx.src[cur + 1] in word_boundary
-    ) and (ctx.src[cur] not in word_boundary)
-
-
-def _run_hook(hname, ctx):
-    ret = None
-    for hook_def in ctx.hooks.get(hname, []):
-        fn = getattr(
-                import_module("." + hook_def["module_name"], HOOK_PKG_PATH),
-                hook_def["fn_name"])
-        ret = fn(ctx, **hook_def["kwargs"])
-        if ret in (BREAK, CONT):
-            # This will stop parsing hooks functions and tell the caller to
-            # break out of the outer loop or skip iteration.
-            return ret
-
-    return ret
