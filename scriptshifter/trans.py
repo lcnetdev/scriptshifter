@@ -113,7 +113,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             )
 
         # Normalize case before post_config and rule-based normalization.
-        if not ctx.general["case_sensitive"]:
+        if t_dir == FEAT_R2S and not ctx.general["case_sensitive"]:
             ctx._src = ctx.src.lower()
 
         # This hook may take over the whole transliteration process or delegate
@@ -271,7 +271,10 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                     # A match is found. Stop scanning tokens, append result,
                     # and proceed scanning the source.
 
-                    # Capitalization.
+                    # Capitalization. This applies double capitalization
+                    # rules. The external function in
+                    # scriptshifter.tools.capitalize used for non-table
+                    # languages does not.
                     if (
                         (ctx.options["capitalize"] == "first" and ctx.cur == 0)
                         or
@@ -348,7 +351,11 @@ def _normalize_src(ctx, norm_rules):
     # In using diacritics, LC standards prefer the decomposed form (combining
     # diacritic + base character) to the pre-composed form (single Unicode
     # symbol for the letter with diacritic).
-    ctx._src = precomp_normalize("NFD", ctx.src)
+    #
+    # Note: only safe for R2S.
+    if ctx.t_dir == FEAT_R2S:
+        logger.debug("Normalizing pre-composed symbols.")
+        ctx._src = precomp_normalize("NFD", ctx.src)
 
     for nk, nv in norm_rules.items():
         ctx._src = ctx.src.replace(nk, nv)

@@ -28,7 +28,7 @@ from os import path
 
 from scriptshifter.exceptions import BREAK
 from scriptshifter.hooks.korean import KCONF
-from scriptshifter.tools import capitalize
+from scriptshifter.hooks.general import capitalize_post_assembly
 
 
 PWD = path.dirname(path.realpath(__file__))
@@ -62,6 +62,12 @@ def s2r_nonames_post_config(ctx):
     ctx.dest, ctx.warnings = _romanize_nonames(
             ctx.src, ctx.options)
 
+    if ctx.dest:
+        # FKR042: Capitalize all first letters
+        # FKR043: Capitalize the first letter
+        logger.debug(f"Before capitalization: {ctx.dest}")
+        ctx.dest = capitalize_post_assembly(ctx)
+
     return BREAK
 
 
@@ -73,6 +79,12 @@ def s2r_names_post_config(ctx):
     to be used as separator for multiple names.
     """
     ctx.dest, ctx.warnings = _romanize_names(ctx.src, ctx.options)
+
+    if ctx.dest:
+        # FKR042: Capitalize all first letters
+        # FKR043: Capitalize the first letter
+        logger.debug(f"Before capitalization: {ctx.dest}")
+        ctx.dest = capitalize_post_assembly(ctx)
 
     return BREAK
 
@@ -105,19 +117,9 @@ def _romanize_nonames(src, options):
 
     rom = _romanize_oclc_auto(kor)
 
-    logger.debug(f"Before capitalization: {rom}")
-    # FKR042: Capitalize all first letters
-    if options["capitalize"] == "all":
-        rom = capitalize(rom)
-    # FKR043: Capitalize the first letter
-    elif options["capitalize"] == "first":
-        rom = rom[0].upper() + rom[1:]
-
     # FKR044: Ambiguities
     ambi = re.sub("[,.\";: ]+", " ", rom)
 
-    # TODO Decide what to do with these. There is no facility for outputting
-    # warnings or notes to the user yet.
     warnings = []
     _fkr_log(45)
     for exp, warn in KCONF["fkr045"].items():
@@ -308,10 +310,11 @@ def _kor_corp_name_rom(src):
         src = src[:-4]
         yu = "R"
 
-    rom_tok = []
-    for tok in src.split(" "):
-        rom_tok.append(_romanize_oclc_auto(tok))
-    rom = capitalize(" ".join(rom_tok))
+    rom_tok = [
+        _romanize_oclc_auto(tok)
+        for tok in src.split(" ")
+    ]
+    rom = " ".join(rom_tok)
 
     if chu == "L":
         rom = "(Chu) " + rom

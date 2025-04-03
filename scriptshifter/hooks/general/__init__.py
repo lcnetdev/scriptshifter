@@ -27,6 +27,24 @@ NORM8_RE = compile(r"([.,;:\(\[\{\)\]}])\s+([.,;:\(\[\{\)\]}])")
 logger = getLogger(__name__)
 
 
+def capitalize_pre_assembly(ctx):
+    """
+    Capitalize a not-yet-assembled result list according to user options.
+    """
+    ctx.dest_ls = _capitalize(ctx.dest_ls, ctx.options.get("capitalize"))
+
+
+def capitalize_post_assembly(ctx):
+    """
+    Capitalize an already assembled result string according to user options.
+    """
+    dest_ls = ctx.dest.split(" ")
+
+    dest_ls = _capitalize(dest_ls, ctx.options.get("capitalize"))
+
+    return " ".join(dest_ls)
+
+
 def normalize_spacing_post_assembly(ctx):
     """
     Remove duplicate and unwanted whitespace around punctuation.
@@ -53,3 +71,21 @@ def normalize_spacing_post_assembly(ctx):
     # norm = NORM8_RE.sub(r"\1\2", norm)
 
     return norm
+
+
+def _capitalize(src, which):
+    """
+    capitalize first word only or all words.
+
+    NOTE: this function is only used for capitalizing hook-generated
+    transliterations, which are not normally processed. Double cap rules are
+    not applicable here.
+    """
+    if which == "first":
+        src[0] = src[0].capitalize()
+        return src
+
+    if which == "all":
+        return [tk[0].upper() + tk[1:] for tk in src]
+
+    return src

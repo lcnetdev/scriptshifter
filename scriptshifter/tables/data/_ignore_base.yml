@@ -9,6 +9,12 @@ roman_to_script:
     - "date of publication not identified"
     - "place of publication not identified"
     - "publisher not identified"
+    - "and one other"
+    - "et al."
+  ignore_ptn:
+    - "and ([a-z0-9]+ )?others"
+
+    # Incorrectly entered (but frequently found) Roman numerals.
     # NOTE There is ambiguity about ignoring these
     # words. Note that the single-character Roman
     # numerals are not included on purpose.
@@ -16,23 +22,24 @@ roman_to_script:
     # dedicated U+2160÷U+216F (uppercase Roman
     # numerals) and/or U+2170÷U+217F (lower case Roman
     # numerals) ranges to avoid this ambiguity.
-    - "and one other"
-    - "et al."
-  ignore_ptn:
-    - "and ([a-z0-9]+ )?others"
-    - "I{2,3}"
-    - "I(V|X)"
-    - "LI{,3}"
-    - "LI?(V|X)"
-    - "L(V|X{1,3})I{,3}"
-    - "LX{1,3}I?V"
-    - "LX{1,3}VI{,3}"
-    - "(V|X{1,3})I{,3}"
-    - "X{1,3}I{,3}"
-    - "X{1,3}I(V|X)"
-    - "X{1,3}VI{,3}"
+    - "\\bI{2,3}\\b"
+    - "\\bI(V|X)\\b"
+    - "\\bLI{,3}\\b"
+    - "\\bLI?(V|X)\\b"
+    - "\\bL(V|X{1,3})I{,3}\\b"
+    - "\\bLX{1,3}I?V\\b"
+    - "\\bLX{1,3}VI{,3}\\b"
+    - "\\b(V|X{1,3})I{,3}\\b"
+    - "\\bX{1,3}I{,3}\\b"
+    - "\\bX{1,3}I(V|X)\\b"
+    - "\\bX{1,3}VI{,3}\\b"
+
+    # MARC sub-field markers.
+    - "\\b[\u2021$][0-9a-z]\\b"
 
 script_to_roman:
   ignore:
     - " "
-
+  ignore_ptn:
+    # MARC sub-field markers.
+    - "\\b[\u2021$][0-9a-z]\\b"
