@@ -4,12 +4,12 @@ on:
   # built and pushed, or on patch version tag.
   push:
     tags:
-      - "v*.*.[0-9]*"
-  #workflow_run:
-  #  workflows:
-  #    - "Push base image"
-  #  types:
-  #    - "completed"
+      - "v*.*.[1-9]*"
+  workflow_run:
+    workflows:
+      - "Push base image"
+    types:
+      - "completed"
 
 env:
   DOCKER_USER: lcnetdev
