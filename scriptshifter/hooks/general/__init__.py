@@ -45,7 +45,6 @@ def capitalize_post_assembly(ctx):
     return " ".join(dest_ls)
 
 
-
 def normalize_spacing_post_assembly(ctx):
     """
     Remove duplicate and unwanted whitespace around punctuation.
@@ -76,14 +75,17 @@ def normalize_spacing_post_assembly(ctx):
 
 def _capitalize(src, which):
     """
-    Only capitalize first word and words preceded by space.
+    capitalize first word only or all words.
 
     NOTE: this function is only used for capitalizing hook-generated
     transliterations, which are not normally processed. Double cap rules are
     not applicable here.
     """
     if which == "first":
-        ctx.dest_ls[0] = ctx.dest_ls[0].upper()
+        src[0] = src[0].capitalize()
+        return src
 
-    elif which == "all":
-        ctx.dest_ls = [tk[0].upper() + tk[1:] for tk in ctx.dest_ls]
+    if which == "all":
+        return [tk[0].upper() + tk[1:] for tk in src]
+
+    return src
