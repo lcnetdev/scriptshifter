@@ -1,0 +1,32 @@
+general:
+  name: Greek (modern)
+  parents:
+    - greek_classical
+
+script_to_roman:
+  map:
+    "\u0392": "V"
+    "\u03B2": "v"
+
+roman_to_script:
+  map:
+    "V": "\u0392"
+    "v": "\u03B2"
+    "Ha": "\u0391"
+    "ha": "\u03B1"
+    "He": "\u0395"
+    "he": "\u03B5"
+    "H\u0113": "\u0397"
+    "h\u0113": "\u03B7"
+    "Hi": "\u0399"
+    "hi": "\u03B9"
+    "Ho": "\u039F"
+    "ho": "\u03BF"
+    "Hou": "\u039F\u03C5"
+    "hou": "\u03BF\u03C5"
+    "H\u014D": "\u03A9"
+    "h\u014D": "\u03C9"
+    "Hy": "\u03A5"
+    "Hui": "\u03A5\u03B9"
+    "hy": "\u03C5"
+    "hui": "\u03C5\u03B9"

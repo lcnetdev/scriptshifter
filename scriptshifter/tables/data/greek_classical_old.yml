@@ -1,0 +1,791 @@
+general:
+  name: Classical Greek (ancient and medieval)
+  notes:
+    - Compiled based on https://www.loc.gov/catdir/cpso/romanization/greek.pdf
+  parents:
+    - _ignore_base
+
+script_to_roman:
+  hooks:
+    begin_input_token:
+      -
+        - greek.parse_numeral
+
+  normalize:
+    # Assimilate all vowels that can be in a diphthong with upsilon to a
+    # non-tonal and a tonal form, so that a hiatus can be established.
+    # The accent used for the assimilated form is Varia, which is used for the
+    # transliteration rules of hiatuses further down.
+
+    # Alpha
+    "\u03B1":  # α 	Greek Small Letter Alpha
+      - "\u1F00"  # ἀ 	Greek Small Letter Alpha With Psili
+      - "\u1F80"  # ᾀ 	Greek Small Letter Alpha With Psili And Ypogegrammeni
+      - "\u1FB0"  # ᾰ 	Greek Small Letter Alpha With Vrachy
+      - "\u1FB1"  # ᾱ 	Greek Small Letter Alpha With Macron
+      - "\u1FB3"  # ᾳ 	Greek Small Letter Alpha With Ypogegrammeni
+    "\u1F70":  # ὰ 	Greek Small Letter Alpha With Varia
+      - "\u03AC"  # ά 	Greek Small Letter Alpha With Tonos
+      - "\u1F02"  # ἂ 	Greek Small Letter Alpha With Psili And Varia
+      - "\u1F04"  # ἄ 	Greek Small Letter Alpha With Psili And Oxia
+      - "\u1F06"  # ἆ 	Greek Small Letter Alpha With Psili And Perispomeni
+      - "\u1F71"  # ά 	Greek Small Letter Alpha With Oxia
+      - "\u1F82"  # ᾂ 	Greek Small Letter Alpha With Psili And Varia And Ypogegrammeni
+      - "\u1F84"  # ᾄ 	Greek Small Letter Alpha With Psili And Oxia And Ypogegrammeni
+      - "\u1F86"  # ᾆ 	Greek Small Letter Alpha With Psili And Perispomeni And Ypogegrammeni
+      - "\u1FB2"  # ᾲ 	Greek Small Letter Alpha With Varia And Ypogegrammeni
+      - "\u1FB4"  # ᾴ 	Greek Small Letter Alpha With Oxia And Ypogegrammeni
+      - "\u1FB6"  # ᾶ 	Greek Small Letter Alpha With Perispomeni
+      - "\u1FB7"  # ᾷ 	Greek Small Letter Alpha With Perispomeni And Ypogegrammeni
+    "\u0391":  # Α 	Greek Capital Letter Alpha
+      - "\u1F08"  # Ἀ 	Greek Capital Letter Alpha With Psili
+      - "\u1F88"  # ᾈ 	Greek Capital Letter Alpha With Psili And Prosgegrammeni
+      - "\u1FB8"  # Ᾰ 	Greek Capital Letter Alpha With Vrachy
+      - "\u1FB9"  # Ᾱ 	Greek Capital Letter Alpha With Macron
+      - "\u1FBC"  # ᾼ 	Greek Capital Letter Alpha With Prosgegrammeni
+    "\u1FBA":  # Ὰ 	Greek Capital Letter Alpha With Varia
+      - "\u0386"  # Ά 	Greek Capital Letter Alpha With Tonos
+      - "\u1F0A"  # Ἂ 	Greek Capital Letter Alpha With Psili And Varia
+      - "\u1F0C"  # Ἄ 	Greek Capital Letter Alpha With Psili And Oxia
+      - "\u1F8A"  # ᾊ 	Greek Capital Letter Alpha With Psili And Varia And Prosgegrammeni
+      - "\u1F8C"  # ᾌ 	Greek Capital Letter Alpha With Psili And Oxia And Prosgegrammeni
+      - "\u1F8E"  # ᾎ 	Greek Capital Letter Alpha With Psili And Perispomeni And Prosgegrammeni
+    # Rough alpha
+    "\u1F01":  # ἁ 	Greek Small Letter Alpha With Dasia
+      - "\u03B1\u0314"  # Small alpha + combining reversed comma above
+      - "\u1F81"  # ᾁ 	Greek Small Letter Alpha With Dasia And Ypogegrammeni
+    "\u1F03":  # ἃ 	Greek Small Letter Alpha With Dasia And Varia
+      - "\u1F05"  # ἅ 	Greek Small Letter Alpha With Dasia And Oxia
+      - "\u1F07"  # ἇ 	Greek Small Letter Alpha With Dasia And Perispomeni
+      - "\u1F83"  # ᾃ 	Greek Small Letter Alpha With Dasia And Varia And Ypogegrammeni
+      - "\u1F85"  # ᾅ 	Greek Small Letter Alpha With Dasia And Oxia And Ypogegrammeni
+      - "\u1F87"  # ᾇ 	Greek Small Letter Alpha With Dasia And Perispomeni And Ypogegrammeni
+    "\u1F09":  # Ἁ 	Greek Capital Letter Alpha With Dasia
+      - "\u0391\u0314"  # Capital alpha + combining reversed comma above
+      - "\u1F89"  # ᾉ 	Greek Capital Letter Alpha With Dasia And Prosgegrammeni
+    "\u1F0B":  # Ἃ 	Greek Capital Letter Alpha With Dasia And Varia
+      - "\u1F8B"  # ᾋ 	Greek Capital Letter Alpha With Dasia And Varia And Prosgegrammeni
+      - "\u1F8D"  # ᾍ 	Greek Capital Letter Alpha With Dasia And Oxia And Prosgegrammeni
+      - "\u1F8F"  # ᾏ 	Greek Capital Letter Alpha With Dasia And Perispomeni And Prosgegrammeni
+      - "\u1F0D"  # Ἅ 	Greek Capital Letter Alpha With Dasia And Oxia
+      - "\u1F0F"  # Ἇ 	Greek Capital Letter Alpha With Dasia And Perispomeni
+    # Epsilon
+    "\u03B5":  # ε 	Greek Small Letter Epsilon
+      - "\u1F10"  # ἐ 	Greek Small Letter Epsilon With Psili
+    "\u1F72":  # ὲ 	Greek Small Letter Epsilon With Varia
+      - "\u03AD"  # έ 	Greek Small Letter Epsilon With Tonos
+      - "\u1F12"  # ἒ 	Greek Small Letter Epsilon With Psili And Varia
+      - "\u1F14"  # ἔ 	Greek Small Letter Epsilon With Psili And Oxia
+      - "\u1F73"  # έ 	Greek Small Letter Epsilon With Oxia
+    "\u0395":  # Ε 	Greek Capital Letter Epsilon
+      - "\u1F18"  # Ἐ 	Greek Capital Letter Epsilon With Psili
+    "\u1F1A":  # Ἒ 	Greek Capital Letter Epsilon With Psili And Varia
+      - "\u1F1C"  # Ἔ 	Greek Capital Letter Epsilon With Psili And Oxia
+      - "\u0388"
+    # Rough epsilon
+    "\u1F11":  #  ἑ 	Greek Small Letter Epsilon With Dasia
+      - "\u03B5\u0314"  # Small epsilon + combination Dasia
+    "\u1F13":  # ἓ 	Greek Small Letter Epsilon With Dasia And Varia
+      - "\u1F15"  # ἕ 	Greek Small Letter Epsilon With Dasia And Oxia
+    "\u1F19":  # Ἑ 	Greek Capital Letter Epsilon With Dasia
+      - "\u0395\u0314"  # Capital epsilon + combination Dasia
+    "\u1F1B":  # Ἓ 	Greek Capital Letter Epsilon With Dasia And Varia
+      - "\u1F1D"  # Ἕ 	Greek Capital Letter Epsilon With Dasia And Oxia
+    # Eta
+    "\u03B7":  # η 	Greek Small Letter Eta
+      - "\u1F20"  # ἠ 	Greek Small Letter Eta With Psili
+      - "\u1FC3"  # ῃ 	Greek Small Letter Eta With Ypogegrammeni
+      - "\u1F90"  # ᾐ 	Greek Small Letter Eta With Psili And Ypogegrammeni
+    "\u1F74":  # ὴ 	Greek Small Letter Eta With Varia
+      - "\u03AE"  # ή 	Greek Small Letter Eta With Tonos
+      - "\u1F22"  # ἢ 	Greek Small Letter Eta With Psili And Varia
+      - "\u1F24"  # ἤ 	Greek Small Letter Eta With Psili And Oxia
+      - "\u1F26"  # ἦ 	Greek Small Letter Eta With Psili And Perispomeni
+      - "\u1F75"  # ή 	Greek Small Letter Eta With Oxia
+      - "\u1F92"  # ᾒ 	Greek Small Letter Eta With Psili And Varia And Ypogegrammeni
+      - "\u1F94"  # ᾔ 	Greek Small Letter Eta With Psili And Oxia And Ypogegrammeni
+      - "\u1F96"  # ᾖ 	Greek Small Letter Eta With Psili And Perispomeni And Ypogegrammeni
+      - "\u1FC2"  # ῂ 	Greek Small Letter Eta With Varia And Ypogegrammeni
+      - "\u1FC4"  # ῄ 	Greek Small Letter Eta With Oxia And Ypogegrammeni
+      - "\u1FC6"  # ῆ 	Greek Small Letter Eta With Perispomeni
+      - "\u1FC7"  # ῇ 	Greek Small Letter Eta With Perispomeni And Ypogegrammen
+    "\u0397":  # Η 	Greek Capital Letter Eta
+      - "\u1F28"  # Ἠ 	Greek Capital Letter Eta With Psili
+      - "\u1F98"  # ᾘ 	Greek Capital Letter Eta With Psili And Prosgegrammeni
+      - "\u1FCC"  # ῌ 	Greek Capital Letter Eta With Prosgegrammeni
+    "\u1F2A":  # Ἢ 	Greek Capital Letter Eta With Psili And Varia
+      - "\u0389"
+      - "\u1F2C"  # Ἤ 	Greek Capital Letter Eta With Psili And Oxia
+      - "\u1F2E"  # Ἦ 	Greek Capital Letter Eta With Psili And Perispomeni
+      - "\u1F9A"  # ᾚ 	Greek Capital Letter Eta With Psili And Varia And Prosgegrammeni
+      - "\u1F9C"  # ᾜ 	Greek Capital Letter Eta With Psili And Oxia And Prosgegrammeni
+      - "\u1F9E"  # ᾞ 	Greek Capital Letter Eta With Psili And Perispomeni And Prosgegrammeni
+    # Rough eta
+    "\u1F21":  # ἡ 	Greek Small Letter Eta With Dasia
+      - "\u03B7\u0314"  # Small eta + cmbination dasia
+      - "\u1F91"  # ᾑ 	Greek Small Letter Eta With Dasia And Ypogegrammeni
+    "\u1F23":  # ἣ 	Greek Small Letter Eta With Dasia And Varia
+      - "\u1F25"  # ἥ 	Greek Small Letter Eta With Dasia And Oxia
+      - "\u1F27"  # ἧ 	Greek Small Letter Eta With Dasia And Perispomeni
+      - "\u1F93"  # ᾓ 	Greek Small Letter Eta With Dasia And Varia And Ypogegrammeni
+      - "\u1F95"  # ᾕ 	Greek Small Letter Eta With Dasia And Oxia And Ypogegrammeni
+      - "\u1F97"  # ᾗ 	Greek Small Letter Eta With Dasia And Perispomeni And Ypogegrammeni
+    "\u1F29":  # Ἡ 	Greek Capital Letter Eta With Dasia
+      - "\u0397\u0314"  # Capital Eta + combination dasia
+      - "\u1F99"  # ᾙ 	Greek Capital Letter Eta With Dasia And Prosgegrammeni
+    "\u1F2B":  # Ἣ 	Greek Capital Letter Eta With Dasia And Varia
+      - "\u1F2D"  # Ἥ 	Greek Capital Letter Eta With Dasia And Oxia
+      - "\u1F2F"  # Ἧ 	Greek Capital Letter Eta With Dasia And Perispomeni
+      - "\u1F9B"  # ᾛ 	Greek Capital Letter Eta With Dasia And Varia And Prosgegrammeni
+      - "\u1F9D"  # ᾝ 	Greek Capital Letter Eta With Dasia And Oxia And Prosgegrammeni
+      - "\u1F9F"  # ᾟ 	Greek Capital Letter Eta With Dasia And Perispomeni And Prosgegrammeni
+    # Iota
+    # TODO clarify about possible hiatus combinations with upsilon.
+    "\u03B9":
+      - "\u0390"
+      - "\u03AF"
+      - "\u03CA"
+      - "\u1F30"
+      - "\u1F32"
+      - "\u1F34"
+      - "\u1F36"
+      - "\u1F76"
+      - "\u1F77"
+      - "\u1FD0"
+      - "\u1FD1"
+      - "\u1FD2"
+      - "\u1FD3"
+      - "\u1FD6"
+      - "\u1FD7"
+    "\u0399":
+      - "\u038A"
+      - "\u03AA"
+      - "\u1F38"
+      - "\u1F3A"
+      - "\u1F3C"
+      - "\u1F3E"
+      - "\u1FD8"
+      - "\u1FD9"
+    # Rough iota
+    "\u1F31":
+      - "\u03B9\u0314"
+      - "\u1F33"
+      - "\u1F35"
+      - "\u1F37"
+    "\u1F39":
+      - "\u0399\u0314"
+      - "\u1F3B"
+      - "\u1F3D"
+      - "\u1F3F"
+    # Omicron
+    "\u03BF":  # ο 	Greek Small Letter Omicron
+      - "\u1F40"  # ὀ 	Greek Small Letter Omicron With Psili
+    "\u1F78":  # ὸ 	Greek Small Letter Omicron With Varia
+      - "\u03CC"  # ό 	Greek Small Letter Omicron With Tonos
+      - "\u1F42"  # ὂ 	Greek Small Letter Omicron With Psili And Varia
+      - "\u1F44"  # ὄ 	Greek Small Letter Omicron With Psili And Oxia
+      - "\u1F79"  # ό 	Greek Small Letter Omicron With Oxia
+    "\u039F":  # Ο 	Greek Capital Letter Omicron
+      - "\u1F48"  # Ὀ 	Greek Capital Letter Omicron With Psili
+    "\u1F4A":  # Ὂ 	Greek Capital Letter Omicron With Psili And Varia
+      - "\u038C"
+      - "\u1F4C"  # Ὄ 	Greek Capital Letter Omicron With Psili And Oxia
+    # Rough Omicron
+    "\u1F41":  # ὁ 	Greek Small Letter Omicron With Dasia
+      - "\u03BF\u0314"  # Small omicron + combination dasia
+    "\u1F43":  # ὃ 	Greek Small Letter Omicron With Dasia And Varia
+      - "\u1F45"  # ὅ 	Greek Small Letter Omicron With Dasia And Oxia
+    "\u1F49":  # Ὁ 	Greek Capital Letter Omicron With Dasia
+      - "\u039F\u0314"  # Capital omicron + combination dasia
+    "\u1F4B":  # Ὃ 	Greek Capital Letter Omicron With Dasia And Varia
+      - "\u1F4D"  # Ὅ 	Greek Capital Letter Omicron With Dasia And Oxia
+    # Rho
+    "\u03C1":
+      - "\u1FE4"
+    # Rough Rho
+    "\u1FE5":
+      - "\u03C1\u0314"
+    "\u1FEC":
+      - "\u03A1\u0314"
+
+    # Upsilon
+    "\u03C5":
+      - "\u03CD"  # ύ 	Greek Small Letter Upsilon With Tonos
+      - "\u1F50"  # ὐ 	Greek Small Letter Upsilon With Psili
+      - "\u1F52"  # ὒ 	Greek Small Letter Upsilon With Psili And Varia
+      - "\u1F54"  # ὔ 	Greek Small Letter Upsilon With Psili And Oxia
+      - "\u1F56"  # ὖ 	Greek Small Letter Upsilon With Psili And Perispomeni
+      - "\u1F7A"  # ὺ 	Greek Small Letter Upsilon With Varia
+      - "\u1F7B"  # ύ 	Greek Small Letter Upsilon With Oxia
+      - "\u1FE0"  # ῠ 	Greek Small Letter Upsilon With Vrachy
+      - "\u1FE1"  # ῡ 	Greek Small Letter Upsilon With Macron
+      - "\u1FE6"  # ῦ 	Greek Small Letter Upsilon With Perispomeni
+    "\u03CB":  # ϋ 	Greek Small Letter Upsilon With Dialytika
+      - "\u03B0"  # ΰ 	Greek Small Letter Upsilon With Dialytika And Tonos
+      - "\u1FE2"  # ῢ 	Greek Small Letter Upsilon With Dialytika And Varia
+      - "\u1FE3"  # ΰ 	Greek Small Letter Upsilon With Dialytika And Oxia
+      - "\u1FE7"  # ῧ 	Greek Small Letter Upsilon With Dialytika And Perispomeni
+    "\u03A5":
+      # NOTE: Capital upsilon + psili seems to be absent from Unicode table.
+      - "\u03AB"  # Ϋ 	Greek Capital Letter Upsilon With Dialytika
+      - "\u1F59"  # Ὑ 	Greek Capital Letter Upsilon With Dasia
+      - "\u1FE8"  # Ῠ 	Greek Capital Letter Upsilon With Vrachy
+      - "\u1FE9"  # Ῡ 	Greek Capital Letter Upsilon With Macron
+    "\u1FEA":  # Ὺ 	Greek Capital Letter Upsilon With Varia
+      - "\u1F5B"  # Ὓ 	Greek Capital Letter Upsilon With Dasia And Varia
+      - "\u1F5D"  # Ὕ 	Greek Capital Letter Upsilon With Dasia And Oxia
+      - "\u1F5F"  # Ὗ 	Greek Capital Letter Upsilon With Dasia And Perispomeni
+    # Rough Upsilon
+    "\u1F51":
+      - "\u03C5\u0314"
+      - "\u1F53"
+      - "\u1F55"
+      - "\u1F57"
+    "\u1F59":
+      - "\u03A5\u0314"
+      - "\u1F5B"
+      - "\u1F5D"
+      - "\u1F5F"
+
+    # Omega
+    "\u03C9":  # ω 	Greek Small Letter Omega
+      - "\u1F60"  # ὠ 	Greek Small Letter Omega With Psili
+      - "\u1FA0"  # ᾠ 	Greek Small Letter Omega With Psili And Ypogegrammeni
+      - "\u1FF3"  # ῳ 	Greek Small Letter Omega With Ypogegrammeni
+    "\u1F7C":  # ὼ 	Greek Small Letter Omega With Varia
+      - "\u03CE"  # ώ 	Greek Small Letter Omega With Tonos
+      - "\u1F62"  # ὢ 	Greek Small Letter Omega With Psili And Varia
+      - "\u1F64"  # ὤ 	Greek Small Letter Omega With Psili And Oxia
+      - "\u1F66"  # ὦ 	Greek Small Letter Omega With Psili And Perispomeni
+      - "\u1F7D"  # ώ 	Greek Small Letter Omega With Oxia
+      - "\u1FA2"  # ᾢ 	Greek Small Letter Omega With Psili And Varia And Ypogegrammeni
+      - "\u1FA4"  # ᾤ 	Greek Small Letter Omega With Psili And Oxia And Ypogegrammeni
+      - "\u1FA6"  # ᾦ 	Greek Small Letter Omega With Psili And Perispomeni And Ypogegrammeni
+      - "\u1FF2"  # ῲ 	Greek Small Letter Omega With Varia And Ypogegrammeni
+      - "\u1FF4"  # ῴ 	Greek Small Letter Omega With Oxia And Ypogegrammeni
+      - "\u1FF6"  # ῶ 	Greek Small Letter Omega With Perispomeni
+      - "\u1FF7"  # ῷ 	Greek Small Letter Omega With Perispomeni And Ypogegrammeni
+    "\u03A9":  # Ω 	Greek Capital Letter Omega
+      - "\u1F68"  # Ὠ 	Greek Capital Letter Omega With Psili
+      - "\u1FA8"  # ᾨ 	Greek Capital Letter Omega With Psili And Prosgegrammeni
+      - "\u1FFC"  # ῼ 	Greek Capital Letter Omega With Prosgegrammeni
+    "\u1FFA":  # Ὼ 	Greek Capital Letter Omega With Varia
+      - "\u038F"  # Ώ 	Greek Capital Letter Omega With Tonos
+      - "\u1F6A"  # Ὢ 	Greek Capital Letter Omega With Psili And Varia
+      - "\u1F6C"  # Ὤ 	Greek Capital Letter Omega With Psili And Oxia
+      - "\u1F6E"  # Ὦ 	Greek Capital Letter Omega With Psili And Perispomeni
+      - "\u1FAA"  # ᾪ 	Greek Capital Letter Omega With Psili And Varia And Prosgegrammeni
+      - "\u1FAC"  # ᾬ 	Greek Capital Letter Omega With Psili And Oxia And Prosgegrammeni
+      - "\u1FAE"  # ᾮ 	Greek Capital Letter Omega With Psili And Perispomeni And Prosgegrammeni
+    # Rough omega
+    "\u1F61":  # ὡ 	Greek Small Letter Omega With Dasia
+      - "\u03C9\u0314"  # Small omega + combination dasia
+      - "\u1FA1"  # ᾡ 	Greek Small Letter Omega With Dasia And Ypogegrammeni
+    "\u1F63":  # ὣ 	Greek Small Letter Omega With Dasia And Varia
+      - "\u1F65"  # ὥ 	Greek Small Letter Omega With Dasia And Oxia
+      - "\u1F67"  # ὧ 	Greek Small Letter Omega With Dasia And Perispomeni
+      - "\u1FA3"  # ᾣ 	Greek Small Letter Omega With Dasia And Varia And Ypogegrammeni
+      - "\u1FA5"  # ᾥ 	Greek Small Letter Omega With Dasia And Oxia And Ypogegrammeni
+      - "\u1FA7"  # ᾧ 	Greek Small Letter Omega With Dasia And Perispomeni And Ypogegrammeni
+    "\u1F69":  # Ὡ 	Greek Capital Letter Omega With Dasia
+      - "\u03A9\u0314"  # Capital omega + combination dasia
+      - "\u1FA9"  # ᾩ 	Greek Capital Letter Omega With Dasia And Prosgegrammeni
+    "\u1F6B":  # Ὣ 	Greek Capital Letter Omega With Dasia And Varia
+      - "\u1F6D"  # Ὥ 	Greek Capital Letter Omega With Dasia And Oxia
+      - "\u1F6F"  # Ὧ 	Greek Capital Letter Omega With Dasia And Perispomeni
+      - "\u1FAB"  # ᾫ 	Greek Capital Letter Omega With Dasia And Varia And Prosgegrammeni
+      - "\u1FAD"  # ᾭ 	Greek Capital Letter Omega With Dasia And Oxia And Prosgegrammeni
+      - "\u1FAF"  # ᾯ 	Greek Capital Letter Omega With Dasia And Perispomeni And Prosgegrammeni
+
+    # Remove combining diacritics irrelevant to transliteration.
+    "":
+      - "\u0314"
+      - "\u0342"
+      - "\u0343"
+      - "\u0344"
+      - "\u0345"
+      - "\u037A"
+      - "\u0384"
+      - "\u0385"
+      - "\u1FBD"
+      - "\u1FBE"
+      - "\u1FBF"
+      - "\u1FC0"
+      - "\u1FC1"
+      - "\u1FCD"
+      - "\u1FCE"
+      - "\u1FCF"
+      - "\u1FED"
+      - "\u1FEE"
+      - "\u1FFD"
+
+  map:
+    "\u201C": "\"\u0332"
+    "\u201D": "\"\u0333"
+    "\u2018": "'\u0332"
+    # "\u2019": "'\u0333"
+    "\u2116": "No\u0332"
+    # "\u0300": ""
+    # "\u0301": ""
+    # "\u0302": ""
+    # "\u0313": ""
+    "\u0370": "H\u0323"
+    "\u0371": "h\u0323"
+    "\u0372": "S\uFE20\u0332S\uFE21\u0332"
+    "\u0373": "s\uFE20\u0332s\uFE21\u0332"
+    "\u0374": "\u02B9"
+    "\u0375": "\u0326"
+    "\u0376": "W\u0323"
+    "\u0377": "w\u0323"
+    # \u0378 reserved
+    # \u0379 reserved
+    "\u037A": "\u0328"
+    "\u037B": "|)"
+    "\u037C": "(."
+    "\u037D": ".)"
+    "\u037E": "?\u0333"
+    ";": "?"
+    "\u037F": "J"
+    # \u0380 reserved
+    # \u0381 reserved
+    # \u0382 reserved
+    # \u0383 reserved
+    "\u0384": " \u0301"
+    "\u0385": " \u0308\u0301"
+    "\u0386": "A\u0301"
+    "\u0387": ";\u0333"
+    "\u0388\u0314": "He\u0301"
+    "\u0388": "E\u0301"
+    "\u0389\u0314": "\u0112\u0301"
+    "\u0389": "\u0112\u0301"
+    "\u038A\u0314": "Hi\u0301"
+    "\u038A": "I\u0301"
+    # \u038B reserved
+    "\u038C\u0314": "Ho\u0301"
+    "\u038C": "O\u0301"
+    # \u038D reserved
+    "\u038E\u0314": "Hy\u0301"
+    "\u038E": "Y\u0301"
+    "\u038F\u0314": "Ho\u0301"
+    "\u038F": "\u014C\u0301"
+    "\u0390": "i\u0308\u0301"
+    "\u1F09": "Ha"
+    "\u1F0B": "Ha"
+    "\u0391\u1F31": "Hai"
+    "\u0391\u1F51": "Hau"
+    "\u0391\u1F61": "Ha\u014D"
+    "\u0391\u03C5": "Au"
+    "\u1FBA\u03C5": "Ay"  # Tonos on preceding vowel
+    "\u0391": "A"
+    "\u1FBA": "A"
+    "\u0392": "B"
+    "\u0393": "G"
+    "\u0394": "D"
+    "\u0395\u03C5": "Eu"
+    "\u1F19": "He"
+    "\u1F1B": "He"
+    "\u1F19\u03C5": "Heu"
+    "\u1F1A\u03C5": "Ey"  # Tonos on preceding vowel
+    "\u1F1B\u03C5": "Hey"  # Tonos on preceding vowel
+    "\u0395": "E"
+    "\u1F1A": "E"
+    "\u0396": "Z"
+    "\u1F29": "H\u0113"
+    "\u1F2B": "H\u0113"
+    "\u0397": "\u0112"
+    "\u1F2A": "\u0112"
+    "\u0397\u03C5": "\u0112u"
+    "\u1F2A\u03C5": "\u0112y"  # Tonos on preceding vowel
+    "\u1F29\u1F51": "H\u0113u"
+    "\u1F2B\u1F51": "H\u0113y"  # Tonos on preceding vowel
+    "\u0398": "Th"
+    "\u1F39": "Hi"
+    "\u0399\u03C5": "Iu"
+    "\u0399": "I"
+    "\u039A": "K"
+    "\u039B": "L"
+    "\u039C\u03C0%": "B"
+    "\u039C": "M"
+    "\u039D\u03C4%": "\u1E0E"
+    "\u039D": "N"
+    "\u039E": "X"
+    "\u1F49": "Ho"
+    "\u1F4B": "Ho"
+    "\u039F\u03C5": "Ou"
+    "\u1F4A\u03C5": "Oy"  # Tonos on preceding vowel
+    "\u039F": "O"
+    "\u1F4A": "O"
+    "\u03A0": "P"
+    "\u1FEC": "Rh"
+    "\u03A1": "R"
+    # \u03A2 reserved
+    "\u03A3": "S"
+    "\u03A4": "T"
+    "\u03A5": "Y"
+    "\u03A5\u03B9": "Ui"
+    "\u03A5\u1F31": "Hui"
+    "\u03A6": "Ph"
+    "\u03A7": "Ch"
+    "\u03A8": "Ps"
+    "\u1F69": "H\u014D"
+    "\u1F6B": "H\u014D"
+    "\u1F69\u03C5": "H\u014Du"
+    "\u1F6B\u03C5": "H\u014Dy"  # Tonos on preceding vowel
+    "\u03A9": "\u014C"
+    "\u1FFA": "\u014C"
+    "\u03A9\u03C5": "\u014Cu"
+    "\u1FFA\u03C5": "\u014Cy"  # Tonos on preceding vowel
+    "\u03AA": "I\u0308"
+    "\u03AB": "Y\u0308"
+    "\u03AC\u0314": "ha\u0301"
+    "\u03AC": "a\u0301"
+    "\u03ADU": "he\u0301"
+    "\u03AD": "e\u0301"
+    "\u03AE\u0314": "h\u0113\u0301"
+    "\u03AE": "\u0113\u0301"
+    "\u03AF\u0314": "hi\u0301"
+    "\u03AF": "i\u0301"
+    "\u03B0": "y\u0308\u0301"
+    "\u03B1": "a"
+    "\u1F70": "a"
+    "\u03B1\u03C5": "au"
+    "\u03B1\u1F31": "hai"
+    "\u03B1\u1F51": "hau"
+    "\u03B1\u1F61": "ha\u014D"
+    "\u1F01": "ha"
+    "\u1F03": "ha"
+    "\u1F01\u03C5": "hau"
+    "\u1F01\u1F31": "hai"
+    "\u1F03\u03C5": "hay"  # Tonos on preceding vowel
+    "\u1f70\u03C5": "ay"  # Tonos on preceding vowel
+    "\u03B2": "b"
+    "\u03B3\u03B3": "ng"
+    "\u03B3\u03BA": "nk"
+    "\u0393\u03BA%": "Gk"
+    "\u03B3\u03BA%": "gk"
+    "%\u0393\u03BA": "Gk"
+    "%\u03B3\u03BA": "gk"
+    "\u03B3\u03BE": "nx"
+    "\u03B3\u03C7": "nch"
+    "\u03B3": "g"
+    "\u03B4": "d"
+    "\u1F11": "he"
+    "\u1F13": "he"
+    "\u03B5\u03C5": "eu"
+    "\u1F72\u03C5": "ey"  # Tonos on preceding vowel
+    "\u03B5\u1F51": "heu"
+    "\u1F13\u1F51": "hey"  # Tonos on preceding vowel
+    "\u03B5": "e"
+    "\u1F72": "e"
+    "\u03B6": "z"
+    "\u03B7": "\u0113"
+    "\u1F74": "\u0113"
+    "\u03B7\u03C5": "\u0113u"
+    "\u1F74\u03C5": "\u0113y"  # Tonos on preceding vowel
+    "\u1F21": "h\u0113"
+    "\u1F23": "h\u0113"
+    "\u1F21\u03C5": "h\u0113u"
+    "\u03B7\u1F51": "h\u0113u"
+    "\u1F23\u03C5": "h\u0113y"  # Tonos on preceding vowel
+    "\u03B8": "th"
+    "\u1F31": "hi"
+    "\u1F31\u03C5": "hiu"
+    "\u03B9\u03C5": "iu"
+    "\u03B9": "i"
+    "\u03BA": "k"
+    "\u03BB": "l"
+    "\u03BC\u03C0%": "b"
+    "\u03BC": "m"
+    "\u03BD\u03C4%": "\u1E0F"
+    "\u03BD": "n"
+    "\u03BE": "x"
+    "\u1F41": "ho"
+    "\u1F43": "ho"
+    "\u1F41\u03C5": "hou"
+    "\u03BF\u1F51": "hou"
+    "\u1F43\u03C5": "hoy"  # Tonos on preceding vowel
+    "\u03BF": "o"
+    "\u1F78": "o"
+    "\u03BF\u03C5": "ou"
+    "\u1F78\u03C5": "oy"  # Tonos on preceding vowel
+    "\u03C0": "p"
+    "\u1FE5": "rh"
+    "\u03C1": "r"
+    "\u03C2": "s"
+    "\u03C3": "s"
+    "\u03C4": "t"
+    "\u1F51": "hy"
+    "\u1F59": "Hy"
+    "\u03C5": "y"
+    "\u03C5\u03B9": "ui"
+    "\u03C5\u1F31": "hui"
+    "\u03C6": "ph"
+    "\u03C7": "ch"
+    "\u03C8": "ps"
+    "\u03C9": "\u014D"
+    "\u1F7C": "\u014D"
+    "\u03C9\u03C5": "\u014Du"
+    "\u1F7C\u03C5": "\u014Dy"  # Tonos on preceding vowel
+    "\u1F61": "h\u014D"
+    "\u1F63": "h\u014D"
+    "\u1F61\u03C5": "h\u014Du"
+    "\u03C9\u1F51": "h\u014Du"
+    "\u1F63\u03C5": "h\u014Dy"  # Tonos on preceding vowel
+    "\u03CA": "i\u0308"
+    "\u03CB": "y"
+    "\u03CC": "o\u0301"
+    "\u03CD": "y\u0301"
+    "\u03CE": "\u014D\u0301"
+    "\u03CF": "K\u0326"
+    "\u03D0": "b\u0333"
+    "\u03D1": "t\u0333h\u0333"
+    "\u03D2": "Y\u0333"
+    "\u03D3": "Y\u0301\u0333"
+    "\u03D4": "Y\u0308\u0333"
+    "\u03D5": "p\u0333h\u0333"
+    "\u03D6": "p\u0333"
+    "\u03D7": "k\u0326"
+    "\u03D8": "Ḳ"
+    "\u03D9": "ḳ"
+    "\u03DA": "6\u0333"
+    "\u03DB": "6\u0332"
+    # "\u03DC": "G\u0332"
+    "\u03DC": "W"
+    # "\u03DD": "g\u0332"
+    "\u03DD": "w"
+    "\u03DE": "K\u0324"
+    "\u03DF": "k\u0324"
+    "\u03E0": "s\uFE20s\uFE21"
+    "\u03E1": "S\uFE20S\uFE21"
+    "\u03E2": "S\u030C"
+    "\u03E3": "s\u030C"
+    "\u03E4": "F"
+    "\u03E5": "f"
+    "\u03E6": "H\u0332"
+    "\u03E7": "h\u0332"
+    "\u03E8": "H\u0307"
+    "\u03E9": "h\u0307"
+    "\u03EA": "C\u030C"
+    "\u03EB": "c\u030C"
+    "\u03EC": "K\u0323y"
+    "\u03ED": "k\u0323y"
+    "\u03EE": "T\u0323i"
+    "\u03EF": "t\u0323i"
+    "\u03F0": "k\u0332"
+    "\u03F1": "r\u0332"
+    "\u03F2": "s"
+    "\u03F3": "j"
+    "\u03F4": "T\u0333H\u0333"
+    "\u03F5": "e\u0332"
+    "\u03F6": "e\u0333"
+    "\u03F7": "S\uFE20H\uFE21"
+    "\u03F8": "s\uFE20h\uFE21"
+    "\u03F9": "S"
+    "\u03FA": "S\u0323"
+    "\u03FB": "s\u0323"
+    "\u03FC": "r\u0333"
+    "\u03FD": "|)\u0333"
+    "\u03FE": "(.\u0333"
+    "\u03FF": ".)\u0333"
+
+roman_to_script:
+  map:
+    ".)\u0333": "\u03FF"
+    ".)": "\u037D"
+    "?\u0333": "\u037E"
+    "?": "\u037E"
+    "\"\u0332": "\u201C"
+    "\"\u0333": "\u201D"
+    "'\u0332": "\u2018"
+    "'\u0333": "\u2019"
+    "(.\u0333": "\u03FE"
+    "(.": "\u037C"
+    "|)\u0333": "\u03FD"
+    "|)": "\u037B"
+    # Left pointing double angle quotation mark
+    "\u003C\u003C": "\u00AB"
+    # Right pointing double angle quotation mark
+    "\u003E\u003E": "\u00BB"
+    "6\u0332": "\u03DB"
+    "6\u0333": "\u03DA"
+    "Au": "\u0391\u03C5"
+    "au": "\u03B1\u03C5"
+    "a\u0301": "\u03AC"
+    "B": "\u0392"
+    "b": "\u03B2"
+    "b\u0333": "\u03D0"
+    "Ch": "\u03A7"
+    "ch": "\u03C7"
+    "c\u030C": "\u03EB"
+    "\u1E0E": "\u039D\u03C4"
+    "\u1E0F": "\u03BD\u03C4"
+    "D": "\u0394"
+    "d": "\u03B4"
+    "Eu": "\u0395\u03C5"
+    "eu": "\u03B5\u03C5"
+    "E\u0301": "\u0388"
+    "e\u0301": "\u03AD"
+    "\u0113\u0301": "\u03AE"
+    # "\u0112\u0301": "\u0389\u0314"
+    "\u0112\u0301": "\u0389"
+    "\u0112": "\u0397"
+    "\u0112u": "\u0397\u03C5"
+    "\u0113": "\u03B7"
+    "\u0113u": "\u03B7\u03C5"
+    "e\u0332": "\u03F5"
+    "e\u0333": "\u03F6"
+    "F": "\u03E4"
+    "f": "\u03E5"
+    # "G\u0332": "\u03DC"
+    "W": "\u03DC"
+    # "g\u0332": "\u03DD"
+    "w": "\u03DD"
+    "Ha\u0301": "\u0386\u0314"
+    "ha\u0301": "\u03AC\u0314"
+    "Ha": "\u1F09"
+    "ha": "\u03B1\u0314"
+    "A": "\u0391"
+    "a": "\u03B1"
+    "h\u0113\u0301": "\u03AE\u0314"
+    "He\u0301": "\u0388\u0314"
+    "he\u0301": "\u03AD\u0314"
+    "H\u0113": "\u1F29"
+    "H\u0113u": "\u1F29\u03C5"
+    "h\u0113": "\u1F21"
+    "h\u0113u": "\u03B7\u1F51"
+    # "h\u0113u": "\u1F21\u13C5"  # FIXME this looks wrong.
+    "He": "\u1F19"
+    "he": "\u1F11"
+    "E": "\u0395"
+    "e": "\u03B5"
+    "Hi\u0301": "\u038A\u0314"
+    "hi\u0301": "\u03AF\u0314"
+    "Hi": "\u1F39"
+    "hi": "\u1F31"
+    # "Ho\u0301": "\u038F\u0314"
+    "Ho\u0301": "\u038C\u0314"
+    "h\u014D": "\u1F61"
+    "H\u014D": "\u1F69"
+    "Ho": "\u1F49"
+    "ho": "\u1F41"
+    "H\u0307": "\u03E8"
+    "h\u0307": "\u03E9"
+    "H\u0323": "\u0370"
+    "h\u0323": "\u0371"
+    "H\u0332": "\u03E6"
+    "h\u0332": "\u03E7"
+    "Hy\u0301": "\u038E\u0314"
+    "Hy": "\u1F59"
+    "hy": "\u1F51"
+    "Iu": "\u0399\u03C5"
+    "iu": "\u03B9\u03C5"
+    "I\u0301": "\u038A"
+    "i\u0301": "\u03AF"
+    "I\u0308": "\u03AA"
+    "i\u0308\u0301": "\u0390"
+    "i\u0308": "\u03CA"
+    "J": "\u037F"
+    "j": "\u03F3"
+    "K\u0323y": "\u03EC"
+    "k\u0323y": "\u03ED"
+    "K\u0326": "\u03CF"
+    "k\u0326": "\u03D7"
+    "K\u0332": "\u03DE"
+    # "k\u0332": "\u03DF"  # FIXME ambiguous.
+    "k\u0332": "\u03F0"
+    "L": "\u039B"
+    "l": "\u03BB"
+    "M": "\u039C"
+    "m": "\u03BC"
+    "nch": "\u03B3\u03C7"
+    "ng": "\u03B3\u03B3"
+    "%nk%": "\u03B3\u03BA"
+    "nx": "\u03B3\u03BE"
+    "No\u0332": "\u2116"
+    "N": "\u039D"
+    "n": "\u03BD"
+    "K": "\u039A"
+    "k": "\u03BA"
+    "G": "\u0393"
+    "g": "\u03B3"
+    "Ou": "\u039F\u03C5"
+    "ou": "\u03BF\u03C5"
+    "O\u0301": "\u038C"
+    "o\u0301": "\u03CC"
+    "\u014C\u0301": "\u038F"
+    "\u014D\u0301": "\u03CE"
+    "\u014C": "\u03A9"
+    "\u014Cu": "\u03A9\u03C5"
+    "\u014D": "\u03C9"
+    "\u014Du": "\u03D9\u03C5"
+    "O": "\u039F"
+    "o": "\u03BF"
+    "Ph": "\u03A6"
+    "ph": "\u03C6"
+    "Ps": "\u03A8"
+    "ps": "\u03C8"
+    "p\u0333h\u0333": "\u03D5"
+    "p\u0333": "\u03D6"
+    "P": "\u03A0"
+    "p": "\u03C0"
+    "Ḳ": "\u03D8"
+    "ḳ": "\u03D9"
+    "Rh": "\u1FEC"
+    "rh": "\u1FE5"
+    "r\u0332": "\u03F1"
+    "r\u0333": "\u03FC"
+    "R": "\u03A1"
+    "r": "\u03C1"
+    "S\uFE20\u0332S\uFE21\u0332": "\u0372"
+    "s\uFE20\u0332s\uFE21\u0332": "\u0373"
+    "S\uFE20H\uFE21": "\u03F7"
+    "s\uFE20h\uFE21": "\u03F8"
+    "S\uFE20S\uFE21": "\u03E1"
+    "s\uFE20s\uFE21": "\u03E0"
+    "S\u030C": "\u03E2"
+    "s\u030C": "\u03E3"
+    "S\u0323": "\u03FA"
+    "s\u0323": "\u03FB"
+    # "S": "\u03F9"  # FIXME ambiguous.
+    "S": "\u03A3"
+    # "s": "\u03F2"  # FIXME ambiguous.
+    "%s": "\u03C2"
+    "s": "\u03C3"
+    "T\u0333H\u0333": "\u03F4"
+    "t\u0333h\u0333": "\u03D1"
+    "Th": "\u0398"
+    "th": "\u03B8"
+    "T\u0323i": "\u03EE"
+    "t\u0323i": "\u03EF"
+    "T": "\u03A4"
+    "t": "\u03C4"
+    "I": "\u0399"
+    "i": "\u03B9"
+    "\u0020\u0301": "\u0384"
+    "\u0020\u0308\u0301": "\u0385"
+    ";\u0333": "\u0387"
+    "\u02B9": "\u0374"
+    "\u0326": "\u0375"
+    "\u0328": "\u037A"
+    "V": "\u0392"
+    "v": "\u03B2"
+    "W\u0323": "\u0376"
+    "w\u0323": "\u0377"
+    "X": "\u039E"
+    "x": "\u03BE"
+    "Y\u0301\u0333": "\u03D3"
+    "Y\u0301": "\u038E"
+    "y\u0301": "\u03CD"
+    "Y\u0308\u0333": "\u03D4"
+    "y\u0308\u0301": "\u03B0"
+    "Y\u0308": "\u03AB"
+    "y\u0308": "\u03CB"
+    "Y\u0333": "\u03D2"
+    "Y": "\u03A5"
+    "Ui": "\u03A5\u03B9"
+    "Hui": "\u03A5\u1F31"
+    "y": "\u03C5"
+    "ui": "\u03C5\u03B9"
+    "hui": "\u03C5\u1F31"
+    "Z": "\u0396"
+    "z": "\u03B6"
