@@ -1,7 +1,7 @@
 FROM python:3.10-slim-bookworm
 
 RUN apt update
-RUN apt install -y build-essential tzdata gfortran libopenblas-dev libboost-all-dev libpcre2-dev
+RUN apt install -y build-essential cmake tzdata gfortran libopenblas-dev libboost-all-dev libpcre2-dev
 
 ENV TZ=America/New_York
 ARG WORKROOT "/usr/local/scriptshifter/src"
@@ -16,6 +16,7 @@ ENV HF_DATASETS_CACHE /data/hf/datasets
 WORKDIR ${WORKROOT}
 COPY ext ./ext/
 COPY deps.txt ./
+ENV CFLAGS="-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
 RUN pip install --no-cache-dir -r deps.txt
 
 # Remove development packages.

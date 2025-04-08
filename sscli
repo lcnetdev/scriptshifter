@@ -9,7 +9,7 @@ from glob import glob
 from os import path
 
 from scriptshifter import DB_PATH
-from scriptshifter.tables import init_db as _init_db
+from scriptshifter.tables import get_language, list_tables, init_db as _init_db
 from scriptshifter.trans import transliterate as _transliterate
 from test.integration import test_sample
 
@@ -32,6 +32,63 @@ def init_db():
     _init_db()
 
     click.echo(f"Initialized Scriptshifter DB in {DB_PATH}")
+
+
+@cli.group(name="tables")
+def table_grp():
+    """ Commands to display table information. """
+    pass
+
+
+@table_grp.command()
+def list():
+    """ List all languages. """
+    click.echo("\nLanguage and script tables available:")
+    for tcode, tdata in list_tables().items():
+        click.echo()
+        click.echo(click.style(tcode, fg="green"))
+        for k, v in tdata.items():
+            if v is not None:
+                click.echo(f"\t{k}: {v}")
+
+
+@table_grp.command()
+@click.argument("lang")
+@click.argument("t_dir", default="s2r")
+def show(lang, t_dir):
+    """
+    Show character mappings for a language.
+
+    Only one direction (script to Roman or Roman to script) is diplayed. The
+    mappings are in descending order of priority.
+
+    LANG is one of the language codes obtained by `sscli tables list`.
+
+    T_DIR is the direction to be displayed (`s2r` or `r2s`). Default is `s2r`.
+    """
+    try:
+        lang_md = get_language(lang)
+    except KeyError:
+        click.echo(
+                click.style("ERROR: ", fg="red") +
+                f"{lang} table does not exist.")
+        exit(1)
+
+    dir_k = "script_to_roman" if t_dir == "s2r" else "roman_to_script"
+    if dir_k not in lang_md:
+        click.echo(
+                click.style("ERROR: ", fg="red") +
+                f"{lang} table has no `{dir_k}` section.")
+        exit(1)
+
+    out = lang_md[dir_k].get("map")
+
+    click.echo(f"\nMapping table for {lang}, direction: {t_dir}")
+    click.echo("Tokens are listed in descending order of priority.")
+    click.echo("\nsrc\tdest")
+    click.echo("-" * 12)
+    for src, dest in out:
+        click.echo(f"{src}\t{dest}")
 
 
 @cli.group(name="test")
