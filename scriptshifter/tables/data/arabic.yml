@@ -22,7 +22,6 @@ roman_to_script:
     # Scripts Conceptually"
     # Updated, 26 March 2025 by Randall K. Barry to reverse truncation marks for ScriptShifter
 
-
     # Punctuation marks:
     "*": "\u066D"
     ",": "\u060C"
@@ -393,4 +392,4 @@ script_to_roman:
   hooks:
     post_config:
       -
-        - arabic.camel_tools.s2r_post_config
+        - arabic.arabic_romanizer.s2r_post_config

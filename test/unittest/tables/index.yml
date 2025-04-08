@@ -15,3 +15,5 @@ regex:
   name: inherited config + regex ignore.
 rot3:
   name: Test ROT3 hooks
+word_boundaries:
+  name: Word boundaries
