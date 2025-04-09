@@ -97,7 +97,6 @@ third-party library.
 |  [tatar_cyrillic](../scriptshifter/tables/data/tatar_cyrillic.yml)  |  Tatar (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [telugu](../scriptshifter/tables/data/telugu.yml)  |  Telugu  |  Y  |  Y  |    |  s-to-r lacks capitalization
 |  [thai](../scriptshifter/tables/data/thai.yml)  |  Thai  |  N  |  Y  |  beta  |  
-|  [thai_aksharamukha](../scriptshifter/tables/data/thai_aksharamukha.yml)  |  Thai (Aksharamukha)  |  Y  |  Y  |    |  For Aksharamukha testing
 |  [tibetan](../scriptshifter/tables/data/tibetan.yml)  |  Tibetan  |  Y  |  Y  |    |  
 |  [turkmen_cyrillic](../scriptshifter/tables/data/turkmen_cyrillic.yml)  |  Turkmen (Cyrillic)  |  Y  |  Y  |  stable  |  
 |  [tuvinian_cyrillic](../scriptshifter/tables/data/tuvinian_cyrillic.yml)  |  Tuvinian (Cyrillic)  |  Y  |  Y  |  stable  |  
