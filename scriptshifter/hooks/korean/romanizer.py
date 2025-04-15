@@ -555,7 +555,6 @@ def _kor_rom(kor):
         rom = _replace_map(rom[0], {"R": "L", "r": "l"}) + rom[1:]
 
     # @TODO Move this to a generic normalization step (not only for K)
-    rom = _replace_map(rom, {"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
     logger.debug(f"Romanized token: {rom}")
 
     return rom
