@@ -386,6 +386,11 @@ def _romanize_oclc_auto(kor):
 
 # FKR068: Exceptions, Exceptions to initial sound law, Proper names
 def _kor_rom(kor):
+    # Only convert string if it contains CJK (i.e. do not change if already romanized)
+    # \u3000 is the ideographic space, the lowest codepoint in the Unicode CJK range
+    if max(kor) < '\u3000': 
+        return kor
+
     kor = re.sub(r"\s{2,}", " ", kor.strip())
     orig = kor
 
