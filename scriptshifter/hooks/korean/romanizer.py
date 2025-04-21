@@ -386,6 +386,11 @@ def _romanize_oclc_auto(kor):
 
 # FKR068: Exceptions, Exceptions to initial sound law, Proper names
 def _kor_rom(kor):
+    # Only convert string if it contains CJK (i.e. do not change if already romanized)
+    # \u3000 is the ideographic space, the lowest codepoint in the Unicode CJK range
+    if max(kor) < '\u3000': 
+        return kor
+
     kor = re.sub(r"\s{2,}", " ", kor.strip())
     orig = kor
 
@@ -555,7 +560,6 @@ def _kor_rom(kor):
         rom = _replace_map(rom[0], {"R": "L", "r": "l"}) + rom[1:]
 
     # @TODO Move this to a generic normalization step (not only for K)
-    rom = _replace_map(rom, {"ŏ": "ŏ", "ŭ": "ŭ", "Ŏ": "Ŏ", "Ŭ": "Ŭ"})
     logger.debug(f"Romanized token: {rom}")
 
     return rom
