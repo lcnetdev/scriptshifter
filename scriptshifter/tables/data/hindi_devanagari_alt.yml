@@ -8,5 +8,7 @@ general:
   case_sensitive: false
 
 roman_to_script:
+  map:
 
 script_to_roman:
+  map:

@@ -362,6 +362,10 @@ def load_table(tname):
     parents = tdata.get("general", {}).get("parents", [])
 
     if "script_to_roman" in tdata:
+        # s2r and r2s sections may be empty, but here they need to be converted
+        # to empty dicts.
+        if tdata["script_to_roman"] is None:
+            tdata["script_to_roman"] = {}
         if "double_cap" in tdata["script_to_roman"]:
             tdata["script_to_roman"]["double_cap"] = tuple(
                     tdata["script_to_roman"]["double_cap"])
@@ -411,6 +415,10 @@ def load_table(tname):
                     tname, tdata["script_to_roman"])
 
     if "roman_to_script" in tdata:
+        # s2r and r2s sections may be empty, but here they need to be converted
+        # to empty dicts.
+        if tdata["roman_to_script"] is None:
+            tdata["roman_to_script"] = {}
         tokens = {}
         for parent in parents:
             parent_tdata = load_table(parent)
