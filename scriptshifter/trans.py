@@ -5,14 +5,11 @@ from re import Pattern, compile
 from unicodedata import normalize as precomp_normalize
 
 from scriptshifter.exceptions import BREAK, CONT
+from scriptshifter.hooks.general import normalize_spacing_post_assembly
 from scriptshifter.tables import (
         BOW, EOW, WORD_BOUNDARY, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
         get_connection, get_lang_dcap, get_lang_general, get_lang_hooks,
         get_lang_ignore, get_lang_map, get_lang_normalize)
-
-
-# Match multiple spaces.
-MULTI_WS_RE = compile(r"(\s){2,}")
 
 logger = logging.getLogger(__name__)
 
@@ -389,20 +386,17 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
         # This hook may take care of the assembly and cause the function to
         # return its own return value.
-        hret = ctx.run_hook("pre_assembly")
-        if hret is not None:
-            return hret, ctx.warnings
+        if ctx.run_hook("pre_assembly") == BREAK:
+            return ctx.dest, ctx.warnings
 
         logger.debug(f"Output list: {ctx.dest_ls}")
         ctx.dest = "".join(ctx.dest_ls)
 
         # This hook may reassign the output string and/or cause the function to
         # return it immediately.
-        hret = ctx.run_hook("post_assembly")
-        if hret is not None:
-            return hret, ctx.warnings
+        if ctx.run_hook("post_assembly") == BREAK:
+            return ctx.dest, ctx.warnings
 
-        # Strip multiple spaces and leading/trailing whitespace.
-        ctx.dest = MULTI_WS_RE.sub(r"\1", ctx.dest.strip())
+        normalize_spacing_post_assembly(ctx)
 
         return ctx.dest, ctx.warnings

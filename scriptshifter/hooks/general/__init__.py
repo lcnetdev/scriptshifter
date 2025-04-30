@@ -5,8 +5,9 @@ General-purpose hooks.
 from logging import getLogger
 from re import compile
 
-from scriptshifter.trans import MULTI_WS_RE
 
+# Match multiple spaces.
+MULTI_WS_RE = compile(r"(\s){2,}")
 
 # Punctuation and brackets.
 # TODO add angled brackets, opening and closing quotes, etc.
@@ -42,12 +43,15 @@ def capitalize_post_assembly(ctx):
 
     dest_ls = _capitalize(dest_ls, ctx.options.get("capitalize"))
 
-    return " ".join(dest_ls)
+    ctx.dest = " ".join(dest_ls)
 
 
 def normalize_spacing_post_assembly(ctx):
     """
     Remove duplicate and unwanted whitespace around punctuation.
+
+    NOTE: This is called by default by transliterate() immediately after the
+    `post_assembly` hook.
     """
     # De-duplicate whitespace.
     logger.debug(f"Dest pre manipulation: {ctx.dest}")
@@ -70,7 +74,7 @@ def normalize_spacing_post_assembly(ctx):
     # Remove multiple white space characters.
     # norm = NORM8_RE.sub(r"\1\2", norm)
 
-    return norm
+    ctx.dest = norm
 
 
 def _capitalize(src, which):
