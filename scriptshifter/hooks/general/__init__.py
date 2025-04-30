@@ -12,7 +12,7 @@ MULTI_WS_RE = compile(r"(\s){2,}")
 # Punctuation and brackets.
 # TODO add angled brackets, opening and closing quotes, etc.
 NORM1_RE = compile(r"\s([.,;:\)\]}])")
-NORM2_RE = compile(r"([.,;:\)\]}])(\S)")
+NORM2_RE = compile(r"([,;\)\]}])(\S)")
 NORM3_RE = compile(r"([\(\[\{])\s")
 NORM4_RE = compile(r"(\S)([\(\[\{])")
 
