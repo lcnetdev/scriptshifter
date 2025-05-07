@@ -27,6 +27,6 @@ def s2r_post_config(ctx):
 
     ctx.dest = rsp.json().get("transliteration")
     if ctx.dest:
-        ctx.dest = capitalize_post_assembly(ctx)
+        capitalize_post_assembly(ctx)
 
     return BREAK

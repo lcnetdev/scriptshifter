@@ -4,8 +4,6 @@ __doc__ = """Chinese hooks."""
 from logging import getLogger
 from re import I, compile, search, sub
 
-from scriptshifter.hooks.general import normalize_spacing_post_assembly
-
 
 logger = getLogger(__name__)
 
@@ -21,7 +19,7 @@ def parse_numerals_pre_assembly(ctx):
     tk_ct = len(ctx.dest_ls)
     token_ptn = compile(r"^([A-Za-z]+)#([0-9]*)(\s*)$")
 
-    output = ""
+    output = []
 
     # Use manual loop as i is manipulated inside it.
     i = 0
@@ -36,7 +34,7 @@ def parse_numerals_pre_assembly(ctx):
             # characters representing numbers are converted to Arabic
             # numerals. When a non-numerical token (or end of string) is
             # encountered, the string of numerical tokens is evaluated to
-            # determine which version should be used in the output string.
+            # determine which version should be used in the output.
             # The outer loop then continues where the inner loop left off.
             logger.debug(f"Match number: {tk_i}.")
             text_v = num_v = ""
@@ -96,7 +94,7 @@ def parse_numerals_pre_assembly(ctx):
                             while search("[0-9] [0-9]", num_v):
                                 num_v = sub("([0-9]) ([0-9])", r"\1\2", num_v)
 
-                    output += num_v if use_num_v else text_v
+                    output.append(num_v if use_num_v else text_v)
 
                     # if the end of the string is not reached, backtrack to the
                     # delimiter after the last numerical token (i.e. two tokens
@@ -117,16 +115,12 @@ def parse_numerals_pre_assembly(ctx):
 
         else:
             logger.debug(f"No numeric match: adding {tk_i}.")
-            output += tk_i
+            output.append(tk_i)
 
         i += 1
 
     logger.debug(f"Use num version: {use_num_v}")
-    ctx.dest = output
-
-    # Skip main transliterate function joining.
-
-    return normalize_spacing_post_assembly(ctx)
+    ctx.dest_ls = output
 
 
 def person_name_pre_assembly(ctx):
