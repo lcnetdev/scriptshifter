@@ -1,5 +1,6 @@
 from os import path
 from sys import path as syspath
+from unicodedata import normalize as precomp_normalize
 
 from scriptshifter import APP_ROOT
 from scriptshifter.exceptions import BREAK
@@ -27,5 +28,8 @@ def s2r_post_config(ctx):
             mle_model,
             loc_mappings,
             loc_exceptional)
+
+    # TODO create separate hook.
+    ctx.dest = precomp_normalize("NFD", ctx.dest)
 
     return BREAK
