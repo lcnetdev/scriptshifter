@@ -114,6 +114,15 @@ after the hook function is executed. Possible return values are defined below
 for each hook. Some special return values, such as `BREAK` and `CONT`, are
 registered as constants under `scriptshifter.exceptions`.
 
+### Note on running multiple functions on a hook
+
+Currently, if multiple functions are defined for a hook, they are executed
+in the order specified in the configuration. There is no way to skip a function
+implicitly based on the outcome of the previous one. The only state that is
+passed around in this context, is the `ctx` instance of the `Transliterator`
+class. This may change in the future as specific needs arise. 
+
+
 ### Always available context members
 
 The following members of the context object are available in all the hooks:
@@ -191,7 +200,7 @@ ignore term and when or when not to trigger a match.
   at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list.
 
-#### Output
+#### Return
 
 `CONT`, `BREAK`, or `None`. `CONT` skips the checks on the
 current ignore token. `BREAK` stops looking up ignore tokens for the current
@@ -217,7 +226,7 @@ scanning for more ignore tokens past the match.
 - `ctx.ignoring`: whether an ignore token matched. If set to `False`, the rest
   of the workflow will assume a non-match.
 
-#### Output
+#### Return
 
 `CONT`, `BREAK`, or `None`. `CONT` voids the match and keeps
 on looking up the ignore list. `BREAK` stops looking up ignore tokens for the
@@ -242,7 +251,7 @@ number of characters, and/or exit the text scanning loop altogether.
 - `ctx.src_tk`: the input token being looked up.
 - `ctx.dest_tk`: the transliterated string associated with the current token.
 
-#### Output
+#### Return
 
 `CONT`, `BREAK`, or `None`. `CONT` skips the checks on the
 current token. `BREAK` stops looking up all tokens for the current
@@ -269,7 +278,7 @@ also inject additional conditions and logic for the match, and revoke the
 - `ctx.match`: whether there was a match. If set to `False`, the rest of the
   workflow will assume a non-match.
 
-#### Output
+#### Return
 
 `CONT`, `BREAK`, or `None`. `CONT` voids the match and keeps
 on looking up the token list. `BREAK` stops looking up tokens for the
@@ -292,7 +301,7 @@ cursor position to the destination list, verbatim.
   at every character iteration. See "Cursor Flags" below.
 - `ctx.dest_ls`: destination token list.
 
-#### Output
+#### Return
 
 `CONT`, `BREAK`, or `None`. `CONT` skips to the next position in the input
 text. Int his case, the function **must** advance the cursor. `BREAK` stops all
@@ -311,10 +320,10 @@ bypass any further output handling.
 
 - `ctx.dest_ls`: destination token list.
 
-#### Output
+#### Return
 
-A string or `None`. If the output is a string, the transliteration function
-returns this string immediately; otherwise it proceeds with standard
+`BREAK` or `None`. If `BREAK`, the content of `ctx.dest`, which should be set
+by the function, is returned immediately; otherwise it proceeds with standard
 adjustments and assembly of the output list.
 
 ### `post_assembly`
@@ -333,9 +342,9 @@ and return it before any further default processing is done.
 
 #### Output
 
-String or `None`. If a string, the transliteration function returns that
-immediately; otherwise it proceeds with standard adjustments of the output
-string before returning.
+`BREAK` or `None`. If `BREAK`, the transliteration function returns the content
+of `ctx.dest` immediately; otherwise it proceeds with standard adjustments of
+the output string before returning.
 
 ## Cursor flags
 

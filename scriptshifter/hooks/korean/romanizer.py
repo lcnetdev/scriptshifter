@@ -66,7 +66,7 @@ def s2r_nonames_post_config(ctx):
         # FKR042: Capitalize all first letters
         # FKR043: Capitalize the first letter
         logger.debug(f"Before capitalization: {ctx.dest}")
-        ctx.dest = capitalize_post_assembly(ctx)
+        capitalize_post_assembly(ctx)
 
     return BREAK
 
@@ -84,7 +84,7 @@ def s2r_names_post_config(ctx):
         # FKR042: Capitalize all first letters
         # FKR043: Capitalize the first letter
         logger.debug(f"Before capitalization: {ctx.dest}")
-        ctx.dest = capitalize_post_assembly(ctx)
+        capitalize_post_assembly(ctx)
 
     return BREAK
 
