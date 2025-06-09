@@ -224,6 +224,7 @@ prakrit_devanagari:
   marc_code: pra
   name: Prakrit (Devanagari)
 pulaar:
+  marc_code: ful
   name: Pulaar (Adlam)
 gurmukhi:
   marc_code: pan
