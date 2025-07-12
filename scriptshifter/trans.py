@@ -1,7 +1,7 @@
 import logging
 
 from importlib import import_module
-from re import Pattern, compile
+from re import Pattern
 from unicodedata import normalize as precomp_normalize
 
 from scriptshifter.exceptions import BREAK, CONT
