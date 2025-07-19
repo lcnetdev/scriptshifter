@@ -35,9 +35,9 @@ roman_to_script:
     - "\\bX{1,3}VI{,3}\\b"
 
     # MARC sub-field markers.
-    - "\\b[\u2021$][0-9a-z]\\b"
+    - "\\b[\u2021\u01C2\\$][0-9a-z]\\b"
 
 script_to_roman:
   ignore_ptn:
     # MARC sub-field markers.
-    - "\\b[\u2021$][0-9a-z]\\b"
+    - "\\b[\u2021\u01C2\\$][0-9a-z]\\b"
