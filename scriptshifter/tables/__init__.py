@@ -400,7 +400,7 @@ def load_table(tname):
 
         # Inherit normalization rules.
         for parent in parents:
-            parent_langsec = load_table(parent)["script_to_roman"]
+            parent_langsec = load_table(parent).get("script_to_roman", {})
             normalize |= parent_langsec.get("normalize", {})
 
         for k, v in tdata["script_to_roman"].get("normalize", {}).items():
