@@ -86,6 +86,18 @@ if (nav_lang != undefined) {
 // Trigger the change event to process lang options.
 document.getElementById('lang').dispatchEvent(new Event('change'));
 
+// Change transliteration direction option based on query string.
+const t_dir = qd["dir"];
+const opt_s2r = document.getElementById("opt_s2r");
+const opt_r2s = document.getElementById("opt_r2s");
+if (t_dir == "r2s") {
+    opt_r2s.setAttribute("checked", "");
+    opt_s2r.removeAttribute("checked");
+} else if (t_dir != undefined) {
+    opt_s2r.setAttribute("checked", "");
+    opt_r2s.removeAttribute("checked");
+}
+
 
 document.getElementById('transliterate').addEventListener('submit',(event)=>{
 
