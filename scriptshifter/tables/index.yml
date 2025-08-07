@@ -20,6 +20,9 @@ arabic:
     library.
   marc_code: ara
   name: Arabic
+amharic:
+  marc_code: amh
+  name: Amharic  
 armenian:
   marc_code: arm
   name: Armenian
@@ -281,6 +284,9 @@ thai:
 tibetan:
   marc_code: tib
   name: Tibetan
+tigrinya:
+  marc_code: tir
+  name: Tigrinya  
 tod_mongolian:
   marc_code: xal
   name: Tod Mongolian
