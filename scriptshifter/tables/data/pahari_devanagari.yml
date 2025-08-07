@@ -1,11 +1,10 @@
----
 general:
-  name: Newari (Devanagari)
+  name: Pahari (Devanagari)
   parents:
     - _ignore_base
     - _devanagari_base
 
-  description: Newari language in the Devanagari script
+  description: Pahari language in the Devanagari script
   case_sensitive: false
 
 roman_to_script:

@@ -1,18 +1,19 @@
 ---
 general:
   name: Dogri (Devanagari)
+  parents:
+    - _ignore_base
+    - _devanagari_base
+
+  description: Dogri language in the Devanagari script
   case_sensitive: false
 
-script_to_roman:
-  hooks:
-    post_config:
-      -
-        - aksharamukha.romanizer.s2r_post_config
-        - src_script: "Devanagari"
-
 roman_to_script:
-  hooks:
-    post_config:
-      -
-        - aksharamukha.romanizer.r2s_post_config
-        - dest_script: "Devanagari"
+  map:
+    " " : " "
+    # NO ADDITIONAL MAPPINGS TO APPLY
+
+script_to_roman:
+  map:
+    " " : " "
+    # NO ADDITIONAL MAPPINGS TO APPLY
