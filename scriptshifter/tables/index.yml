@@ -51,6 +51,12 @@ belarusian:
 bengali:
   marc_code: ben
   name: Bengali
+bihari_devanagari:
+  marc_code: bih
+  name: Bihari (Devanagari)
+braj_devanagari:
+  marc_code: bra
+  name: Braj (Devanagari)  
 bulgarian:
   marc_code: bul
   name: Bulgarian
@@ -89,6 +95,7 @@ divehi_thaana:
   marc_code: div
   name: Divehi (Thaana)
 dogri_devanagari:
+  marc_code: doi
   name: Dogri (Devanagari)
 dungan_cyrillic:
   name: Dungan (Cyrillic)
@@ -114,7 +121,7 @@ gujarati:
 hebrew:
   marc_code: heb
   name: Hebrew
-hindi_devanagari:
+hindi:
   marc_code: hin
   name: Hindi (Devanagari)
 hiragana:
@@ -175,6 +182,9 @@ lithuanian_cyrillic:
 macedonian:
   marc_code: mac
   name: Macedonian
+maithili_devanagari:
+  marc_code: mai
+  name: Maithili (Devanagari)  
 malayalam:
   marc_code: mal
   name: Malayalam
@@ -211,6 +221,9 @@ oriya:
 ossetic_cyrillic:
   marc_code: oss
   name: Ossetic (Cyrillic)
+pahari_devanagari:
+  marc_code: him
+  name: Pahari (Devanagari)  
 pali:
   marc_code: pli
   name: Pali
