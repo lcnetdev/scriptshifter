@@ -60,6 +60,9 @@ buriat_cyrillic:
 burmese:
   marc_code: bur
   name: Burmese (Myanmar)
+chechen_cyrillic:
+  marc_code: che
+  name: Chechen (Cyrillic)  
 chinese:
   marc_code: chi
   name: Chinese (Hanzi)
