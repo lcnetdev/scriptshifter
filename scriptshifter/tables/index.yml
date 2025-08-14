@@ -20,6 +20,9 @@ arabic:
     library.
   marc_code: ara
   name: Arabic
+amharic:
+  marc_code: amh
+  name: Amharic  
 armenian:
   marc_code: arm
   name: Armenian
@@ -38,6 +41,7 @@ armenian:
 #     krl, kom, kum, lez, lit, chm, nog, oss, rum, rom, sel, udm, sah
 #   name: Asian Cyrillic
 assamese:
+  marc_code: asm  
   name: assamese
 azerbaijani_cyrillic:
   marc_code: aze
@@ -51,6 +55,12 @@ belarusian:
 bengali:
   marc_code: ben
   name: Bengali
+bihari_devanagari:
+  marc_code: bih
+  name: Bihari (Devanagari)
+braj_devanagari:
+  marc_code: bra
+  name: Braj (Devanagari)  
 bulgarian:
   marc_code: bul
   name: Bulgarian
@@ -89,15 +99,19 @@ divehi_thaana:
   marc_code: div
   name: Divehi (Thaana)
 dogri_devanagari:
+  marc_code: doi
   name: Dogri (Devanagari)
 dungan_cyrillic:
+  marc_code: sit  
   name: Dungan (Cyrillic)
 ethiopic:
   marc_code: amh, eth
   name: Ethiopic (Amharic)
 even-evenki_cyrillic:
+  marc_code: tut
   name: Even/Evenki (Cyrillic)
 gagauz_cyrillic:
+  marc_code: tut
   name: Gagauz (Cyrillic)
 georgian:
   marc_code: geo
@@ -114,7 +128,7 @@ gujarati:
 hebrew:
   marc_code: heb
   name: Hebrew
-hindi_devanagari:
+hindi:
   marc_code: hin
   name: Hindi (Devanagari)
 hiragana:
@@ -142,8 +156,10 @@ kazakh_cyrillic:
   marc_code: kaz
   name: Kazakh (Cyrillic)
 khakass_cyrillic:
+  marc_code: tut
   name: Khakass (Cyrillic)
 khanty_cyrillic:
+  marc_code: fiu  
   name: Khanty (Cyrillic)
 khmer:
   marc_code: khm
@@ -162,6 +178,7 @@ korean_nonames:
   marc_code: kor
   name: Korean
 koryak_cyrillic:
+  marc_code: mis
   name: Koryak (Cyrillic)
 kurdish:
   marc_code: kur
@@ -175,6 +192,9 @@ lithuanian_cyrillic:
 macedonian:
   marc_code: mac
   name: Macedonian
+maithili_devanagari:
+  marc_code: mai
+  name: Maithili (Devanagari)  
 malayalam:
   marc_code: mal
   name: Malayalam
@@ -211,6 +231,9 @@ oriya:
 ossetic_cyrillic:
   marc_code: oss
   name: Ossetic (Cyrillic)
+pahari_devanagari:
+  marc_code: him
+  name: Pahari (Devanagari)  
 pali:
   marc_code: pli
   name: Pali
@@ -281,6 +304,9 @@ thai:
 tibetan:
   marc_code: tib
   name: Tibetan
+tigrinya:
+  marc_code: tir
+  name: Tigrinya  
 tod_mongolian:
   marc_code: xal
   name: Tod Mongolian
@@ -315,6 +341,7 @@ yiddish:
   marc_code: yid
   name: Yiddish
 yuit_cyrillic:
+  marc_code: ypk
   name: Yuit (Cyrillic)
   
 

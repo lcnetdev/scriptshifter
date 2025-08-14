@@ -1,16 +1,18 @@
 general:
   name: Rajasthani (Devanagari)
+  parents:
+    - _ignore_base
+    - _devanagari_base
 
-script_to_roman:
-  hooks:
-    post_config:
-      -
-        - aksharamukha.romanizer.s2r_post_config
-        - src_script: "Devanagari"
+  description: Rajasthani language in the Devanagari script
+  case_sensitive: false
 
 roman_to_script:
-  hooks:
-    post_config:
-      -
-        - aksharamukha.romanizer.r2s_post_config
-        - dest_script: "Devanagari"
+  map:
+    " " : " "
+    # NO ADDITIONAL MAPPINGS TO APPLY
+
+script_to_roman:
+  map:
+    " " : " "
+    # NO ADDITIONAL MAPPINGS TO APPLY

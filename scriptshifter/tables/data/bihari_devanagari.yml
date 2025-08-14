@@ -1,0 +1,21 @@
+---
+general:
+  name: Bihari (Devanagari)
+  parents:
+    - _ignore_base
+    - _devanagari_base
+
+  description: Bihari language in the Devanagari script
+  case_sensitive: false
+
+roman_to_script:
+  map:
+    
+    # NO ADDITIONAL MAPPINGS TO APPLY
+    "" : ""
+
+script_to_roman:
+  map:
+
+    # NO ADDITIONAL MAPPINGS TO APPLY
+    "" : ""
