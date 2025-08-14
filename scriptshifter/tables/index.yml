@@ -41,6 +41,7 @@ armenian:
 #     krl, kom, kum, lez, lit, chm, nog, oss, rum, rom, sel, udm, sah
 #   name: Asian Cyrillic
 assamese:
+  marc_code: asm  
   name: assamese
 azerbaijani_cyrillic:
   marc_code: aze
@@ -101,13 +102,16 @@ dogri_devanagari:
   marc_code: doi
   name: Dogri (Devanagari)
 dungan_cyrillic:
+  marc_code: sit  
   name: Dungan (Cyrillic)
 ethiopic:
   marc_code: amh, eth
   name: Ethiopic (Amharic)
 even-evenki_cyrillic:
+  marc_code: tut
   name: Even/Evenki (Cyrillic)
 gagauz_cyrillic:
+  marc_code: tut
   name: Gagauz (Cyrillic)
 georgian:
   marc_code: geo
@@ -152,8 +156,10 @@ kazakh_cyrillic:
   marc_code: kaz
   name: Kazakh (Cyrillic)
 khakass_cyrillic:
+  marc_code: tut
   name: Khakass (Cyrillic)
 khanty_cyrillic:
+  marc_code: fiu  
   name: Khanty (Cyrillic)
 khmer:
   marc_code: khm
@@ -172,6 +178,7 @@ korean_nonames:
   marc_code: kor
   name: Korean
 koryak_cyrillic:
+  marc_code: mis
   name: Koryak (Cyrillic)
 kurdish:
   marc_code: kur
@@ -334,6 +341,7 @@ yiddish:
   marc_code: yid
   name: Yiddish
 yuit_cyrillic:
+  marc_code: ypk
   name: Yuit (Cyrillic)
   
 
