@@ -1,0 +1,19 @@
+---
+general:
+  name: Tigrinya
+  parents:
+    - _ignore_base
+    - _ethiopic_base
+
+  description: Tigrinya language in the Ethiopic (Ge'ez) script
+  case_sensitive: false
+
+roman_to_script:
+  map:
+    " " : " "
+    # NO ADDITIONAL MAPPINGS TO APPLY
+
+script_to_roman:
+  map:
+    " " : " "
+    # NO ADDITIONAL MAPPINGS TO APPLY
