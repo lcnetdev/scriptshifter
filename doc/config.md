@@ -217,8 +217,8 @@ To create specific rules for initial, final, and standalone tokens, the `%`
 character is used to mark the word boundary. Hence:
 
 ```
-  "token%": "transliteration of token at beginning of word"
-  "%token": "transliteration of token at end of word"
+  "%token": "transliteration of token at beginning of word"
+  "token%": "transliteration of token at end of word"
   "%token%": "transliteration of standalone token"
   "token": "transliteration of token anywhere else not specified"
 ```
