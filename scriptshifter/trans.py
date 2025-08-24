@@ -21,15 +21,15 @@ class Transliterator:
     Use within a `with` block for proper cleanup.
     """
     @property
-    def src(self):
-        return self._src
+    def orig(self):
+        return self._orig
 
-    @src.setter
-    def src(self):
+    @orig.setter
+    def orig(self, v):
         raise NotImplementedError("Attribute is read-only.")
 
-    @src.deleter
-    def src(self):
+    @orig.deleter
+    def orig(self):
         raise NotImplementedError("Attribute is read-only.")
 
     @property
@@ -47,7 +47,8 @@ class Transliterator:
             options (dict): extra options as a dict.
         """
         self.lang = lang
-        self._src = src
+        self._orig = src
+        self.src = src
         self.t_dir = t_dir
         self.conn = get_connection()
         with self.conn as conn:
@@ -96,12 +97,12 @@ class Transliterator:
         # Note: only safe for R2S.
         if self.t_dir == FEAT_R2S:
             logger.debug("Normalizing pre-composed symbols.")
-            self._src = precomp_normalize("NFD", self.src)
+            self.src = precomp_normalize("NFD", self.src)
 
         norm_rules = get_lang_normalize(self.conn, self.lang_id)
 
         for nk, nv in norm_rules.items():
-            self._src = self.src.replace(nk, nv)
+            self.src = self.src.replace(nk, nv)
 
         return self.run_hook("post_normalize")
 
@@ -181,7 +182,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
 
         # Normalize case before post_config and rule-based normalization.
         if t_dir == FEAT_R2S and not ctx.general["case_sensitive"]:
-            ctx._src = ctx.src.lower()
+            ctx.src = ctx.src.lower()
 
         # This hook may take over the whole transliteration process or delegate
         # it to some external process, and return the output string directly.
