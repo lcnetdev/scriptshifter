@@ -127,7 +127,9 @@ class. This may change in the future as specific needs arise.
 
 The following members of the context object are available in all the hooks:
 
-- `ctx.src`: Source text. Read only.
+- `ctx.orig`: Original source text. Read only.
+- `ctx.src`: Source text, initially equal to `ctx.orig` but it may be modified,
+  e.g. during normalization.
 - `ctx.general`: Configuration general options.
 - `ctx.langsec`: language section (S2R or R2S) of configuration.
 - `ctx.options`: language-specific options defined in configuration and set
