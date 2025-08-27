@@ -92,9 +92,9 @@ cyrillic_generic:
   marc_code: abk, ady, alt, ava, bak, bel, bul, che, chm, chv, dar, ale, esk, kbd, xal, krc, kaa,
     krl, kom, kum, lez, lit, mac, nog, oss, rum, rom, sah, sel, srp, udm, ukr
   name: Cyrillic (Generic)
-devanagari:
-  marc_code: hin, san
-  name: Devanagari
+#devanagari:
+#  marc_code: hin, san
+#  name: Devanagari
 divehi_thaana:
   marc_code: div
   name: Divehi (Thaana)
