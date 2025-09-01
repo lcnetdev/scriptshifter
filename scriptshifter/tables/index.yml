@@ -22,26 +22,12 @@ arabic:
   name: Arabic
 amharic:
   marc_code: amh
-  name: Amharic  
+  name: Amharic
 armenian:
   marc_code: arm
   name: Armenian
-# asian_cyrillic:
-#   description: >
-#     Multi-purpose transliteration for non-Slavic Cyrillic scripts: Abaza,
-#     Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar, Bashkir, Buryat,
-#     Chechen, Chukchi, Chuvash, Dargwa, Dungan, Eskimo, Even, Evenki, Gagauz,
-#     Ingush, Inuit, Kabardian, Kalmyk, Karachay, Karachay-Balkar, Karakalpak,
-#     Karelian, Khakass, Khanty, Komi, Komi-Permyak, Koryak, Kumyk, Lak, Lapp,
-#     Lezghian, Lithuanian, Mansi, Mari, Moldovan, Molodstov, Mordvin, Nanai,
-#     Nenets, Nivkh, Nogai, Ossetic, Permyak, Romanian, Romany, Selkup, Shor,
-#     Tabasaran, Tat, Tuva, Udekhe, Udmurt, Yakut.
-#   marc_code: >
-#     abk, ady, alt, ava, bak, che, chv, dar, ale, esk, kbd, xal, krc, kaa,
-#     krl, kom, kum, lez, lit, chm, nog, oss, rum, rom, sel, udm, sah
-#   name: Asian Cyrillic
 assamese:
-  marc_code: asm  
+  marc_code: asm
   name: assamese
 azerbaijani_cyrillic:
   marc_code: aze
@@ -60,7 +46,7 @@ bihari_devanagari:
   name: Bihari (Devanagari)
 braj_devanagari:
   marc_code: bra
-  name: Braj (Devanagari)  
+  name: Braj (Devanagari)
 bulgarian:
   marc_code: bul
   name: Bulgarian
@@ -82,19 +68,20 @@ chuvash_cyrillic:
   marc_code: chv
   name: Chuvash (Cyrillic)
 cyrillic_generic:
-  description: 'Multi-purpose transliteration for most languages that use the Cyrillic script:
-    Abaza, Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar, Bashkir, Belarusian, Bulgarian,
-    Buryat, Chechen, Chukchi, Chuvash, Dargwa, Dungan, Eskimo, Even, Evenki, Gagauz, Ingush,
-    Inuit, Kabardian, Kalmyk, Karachay, Karachay-Balkar, Karakalpak, Karelian, Khakass, Khanty,
-    Komi, Komi-Permyak, Koryak, Kumyk, Lak, Lapp, Lezghian, Lithuanian, Macedonian, Mansi, Mari,
-    Moldovan, Molodstov, Mordvin, Nanai, Nenets, Nivkh, Nogai, Ossetic, Permyak, Romanian, Romany,
-    Russian, Selkup, Serbian, Shor, Tabasaran, Tat, Tuva, Udekhe, Udmurt, Ukrainian, Yakut.'
-  marc_code: abk, ady, alt, ava, bak, bel, bul, che, chm, chv, dar, ale, esk, kbd, xal, krc, kaa,
-    krl, kom, kum, lez, lit, mac, nog, oss, rum, rom, sah, sel, srp, udm, ukr
+  description: >
+    Multi-purpose transliteration for most languages that use the
+    Cyrillic script: Abaza, Abkhaz, Adygei, Aisor, Altai, Avar, Azeri, Balkar,
+    Bashkir, Belarusian, Bulgarian, Buryat, Chechen, Chukchi, Chuvash, Dargwa,
+    Dungan, Eskimo, Even, Evenki, Gagauz, Ingush, Inuit, Kabardian, Kalmyk,
+    Karachay, Karachay-Balkar, Karakalpak, Karelian, Khakass, Khanty, Komi,
+    Komi-Permyak, Koryak, Kumyk, Lak, Lapp, Lezghian, Lithuanian, Macedonian,
+    Mansi, Mari, Moldovan, Molodstov, Mordvin, Nanai, Nenets, Nivkh, Nogai,
+    Ossetic, Permyak, Romanian, Romany, Russian, Selkup, Serbian, Shor,
+    Tabasaran, Tat, Tuva, Udekhe, Udmurt, Ukrainian, Yakut.'
+  marc_code: abk, ady, alt, ava, bak, bel, bul, che, chm, chv, dar, ale, esk,
+    kbd, xal, krc, kaa, krl, kom, kum, lez, lit, mac, nog, oss, rum, rom, sah,
+    sel, srp, udm, ukr
   name: Cyrillic (Generic)
-devanagari:
-  marc_code: hin, san
-  name: Devanagari
 divehi_thaana:
   marc_code: div
   name: Divehi (Thaana)
@@ -102,7 +89,7 @@ dogri_devanagari:
   marc_code: doi
   name: Dogri (Devanagari)
 dungan_cyrillic:
-  marc_code: sit  
+  marc_code: sit
   name: Dungan (Cyrillic)
 ethiopic:
   marc_code: amh, eth
@@ -159,7 +146,7 @@ khakass_cyrillic:
   marc_code: tut
   name: Khakass (Cyrillic)
 khanty_cyrillic:
-  marc_code: fiu  
+  marc_code: fiu
   name: Khanty (Cyrillic)
 khmer:
   marc_code: khm
@@ -194,7 +181,7 @@ macedonian:
   name: Macedonian
 maithili_devanagari:
   marc_code: mai
-  name: Maithili (Devanagari)  
+  name: Maithili (Devanagari)
 malayalam:
   marc_code: mal
   name: Malayalam
@@ -233,7 +220,7 @@ ossetic_cyrillic:
   name: Ossetic (Cyrillic)
 pahari_devanagari:
   marc_code: him
-  name: Pahari (Devanagari)  
+  name: Pahari (Devanagari)
 pali:
   marc_code: pli
   name: Pali
@@ -306,7 +293,7 @@ tibetan:
   name: Tibetan
 tigrinya:
   marc_code: tir
-  name: Tigrinya  
+  name: Tigrinya
 tod_mongolian:
   marc_code: xal
   name: Tod Mongolian
@@ -343,5 +330,3 @@ yiddish:
 yuit_cyrillic:
   marc_code: ypk
   name: Yuit (Cyrillic)
-  
-
