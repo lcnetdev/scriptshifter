@@ -22,22 +22,17 @@ roman_to_script:
     # dedicated U+2160÷U+216F (uppercase Roman
     # numerals) and/or U+2170÷U+217F (lower case Roman
     # numerals) ranges to avoid this ambiguity.
-    - "\\bI{2,3}\\b"
-    - "\\bI(V|X)\\b"
-    - "\\bLI{,3}\\b"
-    - "\\bLI?(V|X)\\b"
-    - "\\bL(V|X{1,3})I{,3}\\b"
-    - "\\bLX{1,3}I?V\\b"
-    - "\\bLX{1,3}VI{,3}\\b"
-    - "\\b(V|X{1,3})I{,3}\\b"
-    - "\\bX{1,3}I{,3}\\b"
-    - "\\bX{1,3}I(V|X)\\b"
-    - "\\bX{1,3}VI{,3}\\b"
+    - "I{2,3}\\b"
+    - "I(V|X)\\b"
+    - "LI{,3}\\b"
+    - "LI?(V|X)\\b"
+    - "L(V|X{1,3})I{,3}\\b"
+    - "LX{1,3}I?V\\b"
+    - "LX{1,3}VI{,3}\\b"
+    - "(V|X{1,3})I{,3}\\b"
+    - "X{1,3}I{,3}\\b"
+    - "X{1,3}I(V|X)\\b"
+    - "X{1,3}VI{,3}\\b"
 
     # MARC sub-field markers.
-    - "\\b[\u2021\u01C2\\$][0-9a-z]\\b"
-
-script_to_roman:
-  ignore_ptn:
-    # MARC sub-field markers.
-    - "\\b[\u2021\u01C2\\$][0-9a-z]\\b"
+    - "[\u2021\u01C2\\$][0-9a-z]\\b"
