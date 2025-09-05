@@ -1,18 +1,23 @@
 ---
 general:
   name: Panjabi (Gurmukhi)
-  case_sensitive: false
+  parents:
+    - _gurmukhi_base
 
-script_to_roman:
-  hooks:
-    post_config:
-      -
-        - aksharamukha.romanizer.s2r_post_config
-        - src_script: "Gurmukhi"
+  description: Panjabi language in the Gurmukhi script
+  case_sensitive: false
 
 roman_to_script:
   hooks:
     post_config:
       -
-        - aksharamukha.romanizer.r2s_post_config
-        - dest_script: "Gurmukhi"
+        - gurmukhi.nasalize_post_config
+
+  map:
+    "": ""
+    # NO ADDITIONAL MAPPINGS TO APPLY
+
+script_to_roman:
+  map:
+    "": ""
+    # NO ADDITIONAL MAPPINGS TO APPLY
