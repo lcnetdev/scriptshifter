@@ -13,9 +13,7 @@ Configuration files, also called transliteration tables, are contained in the
 The configuration file names are key to most operations in the software. They
 are all-lowercase and use underscores to separate words, e.g.
 `church_slavonic`. They have the `.yml` extension and are written in the
-[YAML](https://yaml.org/) configuration language. Hence, a transliteration
-request to the `/trans` REST API endpoint providing `church_slavonic` as the
-transliteration language, uses the `church_slavonic.yml` configuration file.
+[YAML](https://yaml.org/) configuration language.
 
 Other files are present in the `data` directory that are not exposed to the end
 user via Web UI or REST API. These files may be incomplete transliteration
@@ -35,10 +33,49 @@ transliteration table key names as described previously, and the values are
 key-value pairs which can have arbitrary contents. These contents are displayed
 to the user in the `/languages` API endpoint.
 
-The only mandatory key for each key-value pair is `name`, which is the
-human-readable label that is displayed in the Web UI. Other keys, such as
-`description`, may be used to inform the user about the scope of a particular
-table.
+Each entry of the index file are the following:
+
+### `<entry_name>`
+
+The key for the language/script. This is referred in multiple places across
+the application, e.g. the `/trans/mongolian_cyrillic` API method transliterates
+a sentence using the `mongolian_cyrillic` index entry. By default, the
+`mongolian_cyrillic` entry in the index file (see below) uses the
+`mongolian_cyrillic.yml` configuration file in the `data/` folder. This can be
+overridden by the `conf` key (see below).
+
+By convention, an entry name uses the name of the language, followed by the
+name of the script, separated by an underscore, *only if that language is known
+to exist in multiple scripts*. For example, `mongolian_cyrillic` is used for
+Mongolian written in Cyrillic, and `mongolian_mongol_bichig` for the native
+Mongol Bichig script; while `persian` is only found in Arabic script, so
+`arabic` is not added.
+
+### `<entry_name>.name`
+
+Human-readable label that is displayed in the Web UI. Mandatory.
+
+### `<entry_name>.conf`
+
+Override the default configuration file lookup. By default,
+the configuration file is inferred from the key name, e.g. `chinese` looks up
+`data/chinese.yml`. However, some entries in the index may not have a distinct
+configuration and reuse an existing configuration that works for that language.
+Several languages in the Cyrillic script use this method.
+
+The value is the full file name relative to the `data/` directory, e.g.
+`cyrillic_generic.yml`.
+
+### `<entry_name>.marc_code`
+
+MARC code from the [MARC Standards Office registry
+](https://www.loc.gov/marc/languages/language_name.html). This may be used by
+external applications to more easily look up entries. Optional.
+
+### `<entry_name>.description`
+
+Additional description that  may be used to inform the user about the scope of
+a particular table. Optional.
 
 ## Inheritance
 

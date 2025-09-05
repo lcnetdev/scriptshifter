@@ -66,6 +66,8 @@ FEAT_RE = 1 << 3        # Regular expression.
 
 logger = logging.getLogger(__name__)
 
+tbl_index = None  # Module-level index of all scripts.
+
 
 class Token(str):
     """
@@ -165,11 +167,12 @@ def init_db():
             conn.executescript(fh.read())
 
     # Populate tables.
+    global tbl_index
     with open(path.join(path.dirname(TABLE_DIR), "index.yml")) as fh:
-        tlist = load(fh, Loader=Loader)
+        tbl_index = load(fh, Loader=Loader)
     try:
         with conn:
-            for tname, tdata in tlist.items():
+            for tname, tdata in tbl_index.items():
                 populate_table(conn, tname, tdata)
 
         # If the DB already exists, it will be overwritten ONLY on success at
@@ -340,9 +343,14 @@ def load_table(tname):
     the language & script metadata and parsing rules.
     """
 
-    fname = path.join(TABLE_DIR, tname + ".yml")
+    try:
+        fname = path.join(TABLE_DIR, tbl_index[tname]["conf"])
+    except KeyError:
+        # If no `conf` key is provided, use the conventional table name + .yml.
+        fname = path.join(TABLE_DIR, tname + ".yml")
     if not access(fname, R_OK):
-        raise ValueError(f"No transliteration table for {tname}!")
+        raise ValueError(
+                f"No transliteration table `{fname}` found for {tname}!")
 
     with open(fname) as fh:
         tdata = load(fh, Loader=Loader)
@@ -400,7 +408,7 @@ def load_table(tname):
 
         # Inherit normalization rules.
         for parent in parents:
-            parent_langsec = load_table(parent)["script_to_roman"]
+            parent_langsec = load_table(parent).get("script_to_roman", {})
             normalize |= parent_langsec.get("normalize", {})
 
         for k, v in tdata["script_to_roman"].get("normalize", {}).items():
