@@ -140,3 +140,4 @@ ext/arabic_rom/data
 scriptshifter/data/*.db
 !.keep
 VERSION
+.~lock.*
