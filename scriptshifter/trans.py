@@ -1,17 +1,20 @@
 import logging
 
 from importlib import import_module
-from re import Pattern
+from re import Pattern, compile
 from unicodedata import normalize as precomp_normalize
 
 from scriptshifter.exceptions import BREAK, CONT
 from scriptshifter.hooks.general import normalize_spacing_post_assembly
 from scriptshifter.tables import (
-        BOW, EOW, WORD_BOUNDARY, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
+        BOW, EOW, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
         get_connection, get_lang_dcap, get_lang_general, get_lang_hooks,
         get_lang_ignore, get_lang_map, get_lang_normalize)
 
 logger = logging.getLogger(__name__)
+
+WORD_PTN = compile(r"\w")
+WB_PTN = compile(r"\W")
 
 
 class Transliterator:
@@ -116,8 +119,8 @@ class Transliterator:
             cur = self.cur
         return (
             self.cur == 0
-            or self.src[cur - 1] in WORD_BOUNDARY
-        ) and (self.src[cur] not in WORD_BOUNDARY)
+            or WB_PTN.match(self.src[cur - 1])
+        ) and WORD_PTN.match(self.src[cur])
 
     def cur_at_eow(self, cur=None):
         """
@@ -129,8 +132,8 @@ class Transliterator:
             cur = self.cur
         return (
             cur == len(self.src) - 1
-            or self.src[cur + 1] in WORD_BOUNDARY
-        ) and (self.src[cur] not in WORD_BOUNDARY)
+            or WB_PTN.match(self.src[cur + 1])
+        ) and WORD_PTN.match(self.src[cur])
 
 
 def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):

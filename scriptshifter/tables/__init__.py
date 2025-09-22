@@ -47,8 +47,6 @@ HOOKS = (
 )
 # Package path where hook functions are kept.
 HOOK_PKG_PATH = "scriptshifter.hooks"
-# Default characters defining a word boundary. This is configurable per-table.
-WORD_BOUNDARY = " \n\t:;.,\"'-()[]{}"
 
 # Token word boundary marker. Used in maps to distinguish special
 # transliterations for initial, final, and standalone tokens.
