@@ -1,11 +1,9 @@
-# Chinese numerals map.
-#
-# All other Chinese mappings are kept in _chinese_base.yml. This mapping only
-# adds an overlay for parsing numerals and Scriptshifter-specific features.
-
 ---
 general:
   name: Chinese
+  description: >
+    Chinese transliteration table that does not convert Chinese numerals to
+    Indo-Arabic numerals.
   parents:
     - _chinese_base
   case_sensitive: false
@@ -30,38 +28,6 @@ script_to_roman:
   hooks:
     pre_assembly:
       -
-        - chinese.parse_numerals_pre_assembly
-      -
         - chinese.person_name_pre_assembly
 
-  map:
-    "〇": "ling#0 "
-    "零": "ling#0 "
-    "一": "yi#1 "
-    "二": "er#2 "
-    "兩": "liang#2 "
-    "两": "liang#2 "
-    "三": "san#3 "
-    "四": "si#4 "
-    "五": "wu#5 "
-    "六": "liu#6 "
-    "七": "qi#7 "
-    "八": "ba#8 "
-    "九": "jiu#9 "
-    "十": "shi#10 "
-    "廾": "gong#20 "
-    "廿": "nian#20 "
-    "卅": "sa#30 "
-    "卌": "xi#40 "
-    "百": "bai#100 "
-    "千": "qian#1000 "
-    "万": "wan#10000 "
-    "萬": "wan#10000 "
-    "亿": "yi#100000000 "
-    "億": "yi#100000000 "
-    "及": "ji# "
-    "至": "zhi# "
-    "年": "nian# "
-    "月": "yue# "
-    "日": "ri# "
-    "第": "di# "
+  map: {}
