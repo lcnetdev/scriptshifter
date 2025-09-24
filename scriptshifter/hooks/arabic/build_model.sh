@@ -38,6 +38,6 @@ python3 src/loc_transcribe.py predict mle dev --mle_model models/mle/size1.0.tsv
 
 # Seq2Seq
 echo "Preparing Seq2seq."
-make prep_seq2seq
+python3 src/data/make_seq2seq_dataset.py -l ${SS_LANG}
 echo "Training models."
-python3 src/loc_transcribe.py train seq2seq --train --size {1.0,0.5,0.25,0.125,0.0625,0.03125,0.015625}
+python3 src/data/make_seq2seq_dataset.py  --size {1.0,0.5,0.25,0.125,0.0625,0.03125,0.015625}

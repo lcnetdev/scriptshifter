@@ -87,6 +87,7 @@ roman_to_script:
     "%\u02BC": "\u0F60"
     "%\u02BE": "\u0F60"
     "%\u0027": "\u0F60"
+    "%\u02BE": "\u0F60"
     "%\u0027": "\u0F60"
 
     # OTHER TIBETAN MARKS
