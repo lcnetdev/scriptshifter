@@ -2,8 +2,7 @@
 general:
   name: Chechen (Cyrillic)
   parents:
-    - _cyrillic_base
-    - _ignore_base
+    - cyrillic_generic
 
 roman_to_script:
   map:
