@@ -1,0 +1,15 @@
+---
+general:
+  name: Chechen (Cyrillic)
+  parents:
+    - cyrillic_generic
+
+roman_to_script:
+  map:
+    "H\u0307": "\u04C0"
+    "h\u0307": "\u04CF"
+
+script_to_roman:
+  map:
+    "\u04C0": "H\u0307"
+    "\u04CF": "h\u0307"
