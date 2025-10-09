@@ -6,5 +6,6 @@
 "rot3","st uv","Vw Xy","r2s","{""capitalize"": ""all""}"
 "regex","Hello abc","Hello 678","r2s",
 "regex","Hullo abc","5u22o 678","r2s",
-"word_boundaries","bab aa b.abc c, dae abada:ddd vb","<212> <11> 020.<123> 030, <41e <12141>:<444> v2>","r2s"
-"word_boundaries","43 23432 455 4:3 51, 11","<dc> <bcdcb> <d55 0d0:0c0 5a>, <aa>","s2r"
+"word_boundaries","bab aa\u0F0Bb.abc c, dan\u0F0Cabada:ddd vb","<27> <11>\u0F0B020.080 030, <41n\u0F0C<7141>:<444> v2>","r2s"
+"word_boundaries","43\u0F0D2123432 455 4:3 51, 11","<dc>\u0F0D<bfdcb> <d55 0d0:0c0 5a>, <aa>","s2r"
+"word_boundaries","
