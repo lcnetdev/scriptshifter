@@ -2,16 +2,22 @@ import logging
 
 from importlib import import_module
 from re import Pattern
+from regex import compile
 from unicodedata import normalize as precomp_normalize
 
 from scriptshifter.exceptions import BREAK, CONT
 from scriptshifter.hooks.general import normalize_spacing_post_assembly
 from scriptshifter.tables import (
-        BOW, EOW, WORD_BOUNDARY, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
+        BOW, EOW, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
         get_connection, get_lang_dcap, get_lang_general, get_lang_hooks,
         get_lang_ignore, get_lang_map, get_lang_normalize)
 
 logger = logging.getLogger(__name__)
+
+# Beginning-of-word pattern.
+BOW_PTN = compile(r"(?<=[\p{P}\p{Z}]|^)[\p{L}\p{M}\p{S}]")
+# End-of-word pattern.
+EOW_PTN = compile(r"[\p{L}\p{M}\p{S}](?=[\p{P}\p{Z}]|$)")
 
 
 class Transliterator:
@@ -104,33 +110,10 @@ class Transliterator:
         for nk, nv in norm_rules.items():
             self.src = self.src.replace(nk, nv)
 
+        self.bow_coords = {m.span()[0] for m in BOW_PTN.finditer(self.src)}
+        self.eow_coords = {m.span()[0] for m in EOW_PTN.finditer(self.src)}
+
         return self.run_hook("post_normalize")
-
-    def cur_at_bow(self, cur=None):
-        """
-        Check if cursor is at the beginning of a word.
-
-        @param cur(int): Position to check. By default, the current cursor.
-        """
-        if cur is None:
-            cur = self.cur
-        return (
-            self.cur == 0
-            or self.src[cur - 1] in WORD_BOUNDARY
-        ) and (self.src[cur] not in WORD_BOUNDARY)
-
-    def cur_at_eow(self, cur=None):
-        """
-        Check if cursor is at the end of a word.
-
-        @param cur(int): Position to check. By default, the current cursor.
-        """
-        if cur is None:
-            cur = self.cur
-        return (
-            cur == len(self.src) - 1
-            or self.src[cur + 1] in WORD_BOUNDARY
-        ) and (self.src[cur] not in WORD_BOUNDARY)
 
 
 def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
@@ -206,11 +189,11 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             ctx.cur_flags = 0
 
             # Look for a word boundary and flag word beginning/end it if found.
-            if ctx.cur_at_bow():
+            if ctx.cur in ctx.bow_coords:
                 # Beginning of word.
                 logger.debug(f"Beginning of word at position {ctx.cur}.")
                 ctx.cur_flags |= BOW
-            if ctx.cur_at_eow():
+            if ctx.cur in ctx.eow_coords:
                 # End of word.
                 logger.debug(f"End of word at position {ctx.cur}.")
                 ctx.cur_flags |= EOW
@@ -316,7 +299,7 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                         # Can't rely on EOW flag, we must check on the last
                         # character of the potential match.
                         ctx.src_tk.flags & EOW
-                        and not ctx.cur_at_eow(ctx.cur + step - 1)
+                        and ctx.cur + step - 1 not in ctx.eow_coords
                     )
                 ):
                     continue
