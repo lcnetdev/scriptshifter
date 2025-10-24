@@ -62,6 +62,11 @@ chechen_cyrillic:
 chinese:
   marc_code: chi
   name: Chinese (Hanzi)
+chinese_numerals:
+  marc_code: chi
+  name: Chinese (Arabic numerals)
+  description: >
+    Chinese transliteration that converts Chinese numerals to Arabic numerals.
 chukchi_cyrillic:
   name: Chukchi (Cyrillic)
 church_slavonic:

@@ -6,7 +6,6 @@ from regex import compile
 from unicodedata import normalize as precomp_normalize
 
 from scriptshifter.exceptions import BREAK, CONT
-from scriptshifter.hooks.general import normalize_spacing_post_assembly
 from scriptshifter.tables import (
         BOW, EOW, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
         get_connection, get_lang_dcap, get_lang_general, get_lang_hooks,
@@ -380,7 +379,5 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
         # return it immediately.
         if ctx.run_hook("post_assembly") == BREAK:
             return ctx.dest, ctx.warnings
-
-        normalize_spacing_post_assembly(ctx)
 
         return ctx.dest, ctx.warnings
