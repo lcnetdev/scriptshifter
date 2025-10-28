@@ -18,25 +18,29 @@ roman_to_script:
     # combining breve below \u032E
 
     # SPECIAL SPACING CHARACTERS
-
+    
     # ayn (spacing) \u02BB
     # alif (spacing) \u02BC
     # apostrophe (spacing) \u0027
 
+
+    "alla\u0304h": "\uFDF2"
+    "allah": "\uFDF2"
+
     # INITIAL VOWELS
 
-    "a\u0304%": "\u0787\u07A7"
-    "a%": "\u0787\u07A6"
-    "e\u0304%": "\u0787\u07AD"
-    "e%": "\u0787\u07AC"
-    "i\u0304%": "\u0787\u07A9"
-    "i%": "\u0787\u07A8"
-    "o\u0304%": "\u0787\u07AF"
-    "o%": "\u0787\u07AE"
-    "u\u0304%": "\u0787\u07AB"
-    "u%": "\u0787\u07AA"
+    "%a\u0304": "\u0787\u07A7"
+    "%a": "\u0787\u07A6"
+    "%e\u0304": "\u0787\u07AD"
+    "%e": "\u0787\u07AC"
+    "%i\u0304": "\u0787\u07A9"
+    "%i": "\u0787\u07A8"
+    "%o\u0304": "\u0787\u07AF"
+    "%o": "\u0787\u07AE"
+    "%u\u0304": "\u0787\u07AB"
+    "%u": "\u0787\u07AA"
     "h\u032E": "\u0781\u07B0"
-
+    
     # THAANA CONSONANTS WITH VOWEL A
 
     "bba": "\u0787\u07B0\u0784\u07A6"
@@ -1197,7 +1201,7 @@ roman_to_script:
     "g": "\u078E\u07B0"
     "h\u0323h\u0323": "\u0787\u07B0\u0799\u07B0"
     "h\u0323": "\u0799\u07B0"
-    "%h\u0332": "\u0787\u07B0"
+    "h\u0332%": "\u0787\u07B0"
     "hh": "\u0787\u07B0\u0780\u07B0"
     "jj": "\u0787\u07B0\u0796\u07B0"
     "j": "\u0796\u07B0"
@@ -1306,26 +1310,31 @@ roman_to_script:
 script_to_roman:
   map:
 
+    # Exception for the word Allah
+
+    "\u0627\u0644\u0644\u0647": "Alla\u0304h"
+    "\uFDF2": "Alla\u0304h"
+
     # INITIAL VOWELS
 
-    "\u0787\u07A6%": "a"
-    "\u0787\u07A7%": "a\u0304"
-    "\u0787\u07A8%": "i"
-    "\u0787\u07A9%": "i\u0304"
-    "\u0787\u07AA%": "u"
-    "\u0787\u07AB%": "u\u0304"
-    "\u0787\u07AC%": "e"
-    "\u0787\u07AD%": "e\u0304"
-    "\u0787\u07AE%": "o"
-    "\u0787\u07AF%": "o\u0304"
+    "%\u0787\u07A6": "a"
+    "%\u0787\u07A7": "a\u0304"
+    "%\u0787\u07A8": "i"
+    "%\u0787\u07A9": "i\u0304"
+    "%\u0787\u07AA": "u"
+    "%\u0787\u07AB": "u\u0304"
+    "%\u0787\u07AC": "e"
+    "%\u0787\u07AD": "e\u0304"
+    "%\u0787\u07AE": "o"
+    "%\u0787\u07AF": "o\u0304"
 
     # SHAVIYANI WITH SUKUN
 
     "\u0781\u07B0": "h\u032E"
-
+    
     # FINAL ALIFU WITH SUKUN
-
-    "%\u0787\u07B0": "h\u0332"
+    
+    "\u0787\u07B0%": "h\u0332"
 
     # THAANA CONSONANTS WITH VOWEL A
 

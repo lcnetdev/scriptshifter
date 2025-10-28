@@ -10,12 +10,10 @@ general:
 
 roman_to_script:
   map:
-    " ": " "
-
+    
     # NO ADDITIONAL MAPPINGS TO APPLY
 
 script_to_roman:
   map:
-    " ": " "
 
     # NO ADDITIONAL MAPPINGS TO APPLY
