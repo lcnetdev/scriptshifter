@@ -9,13 +9,10 @@ general:
   case_sensitive: false
 
 roman_to_script:
-  map:
-    " ": " "
-
+  map: {}
     # NO ADDITIONAL MAPPINGS TO APPLY
 
 script_to_roman:
-  map:
-    " ": " "
+  map: {}
 
     # NO ADDITIONAL MAPPINGS TO APPLY
