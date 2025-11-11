@@ -8,7 +8,7 @@ general:
 roman_to_script:
   map:
     # CHILLU DEAD CONSONANTS (syllable-final, no vowel)
-
+    
     "n\u0301\u0323": "\u0D7A"
     "n\u0323\u0301": "\u0D7A"
     "n\u0301": "\u0D7B"
@@ -21,12 +21,12 @@ roman_to_script:
     "y\u0301": "\u0D55"
     "l\u0301\u0332": "\u0D56"
     "l\u0332\u0301": "\u0D56"
-
+    
     # FINAL ANUSVARA
     "m\u0323%": "\u0D02"
 
     # CONSONANTS WITH VOWEL A WITH MACRON
-
+    
     "n\u0307ka\u0304": "\u0D02\u0D15\u0D3E"
     "n\u0307kha\u0304": "\u0D02\u0D16\u0D3E"
     "n\u0307ga\u0304": "\u0D02\u0D17\u0D3E"
@@ -108,9 +108,9 @@ roman_to_script:
     "n\u0332a\u0304": "\u0D29\u0D3E"
 
     # END OF CONSONANTS WITH VOWEL A WITH MACRON
-
+    
     # CONSONANTS WITH VOWEL A WITH DOT ABOVE
-
+    
     "n\u0307ka\u0307": "\u0D02\u0D15\u0D41\u0D4D"
     "n\u0307kha\u0307": "\u0D02\u0D16\u0D41\u0D4D"
     "n\u0307ga\u0307": "\u0D02\u0D17\u0D41\u0D4D"
@@ -192,9 +192,9 @@ roman_to_script:
     "n\u0332a\u0307": "\u0D29\u0D41\u0D4D"
 
     # END OF CONSONANTS WITH VOWEL A WITH DOT ABOVE
-
+    
     # CONSONANTS WITH VOWEL AI
-
+    
     "n\u0307kai": "\u0D02\u0D15\u0D48"
     "n\u0307khai": "\u0D02\u0D16\u0D48"
     "n\u0307gai": "\u0D02\u0D17\u0D48"
@@ -274,11 +274,11 @@ roman_to_script:
     "hai": "\u0D39\u0D48"
     "t\u0324ai": "\u0D3A\u0D48"
     "n\u0332ai": "\u0D29\u0D48"
-
+    
     # END OF CONSONANTS WITH VOWEL AI
-
+    
     # CONSONANTS WITH VOWEL AU
-
+    
     "n\u0307kau": "\u0D02\u0D15\u0D4C"
     "n\u0307khau": "\u0D02\u0D16\u0D4C"
     "n\u0307gau": "\u0D02\u0D17\u0D4C"
@@ -358,11 +358,11 @@ roman_to_script:
     "hau": "\u0D39\u0D4C"
     "t\u0324au": "\u0D3A\u0D4C"
     "n\u0332au": "\u0D29\u0D4C"
-
+    
     # END OF CONSONANTS WITH VOWEL AU
-
+    
     # CONSONANTS WITH VOWEL A ALONE
-
+    
     "n\u0307ka": "\u0D02\u0D15"
     "n\u0307kha": "\u0D02\u0D16"
     "n\u0307ga": "\u0D02\u0D17"
@@ -442,11 +442,11 @@ roman_to_script:
     "ha": "\u0D39"
     "t\u0324a": "\u0D3A"
     "n\u0332a": "\u0D29"
-
+    
     # END OF CONSONANTS WITH VOWEL A ALONE
-
+    
     # CONSONANTS WITH VOWEL I WITH MACRON
-
+    
     "n\u0307ki\u0304": "\u0D02\u0D15\u0D40"
     "n\u0307khi\u0304": "\u0D02\u0D16\u0D40"
     "n\u0307gi\u0304": "\u0D02\u0D17\u0D40"
@@ -526,11 +526,11 @@ roman_to_script:
     "hi\u0304": "\u0D39\u0D40"
     "t\u0324i\u0304": "\u0D3A\u0D40"
     "n\u0332i\u0304": "\u0D29\u0D40"
-
+    
     # END OF CONSONANTS WITH VOWEL I WITH MACRON
-
+    
     # CONSONANTS WITH VOWEL I ALONE
-
+    
     "n\u0307ki": "\u0D02\u0D15\u0D3F"
     "n\u0307khi": "\u0D02\u0D16\u0D3F"
     "n\u0307gi": "\u0D02\u0D17\u0D3F"
@@ -610,11 +610,11 @@ roman_to_script:
     "hi": "\u0D39\u0D3F"
     "t\u0324i": "\u0D3A\u0D3F"
     "n\u0332i": "\u0D29\u0D3F"
-
+    
     # END OF CONSONANTS WITH VOWEL I ALONE
-
+    
     # CONSONANTS WITH VOWEL U WITH MACRON
-
+    
     "n\u0307ku\u0304": "\u0D02\u0D15\u0D42"
     "n\u0307khu\u0304": "\u0D02\u0D16\u0D42"
     "n\u0307gu\u0304": "\u0D02\u0D17\u0D42"
@@ -694,11 +694,11 @@ roman_to_script:
     "hu\u0304": "\u0D39\u0D42"
     "t\u0324u\u0304": "\u0D3A\u0D42"
     "n\u0332u\u0304": "\u0D29\u0D42"
-
+    
     # END OF CONSONANTS WITH VOWEL U WITH MACRON
-
+    
     # CONSONANTS WITH VOWEL U ALONE
-
+    
     "n\u0307ku": "\u0D02\u0D15\u0D41"
     "n\u0307khu": "\u0D02\u0D16\u0D41"
     "n\u0307gu": "\u0D02\u0D17\u0D41"
@@ -778,11 +778,11 @@ roman_to_script:
     "hu": "\u0D39\u0D41"
     "t\u0324u": "\u0D3A\u0D41"
     "n\u0332u": "\u0D29\u0D41"
-
+    
     # END OF CONSONANTS WITH VOWEL U ALONE
-
+    
     # CONSONANTS WITH VOWEL R WITH MACRON AND RING BELOW
-
+    
     "n\u0307kr\u0304\u0325": "\u0D02\u0D15\u0D44"
     "n\u0307khr\u0304\u0325": "\u0D02\u0D16\u0D44"
     "n\u0307gr\u0304\u0325": "\u0D02\u0D17\u0D44"
@@ -862,11 +862,11 @@ roman_to_script:
     "hr\u0304\u0325": "\u0D39\u0D44"
     "t\u0324r\u0304\u0325": "\u0D3A\u0D44"
     "n\u0332r\u0304\u0325": "\u0D29\u0D44"
-
+    
     # END OF CONSONANTS WITH VOWEL R WITH MACRON AND RING BELOW
-
+    
     # CONSONANTS WITH VOWEL R WITH RING BELOW
-
+    
     "n\u0307kr\u0325": "\u0D02\u0D15\u0D43"
     "n\u0307khr\u0325": "\u0D02\u0D16\u0D43"
     "n\u0307gr\u0325": "\u0D02\u0D17\u0D43"
@@ -946,11 +946,11 @@ roman_to_script:
     "hr\u0325": "\u0D39\u0D43"
     "t\u0324r\u0325": "\u0D3A\u0D43"
     "n\u0332r\u0325": "\u0D29\u0D43"
-
+    
     # END OF CONSONANTS WITH VOWEL R WITH RING BELOW
-
+    
     # CONSONANTS WITH VOWEL L WITH MACRON AND RING BELOW
-
+    
     "n\u0307kl\u0304\u0325": "\u0D02\u0D15\u0D63"
     "n\u0307khl\u0304\u0325": "\u0D02\u0D16\u0D63"
     "n\u0307gl\u0304\u0325": "\u0D02\u0D17\u0D63"
@@ -1030,11 +1030,11 @@ roman_to_script:
     "hl\u0304\u0325": "\u0D39\u0D63"
     "t\u0324l\u0304\u0325": "\u0D3A\u0D63"
     "n\u0332l\u0304\u0325": "\u0D29\u0D63"
-
+    
     # END OF CONSONANTS WITH VOWEL L WITH MACRON AND RING BELOW
-
+    
     # CONSONANTS WITH VOWEL L WITH RING BELOW
-
+    
     "n\u0307kl\u0325": "\u0D02\u0D15\u0D62"
     "n\u0307khl\u0325": "\u0D02\u0D16\u0D62"
     "n\u0307gl\u0325": "\u0D02\u0D17\u0D62"
@@ -1114,11 +1114,11 @@ roman_to_script:
     "hl\u0325": "\u0D39\u0D62"
     "t\u0324l\u0325": "\u0D3A\u0D62"
     "n\u0332l\u0325": "\u0D29\u0D62"
-
+    
     # END OF CONSONANTS WITH VOWEL L WITH RING BELOW
-
+    
     # CONSONANTS WITH VOWEL E WITH MACRON
-
+    
     "n\u0307ke\u0304": "\u0D02\u0D15\u0D47"
     "n\u0307khe\u0304": "\u0D02\u0D16\u0D47"
     "n\u0307ge\u0304": "\u0D02\u0D17\u0D47"
@@ -1198,11 +1198,11 @@ roman_to_script:
     "he\u0304": "\u0D39\u0D47"
     "t\u0324e\u0304": "\u0D3A\u0D47"
     "n\u0332e\u0304": "\u0D29\u0D47"
-
+    
     # END OF CONSONANTS WITH VOWEL E WITH MACRON
-
+    
     # CONSONANTS WITH VOWEL E ALONE
-
+    
     "n\u0307ke": "\u0D02\u0D15\u0D46"
     "n\u0307khe": "\u0D02\u0D16\u0D46"
     "n\u0307ge": "\u0D02\u0D17\u0D46"
@@ -1282,11 +1282,11 @@ roman_to_script:
     "he": "\u0D39\u0D46"
     "t\u0324e": "\u0D3A\u0D46"
     "n\u0332e": "\u0D29\u0D46"
-
+    
     # END OF CONSONANTS WITH VOWEL E ALONE
-
+    
     # CONSONANTS WITH VOWEL O WITH MACRON
-
+    
     "n\u0307ko\u0304": "\u0D02\u0D15\u0D4B"
     "n\u0307kho\u0304": "\u0D02\u0D16\u0D4B"
     "n\u0307go\u0304": "\u0D02\u0D17\u0D4B"
@@ -1366,11 +1366,11 @@ roman_to_script:
     "ho\u0304": "\u0D39\u0D4B"
     "t\u0324o\u0304": "\u0D3A\u0D4B"
     "n\u0332o\u0304": "\u0D29\u0D4B"
-
+    
     # END OF CONSONANTS WITH VOWEL O WITH MACRON
-
+    
     # CONSONANTS WITH VOWEL O ALONE
-
+    
     "n\u0307ko": "\u0D02\u0D15\u0D4A"
     "n\u0307kho": "\u0D02\u0D16\u0D4A"
     "n\u0307go": "\u0D02\u0D17\u0D4A"
@@ -1450,11 +1450,11 @@ roman_to_script:
     "ho": "\u0D39\u0D4A"
     "t\u0324o": "\u0D3A\u0D4A"
     "n\u0332o": "\u0D29\u0D4A"
-
+    
     # END OF CONSONANTS WITH VOWEL O ALONE
-
+    
     # INITIAL AND INDEPENDENT VOWELS
-
+    
     "ai": "\u0D10"
     "au": "\u0D14"
     "a\u0304": "\u0D06"
@@ -1471,9 +1471,9 @@ roman_to_script:
     "e": "\u0D0E"
     "o\u0304": "\u0D13"
     "o": "\u0D12"
-
+    
     # CONSONANTS WITH NO VOWEL
-
+    
     "n\u0307kh": "\u0D02\u0D16\u0D4D"
     "n\u0307k": "\u0D02\u0D15\u0D4D"
     "n\u0307gh": "\u0D02\u0D18\u0D4D"
@@ -1554,16 +1554,16 @@ roman_to_script:
     "h": "\u0D39\u0D4D"
     "t\u0324": "\u0D3A\u0D4D"
     "n\u0332": "\u0D29\u0D4D"
-
+    
     # END OF CONSONANTS WITH NO VOWEL
-
+    
     # FINAL CONVERSIONS FROM LATIN SCRIPT
     "\u002F\u002F": "\u0965"
     "\u002F": "\u0964"
     "\u0027": "\u0D3D"
-
+    
     # DEVANAGARI DIGITS
-
+    
     "0": "\u0D66"
     "1": "\u0D67"
     "2": "\u0D68"
@@ -1579,7 +1579,7 @@ script_to_roman:
   map:
 
     # CHILLU "DEAD" CONSONANTS (syllable-final, no vowel)
-
+    
     "\u0D7A": "n\u0301\u0323"
     "\u0D7B": "n\u0301"
     "\u0D7C": "r\u0301"
@@ -1594,7 +1594,7 @@ script_to_roman:
     "\u0D02%": "m\u0323"
 
     # CONSONANTS WITH VOWEL A WITH MACRON
-
+    
     "\u0D02\u0D15\u0D3E": "n\u0307ka\u0304"
     "\u0D02\u0D16\u0D3E": "n\u0307kha\u0304"
     "\u0D02\u0D17\u0D3E": "n\u0307ga\u0304"
@@ -1676,9 +1676,9 @@ script_to_roman:
     "\u0D29\u0D3E": "n\u0332a\u0304"
 
     # END OF CONSONANTS WITH VOWEL A WITH MACRON
-
+    
     # CONSONANTS WITH VOWEL A WITH DOT ABOVE
-
+    
     "\u0D02\u0D15\u0D41\u0D4D": "n\u0307ka\u0307"
     "\u0D02\u0D16\u0D41\u0D4D": "n\u0307kha\u0307"
     "\u0D02\u0D17\u0D41\u0D4D": "n\u0307ga\u0307"
@@ -1760,9 +1760,9 @@ script_to_roman:
     "\u0D29\u0D41\u0D4D": "n\u0332a\u0307"
 
     # END OF CONSONANTS WITH VOWEL A WITH DOT ABOVE
-
+    
     # CONSONANTS WITH VOWEL AI
-
+    
     "\u0D02\u0D15\u0D48": "n\u0307kai"
     "\u0D02\u0D16\u0D48": "n\u0307khai"
     "\u0D02\u0D17\u0D48": "n\u0307gai"
@@ -1842,11 +1842,11 @@ script_to_roman:
     "\u0D39\u0D48": "hai"
     "\u0D3A\u0D48": "t\u0324ai"
     "\u0D29\u0D48": "n\u0332ai"
-
+    
     # END OF CONSONANTS WITH VOWEL AI
-
+    
     # CONSONANTS WITH VOWEL AU
-
+    
     "\u0D02\u0D15\u0D4C": "n\u0307kau"
     "\u0D02\u0D16\u0D4C": "n\u0307khau"
     "\u0D02\u0D17\u0D4C": "n\u0307gau"
@@ -1926,11 +1926,11 @@ script_to_roman:
     "\u0D39\u0D4C": "hau"
     "\u0D3A\u0D4C": "t\u0324au"
     "\u0D29\u0D4C": "n\u0332au"
-
+    
     # END OF CONSONANTS WITH VOWEL AU
-
+    
     # CONSONANTS WITH VOWEL I WITH MACRON
-
+    
     "\u0D02\u0D15\u0D40": "n\u0307ki\u0304"
     "\u0D02\u0D16\u0D40": "n\u0307khi\u0304"
     "\u0D02\u0D17\u0D40": "n\u0307gi\u0304"
@@ -2010,11 +2010,11 @@ script_to_roman:
     "\u0D39\u0D40": "hi\u0304"
     "\u0D3A\u0D40": "t\u0324i\u0304"
     "\u0D29\u0D40": "n\u0332i\u0304"
-
+    
     # END OF CONSONANTS WITH VOWEL I WITH MACRON
-
+    
     # CONSONANTS WITH VOWEL I ALONE
-
+    
     "\u0D02\u0D15\u0D3F": "n\u0307ki"
     "\u0D02\u0D16\u0D3F": "n\u0307khi"
     "\u0D02\u0D17\u0D3F": "n\u0307gi"
@@ -2094,11 +2094,11 @@ script_to_roman:
     "\u0D39\u0D3F": "hi"
     "\u0D3A\u0D3F": "t\u0324i"
     "\u0D29\u0D3F": "n\u0332i"
-
+    
     # END OF CONSONANTS WITH VOWEL I ALONE
-
+    
     # CONSONANTS WITH VOWEL U WITH MACRON
-
+    
     "\u0D02\u0D15\u0D42": "n\u0307ku\u0304"
     "\u0D02\u0D16\u0D42": "n\u0307khu\u0304"
     "\u0D02\u0D17\u0D42": "n\u0307gu\u0304"
@@ -2178,11 +2178,11 @@ script_to_roman:
     "\u0D39\u0D42": "hu\u0304"
     "\u0D3A\u0D42": "t\u0324u\u0304"
     "\u0D29\u0D42": "n\u0332u\u0304"
-
+    
     # END OF CONSONANTS WITH VOWEL U WITH MACRON
-
+    
     # CONSONANTS WITH VOWEL U ALONE
-
+    
     "\u0D02\u0D15\u0D41": "n\u0307ku"
     "\u0D02\u0D16\u0D41": "n\u0307khu"
     "\u0D02\u0D17\u0D41": "n\u0307gu"
@@ -2262,11 +2262,11 @@ script_to_roman:
     "\u0D39\u0D41": "hu"
     "\u0D3A\u0D41": "t\u0324u"
     "\u0D29\u0D41": "n\u0332u"
-
+    
     # END OF CONSONANTS WITH VOWEL U ALONE
-
+    
     # CONSONANTS WITH VOWEL R WITH MACRON AND RING BELOW
-
+    
     "\u0D02\u0D15\u0D44": "n\u0307kr\u0304\u0325"
     "\u0D02\u0D16\u0D44": "n\u0307khr\u0304\u0325"
     "\u0D02\u0D17\u0D44": "n\u0307gr\u0304\u0325"
@@ -2346,11 +2346,11 @@ script_to_roman:
     "\u0D39\u0D44": "hr\u0304\u0325"
     "\u0D3A\u0D44": "t\u0324r\u0304\u0325"
     "\u0D29\u0D44": "n\u0332r\u0304\u0325"
-
+    
     # END OF CONSONANTS WITH VOWEL R WITH MACRON AND RING BELOW
-
+    
     # CONSONANTS WITH VOWEL R WITH RING BELOW
-
+    
     "\u0D02\u0D15\u0D43": "n\u0307kr\u0325"
     "\u0D02\u0D16\u0D43": "n\u0307khr\u0325"
     "\u0D02\u0D17\u0D43": "n\u0307gr\u0325"
@@ -2430,11 +2430,11 @@ script_to_roman:
     "\u0D39\u0D43": "hr\u0325"
     "\u0D3A\u0D43": "t\u0324r\u0325"
     "\u0D29\u0D43": "n\u0332r\u0325"
-
+    
     # END OF CONSONANTS WITH VOWEL R WITH RING BELOW
-
+    
     # CONSONANTS WITH VOWEL L WITH MACRON AND RING BELOW
-
+    
     "\u0D02\u0D15\u0D63": "n\u0307kl\u0304\u0325"
     "\u0D02\u0D16\u0D63": "n\u0307khl\u0304\u0325"
     "\u0D02\u0D17\u0D63": "n\u0307gl\u0304\u0325"
@@ -2514,11 +2514,11 @@ script_to_roman:
     "\u0D39\u0D63": "hl\u0304\u0325"
     "\u0D3A\u0D63": "t\u0324l\u0304\u0325"
     "\u0D29\u0D63": "n\u0332l\u0304\u0325"
-
+    
     # END OF CONSONANTS WITH VOWEL L WITH MACRON AND RING BELOW
-
+    
     # CONSONANTS WITH VOWEL L WITH RING BELOW
-
+    
     "\u0D02\u0D15\u0D62": "n\u0307kl\u0325"
     "\u0D02\u0D16\u0D62": "n\u0307khl\u0325"
     "\u0D02\u0D17\u0D62": "n\u0307gl\u0325"
@@ -2598,11 +2598,11 @@ script_to_roman:
     "\u0D39\u0D62": "hl\u0325"
     "\u0D3A\u0D62": "t\u0324l\u0325"
     "\u0D29\u0D62": "n\u0332l\u0325"
-
+    
     # END OF CONSONANTS WITH VOWEL L WITH RING BELOW
-
+    
     # CONSONANTS WITH VOWEL E WITH MACRON
-
+    
     "\u0D02\u0D15\u0D47": "n\u0307ke\u0304"
     "\u0D02\u0D16\u0D47": "n\u0307khe\u0304"
     "\u0D02\u0D17\u0D47": "n\u0307ge\u0304"
@@ -2682,11 +2682,11 @@ script_to_roman:
     "\u0D39\u0D47": "he\u0304"
     "\u0D3A\u0D47": "t\u0324e\u0304"
     "\u0D29\u0D47": "n\u0332e\u0304"
-
+    
     # END OF CONSONANTS WITH VOWEL E WITH MACRON
-
+    
     # CONSONANTS WITH VOWEL E ALONE
-
+    
     "\u0D02\u0D15\u0D46": "n\u0307ke"
     "\u0D02\u0D16\u0D46": "n\u0307khe"
     "\u0D02\u0D17\u0D46": "n\u0307ge"
@@ -2766,11 +2766,11 @@ script_to_roman:
     "\u0D39\u0D46": "he"
     "\u0D3A\u0D46": "t\u0324e"
     "\u0D29\u0D46": "n\u0332e"
-
+    
     # END OF CONSONANTS WITH VOWEL E ALONE
-
+    
     # CONSONANTS WITH VOWEL O WITH MACRON
-
+    
     "\u0D02\u0D15\u0D4B": "n\u0307ko\u0304"
     "\u0D02\u0D16\u0D4B": "n\u0307kho\u0304"
     "\u0D02\u0D17\u0D4B": "n\u0307go\u0304"
@@ -2850,11 +2850,11 @@ script_to_roman:
     "\u0D39\u0D4B": "ho\u0304"
     "\u0D3A\u0D4B": "t\u0324o\u0304"
     "\u0D29\u0D4B": "n\u0332o\u0304"
-
+    
     # END OF CONSONANTS WITH VOWEL O WITH MACRON
-
+    
     # CONSONANTS WITH VOWEL O ALONE
-
+    
     "\u0D02\u0D15\u0D4A": "n\u0307ko"
     "\u0D02\u0D16\u0D4A": "n\u0307kho"
     "\u0D02\u0D17\u0D4A": "n\u0307go"
@@ -2934,11 +2934,11 @@ script_to_roman:
     "\u0D39\u0D4A": "ho"
     "\u0D3A\u0D4A": "t\u0324o"
     "\u0D29\u0D4A": "n\u0332o"
-
+    
     # END OF CONSONANTS WITH VOWEL O ALONE
-
+    
     # CONSONANTS WITH NO VOWEL
-
+    
     "\u0D02\u0D16\u0D4D": "n\u0307kh"
     "\u0D02\u0D15\u0D4D": "n\u0307k"
     "\u0D02\u0D18\u0D4D": "n\u0307gh"
@@ -3018,11 +3018,11 @@ script_to_roman:
     "\u0D39\u0D4D": "h"
     "\u0D3A\u0D4D": "t\u0324"
     "\u0D29\u0D4D": "n\u0332"
-
+    
     # END OF CONSONANTS WITH NO VOWEL
-
+    
     # CONSONANTS WITH VOWEL A ALONE
-
+    
     "\u0D02\u0D15": "n\u0307ka"
     "\u0D02\u0D16": "n\u0307kha"
     "\u0D02\u0D17": "n\u0307ga"
@@ -3102,11 +3102,11 @@ script_to_roman:
     "\u0D39": "ha"
     "\u0D3A": "t\u0324a"
     "\u0D29": "n\u0332a"
-
+    
     # END OF CONSONANTS WITH VOWEL A ALONE
-
+    
     # INITIAL AND INDEPENDENT VOWELS
-
+    
     "\u0D10": "ai"
     "\u0D14": "au"
     "\u0D06": "a\u0304"
@@ -3123,17 +3123,17 @@ script_to_roman:
     "\u0D0E": "e"
     "\u0D13": "o\u0304"
     "\u0D12": "o"
-
+    
     # FINAL CONVERSIONS FROM LATIN SCRIPT
-
+    
     # REMAINING DEVANAGARI SIGN VISARGA
     "\u0D03%": "h\u0323"
     "\u0965": "\u002F\u002F"
     "\u0964": "\u002F"
     "\u0D3D": "\u0027"
-
+    
     # DEVANAGARI DIGITS
-
+    
     "\u0D66": "0"
     "\u0D67": "1"
     "\u0D68": "2"
