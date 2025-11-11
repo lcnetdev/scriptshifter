@@ -9,9 +9,9 @@ roman_to_script:
   map:
     # KHANDA T (never has a vowel)
     "t\u0332": "\u09CE"
-    
+
     # CONSONANTS WITH VOWEL AI
-    
+
     "n\u0310kvai": "\u0981\u0995\u09CD\u09AC\u09C8"
     "n\u0310kai": "\u0981\u0995\u09C8"
     "n\u0310khvai": "\u0981\u0996\u09CD\u09AC\u09C8"
@@ -2339,9 +2339,9 @@ script_to_roman:
   map:
     # KHANDA T (never has a vowel)
     "\u09CE": "t\u0332"
-    
+
     # CONSONANTS WITH VOWEL AI
-    
+
     "\u0981\u0995\u09CD\u09AC\u09C8": "n\u0310kvai"
     "\u0981\u0995\u09C8": "n\u0310kai"
     "\u0981\u0996\u09CD\u09AC\u09C8": "n\u0310khvai"
