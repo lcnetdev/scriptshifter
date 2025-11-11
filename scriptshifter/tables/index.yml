@@ -58,7 +58,7 @@ burmese:
   name: Burmese (Myanmar)
 chechen_cyrillic:
   marc_code: che
-  name: Chechen (Cyrillic)  
+  name: Chechen (Cyrillic)
 chinese:
   marc_code: chi
   name: Chinese (Hanzi)
@@ -296,9 +296,6 @@ prakrit_devanagari:
 pulaar:
   marc_code: ful
   name: Pulaar (Adlam)
-gurmukhi:
-  marc_code: pan
-  name: Punjabi (Gurmukhi)
 pushto:
   marc_code: pus
   name: Pushto
