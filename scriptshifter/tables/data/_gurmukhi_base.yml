@@ -13,9 +13,9 @@ roman_to_script:
 
     "1Om*": "\u0A74"
     "*": "\u0A76"
-    "%m\u0323": "\u0A02"
-    "%m\u0306": "\u0A70"
-    "%h\u0323": "\u0A03"
+    "m\u0323%": "\u0A02"
+    "m\u0306%": "\u0A70"
+    "h\u0323%": "\u0A03"
 
     # CONSONANTS WITH VOWEL A WITH MACRON
 
@@ -2072,9 +2072,9 @@ script_to_roman:
 
     "\u0A74": "1Om*"
     "\u0A76": "*"
-    "%\u0A02": "m\u0323"
-    "%\u0A70": "m\u0306"
-    "%\u0A03": "h\u0323"
+    "\u0A02%": "m\u0323"
+    "\u0A70%": "m\u0306"
+    "\u0A03%": "h\u0323"
 
     # CONSONANTS WITH VOWEL A WITH MACRON
 
