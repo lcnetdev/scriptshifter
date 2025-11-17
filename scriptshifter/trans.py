@@ -176,6 +176,10 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             return getattr(ctx, "dest", ""), ctx.warnings
 
         logger.debug(f"Normalized source: {ctx.src}")
+        logger.debug(
+                f"Original code points:   {[hex(ord(c)) for c in ctx.orig]}")
+        logger.debug(
+                f"Normalized code points: {[hex(ord(c)) for c in ctx.src]}")
         lang_map = list(get_lang_map(ctx.conn, ctx.lang_id, ctx.t_dir))
 
         # Loop through source characters. The increment of each loop depends on

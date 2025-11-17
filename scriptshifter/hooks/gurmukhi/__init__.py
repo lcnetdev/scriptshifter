@@ -23,7 +23,7 @@ with open(path.join(MOD_BASEDIR, "gurmukhi_nasalization_pre.yml")) as fh:
             nas_config["default"][k] = v
 
 
-def nasalize_post_config(ctx):
+def nasalize_post_normalize(ctx):
     """
     Preprocess Roman input to get a uniform nasalization.
 
