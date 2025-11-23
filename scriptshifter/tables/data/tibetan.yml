@@ -7,6 +7,11 @@ general:
   case_sensitive: false
 
 roman_to_script:
+  hooks:
+    post_normalize:
+      -
+        - tibetan.post_normalize
+
   map:
 
     # DELIMITER TSHEG (0F0C) SPACE (0020)
