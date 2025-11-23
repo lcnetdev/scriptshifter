@@ -229,6 +229,12 @@ malayalam:
 manchu:
   marc_code: mnc
   name: Manchu
+manipuri_bengali:
+  marc_code: mni
+  name: Manipuri (Bengali)
+manipuri_meitei:
+  marc_code: mni
+  name: Manipuri (Meitei)
 mansi_cyrillic:
   name: Mansi (Cyrillic)
 marathi_devanagari:
