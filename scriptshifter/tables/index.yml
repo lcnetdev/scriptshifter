@@ -274,9 +274,9 @@ nogai_cyrillic:
   conf: "cyrillic_generic.yml"
   name: Nogai (Cyrillic)
   marc_code: ng
-oriya:
+odia:
   marc_code: ori
-  name: Oriya
+  name: Odia
 ossetic_cyrillic:
   marc_code: oss
   name: Ossetic (Cyrillic)
