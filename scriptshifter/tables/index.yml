@@ -229,6 +229,12 @@ malayalam:
 manchu:
   marc_code: mnc
   name: Manchu
+manipuri_bengali:
+  marc_code: mni
+  name: Manipuri (Bengali)
+manipuri_meitei:
+  marc_code: mni
+  name: Manipuri (Meitei)
 mansi_cyrillic:
   name: Mansi (Cyrillic)
 marathi_devanagari:
@@ -268,9 +274,9 @@ nogai_cyrillic:
   conf: "cyrillic_generic.yml"
   name: Nogai (Cyrillic)
   marc_code: ng
-oriya:
+odia:
   marc_code: ori
-  name: Oriya
+  name: Odia
 ossetic_cyrillic:
   marc_code: oss
   name: Ossetic (Cyrillic)

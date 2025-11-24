@@ -1,0 +1,12 @@
+---
+# Tibetan 2015 changes (R2R)
+# Corrects transliteration of ng, ny, sh, zh and alif
+"\u02BE": "\u02BC"
+"N\u0303": "Ny"
+"n\u0303": "ny"
+"N\u0307": "Ng"
+"n\u0307": "ng"
+"S\u0301": "Sh"
+"s\u0301": "sh"
+"Z\u0301": "Zh"
+"z\u0301": "zh"
