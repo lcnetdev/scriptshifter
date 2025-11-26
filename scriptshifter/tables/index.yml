@@ -334,6 +334,9 @@ selkup_cyrillic:
   marc_code: sel
 shor_cyrillic:
   name: Shor (Cyrillic)
+sindhi_arabic:
+  marc_code: snd
+  name: Sindhi (Arabic)
 sinhalese:
   marc_code: sin
   name: Sinhalese
