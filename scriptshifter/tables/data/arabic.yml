@@ -21,6 +21,8 @@ roman_to_script:
     # Additional info from R. Vassie, [n.d.] "Marrying the Arabic and Latin
     # Scripts Conceptually"
     # Updated, 26 March 2025 by Randall K. Barry to reverse truncation marks for ScriptShifter
+    # Updates, 26 November 2025 by Randall K. Barry to reverse truncation marks again
+    # xxxx% for end of string, %xxxx for beginning of string
 
 
     # Punctuation marks:
@@ -137,15 +139,15 @@ roman_to_script:
     "ka-": "\u0643"
 
     # Vowels and vowel/consonant combinations - ta-marbutah at end of word
-    "%ah": "\u0629"
-    "%at": "\u0629"
+    "ah%": "\u0629"
+    "at%": "\u0629"
 
     # tanwin at end of word
-    "%an": "\u0627"
+    "an%": "\u0627"
 
     # ayn-alif combo
-    "%\u02BBa\u0304\u02BE": "\u0639\u0627\u0621"
-    "%\u02BBa\u0304\u02BC": "\u0639\u0627\u0621"
+    "\u02BBa\u0304\u02BE%": "\u0639\u0627\u0621"
+    "\u02BBa\u0304\u02BC%": "\u0639\u0627\u0621"
 
     "\u02BBA\u0304": "\u0639\u0627"
     "\u02BBa\u0304": "\u0639\u0627"
@@ -160,24 +162,24 @@ roman_to_script:
     "\u02BBU": "\u0639"
     "\u02BBu": "\u0639"
 
-    "\u02BBA%": "\u0639"
+    "%\u02BBA": "\u0639"
     # "\u02BBa%": "\u0639"
 
     # alif and hamzas for all occasions
 
     # truncation necessary? It seems to work fine with.
 
-    "%i\u0304\u02BEah": "\u064A\u0626\u0629"
-    "%i\u0304\u02BCah": "\u064A\u0626\u0629"
+    "i\u0304\u02BEah%": "\u064A\u0626\u0629"
+    "i\u0304\u02BCah%": "\u064A\u0626\u0629"
 
-    "%i\u0304\u02BEat": "\u064A\u0626\u0629"
-    "%i\u0304\u02BCat": "\u064A\u0626\u0629"
+    "i\u0304\u02BEat%": "\u064A\u0626\u0629"
+    "i\u0304\u02BCat%": "\u064A\u0626\u0629"
 
-    "%i\u02BEa\u0304": "\u0626\u0627"
-    "%i\u02BCa\u0304": "\u0626\u0627"
+    "i\u02BEa\u0304%": "\u0626\u0627"
+    "i\u02BCa\u0304%": "\u0626\u0627"
 
-    "%i\u02BE": "\u0626"
-    "%i\u02BC": "\u0626"
+    "i\u02BE": "\u0626%"
+    "i\u02BC": "\u0626%"
     "a\u0304\u02BEa\u0304": "\u0627\u0621\u0627"
     "a\u0304\u02BCa\u0304": "\u0627\u0621\u0627"
 
@@ -205,34 +207,34 @@ roman_to_script:
     "a\u0304\u02BEi": "\u0627\u0626"
     "a\u0304\u02BC": "\u0627\u0621"
     "a\u0304\u02BE": "\u0627\u0621"
-    "A\u0304%": "\u0622"
-    "a\u0304%": "\u0622"
+    "%A\u0304": "\u0622"
+    "%a\u0304": "\u0622"
     "A\u0304": "\u0627"
     "a\u0304": "\u0627"
 
     # These next two lines were intended to convert to alif-ayn when it is at
     # # the beginning of a word, definite or indefinine (i.e.
     # al-a[ayn]ma[macron]l or [space]a[ayn]ma[macron]l"
-    "A\u02BB%": "\u0623\u0639"
-    "a\u02BB%": "\u0623\u0639"
+    "%A\u02BB": "\u0623\u0639"
+    "%a\u02BB": "\u0623\u0639"
     "a\u02BB": "\u0639"
     "A\u0301": "\u0649"
     "a\u0301": "\u0649"
 
     "ayy": "\u064A"
-    "A%": "\u0623"
-    "a%": "\u0627"
+    "%A": "\u0623"
+    "%a": "\u0627"
     "A": "\u0623"
     "a": ""
 
     # I - Capital I at beginning of word is usually alif hamzah-below.
 
-    "i\u0304%": "\u064A"
+    "%i\u0304": "\u064A"
     "i\u0304y": "\u064A"
     "iy": "\u064A"
-    "I\u0304%": "\u0625\u064A"
+    "%I\u0304": "\u0625\u064A"
     "i\u0304": "\u064A"
-    "\u02BBI%": "\u0639"
+    "%\u02BBI": "\u0639"
 
     # "i\u02BB": "\u0625\u0639"
 
@@ -241,8 +243,8 @@ roman_to_script:
     "i\u02BE": "\u0626"
     "i\u02BC": "\u0627\u0626"
 
-    "I%": "\u0625"
-    "i%": "\u0625"
+    "%I": "\u0625"
+    "%i": "\u0625"
     "I": "\u0625"
     "i": ""
 
@@ -250,17 +252,17 @@ roman_to_script:
 
     "u\u0304\u02BE": "\u0624"
     "u\u0304\u02BC": "\u0624"
-    "U\u0304w%": "\u0623\u0648"
-    "u\u0304w%": "\u0623\u0648"
-    "U\u0304%": "\u0623\u0648"
-    "u\u0304%": "\u0623\u0648"
+    "%U\u0304w": "\u0623\u0648"
+    "%u\u0304w": "\u0623\u0648"
+    "%U\u0304": "\u0623\u0648"
+    "%u\u0304": "\u0623\u0648"
     "u\u0304w": "\u0648"
     "u\u0304": "\u0648"
     "u\u02BE": "\u0624"
     "u\u02BC": "\u0624"
 
-    "U%": "\u0623"
-    "u%": "\u0623"
+    "%U": "\u0623"
+    "%u": "\u0623"
     "U": "\u0623"
     "u": ""
 
@@ -361,8 +363,8 @@ roman_to_script:
     # hamza - not romanized
     # "\u0621"
     # hamza (alone in final position)
-    "%\u02BE": "\u0621"
-    "%\u02BC": "\u0621"
+    "\u02BE%": "\u0621"
+    "\u02BC%": "\u0621"
 
     # Do not know what, if anything, is needed here:
     # tatweel:
