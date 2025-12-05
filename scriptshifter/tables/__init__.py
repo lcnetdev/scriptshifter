@@ -64,7 +64,8 @@ FEAT_RE = 1 << 3        # Regular expression.
 
 logger = logging.getLogger(__name__)
 
-tbl_index = None  # Module-level index of all scripts.
+with open(path.join(path.dirname(TABLE_DIR), "index.yml")) as fh:
+    tbl_index = load(fh, Loader=Loader)
 
 
 class Token(str):
@@ -165,9 +166,6 @@ def init_db():
             conn.executescript(fh.read())
 
     # Populate tables.
-    global tbl_index
-    with open(path.join(path.dirname(TABLE_DIR), "index.yml")) as fh:
-        tbl_index = load(fh, Loader=Loader)
     try:
         with conn:
             for tname, tdata in tbl_index.items():
