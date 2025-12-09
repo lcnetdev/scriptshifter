@@ -9,6 +9,7 @@ general:  # Section names and other keywords are all snake_cased.
 
 script_to_roman:
   map:  # Mapping section.
+    # Multi-character maps.
     "\u5DF4\u57FA\u65AF\u5766\u4F0A\u65AF\u862D\u5171\u548C\u570B": "Bajisitan Yisilan Gongheguo "
     "\u5DF4\u57FA\u65AF\u5766\u4F0A\u65AF\u5170\u5171\u548C\u56FD": "Bajisitan Yisilan Gongheguo "
     "\u5DF4\u97F3\u90ED\u695E\u8499\u53E4\u81EA\u6CBB\u5DDE": "Bayinguoleng Menggu Zizhizhou "
@@ -4179,6 +4180,10 @@ script_to_roman:
     "\u5416\u55EA": "a qin "
     "\u963F\u5BB6": "a gu "
     "\u5416\u5576": "a ding "
+    "\u66F2\u961C": "Qufu"
+    "\u66F2\u961C\u5E02": "Qufu Shi"
+
+    # Single-character maps.
     "\uFF5E": "~ "
     "\uFF5C": "| "
     "\U0002E263": "zuo "
