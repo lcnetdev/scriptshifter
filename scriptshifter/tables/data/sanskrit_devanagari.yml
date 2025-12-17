@@ -3,11 +3,14 @@ general:
   name: Sanskrit (Devanagari)
   parents:
     - _ignore_base
-    - _devanagari_base
+    - devanagari_generic
+  description: Version 1.0 (2025-12-01) Sankrit language in Devanagari script.
   case_sensitive: false
 
 roman_to_script:
   map:
+    # ANUSVARA AT END OF WORD
+    "m\u0323%": "\u0902"
     # ANUNASIKA
     "m\u0310": "\u0901"
     # JIHVAMULIYA
@@ -173,7 +176,7 @@ script_to_roman:
   map:
 
     # ANUSVARA AT END OF WORD
-    "%\u0902": "m\u0323"
+    "\u0902%": "m\u0323"
     # ANUNASIKA
     "\u0901": "m\u0310"
     # JIHVAMULIYA

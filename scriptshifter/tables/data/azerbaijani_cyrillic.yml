@@ -1,7 +1,9 @@
+---
 general:
   name: Azerbaijani (Cyrillic)
   parents:
     - cyrillic_generic
+  description: Version 1.0 (2025-11-30) Azerbaijani language in Cyrillic script
 
 roman_to_script:
   map:

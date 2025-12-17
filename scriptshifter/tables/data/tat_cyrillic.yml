@@ -1,0 +1,16 @@
+---
+general:
+  name: Tat (Cyrillic)
+  parents:
+    - cyrillic_generic
+  description: Version 1.0 (2025-12-06) Tat (Caucasian Persian) language in the Cyrillic script.
+
+roman_to_script:
+  map:
+    "H\u0307": "\u04C0"
+    "h\u0307": "\u04CF"
+
+script_to_roman:
+  map:
+    "\u04C0": "H\u0307"
+    "\u04CF": "h\u0307"

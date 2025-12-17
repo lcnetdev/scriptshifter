@@ -2,6 +2,7 @@
 general:
   name: Burmese (Myanmar)
   case_sensitive: false
+  description: Version 1.0 (2025-11-30) Burmese language converted by 3rd-party mapping
 
 script_to_roman:
   hooks:

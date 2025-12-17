@@ -5,6 +5,7 @@ general:
     - Compiled based on https://www.loc.gov/catdir/cpso/romanization/greek.pdf
   parents:
     - _ignore_base
+  description: Version 1.0 (2025-12-07) Greek (ancient and medieval) language in Greek script.
 
   normalize:
     ? ''

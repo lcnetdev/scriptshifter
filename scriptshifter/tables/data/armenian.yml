@@ -1,7 +1,9 @@
+---
 general:
   name: Armenian
   parents:
     - _ignore_base
+  description: Version 1.0 (2025-11-29) - Armenian language in Armenian script
 
 roman_to_script:
   map:

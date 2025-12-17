@@ -3,6 +3,7 @@ general:
   name: Manipuri (Meitei)
   parents:
     - _ignore_base
+  description: Version 0.0 (2025-12-05) Manipuri language in Meitei script.
   case_sensitive: false
 
 roman_to_script:

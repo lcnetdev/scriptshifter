@@ -1,0 +1,19 @@
+---
+general:
+  name: Pali (Sinhala)
+  parents:
+    - _ignore_base
+    - sinhala
+
+  description: Version 1.0 (2025-12-05) Pali language in the Sinhala script
+  case_sensitive: false
+
+roman_to_script:
+  map:
+    " " : " "
+    # NO ADDITIONAL MAPPINGS TO APPLY
+
+script_to_roman:
+  map:
+    " " : " "
+    # NO ADDITIONAL MAPPINGS TO APPLY

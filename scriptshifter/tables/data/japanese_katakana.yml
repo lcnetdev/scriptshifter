@@ -1,0 +1,19 @@
+---
+general:
+  name: Japanese (Katakana)
+  description: Version 1.0 (2025-12-04) Japanese language mapping for Katakana syllabary
+  case_sensitive: false
+
+script_to_roman:
+  hooks:
+    post_config:
+      -
+        - aksharamukha.romanizer.s2r_post_config
+        - src_script: "Katakana"
+
+roman_to_script:
+  hooks:
+    post_config:
+      -
+        - aksharamukha.romanizer.r2s_post_config
+        - dest_script: "Katakana"

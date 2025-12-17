@@ -1,15 +1,20 @@
+---
 general:
   name: Nenets (Cyrillic)
   parents:
     - cyrillic_generic
+  description: Version 1.0 (2025-12-05) Nenets language in Cyrillic script.
 
 roman_to_script:
   map:
     "N\uFE20G\uFE21": "\u04C7"
+    "N\u0361G": "\u04C7"
     "N\uFE20g\uFE21": "\u04C7"
+    "N\u0361g": "\u04C7"
     "n\uFE20g\uFE21": "\u04C8"
+    "n\u0361g": "\u04C8"
 
 script_to_roman:
   map:
-    "\u04C7": "N\uFE20G\uFE21"
-    "\u04C8": "n\uFE20g\uFE21"
+    "\u04C7": "N\u0361G"
+    "\u04C8": "n\u0361g"

@@ -1,10 +1,11 @@
+---
 general:
   name: Rajasthani (Devanagari)
   parents:
     - _ignore_base
-    - _devanagari_base
+    - devanagari_generic
 
-  description: Rajasthani language in the Devanagari script
+  description: Version 1.0 (2025-12-01) Rajasthani language in the Devanagari script
   case_sensitive: false
 
 roman_to_script:

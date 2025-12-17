@@ -2,6 +2,9 @@ general:
   name: Karachay-Balkar (Cyrillic)
   parents:
     - cyrillic_generic
+  description: Version 1.0 (2025-12-04) Karachay and Karachay-Balkar languages in Cyrillic.
+
+# combining comma above \u0313
 
 roman_to_script:
   map:

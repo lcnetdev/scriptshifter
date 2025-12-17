@@ -1,0 +1,20 @@
+---
+general:
+  name: Tibetan (ñ,ṅ,ś,ź to ny,ng,sh,zh)
+  description: Version 1.0 (2025-12-06) Tibetan in Latin script done with old rules.
+  notes: >
+    corrects transliteration of ng, ny, sh, zh and alif
+  case_sensitive: true
+
+roman_to_script:
+  map:
+
+    "\u02BE": "\u02BC"
+    "N\u0303": "Ny"
+    "n\u0303": "ny"
+    "N\u0307": "Ng"
+    "n\u0307": "ng"
+    "S\u0301": "Sh"
+    "s\u0301": "sh"
+    "Z\u0301": "Zh"
+    "z\u0301": "zh"

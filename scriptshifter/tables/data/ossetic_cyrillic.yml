@@ -1,13 +1,18 @@
+---
 general:
   name: Ossetic (Cyrillic)
   parents:
     - cyrillic_generic
+  description: Version 1.0 (2025-12-05) Ossetic language in the Cyrillic script.
 
 roman_to_script:
   map:
     "A\uFE20E\uFE21": "\u04D4"
+    "A\u0361E": "\u04D4"
     "A\uFE20e\uFE21": "\u04D4"
+    "A\u0361e": "\u04D4"
     "a\uFE20e\uFE21": "\u04D5"
+    "a\u0361e": "\u04D5"
     "\u00C6": "\u04D4"
     "\u00E6": "\u04D5"
 

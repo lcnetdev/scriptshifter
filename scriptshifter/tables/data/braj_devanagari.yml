@@ -3,9 +3,9 @@ general:
   name: Braj (Devanagari)
   parents:
     - _ignore_base
-    - _devanagari_base
+    - devanagari_generic
 
-  description: Braj language in the Devanagari script
+  description: Version 1.0 (2025-11-30) Braj language in the Devanagari script
   case_sensitive: false
 
 roman_to_script:

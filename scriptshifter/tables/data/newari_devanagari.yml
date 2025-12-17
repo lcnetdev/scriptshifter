@@ -3,9 +3,9 @@ general:
   name: Newari (Devanagari)
   parents:
     - _ignore_base
-    - _devanagari_base
+    - devanagari_generic
 
-  description: Newari language in the Devanagari script
+  description: Version 1.0 (2025-12-01) Newari language in the Devanagari script
   case_sensitive: false
 
 roman_to_script:

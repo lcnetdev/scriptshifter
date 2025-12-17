@@ -1,7 +1,9 @@
+---
 general:
   name: Georgian
   parents:
     - _ignore_base
+  description: Version 1.0 (2025-12-01) Georgian language in Georgian (Mkhedruli) script.
   case_sensitive: false
 
 roman_to_script:

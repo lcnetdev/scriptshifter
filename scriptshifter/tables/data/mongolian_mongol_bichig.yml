@@ -3,6 +3,7 @@ general:
   name: Mongolian (Mongol bichig)
   parents:
     - _ignore_base
+  description: Version 1.0 (2025-11-29) - Mongolian language in Mongol bichig
   case_sensitive: false
 
 roman_to_script:

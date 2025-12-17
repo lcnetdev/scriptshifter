@@ -1,0 +1,19 @@
+---
+general:
+  name: Dzongkha (Tibetan)
+  parents:
+    - _ignore_base
+    - tibetan
+
+  description: Version 1.0 (2025-12-01) Dzhongkha language in Tibetan script
+  case_sensitive: false
+
+roman_to_script:
+  map:
+    # NO ADDITIONAL MAPPINGS TO APPLY
+    "": ""
+
+script_to_roman:
+  map:
+    # NO ADDITIONAL MAPPINGS TO APPLY
+    "": ""

@@ -1,13 +1,18 @@
+---
 general:
   name: Shor (Cyrillic)
   parents:
     - cyrillic_generic
+  description: Version 1.0 (2025-12-06) Shor language in Cyrillic script.
 
 roman_to_script:
   map:
     "N\uFE20G\uFE21": "\u04A4"
+    "N\u0361G": "\u04A4"
     "N\uFE20g\uFE21": "\u04A4"
+    "N\u0361g1": "\u04A4"
     "n\uFE20g\uFE21": "\u04A5"
+    "n\u0361g": "\u04A5"
     "C\u0307H": "\u0408"
     "C\u0307h": "\u0408"
     "c\u0307h": "\u0458"
@@ -20,8 +25,8 @@ script_to_roman:
   map:
     "\u0408": "C\u0307h"
     "\u0458": "c\u0307h"
-    "\u04A4": "N\uFE20G\uFE21"
-    "\u04A5": "n\uFE20g\uFE21"
+    "\u04A4": "N\u0361G"
+    "\u04A5": "n\u0361g"
     "\u04E6": "O\u0307"
     "\u04E7": "o\u0307"
     "\u04F0": "U\u0307"

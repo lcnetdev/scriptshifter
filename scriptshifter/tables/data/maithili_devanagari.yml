@@ -1,14 +1,16 @@
 ---
 general:
-  name: Maithili
+  name: Maithili (Devanagari)
   parents:
     - _ignore_base
-    - _devanagari_base
-  description: Maithili language in the Devanagari script
+    - devanagari_generic
+  description: Version 1.0 (2025-12-01) Maithili language in the Devanagari script
   case_sensitive: false
+
 roman_to_script:
   map:
     " ": " "
+    
 script_to_roman:
   map:
     " " : " "

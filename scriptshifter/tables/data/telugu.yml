@@ -3,6 +3,7 @@ general:
   name: Telugu
   parents:
     - _ignore_base
+  description: Version 1.0 (2025-12-03) Telugu language in Telugu script.
   case_sensitive: false
 
 roman_to_script:

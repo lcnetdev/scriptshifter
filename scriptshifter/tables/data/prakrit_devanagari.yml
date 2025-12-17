@@ -3,7 +3,8 @@ general:
   name: Prakrit (Devanagari)
   parents:
     - _ignore_base
-    - _devanagari_base
+    - devanagari_generic
+  description: Version 1.0 (2025-12-01) Prakrit language in Devanagari script.
   case_sensitive: false
 
 roman_to_script:
@@ -173,7 +174,7 @@ script_to_roman:
   map:
 
     # ANUSVARA AT END OF WORD
-    "%\u0902": "m\u0323"
+    "\u0902%": "m\u0323"
     # ANUNASIKA
     "\u0901": "m\u0310"
     # JIHVAMULIYA

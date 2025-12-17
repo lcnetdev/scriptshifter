@@ -1,0 +1,18 @@
+---
+general:
+  name: Pali (Devanagari)
+  parents:
+    - _ignore_base
+    - devanagari_generic
+  description: Version 1.0 Pali language in the Devanagari script
+  case_sensitive: false
+
+roman_to_script:
+  map:
+    " " : " "
+    # NO ADDITIONAL MAPPINGS TO APPLY
+
+script_to_roman:
+  map:
+    " " : " "
+    # NO ADDITIONAL MAPPINGS TO APPLY

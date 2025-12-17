@@ -1,7 +1,9 @@
+---
 general:
   name: Lithuanian (Cyrillic)
   parents:
     - cyrillic_generic
+  description: Version 1.0 (2025-12-05) Lithuanian language in the Cyrillic script.
 
 roman_to_script:
   map:

@@ -1,7 +1,9 @@
+---
 general:
   name: Russian
   parents:
     - cyrillic_generic
+  description: Version 1.0 (2025-11-29) Russian language in Cyrillic script
 
 roman_to_script:
   map:
@@ -9,47 +11,41 @@ roman_to_script:
     "g": "\u0433"
     "E\u0307": "\u042D"
     "E\u0308": "\u0401"
-    # conversion results in a non-MARC-8 character
     "E\u0328": "\u0466"
     "E": "\u0415"
     "e\u0307": "\u044D"
     "e\u0308": "\u0451"
-    # conversion results in a non-MARC-8 character
     "e\u0328": "\u0467"
-    # this conversion shouldn't be needed, but does no harm
     "ZH": "\u0416"
     "Zh": "\u0416"
     "Z": "\u0417"
     "zh": "\u0436"
     "I\u0304": "\u0406"
     "I\uFE20E\uFE21": "\u0462"
-    # this conversion shouldn't be needed, but does no harm
     "I\uFE20e\uFE21": "\u0462"
+    "I\u0361E": "\u0462"
+    "I\u0361e": "\u0462"
     "I": "\u0418"
     "i\u0304": "\u0456"
     "i\uFE20e\uFE21": "\u0463"
+    "i\u0361e": "\u0463"
     "i": "\u0438"
-    # conversion results in a non-MARC-8 character
     "O\u0307": "\u04E8"
-    # conversion results in a non-MARC-8 character
     "o\u0307": "\u04E9"
-    # this conversion shouldn't be needed, but does no harm
     "SHCH": "\u0429"
     "Shch": "\u0429"
     "shch": "\u0449"
     "T\uFE20S\uFE21": "\u0426"
-    # this conversion shouldn't be needed, but does no harm
     "T\uFE20s\uFE21": "\u0426"
+    "T\u0361S": "\u0426"
+    "T\u0361s": "\u0426"
     "t\uFE20s\uFE21": "\u0446"
-    # conversion results in a non-MARC-8 character
+    "t\u0361s": "\u0446"
     "U\u0307": "\u04AE"
-    # conversion results in a non-MARC-8 character
     "u\u0307": "\u04AF"
     "F\u0307": "\u0472"
     "f\u0307": "\u0473"
-    # conversion results in a non-MARC-8 character
     "H\u0307": "\u04BA"
-    # conversion results in a non-MARC-8 character
     "h\u0307": "\u04BB"
     "Y\u0307": "\u0474"
     "Y": "\u042B"
@@ -68,21 +64,21 @@ script_to_roman:
     "\u0413": "G"
     "\u0416": "Zh"
     "\u0418": "I"
-    "\u0426": "T\uFE20S\uFE21"
+    "\u0426": "T\u0361S"
     "\u042A": "\u02BA"
     "\u042B": "Y"
     "\u042D": "E\u0307"
     "\u0433": "g"
     "\u0436": "zh"
     "\u0438": "i"
-    "\u0446": "t\uFE20s\uFE21"
+    "\u0446": "t\u0361s"
     "\u044A": "\u02BA"
     "\u044B": "y"
     "\u044D": "e\u0307"
     "\u0451": "e\u0308"
     "\u0456": "i\u0304"
-    "\u0462": "I\uFE20E\uFE21"
-    "\u0463": "i\uFE20e\uFE21"
+    "\u0462": "I\u0361E"
+    "\u0463": "i\u0361e"
     "\u0466": "E\u0328"
     "\u0467": "e\u0328"
     "\u0472": "F\u0307"

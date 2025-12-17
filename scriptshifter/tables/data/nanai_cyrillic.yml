@@ -1,0 +1,18 @@
+---
+general:
+  name: Nanai (Cyrillic)
+  parents:
+    - cyrillic_generic
+  description: Version 1.0 (2025-12-05) Nanai language in the Cyrillic script
+
+roman_to_script:
+  map:
+    
+    # NO ADDITIONAL MAPPINGS TO APPLY
+    "" : ""
+
+script_to_roman:
+  map:
+
+    # NO ADDITIONAL MAPPINGS TO APPLY
+    "" : ""

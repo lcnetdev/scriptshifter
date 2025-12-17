@@ -3,6 +3,7 @@ general:
   name: Tamil
   parents:
     - _ignore_base
+  description: Version 1.0 (2025-12-06) Tamil language in the Tamil script.
   case_sensitive: false
     
 roman_to_script:

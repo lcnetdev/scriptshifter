@@ -3,19 +3,20 @@ general:
   name: Gujarati
   parents:
     - _ignore_base
+  description: Version 1.0 Gujarati language in the Gujarati script.
   case_sensitive: false
 
 roman_to_script:
   map:
 
     # FINAL CONSONANT H WITH DOT BELOW
-    "%h\u0323": "\u0A83"
+    "h\u0323%": "\u0A83"
 
     # FINAL CONSONANT M WITH DOT BELOW
-    "%m\u0323": "\u0A82"
+    "m\u0323%": "\u0A82"
 
     # FINAL CONSONANT M WITH CANDRABINDU
-    "%m\u0310": "\u0A81"
+    "m\u0310%": "\u0A81"
 
     # CONSONANTS WITH VOWEL AI
 
@@ -1385,13 +1386,13 @@ script_to_roman:
   map:
 
     # FINAL CONSONANT M WITH CANDRABINDU
-    "%\u0A81": "m\u0310"
+    "\u0A81%": "m\u0310"
 
     # FINAL CONSONANT M WITH DOT BELOW
-    "%\u0A82": "m\u0323"
+    "\u0A82%": "m\u0323"
 
     # FINAL CONSONANT H WITH DOT BELOW
-    "%\u0A83": "h\u0323"
+    "\u0A83%": "h\u0323"
 
     # CONSONANTS WITH VOWEL AI
 

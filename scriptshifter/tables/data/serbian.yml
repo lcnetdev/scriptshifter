@@ -1,15 +1,18 @@
+---
 general:
   name: Serbian
   parents:
     - cyrillic_generic
+  description: Version 1.0 (2025-12-06) Serbian language in Cyrillic script.
 
 roman_to_script:
   map:
-    "G\u0301": "\u0403"
-    "G": "\u0413"
-    "g\u0301": "\u0453"
-    "g": "\u0433"
-    "\u0110": "\u0402"
+    "C\u0301": "\u040B"
+    "C\u030C": "\u0427"
+    "C": "\u0426"
+    "c\u0301": "\u045B"
+    "c\u030C": "\u0447"
+    "c": "\u0446"
     # this conversion shouldn't be needed, but does no harm
     "DZ\u030C": "\u040F"
     # this conversion shouldn't be needed, but does no harm
@@ -19,17 +22,19 @@ roman_to_script:
     "\u0111": "\u0452"
     "dz\u030C": "\u045F"
     "dz": "\u0455"
-    "Z\u030C": "\u0416"
-    "z\u030C": "\u0436"
-    "z": "\u0437"
+    "G\u0301": "\u0403"
+    "G": "\u0413"
+    "g\u0301": "\u0453"
+    "g": "\u0433"
+    "\u0110": "\u0402"
+    "H": "\u0425"
+    "h": "\u0445"
     "I": "\u0418"
     "i": "\u0438"
     "J": "\u0408"
     "j": "\u0458"
     "K\u0301": "\u040C"
-    "H": "\u0425"
     "k\u0301": "\u045C"
-    "h": "\u0445"
     # this conversion shouldn't be needed, but does no harm
     "LJ": "\u0409"
     "Lj": "\u0409"
@@ -40,12 +45,9 @@ roman_to_script:
     "nj": "\u045A"
     "S\u030C": "\u0428"
     "s\u030C": "\u0448"
-    "C\u0301": "\u040B"
-    "C\u030C": "\u0427"
-    "C": "\u0426"
-    "c\u0301": "\u045B"
-    "c\u030C": "\u0447"
-    "c": "\u0446"
+    "Z\u030C": "\u0416"
+    "z\u030C": "\u0436"
+    "z": "\u0437"
 
 script_to_roman:
   map:

@@ -1,13 +1,18 @@
+---
 general:
   name: Udmurt (Cyrillic)
   parents:
     - cyrillic_generic
+  description: Version 1.0 (2025-12-06) Udmurt language in the Cyrillic script.
 
 roman_to_script:
   map:
     "D\uFE20Z\uFE21": "\u04DE"
+    "D\u0361Z": "\u04DE"
     "D\uFE20z\uFE21": "\u04DE"
+    "D\u0361z": "\u04DE"
     "d\uFE20z\uFE21": "\u04DF"
+    "d\u0361z": "\u04DF"
     "I\u0308": "\u04E4"
     "i\u0308": "\u04E5"
     "O\u0307": "\u04E6"
@@ -22,8 +27,8 @@ script_to_roman:
   map:
     "\u04DC": "J"
     "\u04DD": "j"
-    "\u04DE": "D\uFE20Z\uFE21"
-    "\u04DF": "d\uFE20z\uFE21"
+    "\u04DE": "D\u0361Z"
+    "\u04DF": "d\u0316z"
     "\u04E4": "I\u0308"
     "\u04E5": "i\u0308"
     "\u04E6": "O\u0307"

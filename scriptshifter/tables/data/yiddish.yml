@@ -1,6 +1,7 @@
 ---
 general:
   name: Yiddish
+  description: Version 1.0 (2025-12-07) Yiddish language in Hebrew script, using third-party software.
   case_sensitive: false
 
 options:

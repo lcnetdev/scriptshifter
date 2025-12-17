@@ -1,19 +1,30 @@
+---
 general:
   name: Abkhaz (Cyrillic)
   parents:
     - cyrillic_generic
+  description: Version 1.0 (2025-11-29) - Abkhaz in Cyrillic script
 
 roman_to_script:
   map:
     "T\uFE20S\uFE21\u0307": "\u04B4"
+    "T\u0361S\u0307": "\u04B4"
     "T\uFE20s\uFE21\u0307": "\u04B4"
+    "T\u0361s\u0307": "\u04B4"
     "t\uFE20s\uFE21\u0307": "\u04B5"
+    "t\u0361s\u0307": "\u04B5"
     "T\uFE20\u0307S\uFE21": "\u04B4"
+    "T\u0361\u0307S": "\u04B4"
     "T\uFE20\u0307s\uFE21": "\u04B4"
+    "T\u0361\u0307s": "\u04B4"
     "t\uFE20\u0307s\uFE21": "\u04B5"
+    "t\u0361\u0307s": "\u04B5"
     "T\u0307\uFE20S\uFE21": "\u04B4"
+    "T\u0307\u0361S": "\u04B4"
     "T\u0307\uFE20s\uFE21": "\u04B4"
+    "T\u0307\u0361s": "\u04B4"
     "t\u0307\uFE20s\uFE21": "\u04B5"
+    "t\u0307\u0361s": "\u04B5"
     "C\u0301h\u0301": "\u04BE"
     "C\u0301H\u0301": "\u04BE"
     "c\u0301h\u0301": "\u04BF"
@@ -24,8 +35,11 @@ roman_to_script:
     "C\u0307H": "\u04B6"
     "c\u0307h": "\u04B7"
     "D\uFE20Z\uFE21": "\u04E0"
+    "D\u0361Z": "\u04E0"
     "D\uFE20z\uFE21": "\u04E0"
+    "D\u0361z": "\u04E0"
     "d\uFE20z\uFE21": "\u04E1"
+    "d\u0361z": "\u04E1"
     "GH": "\u0494"
     "Gh": "\u0494"
     "gh": "\u0495"
@@ -60,8 +74,8 @@ script_to_roman:
     "\u049D": "q"
     "\u04A8": "W"
     "\u04A9": "w"
-    "\u04B4": "T\uFE20S\uFE21\u0307"
-    "\u04B5": "t\uFE20s\uFE21\u0307"
+    "\u04B4": "T\u0361S\u0307"
+    "\u04B5": "t\u0361s\u0307"
     "\u04B6": "C\u0307h"
     "\u04B7": "c\u0307h"
     "\u04BC": "C\u0301h"
@@ -72,8 +86,8 @@ script_to_roman:
     "\u04C4": "kh"
     "\u04D8": "W\u0307"
     "\u04D9": "w\u0307"
-    "\u04E0": "D\uFE20Z\uFE21"
-    "\u04E1": "d\uFE20z\uFE21"
+    "\u04E0": "D\u0361Z"
+    "\u04E1": "d\u0361z"
     "\u04FC": "H\u0307"
     "\u04FD": "h\u0307"
     "\u0524": "Ph"

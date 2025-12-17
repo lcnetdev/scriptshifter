@@ -2,6 +2,7 @@ general:
   name: Syriac (Cyrillic)
   parents:
     - cyrillic_generic
+  description: Version 1.0 (2025-12-06) Syriac language in the Cyrillic script.
 
 roman_to_script:
   map:

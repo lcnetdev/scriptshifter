@@ -1,7 +1,9 @@
+---
 general:
   name: Romani (Cyrillic)
   parents:
     - cyrillic_generic
+  description: Version 1.0 (2025-12-05) Romani (Gypsy) language in Cyrillic script.
 
 roman_to_script:
   map:
@@ -20,4 +22,4 @@ script_to_roman:
     "\u0490": "Gh"
     "\u0491": "gh"
     "\u0492": "Gh"
-    "\u0493f": "gh"
+    "\u0493": "gh"

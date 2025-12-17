@@ -1,0 +1,23 @@
+---
+general:
+  name: Sindhi (Gurmukhi)
+  parents:
+    - _gurmukhi_base
+
+  description: Version 0.0 (2025-12-06) Sindhi language in the Gurmukhi script
+  case_sensitive: false
+
+roman_to_script:
+  hooks:
+    post_normalize:
+      -
+        - gurmukhi.nasalize_post_normalize
+
+  map:
+    "": ""
+    # NO ADDITIONAL MAPPINGS TO APPLY
+
+script_to_roman:
+  map:
+    "": ""
+    # NO ADDITIONAL MAPPINGS TO APPLY
