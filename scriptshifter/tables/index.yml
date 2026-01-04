@@ -21,7 +21,7 @@ altai_cyrillic:
   marc_code: alt
   name: Altai (Cyrillic)
 amharic:
-  conf: "_ethiopic_base.yml"
+  conf: "ethiopic_generic.yml"
   marc_code: amh
   name: Amharic
 arabic:
@@ -31,7 +31,7 @@ arabic:
   marc_code: ara
   name: Arabic
 argobba_ethiopic:
-  conf: "_ethiopic_base.yml"
+  conf: "ethiopic_generic.yml"
   marc_code: amh
   name: Argobba (Ethiopic)
 armenian:
@@ -40,6 +40,10 @@ armenian:
 assamese:
   marc_code: asm
   name: Assamese
+awadhi_devanagari:
+  conf: "devanagari_generic.yml"
+  marc_code: bih
+  name: Awadhi (Devanagari)
 azerbaijani_cyrillic:
   marc_code: aze
   name: Azerbaijani (Cyrillic)
@@ -54,14 +58,15 @@ belarusian:
   marc_code: bel
   name: Belarusian
 bengali:
-  marc_code: ben
   conf: "_bengali_base.yml"
+  marc_code: ben
   name: Bengali
 bihari_devanagari:
-  marc_code: bih
   conf: "devanagari_generic.yml"
+  marc_code: bih
   name: Bihari (Devanagari)
 braj_devanagari:
+  conf: "devanagari_generic.yml"
   marc_code: bra
   name: Braj (Devanagari)
 bulgarian:
@@ -151,7 +156,7 @@ gujarati:
   marc_code: guj
   name: Gujarati
 gurage_ethiopic:
-  conf: "_ethiopic_base.yml"
+  conf: "ethiopic_generic.yml"
   marc_code: sem
   name: Gurage (Ethiopic)
 hebrew:
@@ -475,11 +480,11 @@ tibetan:
   marc_code: tib
   name: Tibetan
 tigre_ethiopic:
-  conf: "_ethiopic_base.yml"
+  conf: "ethiopic_generic.yml"
   marc_code: tig
   name: Tigre (Ethiopic)
 tigrinya_ethiopic:
-  conf: "_ethiopic_base.yml"
+  conf: "ethiopic_generic.yml"
   marc_code: tir
   name: Tigrinya (Ethiopic)
 turkmen_cyrillic:
