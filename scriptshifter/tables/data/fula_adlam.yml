@@ -1,7 +1,11 @@
 ---
 general:
   name: Fula (ADLaM)
-  description: Version 1.0 (Fula (Pular) language in the ADLaM script.
+  description: Fula (Pular) language in the ADLaM script.
+  version: 1.0.0
+  date: 2025-12-23
+  parents:
+    - _ignore_base
 
 roman_to_script:
   hooks:

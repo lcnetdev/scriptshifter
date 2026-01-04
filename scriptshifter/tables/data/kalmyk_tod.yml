@@ -1,10 +1,12 @@
 ---
 general:
   name: Kalmyk (Tod)
+  case_sensitive: false
+  description: Kalmyk (Oirat) language in Tod script.
+  version: 1.0.1
+  date: 2025-12-23
   parents:
     - _ignore_base
-  case_sensitive: false
-  description: Version 1.0 (2025-11-29) - Kalmyk (Oirat) language in Tod script
   
 roman_to_script:
 
@@ -19,8 +21,10 @@ roman_to_script:
     "\u002D": "\u202F"
     "e": "\u1844"
     "i": "\u1845"
+    "o\u0307": "\u1848"
     "o\u0308": "\u1848"
     "o": "\u1846"
+    "u\u0307": "\u1849"
     "u\u0308": "\u1849"
     "u": "\u1847"
     # n followed by a g with dot
@@ -37,8 +41,10 @@ roman_to_script:
     "ka": "\u1857\u1820"
     "ke": "\u184D\u1844"
     "ki": "\u184D\u1845"
+    "ko\u0307": "\u184D\u1848"
     "ko\u0308": "\u184D\u1848"
     "ko": "\u1857\u1846"
+    "ku\u0307": "\u184D\u1849"
     "ku\u0308": "\u184D\u1849"
     "ku": "\u1857\u1847"
     "k": "\u1857"
@@ -61,8 +67,10 @@ roman_to_script:
     "xa": "\u184D\u1820"
     "xe": "\u184D\u1844"
     "xi": "\u184D\u1845"
+    "xo\u0307": "\u184D\u1848"
     "xo\u0308": "\u184D\u1848"
     "xo": "\u184D\u1846"
+    "xu\u0307": "\u184D\u1849"
     "xu\u0308": "\u184D\u1849"
     "xu": "\u184D\u1847"
     "x": "\u184D"

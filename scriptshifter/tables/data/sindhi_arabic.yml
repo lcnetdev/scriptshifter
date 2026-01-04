@@ -1,10 +1,12 @@
 ---
 general:
   name: Sindhi (Arabic)
+  case_sensitive: false
+  description: Sindhi language in Arabic script (roman_to_script only).
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - _ignore_base
-  description: Version 0.0 (2025-12-06) Sindhi language in Arabic script
-  case_sensitive: false
 
 roman_to_script:
   map:

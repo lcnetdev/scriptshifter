@@ -1,10 +1,12 @@
 ---
 general:
   name: Mongolian (Mongol bichig)
+  case_sensitive: false
+  description: Mongolian language in Mongolian script (Mongol bichig).
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - _ignore_base
-  description: Version 1.0 (2025-11-29) - Mongolian language in Mongol bichig
-  case_sensitive: false
 
 roman_to_script:
 
@@ -21,8 +23,10 @@ roman_to_script:
     "e": "\u1821"
     "i": "\u1822"
     "o\u0307": "\u1825"
+    "o\u0308": "\u1825"
     "o": "\u1823"
     "u\u0307": "\u1826"
+    "u\u0308": "\u1826"
     "u": "\u1824"
     # Feminine g control when followed by l
     "nggl": "\u1829\u182D\u180D\u182F"
@@ -37,6 +41,7 @@ roman_to_script:
     "k": "\u182C"
     "g\u0307": "\u182D"
     "g": "\u182D"
+    "\u0263": "\u182D"
     "m": "\u182E"
     "lh": "\u1840"
     "l": "\u182F"

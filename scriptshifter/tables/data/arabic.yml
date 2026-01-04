@@ -4,11 +4,12 @@
 ---
 general:
   name: Arabic
+  case_sensitive: false
+  description: Arabic language R2S using a conversion table; S2R using a 3rd party library.
+  version: 1.1.0
+  date: 2025-12-02
   parents:
     - _ignore_base
-  description: >
-    Version 1.1 (2025-12-02) - Arabic language R2S using a conversion table; S2R using a 3rd party library.
-  case_sensitive: false
   
 # COMMON COMBINING CHARACTERS (always follow a base letter):
 # combining acute \u0301
@@ -31,11 +32,9 @@ roman_to_script:
     "?": "\u061F"
 
     # Exceptions for specific words
-    
-    # Alla[macron]h with shaddah and alef khunjariyah
-    "%alla\u0304h%": "\u0627\u0644\u0644\u0651\u0670\u0647"
-    
-    # Alla[macron]h (4-character encoding)
+
+    # Allah
+    "%alla\u0304h%": "\uFDF2"
     "alla\u0304h": "\u0627\u0644\u0644\u0647"
 
     # Qur'an

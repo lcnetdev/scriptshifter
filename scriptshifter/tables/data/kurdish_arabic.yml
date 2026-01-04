@@ -1,10 +1,12 @@
 ---
 general:
   name: Kurdish (Arabic)
+  case_sensitive: false
+  description: Kurdish language in the Arabic script; R2S conversion only.
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - _ignore_base
-  description: Version 1.0 (2025-12-04) Kurdish language in the Arabic script; R2S conversion only.
-  case_sensitive: false
 
 roman_to_script:
   map:

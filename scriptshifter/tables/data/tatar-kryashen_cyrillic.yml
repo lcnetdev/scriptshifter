@@ -1,9 +1,11 @@
 ---
 general:
   name: Tatar-Kryashen (Cyrillic)
+  decription: Tatar-Kryashen language in the Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23 
   parents:
     - cyrillic_generic
-  decription: Version 1.0 (2025-12-06) Tatar-Kryashen in the Cyrillic script.
 
 roman_to_script:
   map:

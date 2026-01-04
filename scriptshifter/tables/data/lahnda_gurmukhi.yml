@@ -1,19 +1,22 @@
 ---
 general:
   name: Lahnda (Gurmukhi)
-  parents:
-    - _ignore_base
-    - panjabi
-
-  description: Version 1.0 (2025-12-05) Lahnda language in the Gurmukhi script
   case_sensitive: false
+  description: Lahnda language in the Gurmukhi script.
+  version: 1.0.1
+  date: 2025-12-23
+  parents:
+    - _gurmukhi_base
 
 roman_to_script:
-  map:
-    " " : " "
+  hooks:
+    post_normalize:
+      -
+        - gurmukhi.nasalize_post_normalize
+
+  map: {}
     # NO ADDITIONAL MAPPINGS TO APPLY
 
 script_to_roman:
-  map:
-    " " : " "
+  map: {}
     # NO ADDITIONAL MAPPINGS TO APPLY

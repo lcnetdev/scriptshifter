@@ -1,9 +1,11 @@
 ---
 general:
   name: Church Slavonic
+  description: Church Slavonic in Cyrillic script.
+  version: 1.0.0
+  date: 2025-11-30
   parents:
     - cyrillic_generic
-  description: Version 1.0 (2025-11-30) Church Slavonic in Cyrillic script
 
 roman_to_script:
   map:

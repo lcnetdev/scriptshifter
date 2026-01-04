@@ -1,10 +1,12 @@
 ---
 general:
   name: Buriat (Mongol bichig)
+  case_sensitive: false
+  description: Buriat language in Mongol bichig.
+  version: 1.0.0
+  date: 2025-11-29
   parents:
     - _ignore_base
-  case_sensitive: false
-  description: Version 1.0 (2025-11-29) - Buriat language in Mongol bichig
 
 roman_to_script:
 

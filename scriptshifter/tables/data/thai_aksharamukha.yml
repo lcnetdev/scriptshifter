@@ -1,8 +1,11 @@
 ---
 general:
   name: Thai (Aksharamukha)
-  comment: "Note: not ALA-LC compliant."
   case_sensitive: false
+  description: Thai language in Thai script converted by third-party software.
+  version: 1.0.0
+  date: 2025-12-23
+  comment: "Note: output is not compliant with the ALA-LC Romanization Tables."
 
 options:
   - id: ThaiTranscription

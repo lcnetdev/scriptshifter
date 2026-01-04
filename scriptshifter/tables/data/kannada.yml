@@ -1,10 +1,12 @@
 ---
 general:
   name: Kannada
+  case_sensitive: false
+  description: Kannada language in Kannada script.
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - _ignore_base
-  description: Version 1.0 (2025-12-03) Kannada language in Kannada script.
-  case_sensitive: false
 
 roman_to_script:
   map:

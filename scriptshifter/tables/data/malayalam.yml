@@ -1,15 +1,17 @@
 ---
 general:
   name: Malayalam
+  case_sensitive: false
+  description: Malayalam language in Malayalam script.
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - _ignore_base
-  description: Version 1.0 (2025-12-03) Malayalam language in Malayalam script.
-  case_sensitive: false
 
 roman_to_script:
   map:
     # CHILLU DEAD CONSONANTS (syllable-final, no vowel)
-    
+
     "k\u0301": "\u0D7F"
     "l\u0301": "\u0D7D"
     "l\u0301\u0323": "\u0D7E"

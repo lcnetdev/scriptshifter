@@ -1,11 +1,12 @@
 ---
 general:
   name: Awadhi (Devanagari)
+  case_sensitive: false
+  description: Awadhi language in the Devanagari script.
+  version: 1.0,0
+  date: 2025-11-29
   parents:
-    - _ignore_base
     - devanagari_generic
-
-  description: Version 1.0 (2025-11-29) Awadhi language in the Devanagari script
 
 roman_to_script:
   map:

@@ -1,9 +1,11 @@
 ---
 general:
   name: Eskimo-Yuit (Cyrillic)
+  description: Eskimo-Yuit dialect in the Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - cyrillic_generic
-  description: Version 1.0 (2025-12-01) Eskimo-Yuit dialect in the Cyrillic script
 
 roman_to_script:
   map:

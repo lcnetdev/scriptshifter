@@ -1,10 +1,12 @@
 ---
 general:
   name: Devanagari (Generic)
+  case_sensitive: false
+  description: Generic mapping for the Devanagari script.
+  version: 1.0.0
+  date: 2025-11-30
   parents:
     - _ignore_base
-  case_sensitive: false
-  description: Version 1.0 (2025-11-30) Generic mapping for the Devanagari script
 
 roman_to_script:
   map:

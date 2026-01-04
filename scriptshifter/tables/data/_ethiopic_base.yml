@@ -1,10 +1,12 @@
 ---
 general:
   name: Ethiopic base
+  case_sensitive: false
+  description: Bidirectional base mapping for the Ethiopic (Ge'ez) script.
+  version: 1.0.0
+  date: 2025-12-01
   parents:
     - _ignore_base
-  description: Version 1.0 (2025-12-01) Bidirectional base mapping for the Ethiopic (Ge'ez) script.
-  case_sensitive: false
   
 
 roman_to_script:

@@ -1,9 +1,11 @@
 ---
 general:
   name: Greek (modern)
+  description: Modern Greek in Greek script.
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - greek_classical
-  description: Version 1.0 (2025-12-04) Modern Greek in Greek script.
 
 roman_to_script:
   map:

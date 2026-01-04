@@ -1,8 +1,11 @@
+---
 general:
   name: Karachay-Balkar (Cyrillic)
+  description: Karachay and Karachay-Balkar languages in Cyrillic.
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - cyrillic_generic
-  description: Version 1.0 (2025-12-04) Karachay and Karachay-Balkar languages in Cyrillic.
 
 # combining comma above \u0313
 

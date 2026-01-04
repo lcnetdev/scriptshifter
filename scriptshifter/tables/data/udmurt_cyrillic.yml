@@ -1,9 +1,11 @@
 ---
 general:
   name: Udmurt (Cyrillic)
+  description: Udmurt language in the Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23 
   parents:
     - cyrillic_generic
-  description: Version 1.0 (2025-12-06) Udmurt language in the Cyrillic script.
 
 roman_to_script:
   map:

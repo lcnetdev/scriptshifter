@@ -1,12 +1,13 @@
 ---
 general:
   name: Assamese
+  case_sensitive: false
+  description: Assamese language in the Bengali script.
+  version: 1.0.0
+  date: 2025-11-30
   parents:
     - _ignore_base
     - _bengali_base
-
-  description: Version 1.0 (2025-11-30) Assamese language in the Bengali script
-  case_sensitive: false
 
 roman_to_script:
   map:

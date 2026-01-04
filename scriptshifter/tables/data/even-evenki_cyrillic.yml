@@ -1,9 +1,11 @@
 ---
 general:
   name: Even/Evenki (Cyrillic)
+  description: Even/Evenki language and dialects in Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - cyrillic_generic
-  description: Version 1.0 (2025-12-01) Even/Evenki language and dialects in Cyrillic script.
 
 roman_to_script:
   map:

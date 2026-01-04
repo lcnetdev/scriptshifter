@@ -1,10 +1,12 @@
 ---
 general:
   name: Urdu
+  case_sensitive: false
+  description: Urdu language in the Arabic script.
+  version: 1.0.0
+  date: 2025-12-23 
   parents:
     - _ignore_base
-  description: Version 1.0 (2025-12-07) Urdu language in the Arabic script.
-  case_sensitive: false
 
 roman_to_script:
   map:

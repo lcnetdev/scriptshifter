@@ -21,6 +21,7 @@ arabic:
   marc_code: ara
   name: Arabic
 amharic:
+  conf: "_ethiopic_base.yml"
   marc_code: amh
   name: Amharic
 armenian:
@@ -32,6 +33,10 @@ assamese:
 azerbaijani_cyrillic:
   marc_code: aze
   name: Azerbaijani (Cyrillic)
+balkar_cyrillic:
+  conf: "cyrillic_generic.yml"
+  marc_code: krc
+  name: Balkar (Cyrillic)
 bashkir_cyrillic:
   marc_code: bak
   name: Bashkir (Cyrillic)
@@ -40,9 +45,11 @@ belarusian:
   name: Belarusian
 bengali:
   marc_code: ben
+  conf: "_bengali_base.yml"
   name: Bengali
 bihari_devanagari:
   marc_code: bih
+  conf: "devanagari_generic.yml"
   name: Bihari (Devanagari)
 braj_devanagari:
   marc_code: bra
@@ -113,12 +120,17 @@ greek_modern:
 gujarati:
   marc_code: guj
   name: Gujarati
+gurage_ethiopic:
+  conf: "_ethiopic_base.yml"
+  name: Gurage (Ethiopic)
+  marc_code: guj
 hebrew:
   marc_code: heb
   name: Hebrew
 hindi:
-  marc_code: hin
+  conf: "devanagari_generic.yml"
   name: Hindi (Devanagari)
+  marc_code: hin
 hiragana:
   marc_code: jpn
   name: Japanese (Hiragana)
@@ -155,6 +167,14 @@ khmer:
 komi_cyrillic:
   marc_code: kom
   name: Komi (Cyrillic)
+konkani_devanagari:
+  conf: "devanagari_generic.yml"
+  marc_code: kok
+  name: Konkani (Devanagari)
+konkani_kannada:
+  conf: "kannada.yml"
+  marc_code: kok
+  name: Konkani (Kannada)
 korean_names:
   description: >
     Korean S2R for strings ONLY containing personal names formatted as last +
@@ -221,6 +241,7 @@ macedonian:
   marc_code: mac
   name: Macedonian
 maithili_devanagari:
+  conf: "devanagari_generic.yml"
   marc_code: mai
   name: Maithili (Devanagari)
 malayalam:
@@ -261,9 +282,11 @@ nanai_cyrillic:
 nenets_cyrillic:
   name: Nenets (Cyrillic)
 nepali_devanagari:
+  conf: "devanagari_generic.yml"
   marc_code: nep
   name: Nepali (Devanagari)
 newari_devanagari:
+  conf: "devanagari_generic.yml"
   marc_code: new
   name: Newari (Devanagari)
 nivkh_cyrillic:
@@ -281,11 +304,24 @@ ossetic_cyrillic:
   marc_code: oss
   name: Ossetic (Cyrillic)
 pahari_devanagari:
+  conf: "devanagari_generic.yml"
   marc_code: him
   name: Pahari (Devanagari)
 pali:
   marc_code: pli
   name: Pali
+pali_bengali:
+  conf: "_bengali_base.yml"
+  marc_code: pli
+  name: Pali (Bengali)
+pali_devanagari:
+  conf: "devanagari_generic.yml"
+  marc_code: pli
+  name: Pali (Devanagari)
+pali_sinhala:
+  conf: "sinhala.yml"
+  marc_code: pli
+  name: Pali (Sinhala)
 panjabi_gurmukhi:
   marc_code: pan
   name: Panjabi (Gurmukhi)
@@ -306,6 +342,7 @@ pushto:
   marc_code: pus
   name: Pushto
 rajasthani_devanagari:
+  conf: "devanagari_generic.yml"
   marc_code: raj
   name: Rajasthani (Devanagari)
 romani_cyrillic:
@@ -377,9 +414,17 @@ thai:
 tibetan:
   marc_code: tib
   name: Tibetan
+tigre_ethiopic:
+  conf: "_ethiopic_base.yml"
+  marc_code: tig
+  name: Tigre (Ethiopic)
 tigrinya:
   marc_code: tir
   name: Tigrinya
+tigrinya_ethiopic:
+  conf: "_ethiopic_base.yml"
+  marc_code: tir
+  name: Tigrinya (Ethiopic)
 tod_mongolian:
   marc_code: xal
   name: Tod Mongolian

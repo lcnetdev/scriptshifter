@@ -1,12 +1,12 @@
 ---
 general:
   name: Marathi (Devanagari)
-  parents:
-    - _ignore_base
-    - devanagari_generic
-
-  description: Version 1.0 (2025-12-01) Marathi language in the Devanagari script
   case_sensitive: false
+  description: Marathi language in the Devanagari script.
+  version: 1.0.0
+  date: 2025-12-23
+  parents:
+    - devanagari_generic
 
 roman_to_script:
   map:
