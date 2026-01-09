@@ -2,6 +2,9 @@
 general:
   name: Khmer
   case_sensitive: false
+  description: Khmer language in Khmer script using third-party software.
+  version: 1.0.0
+  date: 2025-12-23
 
 script_to_roman:
   hooks:

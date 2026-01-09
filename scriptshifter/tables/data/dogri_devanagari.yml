@@ -1,12 +1,13 @@
 ---
 general:
   name: Dogri (Devanagari)
+  case_sensitive: false
+  description: Dogri language in the Devanagari script.
+  version: 1.0.0
+  date: 2025-12-23 
   parents:
     - _ignore_base
-    - _devanagari_base
-
-  description: Dogri language in the Devanagari script
-  case_sensitive: false
+    - devanagari_generic
 
 roman_to_script:
   map:

@@ -1,20 +1,27 @@
+---
 general:
   name: Chukchi (Cyrillic)
+  description: Chukchi language in Cyrillic script.
+  version: 1.0.0
+  date: 2025-11-30
   parents:
     - cyrillic_generic
 
 roman_to_script:
   map:
     "N\uFE20G\uFE21": "\u04A2"
+    "N\u0361G": "\u04A2"
     "N\uFE20g\uFE21": "\u04A2"
+    "N\u0361g": "\u04A2"
     "n\uFE20g\uFE21": "\u04A3"
+    "n\u0361g": "\u04A3"
     "Q": "\u04C3"
     "q": "\u04C4"
 
 script_to_roman:
   map:
-    "\u04A2": "N\uFE20G\uFE21"
-    "\u04A3": "n\uFE20g\uFE21"
+    "\u04A2": "N\u0361G"
+    "\u04A3": "n\u0361g"
     "\u04C3": "Q"
     "\u04C4": "q"
 

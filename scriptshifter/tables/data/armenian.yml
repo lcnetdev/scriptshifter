@@ -1,5 +1,9 @@
+---
 general:
   name: Armenian
+  description: Armenian language in Armenian script.
+  version: 1.0.0
+  date: 2025-11-29
   parents:
     - _ignore_base
 

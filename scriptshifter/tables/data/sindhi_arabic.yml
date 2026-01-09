@@ -1,14 +1,12 @@
 ---
 general:
   name: Sindhi (Arabic)
-  description: Version 1.0 of conversion rules for the Sindhi language in the Perso-Arabic script
-  # Updated 2025-11-26, by Randall K. Barry to reverse truncation mark %
-  # xxxx% (end of string), %xxxx (beginning of string)
-
+  case_sensitive: false
+  description: Sindhi language in Arabic script (roman_to_script only).
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - _ignore_base
-  
-  case_sensitive: false
 
 roman_to_script:
   map:

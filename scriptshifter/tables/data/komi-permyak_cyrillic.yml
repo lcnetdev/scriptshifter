@@ -1,0 +1,18 @@
+---
+general:
+  name: Komi-Permyak (Cyrillic)
+  description: Komi-Permyak language in Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23
+  parents:
+    - cyrillic_generic
+
+roman_to_script:
+  map:
+    "O\u0307": "\u04E6"
+    "o\u0307": "\u04E7"
+
+script_to_roman:
+  map:
+    "\u04E6": "O\u0307"
+    "\u04E7": "o\u0307"

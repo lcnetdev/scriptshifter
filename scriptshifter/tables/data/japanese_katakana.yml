@@ -2,6 +2,9 @@
 general:
   name: Japanese (Katakana)
   case_sensitive: false
+  description: Japanese language mapping for Katakana syllabary.
+  version: 1.0.0
+  date: 2025-12-23
 
 script_to_roman:
   hooks:

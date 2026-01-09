@@ -2,6 +2,9 @@
 general:
   name: Divehi (Thaana)
   case_sensitive: false
+  description: Divehi language in the Thaana script.
+  version: 1.0.0
+  date: 2025-12-01
 
 roman_to_script:
   map:

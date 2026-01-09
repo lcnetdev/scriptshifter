@@ -1,13 +1,20 @@
+---
 general:
   name: Tatar-Kryashen (Cyrillic)
+  decription: Tatar-Kryashen language in the Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23 
   parents:
     - cyrillic_generic
 
 roman_to_script:
   map:
     "N\uFE20G\uFE21": "\u04A4"
+    "N\u0316G": "\u04A4"
     "N\uFE20g\uFE21": "\u04A4"
+    "N\u0361g": "\u04A4"
     "n\uFE20g\uFE21": "\u04A5"
+    "n\u0361g": "\u04A5"
     "A\u0306": "\u04D2"
     "a\u0306": "\u04D3"
     "H\u0307": "\u04BA"
@@ -23,8 +30,8 @@ script_to_roman:
   map:
     "\u0496": "J"
     "\u0497": "j"
-    "\u04A4": "N\uFE20G\uFE21"
-    "\u04A5": "n\uFE20g\uFE21"
+    "\u04A4": "N\u0361G"
+    "\u04A5": "n\u0361g"
     "\u04BA": "H\u0307"
     "\u04BB": "h\u0307"
     "\u04D2": "A\u0306"

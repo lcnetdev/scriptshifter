@@ -1,5 +1,9 @@
+---
 general:
   name: Macedonian
+  description: Macedonian language in Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - cyrillic_generic
 
@@ -15,28 +19,20 @@ roman_to_script:
     "g": "\u0433"
     "\u0110": "\u0402"
     "D\uFE20Z\u030C\uFE21": "\u040F"
+    "D\uFE20Z\uFE21\u030C": "\u040F"
+    "D\u0361Z\u030C": "\u040F"
     "D\uFE20z\u030C\uFE21": "\u040F"
-    "d\uFE20Z\u030C\uFE21": "\u040F"
-    # Mapping from precomposed non-MARC-8 Latin equivalent
-    "\u01C4": "\u040F"
-    # Mapping from precomposed non-MARC-8 Latin equivalent
-    "\u01C5": "\u040F"
+    "D\uFE20z\uFE21\u030C": "\u040F"
+    "D\u0361z\u030C": "\u040F"
     "d\uFE20z\u030C\uFE21": "\u045F"
-    # Mapping from precomposed non-MARC-8 Latin equivalent
-    "\u01C6": "\u045F"
+    "d\uFE20z\uFE21\u030C": "\u045F"
+    "d\u0361z\u030C": "\u045F"
     "D\uFE20Z\uFE21": "\u0405"
     "D\uFE20z\uFE21": "\u0405"
-    "d\uFE20Z\uFE21": "\u0405"
-    # Mapping from precomposed non-MARC-8 Latin equivalent
-    "\u01F1": "\u0405"
-    # Mapping from precomposed non-MARC-8 Latin equivalent
-    "\u01F2": "\u0405"
+    "D\u0361Z": "\u0405"
+    "D\u0361z": "\u0405"
     "d\uFE20z\uFE21": "\u0455"
-    # Mapping from precomposed non-MARC-8 Latin equivalent
-    "\u01F3": "\u0455"
-    "\u0111": "\u0452"
-    "dz\u030C": "\u045F"
-    "dz": "\u0455"
+    "d\u0361z": "\u0455"
     "Z\u030C": "\u0416"
     # Mapping from precomposed non-MARC-8 Latin equivalent
     "\u017D": "\u0416"
@@ -58,7 +54,6 @@ roman_to_script:
     "h": "\u0445"
     "LJ": "\u0409"
     "Lj": "\u0409"
-    "lJ": "\u0409"
     # Mapping from precomposed non-MARC-8 Latin equivalent
     "\u01C7": "\u0409"
     # Mapping from precomposed non-MARC-8 Latin equivalent
@@ -68,7 +63,6 @@ roman_to_script:
     "\u01C9": "\u0459"
     "NJ": "\u040A"
     "Nj": "\u040A"
-    "nJ": "\u040A"
     # Mapping from precomposed non-MARC-8 Latin equivalent
     "\u01CA": "\u040A"
     # Mapping from precomposed non-MARC-8 Latin equivalent
@@ -81,16 +75,10 @@ roman_to_script:
     "s\u030C": "\u0448"
     # Mapping from precomposed non-MARC-8 Latin equivalent
     "\u0161": "\u0448"
-    "C\u0301": "\u040B"
-    # Mapping from precomposed non-MARC-8 Latin equivalent
-    "\u0106": "\u040B"
     "C\u030C": "\u0427"
     # Mapping from precomposed non-MARC-8 Latin equivalent
     "\u010C": "\u0427"
     "C": "\u0426"
-    "c\u0301": "\u045B"
-    # Mapping from precomposed non-MARC-8 Latin equivalent
-    "\u0107": "\u045B"
     "c\u030C": "\u0447"
     # Mapping from precomposed non-MARC-8 Latin equivalent
     "\u010D": "\u0447"
@@ -99,35 +87,30 @@ roman_to_script:
 script_to_roman:
   map:
     "\u0403": "G\u0301"
-    "\u0413": "G"
-    "\u0453": "g\u0301"
-    "\u0433": "g"
-    "\u0402": "\u0110"
-    "\u0452": "\u0111"
-    "\u0416": "Z\u030C"
-    "\u0436": "z\u030C"
-    "\u0405": "D\uFE20Z\uFE21"
-    "\u0455": "d\uFE20z\uFE21"
-    "\u0418": "I"
-    "\u0438": "i"
+    "\u0405": "D\u0361Z"
     "\u0408": "J"
-    "\u0458": "j"
-    "\u040C": "K\u0301"
-    "\u0425": "H"
-    "\u045C": "k\u0301"
-    "\u0445": "h"
     "\u0409": "Lj"
-    "\u0459": "lj"
     "\u040A": "Nj"
-    "\u045A": "nj"
-    "\u0428": "S\u030C"
-    "\u0448": "s\u030C"
-    "\u040B": "C\u0301"
+    "\u040C": "K\u0301"
+    "\u040F": "D\u0361Z\u030C"
+    "\u0413": "G"
+    "\u0416": "Z\u030C"
+    "\u0418": "I"
+    "\u0425": "H"
     "\u0426": "C"
-    "\u045B": "c\u0301"
-    "\u0446": "c"
     "\u0427": "C\u030C"
+    "\u0428": "S\u030C"
+    "\u0433": "g"
+    "\u0436": "z\u030C"
+    "\u0438": "i"
+    "\u0445": "h"
+    "\u0446": "c"
     "\u0447": "c\u030C"
-    "\u040F": "D\uFE20Z\u030C\uFE21"
-    "\u045F": "d\uFE20z\u030C\uFE21"
-
+    "\u0448": "s\u030C"
+    "\u0453": "g\u0301"
+    "\u0455": "d\u0361z"
+    "\u0458": "j"
+    "\u0459": "lj"
+    "\u045A": "nj"
+    "\u045C": "k\u0301"
+    "\u045F": "d\u0361z\u030C"

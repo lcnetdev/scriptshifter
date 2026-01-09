@@ -2,6 +2,9 @@
 general:
   name: Tamil (extended)
   case_sensitive: false
+  description: Tamil language in extended Tamil script using third-party software.
+  version: 1.0.0
+  date: 2025-12-23 
 
 script_to_roman:
   hooks:

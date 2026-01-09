@@ -1,0 +1,43 @@
+---
+general:
+  name: Eskimo-Yuit (Cyrillic)
+  description: Eskimo-Yuit dialect in the Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23
+  parents:
+    - cyrillic_generic
+
+roman_to_script:
+  map:
+    "GH": "\u0413\u0027"
+    "Gh": "\u0413\u0027"
+    "gh": "\u0433\u0027"
+    "Q": "\u041A\u0027"
+    "q": "\u043A\u0027"
+    "L\u0301": "\u041B\u0027"
+    "l\u0301": "\u043B\u0027"
+    "N\uFE20G\uFE21": "\u041D\u0027"
+    "N\uFE20g\uFE21": "\u041D\u0027"
+    "N\u0361G": "\u041D\u0027"
+    "N\u0361g": "\u041D\u0027"
+    "n\uFE20g\uFE21": "\u043D\u0027"
+    "n\u0361g": "\u043D\u0027"
+    "H\u0307": "\u0425\u0027"
+    "h\u0307": "\u0445\u0027"
+    "W": "\u040E"
+    "w": "\u045E"
+
+script_to_roman:
+  map:
+    "\u0413\u0027": "Gh"
+    "\u0433\u0027": "gh"
+    "\u041A\u0027": "Q"
+    "\u043A\u0027": "q"
+    "\u041B\u0027": "L\u0301"
+    "\u043B\u0027": "l\u0301"
+    "\u041D\u0027": "N\u0361G"
+    "\u043D\u0027": "n\u0361g"
+    "\u0425\u0027": "H\u0307"
+    "\u0445\u0027": "h\u0307"
+    "\u040E": "W"
+    "\u045E": "w"

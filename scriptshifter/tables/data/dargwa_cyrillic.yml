@@ -1,0 +1,18 @@
+---
+general:
+  name: Dargwa (Cyrillic)
+  description: Dargwa language in the Cyrillic script.
+  version: 1.0.0
+  date: 2025-11-29
+  parents:
+    - cyrillic_generic
+
+roman_to_script:
+  map:
+    "H\u0307": "\u04C0"
+    "h\u0307": "\u04CF"
+
+script_to_roman:
+  map:
+    "\u04C0": "H\u0307"
+    "\u04CF": "h\u0307"

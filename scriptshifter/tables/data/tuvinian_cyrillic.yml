@@ -1,13 +1,20 @@
+---
 general:
   name: Tuvinian (Cyrillic)
+  description: Tuvinian (Tuva) language in Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23 
   parents:
     - cyrillic_generic
 
 roman_to_script:
   map:
     "N\uFE20G\uFE21": "\u04A2"
+    "N\u0361G": "\u04A2"
     "N\uFE20g\uFE21": "\u04A2"
+    "N\u0361g": "\u04A2"
     "n\uFE20g\uFE21": "\u04A3"
+    "n\u0361g": "\u04A3"
     "H\u0307": "\u04BA"
     "h\u0307": "\u04BB"
     "O\u0307": "\u04E8"
@@ -17,8 +24,8 @@ roman_to_script:
 
 script_to_roman:
   map:
-    "\u04A2": "N\uFE20G\uFE21"
-    "\u04A3": "n\uFE20g\uFE21"
+    "\u04A2": "N\u0361G"
+    "\u04A3": "n\u0361g"
     "\u04AE": "U\u0307"
     "\u04AF": "u\u0307"
     "\u04BA": "H\u0307"

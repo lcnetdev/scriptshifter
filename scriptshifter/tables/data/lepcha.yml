@@ -1,0 +1,121 @@
+---
+general:
+  name: Lepcha
+  parents:
+    - _ignore_base
+  description: Version 0.0 (2025-12-04) Lepcha language in Lepcha script.
+  case_sensitive: false
+
+roman_to_script:
+  map:
+
+    # COMMON COMBINING CHARACTERS (follows Latin base letter)
+    # combining acute \u0301
+    # combining circumflex \u0302
+    # combining dot below \u0323
+    # ayn (spacing) \u02BB
+
+    # CONSONANTS WITH NO VOWEL AT END OF A WORD
+    "k%": "\u1C2D"
+    "l%": "\u1C2F"
+    "m%": "\u1C2E"
+    "ng%": "\u1C35"
+    "n%": "\u1C30"
+    "p%": "\u1C31"
+    "r%": "\u1C32"
+    "t%": "\u1C33"
+    
+    # CONSONANTS WITH VOWEL A WITH ACUTE
+    
+    "ka\u0301": "\u1C00"
+    "kha\u0301": "\u1C02"
+    "ga\u0301": "\u1C03"
+    "nga\u0301": "\u1C05"
+    "ca\u0301": "\u1C06"
+    "tsa\u0301": "\u1C17"
+    "cha\u0301": "\u1C07"
+    "tsha\u0301": "\u1C18"
+    "ja\u0301": "\u1C08"
+    "za\u0301": "\u1C19"
+    "nya\u0301": "\u1C09"
+    "ta\u0301": "\u1C0A"
+    "thaa\u0301": "\u1C0B"
+    "da\u0301": "\u1C0C"
+    "na\u0301": "\u1C0D"
+    "pa\u0301": "\u1C0E"
+    "pha\u0301": "\u1C10"
+    "fa\u0301": "\u1C11"
+    "ba\u0301": "\u1C13"
+    "ma\u0301": "\u1C15"
+    "ya\u0301": "\u1C1A"
+    "ra\u0301": "\u1C1B"
+    "la\u0301": "\u1C1C"
+    "va\u0301": "\u1C1F"
+    "wa\u0301": "\u1C22"
+    "sa\u0301": "\u1C20"
+    "sha\u0301": "\u1C21"
+    "ha\u0301": "\u1C1D"
+    "kla\u0301": "\u1C01"
+    "gla\u0301": "\u1C04"
+    "pla\u0301": "\u1C0F"
+    "fla\u0301": "\u1C12"
+    "bla\u0301": "\u1C14"
+    "mla\u0301": "\u1C16"
+    "hla\u0301": "\u1C1E"
+    "t\u0323a\u0301": "\u1C4D"
+    "t\u0323ha\u0301": "\u1C4D"
+    "d\u0323a\u0301": "\u1C4D"
+    
+    # FINAL CONVERSIONS FROM LATIN SCRIPT
+    
+    # REMAINING DEVANAGARI SIGN VISARGA
+    "h%": "\u1C1D"
+    
+    "\u002F\u002F": "\u0965"
+    "\u002F": "\u0964"
+    "\u0027": "\u093D"
+    "\u0022": "\u097D"
+    "\u002A": "\u0970"
+    
+    # DEVANAGARI DIGITS
+    
+    "0": "\u1C40"
+    "1": "\u1C41"
+    "2": "\u1C42"
+    "3": "\u1C43"
+    "4": "\u1C44"
+    "5": "\u1C45"
+    "6": "\u1C46"
+    "7": "\u1C47"
+    "8": "\u1C48"
+    "9": "\u1C49
+
+script_to_roman:
+  map:
+
+    # ANUSVARA AT END OF WORD
+    "%\u0902": "m\u0323"
+    "%\u0901": "m\u0310"
+
+    # CONSONANTS WITH VOWEL A WITH MACRON
+    
+   "%\u0903": "h\u0323"
+    
+    "\u0965": "\u002F\u002F"
+    "\u0964": "\u002F"
+    "\u093D": "\u0027"
+    "\u0970": "\u002A"
+    "\u097D": "\u0022"
+    
+    # DEVANAGARI DIGITS
+    
+    "\u0966": "0"
+    "\u0967": "1"
+    "\u0968": "2"
+    "\u0969": "3"
+    "\u096A": "4"
+    "\u096B": "5"
+    "\u096C": "6"
+    "\u096D": "7"
+    "\u096E": "8"
+    "\u096F": "9"

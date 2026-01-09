@@ -1,17 +1,14 @@
 ---
 general:
   name: Tibetan
-
+  case_sensitive: false
+  description: Tibetan language in Tibetan script.
+  version: 1.2.0
+  date: 2025-12-23
   parents:
     - _ignore_base
-  case_sensitive: false
 
 roman_to_script:
-  hooks:
-    post_normalize:
-      -
-        - tibetan.post_normalize
-
   map:
 
     # DELIMITER TSHEG (0F0C) SPACE (0020)
@@ -22,12 +19,14 @@ roman_to_script:
     "dharma": "\u0F52\u0F62\u0FA8"
     "karma": "\u0F40\u0F62\u0FA8"
     "padma": "\u0F54\u0F51\u0FA8"
+    "padme": "\u0F54\u0F51\u0FA8\u0F7A"
     "pan\u0323d\u0323i-ta": "\u0F54\u0F4E\u0F9C\u0F71\u0F72\u0F0B\u0F4F"
     "pan\u0323d\u0323ita": "\u0F54\u0F4E\u0F9C\u0F71\u0F72\u0F4F"
     "kirti\u02BCi": "\u0F40\u0F71\u0F72\u0F62\u0F9F\u0F71\u0F72"
     "kirti\u02BEi": "\u0F40\u0F71\u0F72\u0F62\u0F9F\u0F71\u0F72"
     "kirti\u0027i": "\u0F40\u0F71\u0F72\u0F62\u0F9F\u0F71\u0F72"
     "sengge": "\u0F66\u0F7A\u0F44\u0F92\u0F7A"
+    "sha\u0304nti": "\u0F64\u0FB0\u0F53\u0F9F\u0F72"
 
     # INITIAL INDEPENDENT VOWELS
 
@@ -216,6 +215,7 @@ roman_to_script:
     "%bst": "\u0F56\u0F66\u0F9F"
     "%bsts": "\u0F56\u0F66\u0FA9"
     "%bsw": "\u0F56\u0F66\u0FAD"
+    "%bsy": "\u0F56\u0F66\u0FB1"
     "%bt": "\u0F56\u0F4F"
     "%bt\u02B9s": "\u0F56\u0F4F\u0F66"
     "%bt\u0323": "\u0F56\u0F4A"
@@ -351,6 +351,7 @@ roman_to_script:
     "%dst": "\u0F51\u0F66\u0F9F"
     "%dsts": "\u0F51\u0F66\u0FA9"
     "%dsw": "\u0F51\u0F66\u0FAD"
+    "%dsy": "\u0F51\u0F66\u0FB1"
     "%dt": "\u0F51\u0F4F"
     "%dt\u02B9s": "\u0F51\u0F4F\u0F66"
     "%dt\u0323": "\u0F51\u0F4A"
@@ -483,6 +484,7 @@ roman_to_script:
     "%gsr": "\u0F42\u0F66\u0FB2"
     "%gst": "\u0F42\u0F66\u0F9F"
     "%gsts": "\u0F42\u0F66\u0FA9"
+    "%gsy": "\u0F42\u0F66\u0FB1"
     "%gsw": "\u0F42\u0F66\u0FAD"
     "%gt": "\u0F42\u0F4F"
     "%gt\u02B9s": "\u0F42\u0F4F\u0F66"
@@ -618,6 +620,7 @@ roman_to_script:
     "%mst": "\u0F58\u0F66\u0F9F"
     "%msts": "\u0F58\u0F66\u0FA9"
     "%msw": "\u0F58\u0F66\u0FAD"
+    "%msy": "\u0F58\u0F66\u0FB1"
     "%mt": "\u0F58\u0F4F"
     "%mt\u02B9s": "\u0F58\u0F4F\u0F66"
     "%mt\u0323": "\u0F58\u0F4A"
@@ -754,6 +757,7 @@ roman_to_script:
     "%\u0027st": "\u0F60\u0F66\u0F9F"
     "%\u0027sts": "\u0F60\u0F66\u0FA9"
     "%\u0027sw": "\u0F60\u0F66\u0FAD"
+    "%\u0027sy": "\u0F60\u0F66\u0FB1"
     "%\u0027t": "\u0F60\u0F4F"
     "%\u0027t\u02B9s": "\u0F60\u0F4F\u0F66"
     "%\u0027t\u0323": "\u0F60\u0F4A"
@@ -887,6 +891,7 @@ roman_to_script:
     "%\u02BCst": "\u0F60\u0F66\u0F9F"
     "%\u02BCsts": "\u0F60\u0F66\u0FA9"
     "%\u02BCsw": "\u0F60\u0F66\u0FAD"
+    "%\u02BCsy": "\u0F60\u0F66\u0FB1"
     "%\u02BCt": "\u0F60\u0F4F"
     "%\u02BCt\u02B9s": "\u0F60\u0F4F\u0F66"
     "%\u02BCt\u0323": "\u0F60\u0F4A"
@@ -1020,6 +1025,7 @@ roman_to_script:
     "%\u02BEst": "\u0F60\u0F66\u0F9F"
     "%\u02BEsts": "\u0F60\u0F66\u0FA9"
     "%\u02BEsw": "\u0F60\u0F66\u0FAD"
+    "%\u02BEsy": "\u0F60\u0F66\u0FB1"
     "%\u02BEt": "\u0F60\u0F4F"
     "%\u02BEt\u02B9s": "\u0F60\u0F4F\u0F66"
     "%\u02BEt\u0323": "\u0F60\u0F4A"
@@ -1124,6 +1130,7 @@ roman_to_script:
     "%st": "\u0F66\u0F9F"
     "%sts": "\u0F66\u0FA9"
     "%sw": "\u0F66\u0FAD"
+    "%sy": "\u0F66\u0FB1"
     "%thr": "\u0F50\u0FB2"
     "%tr": "\u0F4F\u0FB2"
     "%tshw": "\u0F5A\u0FAD"
@@ -1167,6 +1174,7 @@ roman_to_script:
     "%s\u0301ai": "\u0F64\u0F7B"
     "%s\u0323ai": "\u0F65\u0F7B"
     "%sai": "\u0F66\u0F7B"
+    "%syai": "\u0F66\u0FB1\u0F7B"
     "%tshai": "\u0F5A\u0F7B"
     "%t\u02B9sai": "\u0F4F\u0F66\u0F7B"
     "%thai": "\u0F50\u0F7B"
@@ -1215,6 +1223,7 @@ roman_to_script:
     "%s\u0301au": "\u0F64\u0F7D"
     "%s\u0323au": "\u0F65\u0F7D"
     "%sau": "\u0F66\u0F7D"
+    "%syau": "\u0F66\u0FB1\u0F7D"
     "%tshau": "\u0F5A\u0F7D"
     "%t\u02B9sau": "\u0F4F\u0F66\u0F7D"
     "%thau": "\u0F50\u0F7D"
@@ -1263,6 +1272,7 @@ roman_to_script:
     "%s\u0301a\u0304": "\u0F64\u0F71"
     "%s\u0323a\u0304": "\u0F65\u0F71"
     "%sa\u0304": "\u0F66\u0F71"
+    "%sya\u0304": "\u0F66\u0FB1\u0F71"
     "%tsha\u0304": "\u0F5A\u0F71"
     "%t\u02B9sa\u0304": "\u0F4F\u0F66\u0F71"
     "%tha\u0304": "\u0F50\u0F71"
@@ -1310,6 +1320,7 @@ roman_to_script:
     "%s\u0301a": "\u0F64"
     "%s\u0323a": "\u0F65"
     "%sa": "\u0F66"
+    "%sya": "\u0F66\u0FB1"
     "%tsha": "\u0F5A"
     "%t\u02B9sa": "\u0F4F\u0F66"
     "%tha": "\u0F50"
@@ -1358,6 +1369,7 @@ roman_to_script:
     "%s\u0301e": "\u0F64\u0F7A"
     "%s\u0323e": "\u0F65\u0F7A"
     "%se": "\u0F66\u0F7A"
+    "%sye": "\u0F66\u0FB1\u0F7A"
     "%tshe": "\u0F5A\u0F7A"
     "%t\u02B9se": "\u0F4F\u0F66\u0F7A"
     "%the": "\u0F50\u0F7A"
@@ -1406,6 +1418,7 @@ roman_to_script:
     "%s\u0301i\u0304": "\u0F64\u0F71\u0F72"
     "%s\u0323i\u0304": "\u0F65\u0F71\u0F72"
     "%si\u0304": "\u0F66\u0F71\u0F72"
+    "%syi\u0304": "\u0F66\u0FB1\u0F72"
     "%tshi\u0304": "\u0F5A\u0F71\u0F72"
     "%t\u02B9si\u0304": "\u0F4F\u0F66\u0F71\u0F72"
     "%thi\u0304": "\u0F50\u0F71\u0F72"
@@ -1454,6 +1467,7 @@ roman_to_script:
     "%s\u0301i": "\u0F64\u0F72"
     "%s\u0323i": "\u0F65\u0F72"
     "%si": "\u0F66\u0F72"
+    "%syi": "\u0F66\u0FB1\u0F72"
     "%tshi": "\u0F5A\u0F72"
     "%t\u02B9si": "\u0F4F\u0F66\u0F72"
     "%thi": "\u0F50\u0F72"
@@ -1502,6 +1516,7 @@ roman_to_script:
     "%s\u0301o": "\u0F64\u0F7C"
     "%s\u0323o": "\u0F65\u0F7C"
     "%so": "\u0F66\u0F7C"
+    "%syo": "\u0F66\u0FB1\u0F7C"
     "%tsho": "\u0F5A\u0F7C"
     "%t\u02B9so": "\u0F4F\u0F66\u0F7C"
     "%tho": "\u0F50\u0F7C"
@@ -1550,6 +1565,7 @@ roman_to_script:
     "%s\u0301u\u0304": "\u0F64\u0F71\u0F74"
     "%s\u0323u\u0304": "\u0F65\u0F71\u0F74"
     "%su\u0304": "\u0F66\u0F71\u0F74"
+    "%syu\u0304": "\u0F66\u0FB1\u0F74"
     "%tshu\u0304": "\u0F5A\u0F71\u0F74"
     "%t\u02B9su\u0304": "\u0F4F\u0F66\u0F71\u0F74"
     "%thu\u0304": "\u0F50\u0F71\u0F74"
@@ -1598,6 +1614,7 @@ roman_to_script:
     "%s\u0301u": "\u0F64\u0F74"
     "%s\u0323u": "\u0F65\u0F74"
     "%su": "\u0F66\u0F74"
+    "%syu": "\u0F66\u0FB1\u0F74"
     "%tshu": "\u0F5A\u0F74"
     "%t\u02B9su": "\u0F4F\u0F66\u0F74"
     "%thu": "\u0F50\u0F74"
@@ -1646,6 +1663,7 @@ roman_to_script:
     "%s\u0301l\u0304\u0325": "\u0F64\u0FB3\u0F81"
     "%s\u0323l\u0304\u0325": "\u0F65\u0FB3\u0F81"
     "%sl\u0304\u0325": "\u0F66\u0FB3\u0F81"
+    "%sy\u0304\u0325": "\u0F66\u0FB1\u0F81"
     "%tshl\u0304\u0325": "\u0F5A\u0FB3\u0F81"
     "%t\u02B9sl\u0304\u0325": "\u0F4F\u0F66\u0FB3\u0F81"
     "%thl\u0304\u0325": "\u0F50\u0FB3\u0F81"
@@ -1694,6 +1712,7 @@ roman_to_script:
     "%s\u0301l\u0325": "\u0F64\u0FB3\u0F80"
     "%s\u0323l\u0325": "\u0F65\u0FB3\u0F80"
     "%sl\u0325": "\u0F66\u0FB3\u0F80"
+    "%sy\u0325": "\u0F66\u0FB1\u0F80"
     "%tshl\u0325": "\u0F5A\u0FB3\u0F80"
     "%t\u02B9sl\u0325": "\u0F4F\u0F66\u0FB3\u0F80"
     "%thl\u0325": "\u0F50\u0FB3\u0F80"
@@ -1742,6 +1761,7 @@ roman_to_script:
     "%s\u0301r\u0304\u0325": "\u0F64\u0FB2\u0F81"
     "%s\u0323r\u0304\u0325": "\u0F65\u0FB2\u0F81"
     "%sr\u0304\u0325": "\u0F66\u0FB2\u0F81"
+    "%sy\u0304\u0325": "\u0F66\u0FB1\u0F81"
     "%tshr\u0304\u0325": "\u0F5A\u0FB2\u0F81"
     "%t\u02B9sr\u0304\u0325": "\u0F4F\u0F66\u0FB2\u0F81"
     "%thr\u0304\u0325": "\u0F50\u0FB2\u0F81"
@@ -1790,6 +1810,7 @@ roman_to_script:
     "%s\u0301r\u0325": "\u0F64\u0FB2\u0F80"
     "%s\u0323r\u0325": "\u0F65\u0FB2\u0F80"
     "%sr\u0325": "\u0F66\u0FB2\u0F80"
+    "%sy\u0325": "\u0F66\u0FB1\u0F80"
     "%tshr\u0325": "\u0F5A\u0FB2\u0F80"
     "%t\u02B9sr\u0325": "\u0F4F\u0F66\u0FB2\u0F80"
     "%thr\u0325": "\u0F50\u0FB2\u0F80"
@@ -2612,8 +2633,8 @@ roman_to_script:
     "\u002D": "\u0F0B"
     # "\u0020" TO DELIMITER TSHEG (rarely used in Tibetan)
     "\u0020": "\u0F0C"
-    # SHAD (0F0D) COMMA (002C)
-    # "\u002C": "\u0F0D"
+    # SHAD (0F0D) VERTICAL LINE (007C)
+    "\u007C": "\u0F0D"
     # NYIS SHAD (0F0E) PERIOD (002E)
     # "\u002E\u002E": "\u0F0E"
     # NYIS TSHEG (0FD2) COLON (003A)
@@ -2648,6 +2669,7 @@ script_to_roman:
     "\u0F52\u0F62\u0FA8": "dharma"
     "\u0F40\u0F62\u0FA8": "karma"
     "\u0F54\u0F51\u0FA8": "Padma"
+    "\u0F54\u0F51\u0FA8\u0F7A": "Padme"
     "\u0F54\u0F4E\u0F9C\u0F71\u0F72\u0F0B\u0F4F": "Pan\u0323d\u0323i-ta"
     "\u0F54\u0F4E\u0F9C\u0F71\u0F72\u0F4F": "Pan\u0323d\u0323ita"
     "\u0F40\u0F71\u0F72\u0F62\u0F9F\u0F71\u0F72": "Kirti\u02BCi"
@@ -2659,6 +2681,7 @@ script_to_roman:
     "%\u0F42\u0F44\u0F66%": "gangs"
     "%\u0F58\u0F42%": "mag"
     "\u0F66\u0F7A\u0F44\u0F92\u0F7A": "Sengge"
+    "\u0F64\u0FB0\u0F53\u0F9F\u0F72": "Sha\u0304nti"
 
     # INITIAL INDEPENDENT VOWELS
 
@@ -2727,8 +2750,8 @@ script_to_roman:
 
     # OTHER TIBETAN MARKS
 
-    # END-OF-PHRASE SHAD
-    "\u0F0D": "\u002C"
+    # END-OF-PHRASE SHAD (VERTICAL LINE 007C)
+    "\u0F0D": "\u007C"
     "\u0F7F": "h\u0323"
     "\u0F7E": "m\u0323"
     "\u0F83": "m\u0310"
@@ -2859,6 +2882,7 @@ script_to_roman:
     "%\u0F42\u0F66\u0FAD\u0F7B": "gswai"
     "%\u0F42\u0F66\u0FB1\u0F7B": "gsrai"
     "%\u0F42\u0F66\u0FB3\u0F7B": "gslai"
+    "%\u0F42\u0F66\u0FB1\u0F7B": "gsyai"
     "%\u0F42\u0F67\u0F7B": "g\u02B9hai"
     "%\u0F42\u0FAD\u0F7B": "gwai"
     "%\u0F42\u0FB1\u0F7B": "gyai"
@@ -2986,6 +3010,7 @@ script_to_roman:
     "%\u0F51\u0F66\u0FAD\u0F7B": "dswai"
     "%\u0F51\u0F66\u0FB2\u0F7B": "dsrai"
     "%\u0F51\u0F66\u0FB3\u0F7B": "dslai"
+    "%\u0F51\u0F66\u0FB1\u0F7B": "dsyai"
     "%\u0F51\u0F67\u0F7B": "d\u02B9hai"
     "%\u0F51\u0F67\u0FB2\u0F7B": "dhrai"
     "%\u0F51\u0FAD\u0F7B": "dwai"
@@ -3112,6 +3137,7 @@ script_to_roman:
     "%\u0F56\u0F66\u0FAD\u0F7B": "bswai"
     "%\u0F56\u0F66\u0FB2\u0F7B": "bsrai"
     "%\u0F56\u0F66\u0FB3\u0F7B": "bslai"
+    "%\u0F56\u0F66\u0FB1\u0F7B": "bsyai"
     "%\u0F56\u0F67\u0F7B": "b\u02B9hai"
     "%\u0F56\u0F67\u0FB2\u0F7B": "bhrai"
     "%\u0F56\u0FB1\u0F7B": "byai"
@@ -3234,6 +3260,7 @@ script_to_roman:
     "%\u0F58\u0F66\u0FAD\u0F7B": "mswai"
     "%\u0F58\u0F66\u0FB2\u0F7B": "msrai"
     "%\u0F58\u0F66\u0FB3\u0F7B": "mslai"
+    "%\u0F58\u0F66\u0FB1\u0F7B": "nsyai"
     "%\u0F58\u0F67\u0F7B": "mhai"
     "%\u0F58\u0F67\u0FB2\u0F7B": "mhrai"
     "%\u0F58\u0FB1\u0F7B": "myai"
@@ -3361,6 +3388,7 @@ script_to_roman:
     "%\u0F60\u0F66\u0FAD\u0F7B": "\u02BCswai"
     "%\u0F60\u0F66\u0FB2\u0F7B": "\u02BCsrai"
     "%\u0F60\u0F66\u0FB3\u0F7B": "\u02BCslai"
+    "%\u0F60\u0F66\u0FB1\u0F7B": "\u02BCsyai"
     "%\u0F60\u0F67\u0F7B": "\u02BChai"
     "%\u0F60\u0F67\u0FB2\u0F7B": "\u02BChrai"
     "%\u0F62\u0F90\u0F7B": "rkai"
@@ -3411,6 +3439,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0F7B": "smai"
     "%\u0F66\u0FA9\u0F7B": "stsai"
     "%\u0F66\u0FAD\u0F7B": "swai"
+    "%\u0F66\u0FB1\u0F7B": "syai"
     "%\u0F66\u0FB2\u0F7B": "srai"
     "%\u0F66\u0FB3\u0F7B": "slai"
     "%\u0F67\u0FB2\u0F7B": "hrai"
@@ -3936,6 +3965,7 @@ script_to_roman:
     "%\u0F58\u0F66\u0FA8\u0F7D": "msmau"
     "%\u0F58\u0F66\u0FA9\u0F7D": "mstsau"
     "%\u0F58\u0F66\u0FAD\u0F7D": "mswau"
+    "%\u0F58\u0F66\u0FB1\u0F7D": "msyau"
     "%\u0F58\u0F66\u0FB2\u0F7D": "msrau"
     "%\u0F58\u0F66\u0FB3\u0F7D": "mslau"
     "%\u0F58\u0F67\u0F7D": "mhau"
@@ -4116,6 +4146,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0F7D": "smau"
     "%\u0F66\u0FA9\u0F7D": "stsau"
     "%\u0F66\u0FAD\u0F7D": "swau"
+    "%\u0F66\u0FB1\u0F7D": "syau"
     "%\u0F66\u0FB2\u0F7D": "srau"
     "%\u0F66\u0FB3\u0F7D": "slau"
     "%\u0F67\u0FB2\u0F7D": "hrau"
@@ -4800,6 +4831,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0F71": "sma\u0304"
     "%\u0F66\u0FA9\u0F71": "stsa\u0304"
     "%\u0F66\u0FAD\u0F71": "swa\u0304"
+    "%\u0F66\u0FB1\u0F71": "sya\u0304"
     "%\u0F66\u0FB2\u0F71": "sra\u0304"
     "%\u0F66\u0FB3\u0F71": "sla\u0304"
     "%\u0F67\u0FB2\u0F71": "hra\u0304"
@@ -5484,6 +5516,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0F7A": "sme"
     "%\u0F66\u0FA9\u0F7A": "stse"
     "%\u0F66\u0FAD\u0F7A": "swe"
+    "%\u0F66\u0FB1\u0F7A": "sye"
     "%\u0F66\u0FB2\u0F7A": "sre"
     "%\u0F66\u0FB3\u0F7A": "sle"
     "%\u0F67\u0FB2\u0F7A": "hre"
@@ -6168,6 +6201,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0F71\u0F72": "smi\u0304"
     "%\u0F66\u0FA9\u0F71\u0F72": "stsi\u0304"
     "%\u0F66\u0FAD\u0F71\u0F72": "swi\u0304"
+    "%\u0F66\u0FB1\u0F71\u0F72": "syi\u0304"
     "%\u0F66\u0FB2\u0F71\u0F72": "sri\u0304"
     "%\u0F66\u0FB3\u0F71\u0F72": "sli\u0304"
     "%\u0F67\u0FB2\u0F71\u0F72": "hri\u0304"
@@ -6852,6 +6886,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0F72": "smi"
     "%\u0F66\u0FA9\u0F72": "stsi"
     "%\u0F66\u0FAD\u0F72": "swi"
+    "%\u0F66\u0FB1\u0F72": "syi"
     "%\u0F66\u0FB2\u0F72": "sri"
     "%\u0F66\u0FB3\u0F72": "sli"
     "%\u0F67\u0FB2\u0F72": "hri"
@@ -7536,6 +7571,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0F7C": "smo"
     "%\u0F66\u0FA9\u0F7C": "stso"
     "%\u0F66\u0FAD\u0F7C": "swo"
+    "%\u0F66\u0FB1\u0F7C": "syo"
     "%\u0F66\u0FB2\u0F7C": "sro"
     "%\u0F66\u0FB3\u0F7C": "slo"
     "%\u0F67\u0FB2\u0F7C": "hro"
@@ -8225,6 +8261,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0F71\u0F74": "smu\u0304"
     "%\u0F66\u0FA9\u0F71\u0F74": "stsu\u0304"
     "%\u0F66\u0FAD\u0F71\u0F74": "swu\u0304"
+    "%\u0F66\u0FB1\u0F71\u0F74": "syu\u0304"
     "%\u0F66\u0FB2\u0F71\u0F74": "sru\u0304"
     "%\u0F66\u0FB3\u0F71\u0F74": "slu\u0304"
     "%\u0F67\u0FB2\u0F71\u0F74": "hru\u0304"
@@ -8909,6 +8946,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0F74": "smu"
     "%\u0F66\u0FA9\u0F74": "stsu"
     "%\u0F66\u0FAD\u0F74": "swu"
+    "%\u0F66\u0FB1\u0F74": "syu"
     "%\u0F66\u0FB2\u0F74": "sru"
     "%\u0F66\u0FB3\u0F74": "slu"
     "%\u0F67\u0FB2\u0F74": "hru"
@@ -9593,6 +9631,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0FB3\u0F81": "sml\u0304\u0325"
     "%\u0F66\u0FA9\u0FB3\u0F81": "stsl\u0304\u0325"
     "%\u0F66\u0FAD\u0FB3\u0F81": "swl\u0304\u0325"
+    "%\u0F66\u0FB1\u0FB3\u0F81": "syl\u0304\u0325"
     "%\u0F66\u0FB2\u0FB3\u0F81": "srl\u0304\u0325"
     "%\u0F66\u0FB3\u0FB3\u0F81": "sll\u0304\u0325"
     "%\u0F67\u0FB2\u0FB3\u0F81": "hrl\u0304\u0325"
@@ -10277,6 +10316,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0FB3\u0F80": "sml\u0325"
     "%\u0F66\u0FA9\u0FB3\u0F80": "stsl\u0325"
     "%\u0F66\u0FAD\u0FB3\u0F80": "swl\u0325"
+    "%\u0F66\u0FB1\u0FB3\u0F80": "syl\u0325"
     "%\u0F66\u0FB2\u0FB3\u0F80": "srl\u0325"
     "%\u0F66\u0FB3\u0FB3\u0F80": "sll\u0325"
     "%\u0F67\u0FB2\u0FB3\u0F80": "hrl\u0325"
@@ -10961,6 +11001,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0FB2\u0F81": "smr\u0304\u0325"
     "%\u0F66\u0FA9\u0FB2\u0F81": "stsr\u0304\u0325"
     "%\u0F66\u0FAD\u0FB2\u0F81": "swr\u0304\u0325"
+    "%\u0F66\u0FB1\u0FB2\u0F81": "syr\u0304\u0325"
     "%\u0F66\u0FB2\u0FB2\u0F81": "srr\u0304\u0325"
     "%\u0F66\u0FB3\u0FB2\u0F81": "slr\u0304\u0325"
     "%\u0F67\u0FB2\u0FB2\u0F81": "hrr\u0304\u0325"
@@ -11645,6 +11686,7 @@ script_to_roman:
     "%\u0F66\u0FA8\u0FB2\u0F80": "smr\u0325"
     "%\u0F66\u0FA9\u0FB2\u0F80": "stsr\u0325"
     "%\u0F66\u0FAD\u0FB2\u0F80": "swr\u0325"
+    "%\u0F66\u0FB1\u0FB3\u0F80": "syr\u0325"
     "%\u0F66\u0FB2\u0FB2\u0F80": "srr\u0325"
     "%\u0F66\u0FB3\u0FB2\u0F80": "slr\u0325"
     "%\u0F67\u0FB2\u0FB2\u0F80": "hrr\u0325"
@@ -11775,6 +11817,7 @@ script_to_roman:
     "%\u0F42\u0F66\u0FA8": "gsma"
     "%\u0F42\u0F66\u0FA9": "gstsa"
     "%\u0F42\u0F66\u0FAD": "gswa"
+    "%\u0F42\u0F66\u0FB1": "gsya"
     "%\u0F42\u0F66\u0FB2": "gsra"
     "%\u0F42\u0F66\u0FB3": "gsla"
     "%\u0F42\u0F67": "g\u02B9ha"
@@ -11903,6 +11946,7 @@ script_to_roman:
     "%\u0F51\u0F66\u0FA8": "dsma"
     "%\u0F51\u0F66\u0FA9": "dstsa"
     "%\u0F51\u0F66\u0FAD": "dswa"
+    "%\u0F51\u0F66\u0FB1": "dsya"
     "%\u0F51\u0F66\u0FB2": "dsra"
     "%\u0F51\u0F66\u0FB3": "dsla"
     "%\u0F51\u0F67": "d\u02B9ha"
@@ -12029,6 +12073,7 @@ script_to_roman:
     "%\u0F56\u0F66\u0FA8": "bsma"
     "%\u0F56\u0F66\u0FA9": "bstsa"
     "%\u0F56\u0F66\u0FAD": "bswa"
+    "%\u0F56\u0F66\u0FB1": "bsya"
     "%\u0F56\u0F66\u0FB2": "bsra"
     "%\u0F56\u0F66\u0FB3": "bsla"
     "%\u0F56\u0F67": "b\u02B9ha"
@@ -12151,6 +12196,7 @@ script_to_roman:
     "%\u0F58\u0F66\u0FA8": "msma"
     "%\u0F58\u0F66\u0FA9": "mstsa"
     "%\u0F58\u0F66\u0FAD": "mswa"
+    "%\u0F58\u0F66\u0FB1": "msya"
     "%\u0F58\u0F66\u0FB2": "msra"
     "%\u0F58\u0F66\u0FB3": "msla"
     "%\u0F58\u0F67": "mha"
@@ -12277,6 +12323,7 @@ script_to_roman:
     "%\u0F60\u0F66\u0FA8": "\u02BCsma"
     "%\u0F60\u0F66\u0FA9": "\u02BCstsa"
     "%\u0F60\u0F66\u0FAD": "\u02BCswa"
+    "%\u0F60\u0F66\u0FB1": "\u02BCsya"
     "%\u0F60\u0F66\u0FB2": "\u02BCsra"
     "%\u0F60\u0F66\u0FB3": "\u02BCsla"
     "%\u0F60\u0F67": "\u02BCha"
@@ -12329,6 +12376,7 @@ script_to_roman:
     "%\u0F66\u0FA8": "sma"
     "%\u0F66\u0FA9": "stsa"
     "%\u0F66\u0FAD": "swa"
+    "%\u0F66\u0FB1": "sya"
     "%\u0F66\u0FB2": "sra"
     "%\u0F66\u0FB3": "sla"
     "%\u0F67\u0FB2": "hra"
@@ -13774,8 +13822,8 @@ script_to_roman:
     "\u0F0B": "\u002D"
     # DELIMITER TSHEG (0F0C) TO SPACE (0020)
     "\u0F0C": "\u0020"
-    # SHAD (0F0D) TO COMMA (002C)
-    "\u0F0D": "\u002C"
+    # SHAD (0F0D) TO VERTICAL LINE (007C)
+    "\u0F0D": "\u007C"
     # NYIS SHAD (0F0E) TO PERIOD (002E)
     "\u0F0E": "\u002E\u002E"
     # NYIS TSHEG (0FD2) TO COLON (003A)

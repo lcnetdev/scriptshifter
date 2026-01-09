@@ -6,12 +6,12 @@
 ---
 general:
   name: Chinese (numerals transliteration)
-  description: >
-    Chinese transliteration table that includes romanization of Chinese
-    numerals.
+  case_sensitive: false
+  description: Chinese transliteration table that includes romanization of Chinese numerals.
+  version: 1.0.0
+  date: 2025-11-29
   parents:
     - _chinese_base
-  case_sensitive: false
 
 options:
   - id: marc_field
