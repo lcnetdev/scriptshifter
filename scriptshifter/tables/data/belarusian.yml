@@ -1,5 +1,9 @@
+---
 general:
   name: Belarusian
+  description: Belarusian language in Cyrillic script.
+  version: 1.0.0
+  date: 2025-11-30
   parents:
     - cyrillic_generic
 
@@ -13,31 +17,32 @@ roman_to_script:
     "e\u0307": "\u044D"
     "E\u030C": "\u0462"
     "e\u030C": "\u0463"
-    "e": "\u0435"
     "Z\uFE20H\uFE21": "\u0416"
-    # this conversion shouldn't be needed, but does no harm
+    "Z\u0361H": "\u0416"
     "Z\uFE20h\uFE21": "\u0416"
+    "Z\u0361h": "\u0416"
     "z\uFE20h\uFE21": "\u0436"
-    "z": "\u0437"
+    "z\u0361h": "\u0436"
     "I\uFE20O\uFE21": "\u0401"
-    # this conversion shouldn't be needed, but does no harm
+    "I\u0361O": "\u0401"
     "I\uFE20o\uFE21": "\u0401"
-    "I": "\u0406"
+    "I\u0361o": "\u0401"
     "i\uFE20o\uFE21": "\u0451"
+    "i\u0361o": "\u0451"
+    "I": "\u0406"
     "i": "\u0456"
     "I\u0304": "\u0418"
     "i\u0304": "\u0438"
-    # this conversion shouldn't be needed, but does no harm
     # Obsolete form.
     #"SHCH": "\u0429"
-    # Obsolete form.
     #"Shch": "\u0429"
-    "SHCH": "\u0428\u0447"
+    #"shch": "\u0449"
+    "SHCH": "\u0428\u0427"
+    "ShCh": "\u0428\u0427"
     "Shch": "\u0428\u0447"
-    # Obsolete form.
-    # "shch": "\u0449"
+    "SHch": "\u0428\u0447"
+    "Shch": "\u0428\u0447"
     "shch": "\u0448\u0447"
-    # this conversion shouldn't be needed, but does no harm
     "TS": "\u0426"
     "Ts": "\u0426"
     "ts": "\u0446"
@@ -48,26 +53,26 @@ roman_to_script:
     "\u0027": "\u044C"
 
 script_to_roman:
-  double_cap:
-    - "i\uFE20o\uFE21"
-    - "z\uFE20h\uFE21"
+  # double_cap:
+    # - "i\u0361o"
+    # - "z\u0361h"
   map:
-    "\u0401": "I\uFE20O\uFE21"
+    "\u0401": "I\u0361O"
     "\u0406": "I"
     "\u040E": "U\u0306"
     "\u0413": "H"
-    "\u0416": "Z\uFE20H\uFE21"
+    "\u0416": "Z\u0361H"
     "\u0418": "I\u0304"
     "\u0438": "i\u0304"
-    "\u0426": "TS"
+    "\u0426": "Ts"
     "\u042B": "Y"
     "\u042D": "E\u0307"
     "\u0433": "h"
-    "\u0436": "z\uFE20h\uFE21"
+    "\u0436": "z\u0361h"
     "\u0446": "ts"
     "\u044B": "y"
     "\u044D": "e\u0307"
-    "\u0451": "i\uFE20o\uFE21"
+    "\u0451": "i\u0361o"
     "\u0456": "i"
     "\u045E": "u\u0306"
     "\u0462": "E\u030C"

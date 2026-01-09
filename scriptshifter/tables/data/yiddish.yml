@@ -2,6 +2,9 @@
 general:
   name: Yiddish
   case_sensitive: false
+  description: Yiddish language in Hebrew script, using third-party software.
+  version: 1.0.0
+  date: 2025-12-23
 
 options:
   - id: loshn_koydesh

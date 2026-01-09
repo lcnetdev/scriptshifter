@@ -2,6 +2,9 @@
 general:
   name: Tamil Brahmi
   case_sensitive: false
+  description: Tamil language in Tamil Brahmi script using third-part software.
+  version: 1.0.0
+  date: 2025-12-23 
 
 script_to_roman:
   hooks:

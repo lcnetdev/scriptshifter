@@ -1,0 +1,240 @@
+---
+general:
+  name: Buriat (Mongol bichig)
+  case_sensitive: false
+  description: Buriat language in Mongol bichig.
+  version: 1.0.0
+  date: 2025-11-29
+  parents:
+    - _ignore_base
+
+roman_to_script:
+
+  map:
+    "\u0020latin": "\u0020\u182F\u1820\u1832\u180B\u1822\u1828"
+    "mate\u0307riyal": "\u182E\u1820\u1832\u180B\u1827\u1837\u1822\u1836\u1820\u182F"
+    "\u002Daca": "\u202F\u1820\u1834\u1820"
+    "\u002Da": "\u180E\u1820"
+    "a": "\u1820"
+    "\u002Dece": "\u202F\u1821\u1834\u1821"
+    "\u002De": "\u180E\u1821"
+    "\u002D": "\u202F"
+    "e\u0307": "\u1827"
+    "e": "\u1821"
+    "i": "\u1822"
+    "o\u0307": "\u1825"
+    "o": "\u1823"
+    "u\u0307": "\u1826"
+    "u": "\u1824"
+    # Feminine g control when followed by l
+    "nggl": "\u1829\u182D\u180D\u182F"
+    "ng\u0307": "\u1828\u182D"
+    "ng": "\u1829"
+    "n": "\u1828"
+    "b": "\u182A"
+    "p": "\u182B"
+    "q": "\u182C"
+    "kh": "\u183B"
+    "k\u0307": "\u183A"
+    "k": "\u182C"
+    "g\u0307": "\u182D"
+    "g": "\u182D"
+    "m": "\u182E"
+    "lh": "\u1840"
+    "l": "\u182F"
+    "ts\u0307": "\u183C"
+    "s\u0301": "\u1831"
+    "s": "\u1830"
+    "t'": "\u1832\u180B"
+    "t": "\u1832"
+    "d'": "\u1833\u180B"
+    "d": "\u1833"
+    "J": "\u1835"
+    "j": "\u1835"
+    "y": "\u1836"
+    "v": "\u1838"
+    "w": "\u1838"
+    "f": "\u1839"
+    "zr": "\u183F"
+    "r": "\u1837"
+    "zh": "\u1841"
+    "z": "\u183D"
+    "h\u0307": "\u1842"
+    "c": "\u1834"
+    "h": "\u183E"
+    # Double hyphen: kept in data
+    "\u002D\u002D": "\u002D\u002D"
+    # Mongolian ellipsis
+    "\u002E\u002E\u002E": "\u1801"
+    # Comma at end of subfield
+    "\u002C\u0020\u2021": "\u002C\u0020\u2021"
+    # Mongolian comma
+    "\u002C": "\u1802"
+    # Mongolian full stop
+    "\u002E\u002E": "\u1803"
+    # Mongolian four dots (chapter end)
+    "\u002B": "\u1805"
+    # Mongolian soft hyphen
+    "\u0020\u002D\u0020": "\u1806"
+    # Mongolian nirugu (letter extender added to initial ending in a full stop)
+    "\u002E\u0020": "\u180A\u0020"
+    # Mongolian Free Variation Separator One (FVS1) apostrophe used after t and d
+    "\u0027": "\u180B"
+    # Mongolian Free Variation Separator Two (FVS2) quotation mark used to force final alternate letter shape
+    "\u0022": "\u180C"
+    # Mongolian Free Variation Separator Three (FVS3) grave used to force intermediate alternate letter shape
+    "\u0060": "\u180D"
+    # Mongolian Vowel Separator (MVS) low line used as an unabiguous final vowel separator
+    "\u005F": "\u180E"
+    # Narrow No-Break Space (NNBSP) hyphen used before Mongolian grammatical endings
+    "\u002D": "\u202F"
+    "\u003C\u003C": "\u300A"
+    "\u003E\u003E": "\u300B"
+    # Middle dot; asterisk used to separate parts of one person's name (clan * forename)
+    "\u002A": "\u00B7"
+    "0": "\u1810"
+    "1": "\u1811"
+    "2": "\u1812"
+    "3": "\u1813"
+    "4": "\u1814"
+    "5": "\u1815"
+    "6": "\u1816"
+    "7": "\u1817"
+    "8": "\u1818"
+    "9": "\u1819"
+
+script_to_roman:
+  map:
+    # Middle dot; asterisk used to separate parts of one person's name (clan * forename)
+    "\u00B7": "\u002A"
+    "\u0020\u182F\u1820\u1832\u180B\u1822\u1828": "\u0020latin"
+    "\u182E\u1820\u1832\u180B\u1827\u1837\u1822\u1836\u1820\u182F": "mate\u0307riyal"
+    # ga
+    "\u182D\u1820": "g\u0307a"
+    # go
+    "\u182D\u1823": "g\u0307o"
+    # gu
+    "\u182D\u1824": "g\u0307u"
+    # ag
+    "\u1820\u182D": "ag\u0307"
+    # og
+    "\u1823\u182D": "og\u0307"
+    # ug
+    "\u1824\u182D": "ug\u0307"
+    # ge
+    "\u182D\u1821": "ge"
+    # gi
+    "\u182D\u1822": "gi"
+    # goe
+    "\u182D\u1825": "go\u0307"
+    # gue
+    "\u182D\u1826": "gu\u0307"
+    # gee
+    "\u182D\u1827": "ge\u0307"
+    # eg
+    "\u1821\u182D": "eg"
+    # oeg
+    "\u1825\u182D": "o\u0307g"
+    # ueg
+    "\u1826\u182D": "u\u0307g"
+    # eeg
+    "\u1827\u182D": "e\u0307g"
+    # qa
+    "\u182C\u1820": "qa"
+    # qo
+    "\u182C\u1823": "qo"
+    # qu
+    "\u182C\u1824": "qu"
+    # ke
+    "\u182C\u1821": "ke"
+    # ki
+    "\u182C\u1822": "ki"
+    # koe
+    "\u182C\u1825": "ko\u0307"
+    # kue
+    "\u182C\u1826": "ku\u0307"
+    # kee
+    "\u182C\u1827": "ke\u0307"
+    # Double hyphen: kept in data
+    "\u002D\u002D": "\u002D\u002D"
+    # Mongolian ellipsis
+    "\u1801": "\u002E\u002E\u002E"
+    # Mongolian comma
+    "\u1802": "\u002C"
+    # Mongolian full stop
+    "\u1803": "\u002E\u002E"
+    # Mongolian colon
+    "\u1804": "\u003A"
+    # Mongolian four dots (chapter end)
+    "\u1805": "\u002B"
+    # Mongolian soft hyphen
+    "\u1806": "\u0020\u002D\u0020"
+    "\u1807": "\u0020"
+    "\u1808": "\u002C"
+    "\u1809": "\u002E"
+    # Mongolian nirugu (letter extender to force initial form rather than isolated form in initials)
+    "\u180A\u0020": "\u002E\u0020"
+    # Mongolian Free Variation Separator One (FVS1) apostrophe used after t and d
+    "\u180B": "\u0027"
+    # Mongolian Free Variation Separator Two (FVS2) quotation mark used to force final alternate letter shape
+    "\u180C": "\u0022"
+    # Mongolian Free Variation Separator Three (FVS3) grave used to force intermediate alternate letter shape
+    "\u180D": "\u0060"
+    # Mongolian Vowel Separator (MVS) converts to hyphen as the vowel separator
+    "\u180E": "\u002D"
+    # Mongolian Free Variation Separator Four (FVS4) [not currently used]
+    "\u180F": "\u005B\u003F\u005B"
+    "\u180A": "."
+    "\u1810": "0"
+    "\u1811": "1"
+    "\u1812": "2"
+    "\u1813": "3"
+    "\u1814": "4"
+    "\u1815": "5"
+    "\u1816": "6"
+    "\u1817": "7"
+    "\u1818": "8"
+    "\u1819": "9"
+    # Mongolian vowels NOT associated with g/g+dot or k/q
+    "\u1820": "a"
+    "\u1821": "e"
+    "\u1822": "i"
+    "\u1823": "o"
+    "\u1824": "u"
+    "\u1825": "o\u0307"
+    "\u1826": "u\u0307"
+    "\u1827": "e\u0307"
+    "\u1828": "n"
+    "\u1829": "ng"
+    # Feminine g control when followed by l
+    "\u1829\u182D\u180D\u182F": "ngg`l"
+    "\u182A": "b"
+    "\u182B": "p"
+    "\u182C": "q"
+    "\u182D": "g"
+    "\u182E": "m"
+    "\u182F": "l"
+    "\u1830": "s"
+    "\u1831": "s\u0301"
+    "\u1832": "t"
+    "\u1833": "d"
+    "\u1834": "c"
+    "\u1835": "j"
+    "\u1836": "y"
+    "\u1837": "r"
+    "\u1838": "v"
+    "\u1839": "f"
+    "\u183A": "k\u0307"
+    "\u183B": "kh"
+    "\u183C": "ts\u0307"
+    "\u183D": "z"
+    "\u183E": "h"
+    "\u183F": "zr"
+    "\u1840": "lh"
+    "\u1841": "zh"
+    "\u1842": "h\u0307"
+    # Narrow No-Break Space (NNBSP) converts to hyphen before Mongolian grammatical endings
+    "\u202F": "\u002D"
+    # low line to Mongolian vowel separator
+    "\u300A": "\u003C\u003C"
+    "\u300B": "\u003E\u003E"

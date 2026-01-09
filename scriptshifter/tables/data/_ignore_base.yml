@@ -1,15 +1,22 @@
 ---
 general:
   name: Common ignore list.
+  description: List of Latin strings not converted.
+  version: 1.0.0
+  date: 2025-12-03
 
 roman_to_script:
   ignore:
+    - "At head of title"
     - "at head of title"
+    - "Colophon"
     - "colophon"
+    - "Cover title"
     - "date of publication not identified"
     - "place of publication not identified"
     - "publisher not identified"
     - "and one other"
+    - "and others"
     - "et al."
   ignore_ptn:
     - "and ([a-z0-9]+ )?others"

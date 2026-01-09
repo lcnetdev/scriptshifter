@@ -1,42 +1,54 @@
+---
 general:
   name: Church Slavonic
+  description: Church Slavonic in Cyrillic script.
+  version: 1.0.0
+  date: 2025-11-30
   parents:
     - cyrillic_generic
 
 roman_to_script:
   map:
-    # CONVERSION OF "I/i" LIGATED TO "A/a" (all capitalization patterns)
-    "i\uFE20A\uFE21": "\u044F"
 
     "V\u0307": "\u0474"
     "v\u0307": "\u0475"
 
     "G\u0301": "\u0494"
     "g\u0301": "\u0495"
-    "G": "\u0413"
-    "g": "\u0433"
 
     # CONVERION OF "I/i" LIGATED TO "E/e", SOME WITH MACRON (0304) AND OGONEK (0328)
     "I\uFE20E\uFE21\u0304": "\u0464"
     "I\uFE20E\u0304\uFE21": "\u0464"
+    "I\u0361E\u0304": "\u0464"
     "I\uFE20e\uFE21\u0304": "\u0464"
     "I\uFE20e\u0304\uFE21": "\u0464"
+    "I\u0361e\u0304": "\u0464"
     "I\uFE20E\uFE21\u0328": "\u0468"
     "I\uFE20E\u0328\uFE21": "\u0468"
+    "I\u0361E\u0328": "\u0468"
     "I\uFE20e\uFE21\u0328": "\u0468"
     "I\uFE20e\u0328\uFE21": "\u0468"
+    "I\u0361e\u0328": "\u0468"
     "i\uFE20e\uFE21\u0304": "\u0465"
     "i\uFE20e\u0304\uFE21": "\u0465"
+    "i\u0361e\u0304": "\u0465"
     "i\uFE20E\uFE21\u0304": "\u0465"
     "i\uFE20E\u0304\uFE21": "\u0465"
+    "i\u0361E\u0304": "\u0465"
     "i\uFE20e\uFE21\u0328": "\u0469"
     "i\uFE20e\u0328\uFE21": "\u0469"
+    "i\u0361e\u0328": "\u0469"
     "i\uFE20E\uFE21\u0328": "\u0469"
     "i\uFE20E\u0328\uFE21": "\u0469"
+    "i\u0361E\u0328": "\u0469"
     "I\uFE20E\uFE21": "\u0462"
+    "I\u0361E": "\u0462"
     "I\uFE20e\uFE21": "\u0462"
+    "I\u0361e": "\u0462"
     "i\uFE20e\uFE21": "\u0463"
+    "i\u0361e": "\u0463"
     "i\uFE20E\uFE21": "\u0463"
+    "i\u0361E": "\u0463"
 
     # CONVERSION OF "E/e" WITH MACRON (0304), DOT ABOVE (0307), DIAERESIS (0308), OGONEK (0328), & CARON (030C)
     "E\u030C": "\u0462"
@@ -50,23 +62,19 @@ roman_to_script:
     "e\u0308": "\u0451"
     "e\u0328": "\u0467"
 
-    "ZH": "\u0416"
-    "Zh": "\u0416"
-    "zH": "\u0436"
-    "zh": "\u0436"
-
     # CONVERION OF "I/i" LIGATED TO "O/o" WITH MACRON (0304) AND OGONEK (0328)
     "I\uFE20O\uFE21\u0328": "\u046C"
     "I\uFE20O\u0328\uFE21": "\u046C"
+    "I\u0361O\u0328": "\u046C"
     "I\uFE20o\uFE21\u0328": "\u046C"
     "I\uFE20o\u0328\uFE21": "\u046C"
+    "I\u0361o\u0328": "\u046C"
     "i\uFE20o\uFE21\u0328": "\u046D"
     "i\uFE20o\u0328\uFE21": "\u046D"
+    "i\u0361o\u0328": "\u046D"
     "i\uFE20O\uFE21\u0328": "\u046D"
     "i\uFE20O\u0328\uFE21": "\u046D"
-
-    # CONVERION OF "I/i" LIGATED TO "U/u"
-    "i\uFE20U\uFE21": "\u044E"
+    "i\u0361O\u0328": "\u046D"
 
     # CONVERSION OF "I/i" WITH MACRON (0304) AND BREVE (0306)
     "I\u0304": "\u0406"
@@ -150,10 +158,10 @@ script_to_roman:
     "\u0413": "G"
     "\u0433": "g"
     # CONVERION TO "I/i" LIGATED TO "E/e" WITH DIACRITICS
-    "\u0464": "I\uFE20E\uFE21\u0304"
-    "\u0468": "I\uFE20E\uFE21\u0328"
-    "\u0465": "i\uFE20e\uFE21\u0304"
-    "\u0469": "i\uFE20e\uFE21\u0328"
+    "\u0464": "I\u0361E\u0304"
+    "\u0468": "I\u0361E\u0328"
+    "\u0465": "i\u0361e\u0304"
+    "\u0469": "i\u0361e\u0328"
     # CONVERSION TO "E/e" WITH MACRON (0304), DOT ABOVE (0307), DIAERESIS (0308), OGONEK (0328), & CARON (030C)
     "\u0462": "E\u030C"
     "\u0404": "E\u0304"
@@ -165,35 +173,29 @@ script_to_roman:
     "\u044D": "e\u0307"
     "\u0451": "e\u0308"
     "\u0467": "e\u0328"
-    "\u0416": "Zh"
-    "\u0436": "zh"
     # CONVERION T0 "I/i" LIGATED TO "O/o" WITH MACRON (0304) AND OGONEK (0328)
-    "\u046C": "I\uFE20O\uFE21\u0328"
-    "\u046D": "i\uFE20o\uFE21\u0328"
+    "\u046C": "I\u0361O\u0328"
+    "\u046D": "i\u0361o\u0328"
     # CONVERION TO "I/i" LIGATED TO "U/u"
     # CONVERSION TO "I/i" WITH MACRON (0304) AND BREVE (0306)
     "\u0406": "I\u0304"
     "\u0456": "i\u0304"
     # CONVERSION TO LONE "I/i"
-    "\u0418": "I"
-    "\u0438": "i"
-    "\u046E": "K\uFE20S\uFE21"
-    "\u046F": "k\uFE20s\uFE21"
+    "\u046E": "K\u0361S"
+    "\u046F": "k\u0361s"
     # CONVERION TO "O/o" WITH MACRON (0304) LIGATED TO "T/t"
-    "\u047E": "O\uFE20\u0304t\uFE21"
-    "\u047F": "o\uFE20\u0304t\uFE21"
+    "\u047E": "O\u0361\u0304t"
+    "\u047F": "o\u0361\u0304t"
     # CONVERSION TO "O/o" WITH MACRON(0304) AND OGONEK (0328)
     "\u046A": "O\u0328"
     "\u046B": "o\u0328"
     "\u0460": "O\u0304"
     "\u0461": "o\u0304"
     # CONVERSION TO LONE "O/o"
-    "\u0470": "P\uFE20S\uFE21"
-    "\u0471": "p\uFE20s\uFE21"
+    "\u0470": "P\u0361S"
+    "\u0471": "p\u0361s"
     "\u0429": "Sht"
     "\u0449": "sht"
-    "\u0426": "T\uFE20S\uFE21"
-    "\u0446": "t\uFE20s\uFE21"
     "\u0478": "U\u0304"
     "\u0479": "u\u0304"
     "\u0472": "F\u0307"

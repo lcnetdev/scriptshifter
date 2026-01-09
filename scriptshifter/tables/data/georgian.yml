@@ -1,8 +1,12 @@
+---
 general:
   name: Georgian
+  case_sensitive: false
+  description: Georgian language in Georgian (Mkhedruli) script.
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - _ignore_base
-  case_sensitive: false
 
 roman_to_script:
     # \u0304 combining macron above

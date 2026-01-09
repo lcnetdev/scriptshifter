@@ -1,5 +1,8 @@
 general:
   name: Syriac (Cyrillic)
+  description: Syriac language in the Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23 
   parents:
     - cyrillic_generic
 

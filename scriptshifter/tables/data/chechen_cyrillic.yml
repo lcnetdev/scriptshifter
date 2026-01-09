@@ -1,6 +1,9 @@
 ---
 general:
   name: Chechen (Cyrillic)
+  description: Chechen language in Cyrillic script.
+  version: 1.0.0
+  date: 2025-11-30
   parents:
     - cyrillic_generic
 

@@ -1,12 +1,12 @@
 ---
 general:
   name: Chinese
-  description: >
-    Chinese transliteration table that does not convert Chinese numerals to
-    Indo-Arabic numerals.
+  case_sensitive: false
+  description: Chinese transliteration does not convert Chinese numerals to Indo-Arabic numerals.
+  version: 1.0.0
+  date: 2025-11-29
   parents:
     - _chinese_base
-  case_sensitive: false
 
 options:
   - id: marc_field

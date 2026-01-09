@@ -1,8 +1,10 @@
 ---
 general:
   name: Hebrew
-  description: Hebrew S2R.
   case_sensitive: false
+  description: Hebrew languages S2R in the Hebrew script using third party software.
+  version: 1.0.0
+  date: 2025-12-23
 
 options:
   - id: genre

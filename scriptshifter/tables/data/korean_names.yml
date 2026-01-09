@@ -1,8 +1,10 @@
 ---
 general:
   name: Korean (Names)
-  description: Korean names S2R.
   case_sensitive: false
+  description: Korean names using third-party software S2R only.
+  version: 1.0.0
+  date: 2025-12-23
 
 options:
   - id: marc_field

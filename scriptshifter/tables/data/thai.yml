@@ -2,6 +2,11 @@
 general:
   name: Thai
   case_sensitive: false
+  description: Thai script conversion to Latin script only (RKB).
+  version: 1.0.0
+  date: 2025-12-23
+  parents:
+    - _ignore_base
 
 script_to_roman:
   hooks:

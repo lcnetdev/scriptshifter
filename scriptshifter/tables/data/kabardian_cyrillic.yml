@@ -1,0 +1,23 @@
+---
+general:
+  name: Kabardian (Cyrillic)
+  description: Kabardian language in the Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23
+  parents:
+    - cyrillic_generic
+
+roman_to_script:
+  map:
+    # Used in Kabardian since 1938
+    "H\u0307": "\u04C0"
+    "h\u0307": "\u04CF"
+    # Used in Kabardian before 1938
+    "H\u0310": "\u0027"
+    "h\u0310": "\u0027
+
+script_to_roman:
+  map:
+    "\u0027": "h\u0310"
+    "\u04C0": "H\u0307"
+    "\u04CF": "h\u0307"

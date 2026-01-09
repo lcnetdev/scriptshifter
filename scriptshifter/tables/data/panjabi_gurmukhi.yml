@@ -1,11 +1,12 @@
 ---
 general:
   name: Panjabi (Gurmukhi)
+  case_sensitive: false
+  description: Panjabi language in the Gurmukhi script.
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - _gurmukhi_base
-
-  description: Panjabi language in the Gurmukhi script
-  case_sensitive: false
 
 roman_to_script:
   hooks:

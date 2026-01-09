@@ -1,20 +1,30 @@
+---
 general:
   name: Mordvin (Cyrillic)
+  description: Mordvin language in Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - cyrillic_generic
 
 roman_to_script:
   map:
     "I\uFE20O\uFE21": "\u0401"
+    "I\u0361O": "\u0401"
     "I\uFE20o\uFE21": "\u0401"
+    "I\u0361o": "\u0401"
     "i\uFE20o\uFE21": "\u0451"
+    "i\u0361o": "\u0451"
     "LKH\u0307": "\u0514"
     "LKh\u0307": "\u0514"
     "Lkh\u0307": "\u0514"
     "lkh\u0307": "\u0515"
     "N\uFE20G\uFE21": "\u04A4"
+    "N\u0361G": "\u04A4"
     "N\uFE20g\uFE21": "\u04A4"
+    "N\u0361g": "\u04A4"
     "n\uFE20g\uFE21": "\u04A5"
+    "n\u0361g": "\u04A5"
     "RKH\u0307": "\u0516"
     "RKh\u0307": "\u0516"
     "Rkh\u0307": "\u0516"
@@ -36,12 +46,12 @@ roman_to_script:
 
 script_to_roman:
   map:
-    "\u0401": "I\uFE20O\uFE21"
+    "\u0401": "I\u0361O"
     "\u041E": "O\u0306"
     "\u043E": "o\u0306"
-    "\u0451": "i\uFE20o\uFE21"
-    "\u04A4": "N\uFE20G\uFE21"
-    "\u04A5": "n\uFE20g\uFE21"
+    "\u0451": "i\u0361o"
+    "\u04A4": "N\u0361G"
+    "\u04A5": "n\u0361g"
     "\u04AE": "U\u0307"
     "\u04AF": "u\u0307"
     "\u04D6": "E\u0306"

@@ -1,13 +1,19 @@
 general:
   name: Kara-Kalpak (Cyrillic)
+  description: Kara-Kalpak language in the Cyrillic script.
+  version: 1.0.0
+  date: 2025-12-23
   parents:
     - cyrillic_generic
 
 roman_to_script:
   map:
     "N\uFE20G\uFE21": "\u04A2"
+    "N\u0361G": "\u04A2"
     "N\uFE20g\uFE21": "\u04A2"
+    "N\u0361g": "\u04A2"
     "n\uFE20g\uFE21": "\u04A3"
+    "n\u0361g": "\u04A3"
     "A\u0306": "\u04D8"
     "a\u0306": "\u04D9"
     "GH": "\u0492"
@@ -32,8 +38,8 @@ script_to_roman:
     "\u0493": "gh"
     "\u049A": "Q"
     "\u049B": "q"
-    "\u04A2": "N\uFE20G\uFE21"
-    "\u04A3": "n\uFE20g\uFE21"
+    "\u04A2": "N\u0361G"
+    "\u04A3": "n\u0361g"
     "\u04AE": "U\u0307"
     "\u04AF": "u\u0307"
     "\u04B2": "H\u0307"

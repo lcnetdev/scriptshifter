@@ -2,6 +2,12 @@
 general:
   name: Uighur (Arabic)
   case_sensitive: false
+  description: Uighur language in Arabic script.
+  version: 1.0.0
+  date: 2025-12-23 
+  parents:
+    - _ignore_base
+  
 roman_to_script:
   map:
     "%a": "\u0626\u0627"
@@ -48,6 +54,7 @@ roman_to_script:
     ";": "\u061B"
     ",": "\u060C"
     "?": "\u061F"
+
 script_to_roman:
   map:
     "%\u0626\u0627": "a"
