@@ -31,7 +31,7 @@ roman_to_script:
     # numerals) ranges to avoid this ambiguity.
     - "I{2,3}\\b"
     - "I(V|X)\\b"
-    - "LI{,3}\\b"
+    - "LI{1,3}\\b"
     - "LI?(V|X)\\b"
     - "L(V|X{1,3})I{,3}\\b"
     - "LX{1,3}I?V\\b"
