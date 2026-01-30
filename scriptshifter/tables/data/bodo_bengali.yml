@@ -1,0 +1,19 @@
+---
+general:
+  name: Bodo (Bengali)
+  case_sensitive: false
+  description: Bodo (Boro) language in the Bengali script.
+  version: 1.0.0
+  date: 2026-01-08
+  parents:
+    - _bengali_base
+
+roman_to_script:
+  map:
+    " ": " "
+    # NO ADDITIONAL MAPPINGS TO APPLY
+
+script_to_roman:
+  map:
+    " ": " "
+    # NO ADDITIONAL MAPPINGS TO APPLY
