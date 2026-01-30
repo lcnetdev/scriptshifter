@@ -2,20 +2,20 @@
 general:
   name: Chuvash (Cyrillic)
   description: Chuvash language in Cyrillic script.
-  version: 1.0.0
-  date: 2025-12-01
+  version: 1.0.1
+  date: 2026-01-29
   parents:
     - cyrillic_generic
 
 roman_to_script:
   map:
-    "A\u0306": "\u0400"
-    "a\u0306": "\u0401"
+    "A\u0306": "\u04D0"
+    "a\u0306": "\u04D1"
     "CH": "\u040B"
     "Ch": "\u040B"
     "ch": "\u045B"
-    "E\u0306": "\u04D8"
-    "e\u0306": "\u04D9"
+    "E\u0306": "\u04D6"
+    "e\u0306": "\u04D7"
     "L\u0301": "\u0520"
     "l\u0301": "\u0521"
     "N\u0301": "\u0522"
@@ -31,19 +31,19 @@ script_to_roman:
   map:
     "\u0422\u030C": "T\u0301"
     "\u0442\u030C": "t\u0301"
-    "\u0400": "A\u0306"
-    "\u0401": "a\u0306"
-    "\u0409": "L\u0301"
+    "\u04D0": "A\u0306"
+    "\u04D1": "a\u0306"
     "\u040B": "Ch"
-    "\u0459": "l\u0301"
     "\u045B": "ch"
     "\u04AA": "S\u0301"
     "\u04AB": "s\u0301"
-    "\u04AE": "U\u0307"
-    "\u04AF": "u\u0307"
-    "\u04D8": "E\u0306"
-    "\u04D9": "e\u0306"
+    "\u04F0": "U\u0307"
+    "\u04F1": "u\u0307"
+    "\u04D6": "E\u0306"
+    "\u04D7": "e\u0306"
     "\u04F2": "U\u0307"
     "\u04F3": "u\u0307"
+    "\u0520": "L\u0301"
+    "\u0521": "l\u0301"
     "\u0522": "N\u0301"
     "\u0523": "n\u0301"
