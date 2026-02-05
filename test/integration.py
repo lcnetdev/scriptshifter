@@ -27,7 +27,7 @@ def test_sample(dset, report=True):
     dset_fpath = path.join(TEST_DATA_DIR, "script_samples", dset + ".csv")
     log_fpath = path.join(TEST_DATA_DIR, "log", f"test_{dset}.log")
 
-    with open(dset_fpath, newline="") as fh:
+    with open(dset_fpath, newline="", encoding="utf-8-sig") as fh:
         csv = reader(fh)
         i = 1
         for row in csv:
