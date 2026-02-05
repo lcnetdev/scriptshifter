@@ -285,9 +285,9 @@ lezghian_cyrillic:
   conf: "cyrillic_generic.yml"
   marc_code: lez
   name: Lezghian (Cyrillic)
-# limbu:
-#   marc_code: sit
-#   name: Limbu
+limbu:
+  marc_code: sit
+  name: Limbu
 lithuanian_cyrillic:
   marc_code: lit
   name: Lithuanian (Cyrillic)
@@ -417,9 +417,9 @@ sami_cyrillic:
 sanskrit_devanagari:
   marc_code: san
   name: Sanskrit (Devanagari)
-# santali_ol_chiki:
-#   marc_code: sat
-#   name: Santali (Ol chiki)
+santali_ol_chiki:
+  marc_code: sat
+  name: Santali (Ol chiki)
 selkup_cyrillic:
   marc_code: sel
   name: Selkup (Cyrillic)
@@ -477,9 +477,9 @@ thai:
 tibetan:
   marc_code: tib
   name: Tibetan
-# tibetan_2015_r2r:
-#   marc_code: tib
-#   name: Tibetan (ñ,ṅ,ś,ź to ny,ng,sh,zh only)
+tibetan_2015_r2r:
+  marc_code: tib
+  name: Tibetan (ñ,ṅ,ś,ź to ny,ng,sh,zh only)
 tigre_ethiopic:
   conf: "ethiopic_generic.yml"
   marc_code: tig
