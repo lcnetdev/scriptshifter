@@ -234,7 +234,6 @@ komi_cyrillic:
   marc_code: kom
   name: Komi (Cyrillic)
 komi-permyak_cyrillic:
-  conf: "cyrillic_generic.yml"
   marc_code: kom
   name: Komi-Permyak (Cyrillic)
 konkani_devanagari:
@@ -385,7 +384,7 @@ panjabi_gurmukhi:
   marc_code: pan
   name: Panjabi (Gurmukhi)
 permyak_cyrillic:
-  conf: "cyrillic_generic.yml"
+  conf: "komi-permyak_cyrillic.yml"
   marc_code: kom
   name: Permyak (Cyrillic)
 persian:
