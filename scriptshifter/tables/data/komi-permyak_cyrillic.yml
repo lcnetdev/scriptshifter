@@ -1,9 +1,9 @@
 ---
 general:
-  name: Komi-Permyak (Cyrillic)
-  description: Komi-Permyak language in Cyrillic script.
-  version: 1.0.0
-  date: 2025-12-23
+  name: Permyak (Cyrillic)
+  description: Permyak (Komi)language in Cyrillic script.
+  version: 1.0.1
+  date: 2026-02-03
   parents:
     - cyrillic_generic
 

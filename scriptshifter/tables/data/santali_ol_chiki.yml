@@ -1,0 +1,138 @@
+---
+general:
+  name: Santali (Ol chiki)
+  case_sensitive: false
+  description: Santali language in the Ol (Ol chiki) script.
+  version: 1.0.0
+  date: 2026-01-12
+  parents:
+    - _ignore_base
+
+# COMMON COMBINING CHARACTERS (always follow a base letter):
+# combining tilde \u0303
+# combining macron \u0304
+# combining dot above \u0307
+# combining candrabindu \u0310
+# combining dot below \u0323
+# combining lowline \u0332
+# apostrophe (spacing) \u0027
+# hyphen-minus (spacing) \u002D
+# low line (spacing) \u005F
+
+roman_to_script:
+  map:
+    
+    # CONSsONANTS AND VOWELS
+    "a\u0304\u0323": "\u1C5F\u1C79"
+    "a\u0323\u0304": "\u1C5F\u1C79"
+    "a\u0304": "\u1C5F"
+    "a": "\u1C5A"
+    "b": "\u1C75"
+    "c": "\u1C6A"
+    "d\u0323": "\u1C70"
+    "d": "\u1C6B"
+    "e": "\u1C6E"
+    "g": "\u1C5C"
+    "h\u0332": "\u1C66"
+    "h": "\u1C77"
+    "i": "\u1C64"
+    "j": "\u1C61"
+    "k": "\u1C60"
+    "l": "\u1C5E"
+    "m\u0310": "\u1C78"
+    "m\u0323": "\u1C5D"
+    "m": "\u1C62"
+    "n\u0303": "\u1C67"
+    "n\u0307": "\u1C76"
+    "n\u0323": "\u1C6C"
+    "n": "\u1C71"
+    "o": "\u1C73"
+    "p": "\u1C6F"
+    "r\u0323": "\u1C72"
+    "r": "\u1C68"
+    "s": "\u1C65"
+    "t\u0323": "\u1C74"
+    "t": "\u1C5B"
+    "u": "\u1C69"
+    "w": "\u1C63"
+    "y": "\u1C6D"
+
+    # SPECIAL MARKS
+    "\u0027": "\u1C7D"
+    "\u007E": "\u1C7B"
+    "\u0303": "\u1C7B"
+    "m\u0310": "\u1C78"
+    "\u0332": "\u1C79"
+    ",": "\u1C7E"
+    ".": "\u1C7F"
+
+    # SAMNTALI DIGITS
+    "0": "\u1C50"
+    "1": "\u1C51"
+    "2": "\u1C52"
+    "3": "\u1C53"
+    "4": "\u1C54"
+    "5": "\u1C55"
+    "6": "\u1C56"
+    "7": "\u1C57"
+    "8": "\u1C59"
+    "9": "\u1C59"
+
+script_to_roman:
+  map:
+
+    # CONSsONANTS AND VOWELS
+    "\u1C5F\u1C79": "a\u0323\u0304"
+    "\u1C5F": "a\u0304"
+    "\u1C5A": "a"
+    "\u1C75": "b"
+    "\u1C6A": "c"
+    "\u1C70": "d\u0323"
+    "\u1C6B": "d"
+    "\u1C6E": "e"
+    "\u1C5C": "g"
+    "\u1C66": "h\u0332"
+    "\u1C77": "h"
+    "\u1C64": "i"
+    "\u1C61": "j"
+    "\u1C60": "k"
+    "\u1C5E": "l"
+    "\u1C78": "m\u0310"
+    "\u1C5D": "m\u0323"
+    "\u1C62": "m"
+    "\u1C67": "n\u0303"
+    "\u1C76": "n\u0307" 
+    "\u1C6C": "n\u0323"
+    "\u1C71": "n"
+    "\u1C73": "o"
+    "\u1C6F": "p"
+    "\u1C72": "r\u0323"
+    "\u1C68": "r"
+    "\u1C65": "s"
+    "\u1C74": "t\u0323"
+    "\u1C5B": "t"
+    "\u1C69": "u"
+    "\u1C63": "w"
+    "\u1C6D": "y"
+
+    # SPECIAL MARKS
+    "\u1C7D": "\u0027"
+    "\u1C7B": "\u007E"
+    "\u1C7B": "\u0303"
+    "\u1C78": "m\u0310"
+    "\u1C79": "\u0332"
+    "\u1C7E": ","
+    "\u1C7F": "."
+
+    # SANTALI DIGITS
+    "\u1C50": "0"
+    "\u1C51": "1"
+    "\u1C52": "2"
+    "\u1C53": "3"
+    "\u1C54": "4"
+    "\u1C55": "5"
+    "\u1C56": "6"
+    "\u1C57": "7"
+    "\u1C59": "8"
+    "\u1C59": "9"
+
