@@ -1,4 +1,3 @@
-
 # Map index file
 # version: 1.0.4
 # date: 2026-02-04
@@ -386,6 +385,7 @@ panjabi_gurmukhi:
   marc_code: pan
   name: Panjabi (Gurmukhi)
 permyak_cyrillic:
+  conf: "cyrillic_generic.yml"
   marc_code: kom
   name: Permyak (Cyrillic)
 persian:
