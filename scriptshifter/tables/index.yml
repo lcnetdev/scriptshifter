@@ -23,7 +23,7 @@ altai_cyrillic:
   marc_code: alt
   name: Altai (Cyrillic)
 amharic:
-  conf: "ethiopic_generic.yml"
+  alias_of: ethiopic_generic
   marc_code: amh
   name: Amharic
 arabic:
@@ -33,7 +33,7 @@ arabic:
   marc_code: ara
   name: Arabic
 argobba_ethiopic:
-  conf: "ethiopic_generic.yml"
+  alias_of: ethiopic_generic
   marc_code: amh
   name: Argobba (Ethiopic)
 armenian:
@@ -46,14 +46,14 @@ avaric_cyrillic:
   marc_code: ava
   name: Avaric (Cyrillic)
 awadhi_devanagari:
-  conf: "devanagari_generic.yml"
+  alias_of: devanagari_generic
   marc_code: awa
   name: Awadhi (Devanagari)
 azerbaijani_cyrillic:
   marc_code: aze
   name: Azerbaijani (Cyrillic)
 balkar_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: krc
   name: Balkar (Cyrillic)
 bashkir_cyrillic:
@@ -63,11 +63,10 @@ belarusian:
   marc_code: bel
   name: Belarusian
 bengali:
-  conf: "_bengali_base.yml"
   marc_code: ben
   name: Bengali
 bihari_devanagari:
-  conf: "devanagari_generic.yml"
+  alias_of: devanagari_generic
   marc_code: bih
   name: Bihari (Devanagari)
 bodo_bengali:
@@ -77,7 +76,7 @@ bodo_devanagari:
   marc_code: sit
   name: Bodo (Devanagari)
 braj_devanagari:
-  conf: "devanagari_generic.yml"
+  alias_of: devanagari_generic
   marc_code: bra
   name: Braj (Devanagari)
 bulgarian:
@@ -117,7 +116,7 @@ cyrillic_generic:
   marc_code: mul
   name: Cyrillic (Generic)
 dargwa_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   name: Dargwa (Cyrillic)
   marc_code: dar
 devanagari_generic:
@@ -133,7 +132,7 @@ dungan_cyrillic:
   marc_code: sit
   name: Dungan (Cyrillic)
 dzongkha_tibetan:
-  conf: "tibetan.yml"
+  alias_of: tibetan
   marc_code: dzo
   name: Dzongkha (Tibetan)
 ethiopic_generic:
@@ -152,7 +151,7 @@ georgian:
   marc_code: geo
   name: Georgian
 gilyak_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: mis
   name: Gilyak (Cyrillic)
 glagolitic:
@@ -168,22 +167,24 @@ gujarati:
   marc_code: guj
   name: Gujarati
 gurage_ethiopic:
-  conf: "ethiopic_generic.yml"
+  alias_of: ethiopic_generic
   marc_code: sem
   name: Gurage (Ethiopic)
+gurmukhi_generic:
+  name: Gurmukhi (generic)
 hebrew:
   marc_code: heb
   name: Hebrew
 hindi:
-  conf: "devanagari_generic.yml"
+  alias_of: devanagari_generic
   marc_code: hin
   name: Hindi (Devanagari)
 ingush_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: inh
   name: Ingush (Cyrillic)
 inuit_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: ipk
   name: Inuit (Cyrillic)
 inuktitut:
@@ -196,7 +197,7 @@ japanese_katakana:
   marc_code: jpn
   name: Japanese (Katakana)
 kabardian_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: kbd
   name: Kabardian (Cyrillic)
 kalmyk_cyrillic:
@@ -209,7 +210,7 @@ kannada:
   marc_code: kan
   name: Kannada
 kara-kalpak_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: kaa
   name: Kara-Kalpak (Cyrillic)
 karachay-balkar_cyrillic:
@@ -237,11 +238,11 @@ komi-permyak_cyrillic:
   marc_code: kom
   name: Komi-Permyak (Cyrillic)
 konkani_devanagari:
-  conf: "devanagari_generic.yml"
+  alias_of: devanagari_generic
   marc_code: kok
   name: Konkani (Devanagari)
 konkani_kannada:
-  conf: "kannada.yml"
+  alias_of: kannada
   marc_code: kok
   name: Konkani (Kannada)
 korean_names:
@@ -258,7 +259,7 @@ koryak_cyrillic:
   marc_code: mis
   name: Koryak (Cyrillic)
 kumyk_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: kum
   name: Kumyk (Cyrillic)
 kurdish_arabic:
@@ -271,18 +272,18 @@ kyrgyz_cyrillic:
   marc_code: kir
   name: Kyrgyz (Cyrillic)
 lak_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: cau
   name: Lak (Cyrillic)
 lahnda_gurmukhi:
-  conf: "_gurmukhi_base.yml"
+  alias_of: gurmukhi_generic
   marc_code: lah
   name: Lahnda (Gurmukhi)
 lepcha:
   marc_code: sit
   name: Lepcha
 lezghian_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: lez
   name: Lezghian (Cyrillic)
 limbu:
@@ -295,7 +296,7 @@ macedonian:
   marc_code: mac
   name: Macedonian
 maithili_devanagari:
-  conf: "devanagari_generic.yml"
+  alias_of: devanagari_generic
   marc_code: mai
   name: Maithili (Devanagari)
 malayalam:
@@ -317,7 +318,7 @@ marathi_devanagari:
   marc_code: mar
   name: Marathi (Devanagari)
 mari_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: chm
   name: Mari (Cyrillic)
 moldovan_cyrillic:
@@ -336,26 +337,26 @@ mordvin_cyrillic:
   marc_code: fiu
   name: Mordvin (Cyrillic)
 nanai_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: tut
   name: Nanai (Cyrillic)
 nenets_cyrillic:
   marc_code: mis
   name: Nenets (Cyrillic)
 nepali_devanagari:
-  conf: "devanagari_generic.yml"
+  alias_of: devanagari_generic
   marc_code: nep
   name: Nepali (Devanagari)
 newari_devanagari:
-  conf: "devanagari_generic.yml"
+  alias_of: devanagari_generic
   marc_code: new
   name: Newari (Devanagari)
 nivkh_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: mis
   name: Nivkh (Cyrillic)
 nogai_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: nog
   name: Nogai (Cyrillic)
 odia:
@@ -365,26 +366,26 @@ ossetic_cyrillic:
   marc_code: oss
   name: Ossetic (Cyrillic)
 pahari_devanagari:
-  conf: "devanagari_generic.yml"
+  alias_of: devanagari_generic
   marc_code: him
   name: Pahari (Devanagari)
 pali_bengali:
-  conf: "_bengali_base.yml"
+  alias_of: bengali
   marc_code: pli
   name: Pali (Bengali)
 pali_devanagari:
-  conf: "devanagari_generic.yml"
+  alias_of: devanagari_generic
   marc_code: pli
   name: Pali (Devanagari)
 pali_sinhala:
-  conf: "sinhala.yml"
+  alias_of: sinhala
   marc_code: pli
   name: Pali (Sinhala)
 panjabi_gurmukhi:
   marc_code: pan
   name: Panjabi (Gurmukhi)
 permyak_cyrillic:
-  conf: "komi-permyak_cyrillic.yml"
+  alias_of: komi-permyak_cyrillic
   marc_code: kom
   name: Permyak (Cyrillic)
 persian:
@@ -397,11 +398,11 @@ pushto:
   marc_code: pus
   name: Pushto
 rajasthani_devanagari:
-  conf: "devanagari_generic.yml"
+  alias_of: devanagari_generic
   marc_code: raj
   name: Rajasthani (Devanagari)
 romani_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: rom
   name: Romani (Cyrillic)
 romanian_cyrillic:
@@ -432,7 +433,7 @@ sindhi_arabic:
   marc_code: snd
   name: Sindhi (Arabic)
 sindhi_gurmukhi:
-  conf: "_gurmukhi_base.yml"
+  alias_of: gurmukhi_generic
   marc_code: snd
   name: Sindhi (Gurmukhi)
 sinhala:
@@ -442,7 +443,7 @@ syriac_cyrillic:
   marc_code: syc
   name: Syriac (Cyrillic)
 tabasaran_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: cau
   name: Tabasaran (Cyrillic)
 tajik_cyrillic:
@@ -458,7 +459,7 @@ tamil_extended:
   marc_code: tam
   name: Tamil (extended)
 tat_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: ira
   name: Tat (Cyrillic)
 tatar_cyrillic:
@@ -480,22 +481,22 @@ tibetan_2015_r2r:
   marc_code: tib
   name: Tibetan (ñ,ṅ,ś,ź to ny,ng,sh,zh only)
 tigre_ethiopic:
-  conf: "ethiopic_generic.yml"
+  alias_of: ethiopic_generic
   marc_code: tig
   name: Tigre (Ethiopic)
 tigrinya_ethiopic:
-  conf: "ethiopic_generic.yml"
+  alias_of: ethiopic_generic
   marc_code: tir
   name: Tigrinya (Ethiopic)
 turkmen_cyrillic:
   marc_code: tuk
   name: Turkmen (Cyrillic)
 tuvinian_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: tyv
   name: Tuvinian (Cyrillic)
 udekhe_cyrillic:
-  conf: "cyrillic_generic.yml"
+  alias_of: cyrillic_generic
   marc_code: tut
   name: Udekhe (Cyrillic)
 udmurt_cyrillic:

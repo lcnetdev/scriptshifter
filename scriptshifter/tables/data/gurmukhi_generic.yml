@@ -1,6 +1,6 @@
 ---
 general:
-  name: Gurmukhi base
+  name: Gurmukhi (generic)
   case_sensitive: false
   description: Bidirectional base mapping for the Gurmukhi script.
   version: 1.0.0
