@@ -594,9 +594,13 @@ def get_language(lang):
 
 def get_lang_general(conn, lang):
     """ Language general attributes. """
+    ref_q = "SELECT id, ref_id FROM tbl_language WHERE name = ?"
+    ref_data = conn.execute(ref_q, (lang,)).fetchone()
+    lang_id = ref_data[1] if ref_data[1] else ref_data[0]
+
     lang_q = conn.execute(
             """SELECT id, name, label, features, marc_code, description
-            FROM tbl_language WHERE name = ?""", (lang,))
+            FROM tbl_language WHERE id = ?""", (lang_id,))
     lang_data = lang_q.fetchone()
 
     if not lang_data:
@@ -605,7 +609,7 @@ def get_lang_general(conn, lang):
     return {
         "id": lang_data[0],
         "data": {
-            "name": lang_data[1],
+            "name": lang,
             "label": lang_data[2],
             "has_s2r": bool(lang_data[3] & FEAT_S2R),
             "has_r2s": bool(lang_data[3] & FEAT_R2S),
@@ -617,6 +621,7 @@ def get_lang_general(conn, lang):
 
 
 def get_lang_normalize(conn, lang_id):
+    lang_id = _get_ref(conn, lang_id)
     qry = conn.execute(
             """SELECT src, dest FROM tbl_normalize
             WHERE lang_id = ?""",
@@ -628,6 +633,7 @@ def get_lang_ignore(conn, lang_id):
     """
     Ignore list as a tuple.
     """
+    lang_id = _get_ref(conn, lang_id)
     qry = conn.execute(
             """SELECT rule, features FROM tbl_ignore
             WHERE lang_id = ?""",
@@ -644,6 +650,7 @@ def get_lang_map(conn, lang_id, t_dir):
 
     Generator of tuples (source, destination).
     """
+    lang_id = _get_ref(conn, lang_id)
     qry = conn.execute(
             """SELECT src, dest FROM tbl_trans_map
             WHERE lang_id = ? AND dir = ?
@@ -656,6 +663,7 @@ def get_lang_map(conn, lang_id, t_dir):
 
 def get_lang_options(conn, lang_id):
     """ Language options as a tuple of dictionaries. """
+    lang_id = _get_ref(conn, lang_id)
     qry = conn.execute(
             """SELECT name, label, description, dtype, options, default_v
             FROM tbl_option
@@ -676,6 +684,7 @@ def get_lang_options(conn, lang_id):
 
 
 def get_lang_hooks(conn, lang_id, t_dir):
+    lang_id = _get_ref(conn, lang_id)
     """ Language hooks in sorting order. """
     hooks = defaultdict(list)
 
@@ -698,9 +707,18 @@ def get_lang_hooks(conn, lang_id, t_dir):
 
 
 def get_lang_dcap(conn, lang_id):
+    lang_id = _get_ref(conn, lang_id)
     qry = conn.execute(
             """SELECT rule
             FROM tbl_double_cap WHERE lang_id = ?""",
             (lang_id,))
 
     return tuple(row[0] for row in qry)
+
+
+def _get_ref(conn, lang_id):
+    ref_data = conn.execute(
+            """SELECT ref_id FROM tbl_language WHERE id = ?""",
+            (lang_id,)).fetchone()
+
+    return ref_data[0] if ref_data and ref_data[0] else lang_id
