@@ -193,6 +193,9 @@ inuktitut:
 japanese_hiragana:
   marc_code: jpn
   name: Japanese (Hiragana)
+japanese_kanji:
+  marc_code: jpn
+  name: Japanese (Kanji)
 japanese_katakana:
   marc_code: jpn
   name: Japanese (Katakana)
