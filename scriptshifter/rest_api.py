@@ -73,7 +73,10 @@ def handle_exception(e: ApiError):
 def index():
     return render_template(
             "index.html",
-            languages=list_tables(),
+            languages=sorted(
+                list_tables().items(),
+                key=lambda k: k[1]["label"]
+            ),
             version_info=(GIT_TAG, GIT_COMMIT),
             feedback_form=SMTP_HOST is not None or FEEDBACK_PATH is not None)
 
