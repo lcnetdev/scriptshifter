@@ -1,0 +1,14 @@
+---
+general:
+  name: Japanese (Kanji)
+  case_sensitive: false
+  description: Japanese language mapping for Kanji syllabary.
+  version: 1.0.0
+  date: 2026-02-11
+
+script_to_roman:
+  hooks:
+    post_config:
+      -
+        - japanese.s2r_post_config
+        - src_code: "J"
