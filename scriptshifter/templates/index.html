@@ -59,7 +59,7 @@
             <textarea id="text" name="text"></textarea>
             <label for="lang">Language</label>
             <select id="lang" name="lang">
-                {% for k, v in languages.items() %}
+                {% for k, v in languages %}
                     <option value="{{ k }}">{{ v["label"] }}</option>
                 {% endfor %}
             </select>
