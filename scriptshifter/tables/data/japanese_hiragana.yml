@@ -6,6 +6,20 @@ general:
   version: 2.0.0
   date: 2026-02-11
 
+options:
+  - id: table
+    label: Romanization table
+    description: Romanization table used for transliteration.
+    type: list
+    options:
+      - id: Hepburn
+        label: Hepburn
+      - id: Kunrei
+        label: Kunrei
+      - id: Passport
+        label: Passport
+    default: Hepburn
+
 script_to_roman:
   hooks:
     post_config:

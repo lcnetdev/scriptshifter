@@ -19,9 +19,10 @@ def s2r_post_config(ctx, src_code):
     if src_code not in "HKJ":
         raise ValueError(f"Source script code {src_code} not supported.")
     trans.setMode(src_code, "a")
-    # TODO Use option switch: “Hepburn” , “Kunrei” or “Passport”
-    trans.setMode("r", "Hepburn")
-    trans.setMode("C", ctx.options["capitalize"] is not False)
+    trans.setMode("r", ctx.options.get("table", "Hepburn"))
+    trans.setMode("s", True)
+    # Both "first" and "all" behave as "all".
+    trans.setMode("C", not not ctx.options.get("capitalize", False))
 
     ctx.dest = trans.getConverter().do(ctx.src)
 
