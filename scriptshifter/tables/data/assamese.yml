@@ -6,8 +6,7 @@ general:
   version: 1.0.0
   date: 2025-11-30
   parents:
-    - _ignore_base
-    - _bengali_base
+    - bengali
 
 roman_to_script:
   map:

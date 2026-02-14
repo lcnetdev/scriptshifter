@@ -65,6 +65,8 @@ FEAT_RE = 1 << 3        # Regular expression.
 logger = logging.getLogger(__name__)
 
 tbl_index = None  # Module-level index of all scripts.
+proc_aliases = set()  # Set of alias tables already created.
+aliases = {}  # Map of language to alias.
 
 
 class Token(str):
@@ -165,7 +167,9 @@ def init_db():
             conn.executescript(fh.read())
 
     # Populate tables.
-    global tbl_index
+    global tbl_index, proc_aliases, aliases
+    proc_aliases = set()
+    aliases = {}
     with open(path.join(path.dirname(TABLE_DIR), "index.yml")) as fh:
         tbl_index = load(fh, Loader=Loader)
     try:
@@ -205,6 +209,10 @@ def populate_table(conn, tname, tdata):
     """
     logger.info(f"Populating table: {tname}")
 
+    check_q = "SELECT id FROM tbl_language WHERE name = ?"
+    if conn.execute(check_q, (tname,)).fetchone():
+        return
+
     res = conn.execute(
         """INSERT INTO tbl_language (
             name, label, marc_code, description
@@ -217,6 +225,20 @@ def populate_table(conn, tname, tdata):
     tid = res.lastrowid
 
     data = load_table(tname)
+    if "alias_of" in data:
+        # If an alias, insert the alias ID.
+        ref_name = data["alias_of"]
+        logger.info(f"{tname} is an alias of {ref_name}.")
+        ref_data = conn.execute(check_q, (ref_name,)).fetchone()
+        # Check if the ref table has already been populated.
+        if not ref_data:
+            populate_table(conn, ref_name, tbl_index[ref_name])
+            ref_data = conn.execute(check_q, (ref_name,)).fetchone()
+        ref_id = ref_data[0]
+        conn.execute(
+                "UPDATE tbl_language SET ref_id = ? WHERE id = ?",
+                (ref_id, tid))
+
     flags = 0
     if "script_to_roman" in data:
         flags |= FEAT_S2R
@@ -340,16 +362,20 @@ def load_table(tname):
     The table file is parsed into an in-memory configuration that contains
     the language & script metadata and parsing rules.
     """
+    if "alias_of" in tbl_index.get(tname, {}):
+        conf_name = tbl_index[tname]["alias_of"]
+        aliases[tname] = conf_name
 
-    try:
-        fname = path.join(TABLE_DIR, tbl_index[tname]["conf"])
-    except KeyError:
-        # If no `conf` key is provided, use the conventional table name + .yml.
-        fname = path.join(TABLE_DIR, tname + ".yml")
+        return {"alias_of": conf_name}
+
+    else:
+        # If no `alias_of` key is provided, use the regular table name + .yml.
+        conf_name = tname
+
+    fname = path.join(TABLE_DIR, conf_name + ".yml")
     if not access(fname, R_OK):
         raise ValueError(
                 f"No transliteration table `{fname}` found for {tname}!")
-
     with open(fname) as fh:
         tdata = load(fh, Loader=Loader)
 
@@ -568,9 +594,13 @@ def get_language(lang):
 
 def get_lang_general(conn, lang):
     """ Language general attributes. """
+    ref_q = "SELECT id, ref_id FROM tbl_language WHERE name = ?"
+    ref_data = conn.execute(ref_q, (lang,)).fetchone()
+    lang_id = ref_data[1] if ref_data[1] else ref_data[0]
+
     lang_q = conn.execute(
             """SELECT id, name, label, features, marc_code, description
-            FROM tbl_language WHERE name = ?""", (lang,))
+            FROM tbl_language WHERE id = ?""", (lang_id,))
     lang_data = lang_q.fetchone()
 
     if not lang_data:
@@ -579,7 +609,7 @@ def get_lang_general(conn, lang):
     return {
         "id": lang_data[0],
         "data": {
-            "name": lang_data[1],
+            "name": lang,
             "label": lang_data[2],
             "has_s2r": bool(lang_data[3] & FEAT_S2R),
             "has_r2s": bool(lang_data[3] & FEAT_R2S),
@@ -591,6 +621,7 @@ def get_lang_general(conn, lang):
 
 
 def get_lang_normalize(conn, lang_id):
+    lang_id = _get_ref(conn, lang_id)
     qry = conn.execute(
             """SELECT src, dest FROM tbl_normalize
             WHERE lang_id = ?""",
@@ -602,6 +633,7 @@ def get_lang_ignore(conn, lang_id):
     """
     Ignore list as a tuple.
     """
+    lang_id = _get_ref(conn, lang_id)
     qry = conn.execute(
             """SELECT rule, features FROM tbl_ignore
             WHERE lang_id = ?""",
@@ -618,6 +650,7 @@ def get_lang_map(conn, lang_id, t_dir):
 
     Generator of tuples (source, destination).
     """
+    lang_id = _get_ref(conn, lang_id)
     qry = conn.execute(
             """SELECT src, dest FROM tbl_trans_map
             WHERE lang_id = ? AND dir = ?
@@ -630,6 +663,7 @@ def get_lang_map(conn, lang_id, t_dir):
 
 def get_lang_options(conn, lang_id):
     """ Language options as a tuple of dictionaries. """
+    lang_id = _get_ref(conn, lang_id)
     qry = conn.execute(
             """SELECT name, label, description, dtype, options, default_v
             FROM tbl_option
@@ -650,6 +684,7 @@ def get_lang_options(conn, lang_id):
 
 
 def get_lang_hooks(conn, lang_id, t_dir):
+    lang_id = _get_ref(conn, lang_id)
     """ Language hooks in sorting order. """
     hooks = defaultdict(list)
 
@@ -672,9 +707,18 @@ def get_lang_hooks(conn, lang_id, t_dir):
 
 
 def get_lang_dcap(conn, lang_id):
+    lang_id = _get_ref(conn, lang_id)
     qry = conn.execute(
             """SELECT rule
             FROM tbl_double_cap WHERE lang_id = ?""",
             (lang_id,))
 
     return tuple(row[0] for row in qry)
+
+
+def _get_ref(conn, lang_id):
+    ref_data = conn.execute(
+            """SELECT ref_id FROM tbl_language WHERE id = ?""",
+            (lang_id,)).fetchone()
+
+    return ref_data[0] if ref_data and ref_data[0] else lang_id

@@ -5,11 +5,14 @@
  */
 CREATE TABLE tbl_language (
     id INTEGER PRIMARY KEY,
+    ref_id INTEGER NULL,
     name TEXT UNIQUE,
     label TEXT,
     marc_code TEXT,
     description TEXT,
-    features TINYINT DEFAULT 0
+    features TINYINT DEFAULT 0,
+
+    FOREIGN KEY (ref_id) REFERENCES tbl_language(id) ON DELETE RESTRICT
 );
 
 /*
