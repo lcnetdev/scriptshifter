@@ -26,6 +26,7 @@ document.getElementById('lang').addEventListener('change',(event)=>{
             data.forEach((opt)=>{
                 let fset = document.createElement("fieldset");
                 fset.setAttribute("class", "float-left");
+                fset.setAttribute("class", "option");
                 let label = document.createElement("label");
                 label.setAttribute("for", opt.id);
                 label.append(opt.label);

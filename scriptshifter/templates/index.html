@@ -21,8 +21,8 @@
         #results{
             font-size: 1.25em;
             background-color: whitesmoke;
-            margin-top: 1em;
             padding: 1em;
+            margin-bottom: 1em;
         }
 
         #feedback_cont {
@@ -50,13 +50,13 @@
             margin: 20px auto;
         }
 
+        .option { display: inline-block; }
+
     </style>
 
 
     <form id="transliterate" action="/trans" method="POST">
         <fieldset>
-            <label for="text">Input text</label>
-            <textarea id="text" name="text"></textarea>
             <label for="lang">Language</label>
             <select id="lang" name="lang">
                 {% for k, v in languages %}
@@ -64,17 +64,18 @@
                 {% endfor %}
             </select>
         </fieldset>
+
         <div class="clearfix">
             <h3>General Options</h3>
             <fieldset class="float-left">
                 <legend>Direction</legend>
-                <div>
+                <div class="float-left">
                     <label class="label-inline" for="s2r">Script to Roman</label>
                     <input
                             type="radio" id="opt_s2r" name="t_dir" value="s2r"
                             checked>
                 </div>
-                <div>
+                <div class="float-left">
                     <label class="label-inline" for="r2s">Roman to script</label>
                     <input
                             type="radio" id="opt_r2s" name="t_dir" value="r2s">
@@ -82,23 +83,35 @@
             </fieldset>
             <fieldset class="float-left">
                 <legend>Capitalize</legend>
-                <div>
+                <div class="option float-left">
                     <label class="label-inline" for="no-change">No change</label>
                     <input
                             type="radio" id="no-change" name="capitalize"
                                                          value="no_change" checked>
                 </div>
-                <div>
+                <div class="option float-left">
                     <label class="label-inline" for="first">First word</label>
                     <input type="radio" id="first" name="capitalize" value="first">
                 </div>
-                <div>
+                <div class="float-left">
                     <label class="label-inline" for="all">All words</label>
                     <input type="radio" id="all" name="capitalize" value="all">
                 </div>
             </fieldset>
         </div>
         <div id="options" class="clearfix"></div>
+
+        <label for="text">Input text</label>
+        <textarea id="text" name="text"></textarea>
+
+        <div id="warnings-toggle" class="hidden">
+            <pre class="warnings"><code id="warnings"></code></pre>
+        </div>
+
+        <div id="results_cont">
+            <img id="loader_results" src="/static/loading.gif" class="hidden"/>
+            <div id="results">Results will appear here.</div>
+        </div>
 
         <fieldset>
             <input class="button button-primary" type="submit" value="Transliterate!">
@@ -112,15 +125,6 @@
         </fieldset>
         {% endif %}
     </form>
-
-    <div id="warnings-toggle" class="hidden">
-        <pre class="warnings"><code id="warnings"></code></pre>
-    </div>
-
-    <div id="results_cont">
-        <img id="loader_results" src="/static/loading.gif" class="hidden"/>
-        <div id="results">Results will appear here.</div>
-    </div>
 
     {% if feedback_form %}
     <div id="feedback_cont" class="hidden">
