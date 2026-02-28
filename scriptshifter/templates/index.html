@@ -14,9 +14,7 @@
             padding: 0.5em;
         }
 
-        fieldset.float-left {
-            margin-right: 2rem;
-        }
+        fieldset.float-left { margin-right: 2rem; }
 
         #results{
             font-size: 1.25em;
@@ -31,13 +29,9 @@
             background-color: whitesmoke;
         }
 
-        pre.warnings{
-            border-left: 0.3rem solid #FF5722 !important;
-        }
+        pre.warnings { border-left: 0.3rem solid #FF5722 !important; }
 
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
 
         p.input_descr {
             font-size: 80%;
@@ -50,7 +44,11 @@
             margin: 20px auto;
         }
 
-        .option { display: inline-block; }
+        .option {
+            display: inline-block;
+            float: left;
+            margin-right: .4em;
+        }
 
     </style>
 
@@ -69,7 +67,7 @@
             <h3>General Options</h3>
             <fieldset class="float-left">
                 <legend>Direction</legend>
-                <div class="float-left">
+                <div class="option">
                     <label class="label-inline" for="s2r">Script to Roman</label>
                     <input
                             type="radio" id="opt_s2r" name="t_dir" value="s2r"
@@ -81,19 +79,19 @@
                             type="radio" id="opt_r2s" name="t_dir" value="r2s">
                 </div>
             </fieldset>
-            <fieldset class="float-left">
+            <fieldset class="option">
                 <legend>Capitalize</legend>
-                <div class="option float-left">
+                <div class="option">
                     <label class="label-inline" for="no-change">No change</label>
                     <input
                             type="radio" id="no-change" name="capitalize"
                                                          value="no_change" checked>
                 </div>
-                <div class="option float-left">
+                <div class="option">
                     <label class="label-inline" for="first">First word</label>
                     <input type="radio" id="first" name="capitalize" value="first">
                 </div>
-                <div class="float-left">
+                <div class="option">
                     <label class="label-inline" for="all">All words</label>
                     <input type="radio" id="all" name="capitalize" value="all">
                 </div>
