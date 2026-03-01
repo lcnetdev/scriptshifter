@@ -50,6 +50,8 @@
             margin-right: .4em;
         }
 
+        .comment {font-size: 90%; }
+
     </style>
 
 
@@ -123,6 +125,19 @@
         </fieldset>
         {% endif %}
     </form>
+    <section id="permalink_sec">
+        <p><a id="permalink" class="button button-outline" href="#">
+            Permalink
+        </a></p>
+        <p class="comment">
+          You can right-click on the permalink button, copy it to the
+          clipboard, and/or bookmark it if you use the current
+          language/direction often. The bookmark will take you back to the
+          interface set to the options you chose. <strong>Note:</strong> At the
+          moment, only language and direction are saved. Other options are
+          always reset when the page is reloaded.
+        </p>
+    </section>
 
     {% if feedback_form %}
     <div id="feedback_cont" class="hidden">
