@@ -26,6 +26,7 @@ document.getElementById('lang').addEventListener('change',(event)=>{
             data.forEach((opt)=>{
                 let fset = document.createElement("fieldset");
                 fset.setAttribute("class", "float-left");
+                fset.setAttribute("class", "option");
                 let label = document.createElement("label");
                 label.setAttribute("for", opt.id);
                 label.append(opt.label);
@@ -67,11 +68,12 @@ document.getElementById('lang').addEventListener('change',(event)=>{
             });
         });
 
+    set_permalink();
     event.preventDefault();
     return false;
 })
 
-// Change language select menu based on query string
+// Change language select menu based on query string.
 var nav_lang = qd["lang"]
 if (nav_lang != undefined) {
     var lang_sel = document.getElementById("lang");
@@ -97,6 +99,22 @@ if (t_dir == "r2s") {
     opt_s2r.setAttribute("checked", "");
     opt_r2s.removeAttribute("checked");
 }
+
+
+// Change paermalink based on current language and options.
+function set_permalink() {
+    document.getElementById("permalink").setAttribute(
+        "href",
+        window.location.origin +
+        "?lang=" + document.getElementById("lang").value +
+        "&dir=" + (document.getElementById("opt_s2r").checked  ? "s2r" : "r2s")
+    );
+}
+
+
+document.querySelectorAll('input[name="t_dir"]').forEach(el => {
+  el.addEventListener('change', set_permalink);
+});
 
 
 document.getElementById('transliterate').addEventListener('submit',(event)=>{
@@ -160,6 +178,7 @@ document.getElementById('transliterate').addEventListener('submit',(event)=>{
 
 })
 
+// Submit feedback form.
 if (fb_active) {
     document.getElementById('feedback_btn').addEventListener('click',(event)=>{
         document.getElementById('lang_fb_input').value = document.getElementById('lang').value;
