@@ -4,7 +4,7 @@ general:
   case_sensitive: false
   description: Tifinagh script generic conversion mapping.
   version: 1.0.0
-  date: 2026-04-02
+  date: 2026-04-05
   parents:
     - _ignore_base
 
@@ -31,7 +31,7 @@ general:
 roman_to_script:
   map:
 
-    "\u002C": "\u2D70"
+    "\u002C\u0332": "\u2D70"
     "\u00B0": "\u2D6F"
     "\u0259": "\uF007"
     "\u025B": "\u2D44"
@@ -165,6 +165,6 @@ script_to_roman:
     "\u2D66": "e\u0307"
     "\u2D67": "o"
     "\u2D6F": "\u00B0"
-    "\u2D70": "\u002C"
+    "\u2D70": "\u002C\u0332"
     "\u2D7F": "\u200D"
     "\uF007": "\u0259"
