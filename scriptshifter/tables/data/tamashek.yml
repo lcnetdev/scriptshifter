@@ -6,7 +6,6 @@ general:
   version: 1.0.0
   date: 2026-04-02
   parents:
-    - _ignore_base
     - tifinagh_generic
 
     # COMMON COMBINING AND SPECIAL CHARACTERS
