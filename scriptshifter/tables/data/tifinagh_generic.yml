@@ -1,0 +1,170 @@
+---
+general:
+  name: Tifinagh (Generic)
+  case_sensitive: false
+  description: Tifinagh script generic conversion mapping.
+  version: 1.0.0
+  date: 2026-04-02
+  parents:
+    - _ignore_base
+
+    # COMMON COMBINING AND SPECIAL CHARACTERS
+    # comma \u002C
+    # degree sign \u00B0
+    # latin capital letter schwa \u018F
+    # latin small letter schwa \u0259
+    # latin capital letter open e \u0190
+    # latin small letter open e \u025B
+    # latin capital letter gamma \u0194
+    # latin small letter gamma \u0263
+    # combining circumflex \u0302
+    # combining macron \u0304
+    # combining breve \u0306
+    # combining dot above \u0307
+    # combining caron \u030C
+    # combining dot below \u0323
+    # combining low line \u0332
+    # combining double low line \u0333
+    # prime \u02B9
+    # zero width joiner \u200D
+
+roman_to_script:
+  map:
+
+    "\u002C": "\u2D70"
+    "\u00B0": "\u2D6F"
+    "\u0259": "\uF007"
+    "\u025B": "\u2D44"
+    "\u0263\u0307": "\u2D58"
+    "\u0263": "\u2D56"
+    "\u02B9": "\u2D7F"
+    "a\u0302": "\u2D30\u0302"
+    "a\u0306": "\u2D30\u0306"
+    "a": "\u2D30"
+    "b\u0332": "\u2D32"
+    "b": "\u2D31"
+    "c\u030C": "\u2D5E"
+    "c": "\u2D5B"
+    "d\u0323\u0332": "\u2D3A"
+    "d\u0323": "\u2D39"
+    "d\u0332": "\u2D38"
+    "d": "\u2D37"
+    "e\u0302": "\u2D66\u0302" 
+    "e\u0307": "\u2D66"
+    "e\u0333": "\u2D44"
+    "e": "\u2D3B"
+    "f": "\u2D3C"
+    "g\u0333\u0307": "\u2D58"
+    "g\u0307\u0333": "\u2D58"
+    "g\u0333": "\u2D56"
+    "g\u0332": "\u2D34"
+    "g\u030C": "\u2D35"
+    "g\u0307": "\u2D36"
+    "g": "\u2D33"
+    "h\u0332": "\u2D41"
+    "h\u0323": "\u2D43"
+    "h\u0333": "\u2D42"
+    "h": "\u2D40"
+    "i": "\u2D49"
+    "j\u030C": "\u2D4B"
+    "j\u0304": "\u2D4C"
+    "j": "\u2D4A"
+    "k\u0323": "\u2D3E"
+    "k\u0332": "\u2D3F"
+    "k": "\u2D3D"
+    "l": "\u2D4D"
+    "m": "\u2D4E"
+    "n": "\u2D4F"
+    "\u014B": "\u2D50"
+    "n\u0333": "\u2D50"
+    "n\u0323": "\u2D51"
+    "\u025B": "\u2D44"
+    "o": "\u2D67"
+    "p": "\u2D52"
+    "q\u0304": "\u2D57"
+    "q\u0307": "\u2D48"
+    "q": "\u2D47"
+    "r\u0323": "\u2D55"
+    "r": "\u2D54"
+    "s\u0323": "\u2D5A"
+    "s": "\u2D59"
+    "t\u0323": "\u2D5F"
+    "t\u0332": "\u2D5D"
+    "t": "\u2D5C"
+    "u": "\u2D53"
+    "v": "\u2D60"
+    "w": "\u2D61"
+    "x\u0332": "\u2D46"
+    "x": "\u2D45"
+    "y": "\u2D62"
+    "z\u030C": "\u2D64"
+    "z\u0323": "\u2D65"
+    "z": "\u2D63"
+    "\u200D": "\u2D7F"
+
+script_to_roman:
+  map:
+
+    "\u2D30\u0302": "a\u0302"
+    "\u2D30\u0306": "a\u0306"
+    "\u2D30": "a"
+    "\u2D31": "b"
+    "\u2D32": "b\u0332"
+    "\u2D33": "g"
+    "\u2D34": "g\u0332"
+    "\u2D35": "g\u030C"
+    "\u2D36": "g\u0307"
+    "\u2D37": "d"
+    "\u2D38": "d\u0332"
+    "\u2D39": "d\u0323"
+    "\u2D3A": "d\u0323\u0332"
+    "\u2D3B": "e"
+    "\u2D3C": "f"
+    "\u2D3D": "k"
+    "\u2D3E": "k\u0323"
+    "\u2D3F": "k\u0332"
+    "\u2D40": "h"
+    "\u2D41": "h\u0332"
+    "\u2D42": "h\u0333"
+    "\u2D43": "h\u0323"
+    "\u2D44": "\u025B"
+    "\u2D45": "x"
+    "\u2D46": "x\u0332"
+    "\u2D47": "q"
+    "\u2D48": "q\u0307"
+    "\u2D49": "i"
+    "\u2D4A": "j"
+    "\u2D4B": "j\u030C"
+    "\u2D4C": "j\u0304"
+    "\u2D4D": "l"
+    "\u2D4E": "m"
+    "\u2D4F": "n"
+    "\u2D50": "\u014B"
+    "\u2D51": "n\u0323"
+    "\u2D52": "p"
+    "\u2D53": "u"
+    "\u2D54": "r"
+    "\u2D55": "r\u0323"
+    "\u2D56": "\u0263"
+    "\u2D57": "q\u0304"
+    "\u2D58": "\u0263\u0307"
+    "\u2D59": "s"
+    "\u2D5A": "s\u0323"
+    "\u2D5B": "c"
+    "\u2D5C": "t"
+    "\u2D5D": "t\u0332"
+    "\u2D5E": "c\u030C"
+    "\u2D5F": "t\u0323"
+    "\u2D60": "v"
+    "\u2D61": "w"
+    "\u2D62": "y"
+    "\u2D63": "z"
+    "\u2D64": "z\u030C"
+    "\u2D65": "z\u0323"
+    "\u2D66\u0302": "e\u0302" 
+    "\u2D66": "e\u0307"
+    "\u2D67": "o"
+    "\u2D6F": "\u00B0"
+    "\u2D70": "\u002C"
+    "\u2D7F": "\u200D"
+    "\uF007": "\u0259"

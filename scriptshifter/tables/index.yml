@@ -1,6 +1,6 @@
 # Map index file
-# version: 1.0.4
-# date: 2026-02-04
+# version: 1.0.5
+# date: 2026-04-02
 #
 # Configurations not listed here will not show in the UI drop-down menu or
 # in the `/languages` endpoint, but can still be used in the `trans` endpoint.
@@ -330,6 +330,10 @@ montenegrin_cyrillic:
 mordvin_cyrillic:
   marc_code: fiu
   name: Mordvin (Cyrillic)
+moroccan_tamazight:
+  alias_of: tifinagh_generic
+  marc_code: ber
+  name: Moroccan Tamazight
 nanai_cyrillic:
   alias_of: cyrillic_generic
   marc_code: tut
@@ -443,6 +447,13 @@ tabasaran_cyrillic:
 tajik_cyrillic:
   marc_code: tgk
   name: Tajik (Cyrillic)
+tamashek:
+  marc_code: tmh
+  name: Tamashek
+tamazight_moroccan:
+  alias_of: tifinagh_generic
+  marc_code: ber
+  name: Tamazight (Moroccan)
 tamil:
   marc_code: tam
   name: Tamil
@@ -474,6 +485,9 @@ tibetan:
 tibetan_2015_r2r:
   marc_code: tib
   name: Tibetan (ñ,ṅ,ś,ź to ny,ng,sh,zh only)
+tifinagh_generic:
+  marc_code: ber
+  name: Tifinagh (Generic)
 tigre_ethiopic:
   alias_of: ethiopic_generic
   marc_code: tig
