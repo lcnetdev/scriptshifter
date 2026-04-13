@@ -15,14 +15,16 @@ with open(path.join(DOCROOT, "supported_scripts.md"), "w") as fh:
     fh.write(tpl_data)
 
     for name, data in list_tables().items():
-        fh.write(
-            f"| [{name}](../scriptshifter/tables/data/{name}.yml) | "
-            f"{data['label']} | "
-        )
         if "alias_of" in data:
-            fh.write(f"- | - | {data['alias_of']} |\n")
+            fh.write(
+                f"| `{name}` | {data['label']} | "
+                f"- | - | [`{data['alias_of']}`]"
+                f"(../scriptshifter/tables/data/{data['alias_of']}.yml) |\n"
+            )
         else:
             fh.write(
+                f"| [`{name}`](../scriptshifter/tables/data/{name}.yml) | "
+                f"{data['label']} | "
                 f"{'Y' if data.get('has_r2s', False) else 'N'} | "
                 f"{'Y' if data.get('has_s2r', False) else 'N'} | - |\n"
             )
