@@ -7,7 +7,6 @@ under a different name.
 
 | Mapping file |  Script Name  |  Roman-to-script  |  Script-to-roman | Alias of |
 | -------- | ------- | ------- | ------- | ------- |
-
 | [abazin_cyrillic](../scriptshifter/tables/data/abazin_cyrillic.yml) | Abazin (Cyrillic) | Y | Y | - |
 | [abkhaz_cyrillic](../scriptshifter/tables/data/abkhaz_cyrillic.yml) | Abkhaz (Cyrillic) | Y | Y | - |
 | [adygei_cyrillic](../scriptshifter/tables/data/adygei_cyrillic.yml) | Adygei (Cyrillic) | Y | Y | - |
