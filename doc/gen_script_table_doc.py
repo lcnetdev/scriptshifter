@@ -16,7 +16,7 @@ with open(path.join(DOCROOT, "supported_scripts.md"), "w") as fh:
 
     for name, data in list_tables().items():
         fh.write(
-            f"[{name}](../scriptshifter/tables/data/{name}.yml) | "
+            f"| [{name}](../scriptshifter/tables/data/{name}.yml) | "
             f"{data['label']} | "
         )
         if "alias_of" in data:

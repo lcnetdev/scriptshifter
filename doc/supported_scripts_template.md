@@ -6,5 +6,4 @@ Below are the supported scripts, and supported directionality of those scripts, 
 under a different name.
 
 | Mapping file |  Script Name  |  Roman-to-script  |  Script-to-roman | Alias of |
-|  -------- | ------- | ------- | ------- | ------- |
-
+| -------- | ------- | ------- | ------- | ------- |
