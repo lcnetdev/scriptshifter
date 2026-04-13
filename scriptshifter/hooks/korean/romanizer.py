@@ -147,17 +147,10 @@ def _romanize_names(src, options):
     warnings = []
     # Normalize to precomposed characters.
     src = normalize("NFC", src)
-
-    if "," in src and "·" in src:
-        warnings.append(
-                "both commas and middle dots are being used to separate "
-                "names. Only one of the two types should be used, or "
-                "unexpected results may occur.")
-
-    kor_ls = src.split(",") if "," in src else src.split("·")
+    kor_ls = src.split("·")
 
     for kor in kor_ls:
-        rom, _warnings = _romanize_name(kor.strip(), options)
+        rom, _warnings = _romanize_name(kor.strip(ALL_PUNCT_STR), options)
         rom_ls.append(rom)
 
         warnings.extend(_warnings)
