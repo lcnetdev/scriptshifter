@@ -20,9 +20,9 @@ with open(path.join(DOCROOT, "supported_scripts.md"), "w") as fh:
             f"{data['label']} | "
         )
         if "alias_of" in data:
-            fh.write(f"- | - | {data['alias_of']}\n")
+            fh.write(f"- | - | {data['alias_of']} |\n")
         else:
             fh.write(
                 f"{'Y' if data.get('has_r2s', False) else 'N'} | "
-                f"{'Y' if data.get('has_s2r', False) else 'N'} | -\n"
+                f"{'Y' if data.get('has_s2r', False) else 'N'} | - |\n"
             )
