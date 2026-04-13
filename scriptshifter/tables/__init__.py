@@ -339,10 +339,18 @@ def list_tables():
 
     with conn:
         data = conn.execute(
-                """SELECT name, label, features, marc_code, description
-                FROM tbl_language""")
+                """SELECT
+                t1.name, t1.label, t1.features, t1.marc_code, t1.description,
+                t2.name as alias_of
+                FROM tbl_language t1
+                LEFT OUTER JOIN tbl_language t2 ON t2.id = t1.ref_id
+                """)
         tdata = {
             row[0]: {
+                "label": row[1],
+                "marc_code": row[3],
+                "alias_of": row[5],
+            } if row[5] else {
                 "label": row[1],
                 "has_s2r": bool(row[2] & FEAT_S2R),
                 "has_r2s": bool(row[2] & FEAT_R2S),
