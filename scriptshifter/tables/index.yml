@@ -1,6 +1,6 @@
 # Map index file
-# version: 1.0.4
-# date: 2026-02-04
+# version: 1.0.7
+# date: 2026-04-09
 #
 # Configurations not listed here will not show in the UI drop-down menu or
 # in the `/languages` endpoint, but can still be used in the `trans` endpoint.
@@ -70,9 +70,11 @@ bihari_devanagari:
   marc_code: bih
   name: Bihari (Devanagari)
 bodo_bengali:
+  alias_of: bengali
   marc_code: sit
   name: Bodo (Bengali)
 bodo_devanagari:
+  alias_of: devanagari_generic
   marc_code: sit
   name: Bodo (Devanagari)
 braj_devanagari:
@@ -100,6 +102,9 @@ cherokee:
 chinese:
   marc_code: chi
   name: Chinese (Hanzi)
+chinese_wg2py:
+  marc_code: chi
+  name: Chinese (Wade-Giles to Pinyin)
 chukchi_cyrillic:
   marc_code: mis
   name: Chukchi (Cyrillic)
@@ -116,7 +121,6 @@ cyrillic_generic:
   marc_code: mul
   name: Cyrillic (Generic)
 dargwa_cyrillic:
-  alias_of: cyrillic_generic
   name: Dargwa (Cyrillic)
   marc_code: dar
 devanagari_generic:
@@ -126,6 +130,7 @@ divehi_thaana:
   marc_code: div
   name: Divehi (Thaana)
 dogri_devanagari:
+  alias_of: devanagari_generic
   marc_code: doi
   name: Dogri (Devanagari)
 dungan_cyrillic:
@@ -135,6 +140,10 @@ dzongkha_tibetan:
   alias_of: tibetan
   marc_code: dzo
   name: Dzongkha (Tibetan)
+eskimo-yuit_cyrillic:
+  alias_of: yuit_cyrillic
+  marc_code: ypk
+  name: Eskimo-Yuit (Cyrillic)
 ethiopic_generic:
   marc_code: mul
   name: Ethiopic (Generic)
@@ -171,6 +180,7 @@ gurage_ethiopic:
   marc_code: sem
   name: Gurage (Ethiopic)
 gurmukhi_generic:
+  marc_code: mul
   name: Gurmukhi (generic)
 hebrew:
   marc_code: heb
@@ -180,7 +190,6 @@ hindi:
   marc_code: hin
   name: Hindi (Devanagari)
 ingush_cyrillic:
-  alias_of: cyrillic_generic
   marc_code: inh
   name: Ingush (Cyrillic)
 inuit_cyrillic:
@@ -191,7 +200,6 @@ inuktitut:
   marc_code: iku
   name: Inuktitut
 kabardian_cyrillic:
-  alias_of: cyrillic_generic
   marc_code: kbd
   name: Kabardian (Cyrillic)
 kalmyk_cyrillic:
@@ -266,7 +274,6 @@ kyrgyz_cyrillic:
   marc_code: kir
   name: Kyrgyz (Cyrillic)
 lak_cyrillic:
-  alias_of: cyrillic_generic
   marc_code: cau
   name: Lak (Cyrillic)
 lahnda_gurmukhi:
@@ -277,7 +284,6 @@ lepcha:
   marc_code: sit
   name: Lepcha
 lezghian_cyrillic:
-  alias_of: cyrillic_generic
   marc_code: lez
   name: Lezghian (Cyrillic)
 limbu:
@@ -330,6 +336,10 @@ montenegrin_cyrillic:
 mordvin_cyrillic:
   marc_code: fiu
   name: Mordvin (Cyrillic)
+moroccan_tamazight:
+  alias_of: tifinagh_generic
+  marc_code: ber
+  name: Moroccan Tamazight
 nanai_cyrillic:
   alias_of: cyrillic_generic
   marc_code: tut
@@ -356,6 +366,10 @@ nogai_cyrillic:
 odia:
   marc_code: ori
   name: Odia
+oirat_tod:
+  alias_of: kalmyk_tod
+  marc_code: xal
+  name: Oirat (Tod)
 ossetic_cyrillic:
   marc_code: oss
   name: Ossetic (Cyrillic)
@@ -396,7 +410,6 @@ rajasthani_devanagari:
   marc_code: raj
   name: Rajasthani (Devanagari)
 romani_cyrillic:
-  alias_of: cyrillic_generic
   marc_code: rom
   name: Romani (Cyrillic)
 romanian_cyrillic:
@@ -437,12 +450,18 @@ syriac_cyrillic:
   marc_code: syc
   name: Syriac (Cyrillic)
 tabasaran_cyrillic:
-  alias_of: cyrillic_generic
   marc_code: cau
   name: Tabasaran (Cyrillic)
 tajik_cyrillic:
   marc_code: tgk
   name: Tajik (Cyrillic)
+#tamashek:
+#  marc_code: tmh
+#  name: Tamashek
+#tamazight_moroccan:
+#  alias_of: tifinagh_generic
+#  marc_code: ber
+#  name: Tamazight (Moroccan)
 tamil:
   marc_code: tam
   name: Tamil
@@ -453,7 +472,6 @@ tamil_extended:
   marc_code: tam
   name: Tamil (extended)
 tat_cyrillic:
-  alias_of: cyrillic_generic
   marc_code: ira
   name: Tat (Cyrillic)
 tatar_cyrillic:
@@ -474,6 +492,9 @@ tibetan:
 tibetan_2015_r2r:
   marc_code: tib
   name: Tibetan (ñ,ṅ,ś,ź to ny,ng,sh,zh only)
+#tifinagh_generic:
+#  marc_code: ber
+#  name: Tifinagh (Generic)
 tigre_ethiopic:
   alias_of: ethiopic_generic
   marc_code: tig
@@ -482,11 +503,14 @@ tigrinya_ethiopic:
   alias_of: ethiopic_generic
   marc_code: tir
   name: Tigrinya (Ethiopic)
+tod_generic:
+  alias_of: kalmyk_tod
+  marc_code: xal
+  name: Tod (Generic)
 turkmen_cyrillic:
   marc_code: tuk
   name: Turkmen (Cyrillic)
 tuvinian_cyrillic:
-  alias_of: cyrillic_generic
   marc_code: tyv
   name: Tuvinian (Cyrillic)
 udekhe_cyrillic:
