@@ -455,13 +455,13 @@ tabasaran_cyrillic:
 tajik_cyrillic:
   marc_code: tgk
   name: Tajik (Cyrillic)
-#tamashek:
-#  marc_code: tmh
-#  name: Tamashek
-#tamazight_moroccan:
-#  alias_of: tifinagh_generic
-#  marc_code: ber
-#  name: Tamazight (Moroccan)
+tamashek:
+  marc_code: tmh
+  name: Tamashek
+tamazight_moroccan:
+  alias_of: tifinagh_generic
+  marc_code: ber
+  name: Tamazight (Moroccan)
 tamil:
   marc_code: tam
   name: Tamil
