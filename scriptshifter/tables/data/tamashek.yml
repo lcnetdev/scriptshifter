@@ -1,0 +1,111 @@
+---
+general:
+  name: Tamashek
+  case_sensitive: false
+  description: Tamashek language in the Tifinagh script.
+  version: 1.0.0
+  date: 2026-04-02
+  parents:
+    - tifinagh_generic
+
+    # COMMON COMBINING AND SPECIAL CHARACTERS
+    # comma \u002C
+    # degree sign \u00B0
+    # latin capital letter schwa \u018F
+    # latin small letter schwa \u0259
+    # latin capital letter open e \u0190
+    # latin small letter open e \u025B
+    # latin capital letter gamma \u0194
+    # latin small letter gamma \u0263
+    # combining circumflex \u0302
+    # combining macron \u0304
+    # combining breve \u0306
+    # combining dot above \u0307
+    # combining caron \u030C
+    # combining dot below \u0323
+    # combining low line \u0332
+    # combining double low line \u0333
+    # prime \u02B9
+    # zero width joiner \u200D
+
+roman_to_script:
+  map:
+
+    "\u002C": "\u2D70"
+    "\u00B0": "\u2D6F"
+    "\u0259": "\u2D53"
+    "\u0263": "\u2D58"
+    "\u02B9": "\u2D7F"
+    "a\u0302": "\u2D30\u0302"
+    "a\u0306": "\u2D30\u0306"
+    "b": "\u2D40"
+    "c": "\u2D4F\u2D7F\u2D5C"
+    "d\u0323": "\u2D39\u0323"
+    "d": "\u2D39"
+    "e\u0302": "\u2D66\u0302" 
+    "e\u0333": "\u2D53"
+    "e": "\u2D66"
+    "g\u0333": "\u2D58"
+    "g": "\u2D36"
+    "h": "\u2D42"
+    "i\u0302": "\u2D62\u0302"
+    "i": "\u2D62"
+    "j": "\u2D4C"
+    "k": "\u2D3E"
+    "ll": "\u2D4D\u2D7F\u2D4D"
+    "l\u0323": "\u2D4D\u0323"
+    "nn": "\u2D4F\u2D7F\u2D4F"
+    "\u014B": "\u2D50"
+    "n\u0333": "\u2D50"
+    "o\u0302": "\u2D67\u0302"
+    "q": "\u2D57"
+    "r\u0323": "\u2D55"
+    "s\u0306": "\u2D5B"
+    "s\u0323": "\u2D59\u0323"
+    "t\u0323": "\u2D5C\u0323"
+    "t": "\u2D5C"
+    "u": "\u2D6F"
+    "v": "\u2D60"
+    "w\u0302": "\u2D61\u0302"
+    "x": "\u2D46"
+    "z\u0323": "\u2D63\u0323"
+    "\u200D": "\u2D7F"
+
+script_to_roman:
+  map:
+
+    "\u2D30\u0302": "a\u0302"
+    "\u2D30\u0306": "a\u0306"
+    "\u2D36": "g"
+    "\u2D39\u0323": "d\u0323"
+    "\u2D39": "d"
+    "\u2D3E": "k"
+    "\u2D40": "b"
+    "\u2D42": "h"
+    "\u2D46": "x"
+    "\u2D4C": "j"
+    "\u2D4D\u2D7F\u2D4D": "ll"
+    "\u2D4D\u0323": "l\u0323"
+    "\u2D4F\u2D7F\u2D4F": "nn"
+    "\u2D4F\u2D7F\u2D5C": "c"
+    "\u2D50": "\u014B"
+    "\u2D53": "\u0259"
+    "\u2D55": "r\u0323"
+    "\u2D57": "q"
+    "\u2D58": "\u0263"
+    "\u2D59\u0323": "s\u0323"
+    "\u2D5B": "s\u0306"
+    "\u2D5C\u0323": "t\u0323"
+    "\u2D5C": "t"
+    "\u2D60": "v"
+    "\u2D61\u0302": "w\u0302"
+    "\u2D62\u0302": "i\u0302"
+    "\u2D62": "i"
+    "\u2D63\u0323": "z\u0323"
+    "\u2D66\u0302": "e\u0302"
+    "\u2D66": "e"
+    "\u2D67\u0302": "o\u0302"
+    "\u2D6F": "u"
+    "\u2D70": "\u002C"
+    "\u2D7F": "\u200D"
+    "\u2D7F": "\u02B9"
