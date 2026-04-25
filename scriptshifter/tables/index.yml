@@ -492,9 +492,9 @@ tibetan:
 tibetan_2015_r2r:
   marc_code: tib
   name: Tibetan (ñ,ṅ,ś,ź to ny,ng,sh,zh only)
-#tifinagh_generic:
-#  marc_code: ber
-#  name: Tifinagh (Generic)
+tifinagh_generic:
+  marc_code: ber
+  name: Tifinagh (Generic)
 tigre_ethiopic:
   alias_of: ethiopic_generic
   marc_code: tig
