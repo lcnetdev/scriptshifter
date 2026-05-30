@@ -1,6 +1,6 @@
 # Map index file
-# version: 1.0.5
-# date: 2026-04-02
+# version: 1.0.7
+# date: 2026-05-29
 #
 # Configurations not listed here will not show in the UI drop-down menu or
 # in the `/languages` endpoint, but can still be used in the `trans` endpoint.
@@ -100,6 +100,9 @@ cherokee:
 chinese:
   marc_code: chi
   name: Chinese (Hanzi)
+chinese_wg2py:
+  marc_code: chi
+  name: Chinese (Wade-Giles to Pinyin)
 chukchi_cyrillic:
   marc_code: mis
   name: Chukchi (Cyrillic)
@@ -360,6 +363,9 @@ nogai_cyrillic:
 odia:
   marc_code: ori
   name: Odia
+osage:
+  marc_code: osa
+  name: Osage
 ossetic_cyrillic:
   marc_code: oss
   name: Ossetic (Cyrillic)
