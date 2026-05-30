@@ -14,7 +14,7 @@ roman_to_script:
     "h\u0307": "\u04CF"
     # Used in Kabardian before 1938
     "H\u0310": "\u0027"
-    "h\u0310": "\u0027
+    "h\u0310": "\u0027"
 
 script_to_roman:
   map:
