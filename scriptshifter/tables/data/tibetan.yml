@@ -3,8 +3,8 @@ general:
   name: Tibetan
   case_sensitive: false
   description: Tibetan language in Tibetan script.
-  version: 1.0.3
-  date: 2026-01-12
+  version: 1.0.4
+  date: 2026-05-28
   parents:
     - _ignore_base
 
@@ -2638,7 +2638,7 @@ roman_to_script:
     # NYIS SHAD (0F0E) PERIOD (002E)
     # "\u002E\u002E": "\u0F0E"
     # NYIS TSHEG (0FD2) COLON (003A)
-    # "\u0FD2": "\u003A"
+    "\u003A": "\u0FD2"
 
     # TIBETAN DIGITS
 
@@ -13827,7 +13827,7 @@ script_to_roman:
     # NYIS SHAD (0F0E) TO PERIOD (002E)
     "\u0F0E": "\u002E\u002E"
     # NYIS TSHEG (0FD2) TO COLON (003A)
-    "\u003A": "\u0FD2"
+    "\u0FD2": "\u003A"
 
     # TIBETAN DIGITS
 
