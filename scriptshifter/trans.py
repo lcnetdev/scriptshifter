@@ -1,4 +1,4 @@
-import logging
+from logging import getLogger
 
 from importlib import import_module
 from re import Pattern
@@ -11,7 +11,7 @@ from scriptshifter.tables import (
         get_connection, get_lang_dcap, get_lang_general, get_lang_hooks,
         get_lang_ignore, get_lang_map, get_lang_normalize)
 
-logger = logging.getLogger(__name__)
+logger = getLogger(__name__)
 
 # Beginning-of-word pattern.
 BOW_PTN = compile(r"(?<=[\p{P}\p{Z}]|^)[\p{L}\p{M}\p{S}]")

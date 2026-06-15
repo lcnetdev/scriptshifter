@@ -136,8 +136,9 @@ tags.temp
 
 
 # Local
-ext/arabic_rom/data
+/ext/arabic_rom/data
 scriptshifter/data/*.db
 !.keep
 VERSION
 .~lock.*
+/data

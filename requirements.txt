@@ -1,10 +1,17 @@
-# Core application dependencies.
+# Base image dependencies.
 aksharamukha>=2.2,<3
-esupar>=1.7.5
+camel-tools>=1.6
+#esupar>=1.9,<2  # For Thai. Needs training. Breaks whole container.
 flask>=2.3,<3
 flask-cors>=4.0,<5
+#funcy>=1.15,<2
+#pymarc>=4.0,<5
 python-dotenv>=1.0,<2
 pyyaml>=6.0,<7
-regex>=2023.8.8
+#regex>=2023.8.8
+shekar>=1.6,<2
+#repackage>=0.7.3
+tokenizers>=0.22
+torch>=2.12,<3
 uwsgi>=2.0,<2.1
 yiddish==0.0.21

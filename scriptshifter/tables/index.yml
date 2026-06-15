@@ -468,12 +468,6 @@ tamazight_moroccan:
 tamil:
   marc_code: tam
   name: Tamil
-tamil_brahmi:
-  marc_code: tam
-  name: Tamil Brahmi
-tamil_extended:
-  marc_code: tam
-  name: Tamil (extended)
 tat_cyrillic:
   marc_code: ira
   name: Tat (Cyrillic)

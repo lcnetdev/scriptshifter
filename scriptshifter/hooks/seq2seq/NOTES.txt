@@ -1,0 +1,71 @@
+Original hyperparameters for 275K data set:
+
+VOCAB_SIZE = 16000
+EMB_DIM = 256
+HIDDEN_DIM = 256
+DROPOUT = 0.2
+N_LAYERS = 1
+LR = 1e-3
+WEIGHT_DECAY = 1e-5
+GRAD_CLIP = 0.5
+N_EPOCHS = 30  # Number of epochs to train by.
+BATCH_SIZE = 64  # Data loader batch size.
+# Filter out outlier-length pairs to bound memory per batch.
+MAX_SRC_CHARS = 300
+MAX_TGT_CHARS = MAX_SRC_CHARS * 1.33
+
+
+For a 10x data set:
+
+ - N_EPOCHS = 30 → ~5–10: each epoch already does 10× more updates, so the
+   total gradient steps would otherwise be ~300 epochs' worth on the current
+   set. Watch the dev loss/CER curve and early-stop.
+  - DROPOUT = 0.2 → ~0.1: more data is itself the strongest regularizer; heavy
+    dropout under-fits when there's no longer an overfitting problem.
+  - HIDDEN_DIM = 256 and N_LAYERS = 1: 256/1-layer is a small model. With 10×
+    data it will likely under-fit. Bump to HIDDEN_DIM=384–512 and/or N_LAYERS=2
+    and see if dev CER improves. (If you raise N_LAYERS, dropout becomes active
+    between GRU layers — see dropout if num_layers > 1 else 0.0 at line 301/409
+    — so don't drop it to 0.)
+  - VOCAB_SIZE = 16000: only revisit if your character/morpheme inventory
+    genuinely grew (new dialect, new script range). For a single-language
+    transliteration task, 16k is already generous and probably unchanged.
+  - BATCH_SIZE = 64 and LR = 1e-3: leave alone first. If you want faster
+    wall-clock, raise batch to 128/256 and scale LR up roughly with √(batch
+    ratio); Adam at 1e-3 is otherwise robust.
+
+  The single most important change is fewer epochs + dev-set early stopping —
+  everything else is secondary tuning.
+
+
+When adding 50-100% more data, the model can be retrained from scratch, but:
+
+  - Tokenizer must stay identical. The BPE tokenizer is fit on the corpus
+    (VOCAB_SIZE = 16000), so if you rebuild it on the larger corpus you'll get
+    different token IDs and the embedding/output layers won't line up. Either
+    reuse the saved tokenizer files as-is, or accept that you're retraining
+    from scratch.
+  - Lower the LR for the continuation run — try LR = 2e-4 to 5e-4 instead of
+    1e-3. The model is already near a minimum; full LR can blow it out.
+  - Far fewer epochs — 5–10 over the new combined set is usually enough. Track
+    dev CER and stop when it plateaus.
+  - Mix old + new data, don't fine-tune on only the new shard, or you'll drift
+    toward whatever bias the new data has (catastrophic forgetting, even on the
+    same task).
+
+  If after warm-starting the dev CER stalls noticeably above where you'd
+  expect, then retrain from scratch — but it's worth trying the cheap path
+  first.
+
+2026-06-05: checkpoint trained for ~30 epochs with old dataset + 10 epochs
+after integrating with Yale, UPenn data
+
+Evaluate pass:
+
+{'n': 8196, 'exact_match': 0.40995607613469986, 'cer': 0.19848789036533696, 'wer': 0.34645313519755006}
+
+After re-training for 30 epochs from scratch, same dataset:
+
+{'n': 8196, 'exact_match': 0.41813079551000487, 'cer': 0.19394551839442425, 'wer': 0.33864651839951804}
+
+After 50 epochs:
