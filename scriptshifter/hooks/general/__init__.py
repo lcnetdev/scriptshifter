@@ -33,18 +33,27 @@ logger = getLogger(__name__)
 def capitalize_pre_assembly(ctx):
     """
     Capitalize a not-yet-assembled result list according to user options.
+
+    NOTE: this function capitalizes every token. This is not what is wanted
+    most of the time. The capitalize_post_assembly function, instead, separates
+    words by spaces before applying capitalization.
     """
-    ctx.dest_ls = _capitalize_ls(ctx.dest_ls)
+    _capitalize_ls(ctx)
 
 
 def capitalize_post_assembly(ctx, **kwargs):
     """
     Capitalize an already assembled result string according to user options.
     """
-    ctx.dest_ls = ctx.dest.split(" ")  # Re-tokenize list after assembly.
+    scope = ctx.options.get("capitalize")
+    if scope == "first":
+        double_caps = get_lang_dcap(ctx.conn, ctx.lang_id)
+        ctx.dest = _capitalize_token(ctx.dest, double_caps)
+    elif scope == "all":
+        ctx.dest_ls = ctx.dest.split(" ")  # Re-tokenize list after assembly.
 
-    _capitalize_ls(ctx)
-    ctx.dest = " ".join(ctx.dest_ls)
+        _capitalize_ls(ctx)
+        ctx.dest = " ".join(ctx.dest_ls)
 
 
 def normalize_spacing_post_assembly(ctx):
@@ -91,7 +100,7 @@ def _capitalize_ls(ctx):
     cap = ctx.dest_ls
 
     if scope == "first":
-        ctx.dest_ls[0] = ctx.dest_ls[0].capitalize()
+        ctx.dest_ls[0] = _capitalize_token(ctx.dest_ls[0], double_caps)
 
     if scope == "all":
         logger.debug(f"Tokens for capitalization: {cap}")
