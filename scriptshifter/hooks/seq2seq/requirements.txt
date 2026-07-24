@@ -1,0 +1,5 @@
+matplotlib
+shekar
+tokenizers
+torch
+tqdm

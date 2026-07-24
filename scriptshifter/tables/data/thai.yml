@@ -9,11 +9,13 @@ general:
     - _ignore_base
 
 script_to_roman:
-  hooks:
-    post_normalize:
-      -
-        - asian_tokenizer.s2r_tokenize
-        - model: "th"
+  # DISABLING word separator (esupar). Latest version has broken deps and
+  # SS won't start.
+  #hooks:
+  #  post_normalize:
+  #    -
+  #      - asian_tokenizer.s2r_tokenize
+  #      - model: "th"
   map:
     # COMMON SPECIAL CHARACTERS
 

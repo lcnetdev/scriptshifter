@@ -1,0 +1,1134 @@
+{
+  "abazin_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Abazin (Cyrillic)",
+    "marc_code": "cau"
+  },
+  "abkhaz_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Abkhaz (Cyrillic)",
+    "marc_code": "abk"
+  },
+  "adygei_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Adygei (Cyrillic)",
+    "marc_code": "ady"
+  },
+  "altai_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Altai (Cyrillic)",
+    "marc_code": "alt"
+  },
+  "amharic": {
+    "alias_of": "ethiopic_generic",
+    "label": "Amharic",
+    "marc_code": "amh"
+  },
+  "arabic": {
+    "case_sensitive": false,
+    "description": "Arabic-to-Roman transliterator using the ArabicTransliterator external library.\n",
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Arabic",
+    "marc_code": "ara"
+  },
+  "argobba_ethiopic": {
+    "alias_of": "ethiopic_generic",
+    "label": "Argobba (Ethiopic)",
+    "marc_code": "amh"
+  },
+  "armenian": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Armenian",
+    "marc_code": "arm"
+  },
+  "assamese": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Assamese",
+    "marc_code": "asm"
+  },
+  "avaric_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Avaric (Cyrillic)",
+    "marc_code": "ava"
+  },
+  "awadhi_devanagari": {
+    "alias_of": "devanagari_generic",
+    "label": "Awadhi (Devanagari)",
+    "marc_code": "awa"
+  },
+  "azerbaijani_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Azerbaijani (Cyrillic)",
+    "marc_code": "aze"
+  },
+  "balkar_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Balkar (Cyrillic)",
+    "marc_code": "krc"
+  },
+  "bashkir_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Bashkir (Cyrillic)",
+    "marc_code": "bak"
+  },
+  "belarusian": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Belarusian",
+    "marc_code": "bel"
+  },
+  "bengali": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Bengali",
+    "marc_code": "ben"
+  },
+  "bihari_devanagari": {
+    "alias_of": "devanagari_generic",
+    "label": "Bihari (Devanagari)",
+    "marc_code": "bih"
+  },
+  "bodo_bengali": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Bodo (Bengali)",
+    "marc_code": "sit"
+  },
+  "bodo_devanagari": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Bodo (Devanagari)",
+    "marc_code": "sit"
+  },
+  "braj_devanagari": {
+    "alias_of": "devanagari_generic",
+    "label": "Braj (Devanagari)",
+    "marc_code": "bra"
+  },
+  "bulgarian": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Bulgarian",
+    "marc_code": "bul"
+  },
+  "buriat_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Buriat (Cyrillic)",
+    "marc_code": "bua"
+  },
+  "buriat_mongol_bichig": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Buriat (Mongol bichig)",
+    "marc_code": "bua"
+  },
+  "burmese": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Burmese (Myanmar)",
+    "marc_code": "bur"
+  },
+  "chechen_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Chechen (Cyrillic)",
+    "marc_code": "che"
+  },
+  "cherokee": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Cherokee",
+    "marc_code": "chr"
+  },
+  "chinese": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": false,
+    "has_s2r": true,
+    "label": "Chinese (Hanzi)",
+    "marc_code": "chi"
+  },
+  "chukchi_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Chukchi (Cyrillic)",
+    "marc_code": "mis"
+  },
+  "church_slavonic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Church Slavonic",
+    "marc_code": "chu"
+  },
+  "chuvash_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Chuvash (Cyrillic)",
+    "marc_code": "chv"
+  },
+  "coptic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Coptic",
+    "marc_code": "cop"
+  },
+  "cyrillic_generic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Cyrillic (Generic)",
+    "marc_code": "mul"
+  },
+  "dargwa_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Dargwa (Cyrillic)",
+    "marc_code": "dar"
+  },
+  "devanagari_generic": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Devanagari (Generic)",
+    "marc_code": "hin, san"
+  },
+  "divehi_thaana": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Divehi (Thaana)",
+    "marc_code": "div"
+  },
+  "dogri_devanagari": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Dogri (Devanagari)",
+    "marc_code": "doi"
+  },
+  "dungan_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Dungan (Cyrillic)",
+    "marc_code": "sit"
+  },
+  "dzongkha_tibetan": {
+    "alias_of": "tibetan",
+    "label": "Dzongkha (Tibetan)",
+    "marc_code": "dzo"
+  },
+  "ethiopic_generic": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Ethiopic (Generic)",
+    "marc_code": "mul"
+  },
+  "even-evenki_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Even/Evenki (Cyrillic)",
+    "marc_code": "tut"
+  },
+  "fula_adlam": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Fula (ADLaM)",
+    "marc_code": "ful"
+  },
+  "gagauz_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Gagauz (Cyrillic)",
+    "marc_code": "tut"
+  },
+  "georgian": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Georgian",
+    "marc_code": "geo"
+  },
+  "gilyak_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Gilyak (Cyrillic)",
+    "marc_code": "mis"
+  },
+  "glagolitic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Glagolitic",
+    "marc_code": "chu"
+  },
+  "greek_classical": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Greek (Classical)",
+    "marc_code": "grc"
+  },
+  "greek_modern": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Greek (Modern)",
+    "marc_code": "gre"
+  },
+  "gujarati": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Gujarati",
+    "marc_code": "guj"
+  },
+  "gurage_ethiopic": {
+    "alias_of": "ethiopic_generic",
+    "label": "Gurage (Ethiopic)",
+    "marc_code": "sem"
+  },
+  "gurmukhi_generic": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Gurmukhi (generic)",
+    "marc_code": null
+  },
+  "hebrew": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": false,
+    "has_s2r": true,
+    "label": "Hebrew",
+    "marc_code": "heb"
+  },
+  "hindi": {
+    "alias_of": "devanagari_generic",
+    "label": "Hindi (Devanagari)",
+    "marc_code": "hin"
+  },
+  "ingush_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Ingush (Cyrillic)",
+    "marc_code": "inh"
+  },
+  "inuit_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Inuit (Cyrillic)",
+    "marc_code": "ipk"
+  },
+  "inuktitut": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Inuktitut",
+    "marc_code": "iku"
+  },
+  "kabardian_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Kabardian (Cyrillic)",
+    "marc_code": "kbd"
+  },
+  "kalmyk_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Kalmyk (Cyrillic)",
+    "marc_code": "xal"
+  },
+  "kalmyk_tod": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Kalmyk (Tod)",
+    "marc_code": "xal"
+  },
+  "kannada": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Kannada",
+    "marc_code": "kan"
+  },
+  "kara-kalpak_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Kara-Kalpak (Cyrillic)",
+    "marc_code": "kaa"
+  },
+  "karachay-balkar_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Karachay-Balkar  (Cyrillic)",
+    "marc_code": "krc"
+  },
+  "karelian_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Karelian  (Cyrillic)",
+    "marc_code": "krl"
+  },
+  "kazakh_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Kazakh (Cyrillic)",
+    "marc_code": "kaz"
+  },
+  "khakass_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Khakass (Cyrillic)",
+    "marc_code": "tut"
+  },
+  "khanty_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Khanty (Cyrillic)",
+    "marc_code": "fiu"
+  },
+  "khmer": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Khmer",
+    "marc_code": "khm"
+  },
+  "komi-permyak_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Komi-Permyak (Cyrillic)",
+    "marc_code": "kom"
+  },
+  "komi_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Komi (Cyrillic)",
+    "marc_code": "kom"
+  },
+  "konkani_devanagari": {
+    "alias_of": "devanagari_generic",
+    "label": "Konkani (Devanagari)",
+    "marc_code": "kok"
+  },
+  "konkani_kannada": {
+    "alias_of": "kannada",
+    "label": "Konkani (Kannada)",
+    "marc_code": "kok"
+  },
+  "korean_names": {
+    "case_sensitive": false,
+    "description": "Korean S2R for strings ONLY containing personal names formatted as last + first name. Separate multiple names with a comma or a center-dot (U+00B7).\n",
+    "has_r2s": false,
+    "has_s2r": true,
+    "label": "Korean (last + first names only)",
+    "marc_code": "kor"
+  },
+  "korean_nonames": {
+    "case_sensitive": false,
+    "description": "Korean S2R for strings NOT containing any personal names.",
+    "has_r2s": false,
+    "has_s2r": true,
+    "label": "Korean",
+    "marc_code": "kor"
+  },
+  "koryak_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Koryak (Cyrillic)",
+    "marc_code": "mis"
+  },
+  "kumyk_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Kumyk (Cyrillic)",
+    "marc_code": "kum"
+  },
+  "kurdish_arabic": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": false,
+    "label": "Kurdish (Arabic)",
+    "marc_code": "kur"
+  },
+  "kurdish_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Kurdish (Cyrillic)",
+    "marc_code": "kur"
+  },
+  "kyrgyz_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Kyrgyz (Cyrillic)",
+    "marc_code": "kir"
+  },
+  "lahnda_gurmukhi": {
+    "alias_of": "gurmukhi_generic",
+    "label": "Lahnda (Gurmukhi)",
+    "marc_code": "lah"
+  },
+  "lak_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Lak (Cyrillic)",
+    "marc_code": "cau"
+  },
+  "lepcha": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Lepcha",
+    "marc_code": "sit"
+  },
+  "lezghian_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Lezghian (Cyrillic)",
+    "marc_code": "lez"
+  },
+  "limbu": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Limbu",
+    "marc_code": "sit"
+  },
+  "lithuanian_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Lithuanian (Cyrillic)",
+    "marc_code": "lit"
+  },
+  "macedonian": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Macedonian",
+    "marc_code": "mac"
+  },
+  "maithili_devanagari": {
+    "alias_of": "devanagari_generic",
+    "label": "Maithili (Devanagari)",
+    "marc_code": "mai"
+  },
+  "malayalam": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Malayalam",
+    "marc_code": "mal"
+  },
+  "manchu": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Manchu",
+    "marc_code": "mnc"
+  },
+  "manipuri_bengali": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Manipuri (Bengali)",
+    "marc_code": "mni"
+  },
+  "manipuri_meitei": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Manipuri (Meitei)",
+    "marc_code": "mni"
+  },
+  "mansi_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Mansi (Cyrillic)",
+    "marc_code": "fiu"
+  },
+  "marathi_devanagari": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Marathi (Devanagari)",
+    "marc_code": "mar"
+  },
+  "mari_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Mari (Cyrillic)",
+    "marc_code": "chm"
+  },
+  "moldovan_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Moldovan (Cyrillic)",
+    "marc_code": "mol"
+  },
+  "mongolian_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Mongolian (Cyrillic)",
+    "marc_code": "mon"
+  },
+  "mongolian_mongol_bichig": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Mongolian (Mongol bichig)",
+    "marc_code": "mon"
+  },
+  "montenegrin_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Montenegrin (Cyrillic)",
+    "marc_code": "cnr"
+  },
+  "mordvin_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Mordvin (Cyrillic)",
+    "marc_code": "fiu"
+  },
+  "moroccan_tamazight": {
+    "alias_of": "tifinagh_generic",
+    "label": "Moroccan Tamazight",
+    "marc_code": "ber"
+  },
+  "nanai_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Nanai (Cyrillic)",
+    "marc_code": "tut"
+  },
+  "nenets_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Nenets (Cyrillic)",
+    "marc_code": "mis"
+  },
+  "nepali_devanagari": {
+    "alias_of": "devanagari_generic",
+    "label": "Nepali (Devanagari)",
+    "marc_code": "nep"
+  },
+  "newari_devanagari": {
+    "alias_of": "devanagari_generic",
+    "label": "Newari (Devanagari)",
+    "marc_code": "new"
+  },
+  "nivkh_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Nivkh (Cyrillic)",
+    "marc_code": "mis"
+  },
+  "nogai_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Nogai (Cyrillic)",
+    "marc_code": "nog"
+  },
+  "odia": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Odia",
+    "marc_code": "ori"
+  },
+  "ossetic_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Ossetic (Cyrillic)",
+    "marc_code": "oss"
+  },
+  "pahari_devanagari": {
+    "alias_of": "devanagari_generic",
+    "label": "Pahari (Devanagari)",
+    "marc_code": "him"
+  },
+  "pali_bengali": {
+    "alias_of": "bengali",
+    "label": "Pali (Bengali)",
+    "marc_code": "pli"
+  },
+  "pali_devanagari": {
+    "alias_of": "devanagari_generic",
+    "label": "Pali (Devanagari)",
+    "marc_code": "pli"
+  },
+  "pali_sinhala": {
+    "alias_of": "sinhala",
+    "label": "Pali (Sinhala)",
+    "marc_code": "pli"
+  },
+  "panjabi_gurmukhi": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Panjabi (Gurmukhi)",
+    "marc_code": "pan"
+  },
+  "permyak_cyrillic": {
+    "alias_of": "komi-permyak_cyrillic",
+    "label": "Permyak (Cyrillic)",
+    "marc_code": "kom"
+  },
+  "persian": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": false,
+    "label": "Persian",
+    "marc_code": "per"
+  },
+  "prakrit_devanagari": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Prakrit (Devanagari)",
+    "marc_code": "pra"
+  },
+  "pushto": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": false,
+    "label": "Pushto",
+    "marc_code": "pus"
+  },
+  "rajasthani_devanagari": {
+    "alias_of": "devanagari_generic",
+    "label": "Rajasthani (Devanagari)",
+    "marc_code": "raj"
+  },
+  "romani_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Romani (Cyrillic)",
+    "marc_code": "rom"
+  },
+  "romanian_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Romanian (Cyrillic)",
+    "marc_code": "rum"
+  },
+  "russian": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Russian",
+    "marc_code": "rus"
+  },
+  "sami_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Sami (Cyrillic)",
+    "marc_code": "smi"
+  },
+  "sanskrit_devanagari": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Sanskrit (Devanagari)",
+    "marc_code": "san"
+  },
+  "santali_ol_chiki": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Santali (Ol chiki)",
+    "marc_code": "sat"
+  },
+  "selkup_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Selkup (Cyrillic)",
+    "marc_code": "sel"
+  },
+  "serbian": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Serbian",
+    "marc_code": "srp"
+  },
+  "shor_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Shor (Cyrillic)",
+    "marc_code": "tut"
+  },
+  "sindhi_arabic": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": false,
+    "label": "Sindhi (Arabic)",
+    "marc_code": "snd"
+  },
+  "sindhi_gurmukhi": {
+    "alias_of": "gurmukhi_generic",
+    "label": "Sindhi (Gurmukhi)",
+    "marc_code": "snd"
+  },
+  "sinhala": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Sinhala",
+    "marc_code": "sin"
+  },
+  "syriac_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Syriac (Cyrillic)",
+    "marc_code": "syc"
+  },
+  "tabasaran_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Tabasaran (Cyrillic)",
+    "marc_code": "cau"
+  },
+  "tajik_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Tajik (Cyrillic)",
+    "marc_code": "tgk"
+  },
+  "tamashek": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Tamashek",
+    "marc_code": "tmh"
+  },
+  "tamazight_moroccan": {
+    "alias_of": "tifinagh_generic",
+    "label": "Tamazight (Moroccan)",
+    "marc_code": "ber"
+  },
+  "tamil": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Tamil",
+    "marc_code": "tam"
+  },
+  "tamil_brahmi": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Tamil Brahmi",
+    "marc_code": "tam"
+  },
+  "tamil_extended": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Tamil (extended)",
+    "marc_code": "tam"
+  },
+  "tat_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Tat (Cyrillic)",
+    "marc_code": "ira"
+  },
+  "tatar-kryashen_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Tatar-Kryashen (Cyrillic)",
+    "marc_code": "tat"
+  },
+  "tatar_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Tatar (Cyrillic)",
+    "marc_code": "tat"
+  },
+  "telugu": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Telugu",
+    "marc_code": "tel"
+  },
+  "thai": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": false,
+    "has_s2r": true,
+    "label": "Thai",
+    "marc_code": "tha"
+  },
+  "tibetan": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Tibetan",
+    "marc_code": "tib"
+  },
+  "tibetan_2015_r2r": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": false,
+    "label": "Tibetan (\u00f1,\u1e45,\u015b,\u017a to ny,ng,sh,zh only)",
+    "marc_code": "tib"
+  },
+  "tifinagh_generic": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Tifinagh (Generic)",
+    "marc_code": "ber"
+  },
+  "tigre_ethiopic": {
+    "alias_of": "ethiopic_generic",
+    "label": "Tigre (Ethiopic)",
+    "marc_code": "tig"
+  },
+  "tigrinya_ethiopic": {
+    "alias_of": "ethiopic_generic",
+    "label": "Tigrinya (Ethiopic)",
+    "marc_code": "tir"
+  },
+  "turkmen_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Turkmen (Cyrillic)",
+    "marc_code": "tuk"
+  },
+  "tuvinian_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Tuvinian (Cyrillic)",
+    "marc_code": "tyv"
+  },
+  "udekhe_cyrillic": {
+    "alias_of": "cyrillic_generic",
+    "label": "Udekhe (Cyrillic)",
+    "marc_code": "tut"
+  },
+  "udmurt_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Udmurt (Cyrillic)",
+    "marc_code": "udm"
+  },
+  "uighur_arabic": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Uighur (Arabic)",
+    "marc_code": "uig"
+  },
+  "uighur_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Uighur (Cyrillic)",
+    "marc_code": "uig"
+  },
+  "ukrainian": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Ukrainian",
+    "marc_code": "ukr"
+  },
+  "urdu": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": false,
+    "label": "Urdu",
+    "marc_code": "urd"
+  },
+  "uzbek_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Uzbek (Cyrillic)",
+    "marc_code": "uzb"
+  },
+  "yakut_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Yakut (Cyrillic)",
+    "marc_code": "sah"
+  },
+  "yiddish": {
+    "case_sensitive": false,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Yiddish",
+    "marc_code": "yid"
+  },
+  "yuit_cyrillic": {
+    "case_sensitive": true,
+    "description": null,
+    "has_r2s": true,
+    "has_s2r": true,
+    "label": "Yuit (Cyrillic)",
+    "marc_code": "ypk"
+  }
+}

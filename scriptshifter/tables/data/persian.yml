@@ -2,11 +2,18 @@
 general:
   name: Persian
   case_sensitive: false
-  description: Persian language in Arabic script (roman_to_script only).
-  version: 1.0.0
-  date: 2025-12-23
+  description: Persian language in Arabic script, using NLP.
+  version: 2.0.0
+  date: 2026-06-19
   parents:
     - _ignore_base
+
+script_to_roman:
+  hooks:
+    post_config:
+      -
+        - seq2seq.s2r_post_config
+        - src_script: "per"
 
 roman_to_script:
   map:

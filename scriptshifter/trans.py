@@ -1,4 +1,4 @@
-import logging
+from logging import getLogger
 
 from importlib import import_module
 from re import Pattern
@@ -6,12 +6,13 @@ from regex import compile
 from unicodedata import normalize as precomp_normalize
 
 from scriptshifter.exceptions import BREAK, CONT
+from scriptshifter.hooks.general import capitalize_post_assembly
 from scriptshifter.tables import (
         BOW, EOW, FEAT_R2S, FEAT_S2R, HOOK_PKG_PATH,
-        get_connection, get_lang_dcap, get_lang_general, get_lang_hooks,
+        get_connection, get_lang_general, get_lang_hooks,
         get_lang_ignore, get_lang_map, get_lang_normalize)
 
-logger = logging.getLogger(__name__)
+logger = getLogger(__name__)
 
 # Beginning-of-word pattern.
 BOW_PTN = compile(r"(?<=[\p{P}\p{Z}]|^)[\p{L}\p{M}\p{S}]")
@@ -323,29 +324,6 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                     # A match is found. Stop scanning tokens, append result,
                     # and proceed scanning the source.
 
-                    # Capitalization. This applies double capitalization
-                    # rules. The external function in
-                    # scriptshifter.tools.capitalize used for non-table
-                    # languages does not.
-                    if (
-                        (ctx.options["capitalize"] == "first" and ctx.cur == 0)
-                        or
-                        (
-                            ctx.options["capitalize"] == "all"
-                            and ctx.cur_flags & BOW
-                        )
-                    ):
-                        logger.info("Capitalizing token.")
-                        double_cap = False
-                        for dcap_rule in get_lang_dcap(ctx.conn, ctx.lang_id):
-                            if ctx.dest_str == dcap_rule:
-                                ctx.dest_str = ctx.dest_str.upper()
-                                double_cap = True
-                                break
-                        if not double_cap:
-                            ctx.dest_str = (
-                                    ctx.dest_str[0].upper() + ctx.dest_str[1:])
-
                     ctx.dest_ls.append(ctx.dest_str)
                     ctx.cur += step
                     break
@@ -383,5 +361,11 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
         # return it immediately.
         if ctx.run_hook("post_assembly") == BREAK:
             return ctx.dest, ctx.warnings
+
+        # If the post_assembly hook did not interrupt the flow and it did not
+        # already include an explicit capitalization, step, run it by default
+        # now.
+        if "capitalize_post_assembly" not in ctx.hooks:
+            capitalize_post_assembly(ctx)
 
         return ctx.dest, ctx.warnings

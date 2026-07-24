@@ -3,7 +3,9 @@ General-purpose hooks.
 """
 
 from logging import getLogger
-from re import compile
+from re import compile, search
+
+from scriptshifter.tables import get_lang_dcap
 
 
 # Match multiple spaces.
@@ -31,19 +33,27 @@ logger = getLogger(__name__)
 def capitalize_pre_assembly(ctx):
     """
     Capitalize a not-yet-assembled result list according to user options.
+
+    NOTE: this function capitalizes every token. This is not what is wanted
+    most of the time. The capitalize_post_assembly function, instead, separates
+    words by spaces before applying capitalization.
     """
-    ctx.dest_ls = _capitalize(ctx.dest_ls, ctx.options.get("capitalize"))
+    _capitalize_ls(ctx)
 
 
-def capitalize_post_assembly(ctx):
+def capitalize_post_assembly(ctx, **kwargs):
     """
     Capitalize an already assembled result string according to user options.
     """
-    dest_ls = ctx.dest.split(" ")
+    scope = ctx.options.get("capitalize")
+    if scope == "first":
+        double_caps = get_lang_dcap(ctx.conn, ctx.lang_id)
+        ctx.dest = _capitalize_token(ctx.dest, double_caps)
+    elif scope == "all":
+        ctx.dest_ls = ctx.dest.split(" ")  # Re-tokenize list after assembly.
 
-    dest_ls = _capitalize(dest_ls, ctx.options.get("capitalize"))
-
-    ctx.dest = " ".join(dest_ls)
+        _capitalize_ls(ctx)
+        ctx.dest = " ".join(ctx.dest_ls)
 
 
 def normalize_spacing_post_assembly(ctx):
@@ -77,7 +87,7 @@ def normalize_spacing_post_assembly(ctx):
     ctx.dest = norm
 
 
-def _capitalize(src, which):
+def _capitalize_ls(ctx):
     """
     capitalize first word only or all words.
 
@@ -85,11 +95,34 @@ def _capitalize(src, which):
     transliterations, which are not normally processed. Double cap rules are
     not applicable here.
     """
-    if which == "first":
-        src[0] = src[0].capitalize()
-        return src
+    double_caps = get_lang_dcap(ctx.conn, ctx.lang_id)
+    scope = ctx.options.get("capitalize")
+    cap = ctx.dest_ls
 
-    if which == "all":
-        return [tk[0].upper() + tk[1:] for tk in src]
+    if scope == "first":
+        ctx.dest_ls[0] = _capitalize_token(ctx.dest_ls[0], double_caps)
 
-    return src
+    if scope == "all":
+        logger.debug(f"Tokens for capitalization: {cap}")
+        ctx.dest_ls = [
+                _capitalize_token(tk, double_caps=double_caps)
+                for tk in cap]
+
+
+def _capitalize_token(tk, double_caps=[]):
+    first_letter_match = search(r'\w',  tk, 1)
+    first_letter_pos = first_letter_match.start() if first_letter_match else 0
+
+    # TODO
+    for dcap_rule in (double_caps or []):
+        pass
+
+    if first_letter_pos == 0:
+        cap = tk[0].upper() + tk[1:]
+    else:
+        cap = (
+                tk[:first_letter_pos] +
+                tk[first_letter_pos].upper() +
+                tk[(first_letter_pos + 1):])
+
+    return cap
