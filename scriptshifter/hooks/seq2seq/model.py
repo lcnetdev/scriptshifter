@@ -19,6 +19,8 @@ import tokenizers
 import tqdm
 
 # Script-specific modules.
+# Arabic
+from piraye import NormalizerBuilder
 # Persian
 from shekar import Normalizer
 
@@ -49,6 +51,12 @@ CP_RANGE = {
 }
 
 NORMALIZER = {
+    "ara": (NormalizerBuilder()
+        .remove_extra_spaces()
+        .space_normal()
+        .digit_ar()
+        .punctuation_ar()
+        .build()),
     "per": Normalizer(),
 }
 
@@ -66,22 +74,32 @@ UNK_TOK = "[unk]"
 VOCAB_SIZE = 16000
 
 # Model parameters. These have been tuned to a 275K data set.
-EMB_DIM = 256
-HIDDEN_DIM = 256
-DROPOUT = 0.2
-N_LAYERS = 1
+EMB_DIM = 384
+HIDDEN_DIM = EMB_DIM
+DROPOUT = 0.1
+N_LAYERS = 2
 LR = 4e-4
 WEIGHT_DECAY = 1e-5
 GRAD_CLIP = 0.5
 
 # Training parameters.
 N_EPOCHS = 5  # Number of epochs to train by.
-BATCH_SIZE = 64  # Data loader batch size.
+BATCH_SIZE = 16  # Data loader batch size.
 # Filter out outlier-length pairs to bound memory per batch.
 MAX_SRC_CHARS = 300
 MAX_TGT_CHARS = MAX_SRC_CHARS * 1.33
 
 logger = getLogger(__name__)
+
+
+def _normalize_ara(input):
+    return NORMALIZER["ara"].normalize(input)[0]
+
+
+normalize_fn = {
+    "ara": _normalize_ara,
+    "per": NORMALIZER["per"],
+}
 
 
 #
@@ -146,7 +164,7 @@ def read_langs(script, split="train"):
         with open(src_path, newline="") as fh:
             reader = csv.reader(fh)
             pairs = [
-                (NORMALIZER[script](row[0]), normalize("NFKC", row[1]))
+                (normalize_fn[script](row[0]), normalize("NFKC", row[1]))
                 for row in reader
                 if _in_range(row[0], script)
             ]
