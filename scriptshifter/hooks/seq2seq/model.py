@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # original code: https://machinelearningmastery.com/building-a-seq2seq-model-
 # with-attention-for-language-translation/
 # Heavily modified by hand & with AI assistant to support S2R transliteration.
@@ -20,9 +18,9 @@ import tqdm
 
 # Script-specific modules.
 # Arabic
-from piraye import NormalizerBuilder
+from piraye import NormalizerBuilder as AraNormalizer
 # Persian
-from shekar import Normalizer
+from shekar import Normalizer as PerNormalizer
 
 
 # Data root folder.
@@ -48,16 +46,6 @@ CP_RANGE = {
     "latin": (("\u0020", "\u036F"),),
     "ara": ARA_CP,
     "per": ARA_CP,
-}
-
-NORMALIZER = {
-    "ara": (NormalizerBuilder()
-        .remove_extra_spaces()
-        .space_normal()
-        .digit_ar()
-        .punctuation_ar()
-        .build()),
-    "per": Normalizer(),
 }
 
 DEVICE = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -108,12 +96,19 @@ logger = getLogger(__name__)
 
 
 def _normalize_ara(input):
-    return NORMALIZER["ara"].normalize(input)[0]
+    normalizer = (AraNormalizer()
+            .remove_extra_spaces()
+            .space_normal()
+            .digit_ar()
+            .punctuation_ar()
+            .build())
+
+    return normalizer.normalize(input)[0]
 
 
 normalize_fn = {
     "ara": _normalize_ara,
-    "per": NORMALIZER["per"],
+    "per": PerNormalizer(),
 }
 
 
@@ -585,7 +580,7 @@ class S2S:
         logger.debug(f"  Input vocabulary size: {self.enc_dim}")
         logger.debug(f"  Output vocabulary size: {self.dec_dim}")
         logger.debug(f"  Embedding dimension: {PARAMS[lang]['emb_dim']}")
-        logger.debug(f"  Hidden dimension: {PARAMS[lang]["emb_dim"]}")
+        logger.debug(f"  Hidden dimension: {PARAMS[lang]['emb_dim']}")
         logger.debug(f"  Dropout: {PARAMS[lang]['dropout']}")
         logger.debug(f"  Total parameters: {total_params}")
 
@@ -797,7 +792,7 @@ class S2S:
     def transliterate(self, src, beam_size=4):
         # Apply training-time normalization so the tokenizer sees the same
         # form it was trained on (e.g. Arabic yeh → Persian yeh).
-        src = NORMALIZER[self.lang](src)
+        src = normalize_fn[self.lang](src)
         self.model.eval()
         with torch.no_grad():
             if beam_size <= 1:
