@@ -68,22 +68,24 @@ PARAMS = {
         "emb_dim": 384,
         "dropout": 0.1,
         "n_layers": 2,
-        "lr": 4e-4,
+        "lr": 2e-4,
         "weight_decay": 1e-5,
-        "grad_clip": 0.5,
+        "grad_clip": 1.5,
         # Training parameters.
         "n_epochs": 20,
+        "warmup": 4,
         "batch_size": 16,
     },
     "per": {
         "vocab_size": 16000,
         "emb_dim": 256,
-        "dropout": 0.2,
+        "dropout": 0.0,  # for debug. Set to 0.2 for real trainig.
         "n_layers": 1,
         "lr": 4e-4,
         "weight_decay": 1e-5,
         "grad_clip": 0.5,
         "n_epochs": 50,
+        "warmup": 2,
         "batch_size": 32,
     },
 }
@@ -605,7 +607,7 @@ class S2S:
                 weight_decay=self.params["weight_decay"])
         loss_fn = nn.CrossEntropyLoss(ignore_index=self.tgt_pad_id)
         # Linear warmup for the first epoch, then plateau decay on dev loss.
-        warmup_steps = max(1, len(self.train_loader))
+        warmup_steps = max(self.params["warmup"], len(self.train_loader))
         warmup = optim.lr_scheduler.LinearLR(
                 optimizer, start_factor=0.1, end_factor=1.0,
                 total_iters=warmup_steps)
