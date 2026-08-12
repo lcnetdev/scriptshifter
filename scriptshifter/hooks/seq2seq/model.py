@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # original code: https://machinelearningmastery.com/building-a-seq2seq-model-
 # with-attention-for-language-translation/
 # Heavily modified by hand & with AI assistant to support S2R transliteration.
@@ -19,8 +17,10 @@ import tokenizers
 import tqdm
 
 # Script-specific modules.
+# Arabic
+from piraye import NormalizerBuilder as AraNormalizer
 # Persian
-from shekar import Normalizer
+from shekar import Normalizer as PerNormalizer
 
 
 # Data root folder.
@@ -48,10 +48,6 @@ CP_RANGE = {
     "per": ARA_CP,
 }
 
-NORMALIZER = {
-    "per": Normalizer(),
-}
-
 DEVICE = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 # Tokens.
@@ -62,26 +58,60 @@ SEP_TOK = "[sep]"
 CLS_TOK = "[cls]"
 UNK_TOK = "[unk]"
 
-# Tokenizer parameters for script only.
-VOCAB_SIZE = 16000
 
-# Model parameters. These have been tuned to a 275K data set.
-EMB_DIM = 256
-HIDDEN_DIM = 256
-DROPOUT = 0.2
-N_LAYERS = 1
-LR = 4e-4
-WEIGHT_DECAY = 1e-5
-GRAD_CLIP = 0.5
+# Model parameters, per language.
+PARAMS = {
+    "ara": {
+        # Tokenizer parameters for script only.
+        "vocab_size": 16000,
+        # Encoder and decoder parameters.
+        "emb_dim": 384,
+        "dropout": 0.1,
+        "n_layers": 2,
+        "lr": 2e-4,
+        "weight_decay": 1e-5,
+        "grad_clip": 1.5,
+        # Training parameters.
+        "n_epochs": 20,
+        "warmup": 4,
+        "batch_size": 16,
+    },
+    "per": {
+        "vocab_size": 16000,
+        "emb_dim": 256,
+        "dropout": 0.0,  # for debug. Set to 0.2 for real trainig.
+        "n_layers": 1,
+        "lr": 4e-4,
+        "weight_decay": 1e-5,
+        "grad_clip": 0.5,
+        "n_epochs": 50,
+        "warmup": 2,
+        "batch_size": 32,
+    },
+}
 
-# Training parameters.
-N_EPOCHS = 5  # Number of epochs to train by.
-BATCH_SIZE = 64  # Data loader batch size.
 # Filter out outlier-length pairs to bound memory per batch.
 MAX_SRC_CHARS = 300
 MAX_TGT_CHARS = MAX_SRC_CHARS * 1.33
 
 logger = getLogger(__name__)
+
+
+def _normalize_ara(input):
+    normalizer = (AraNormalizer()
+            .remove_extra_spaces()
+            .space_normal()
+            .digit_ar()
+            .punctuation_ar()
+            .build())
+
+    return normalizer.normalize(input)[0]
+
+
+normalize_fn = {
+    "ara": _normalize_ara,
+    "per": PerNormalizer(),
+}
 
 
 #
@@ -146,7 +176,7 @@ def read_langs(script, split="train"):
         with open(src_path, newline="") as fh:
             reader = csv.reader(fh)
             pairs = [
-                (NORMALIZER[script](row[0]), normalize("NFKC", row[1]))
+                (normalize_fn[script](row[0]), normalize("NFKC", row[1]))
                 for row in reader
                 if _in_range(row[0], script)
             ]
@@ -208,7 +238,7 @@ def tokenize(lang, code, vocab, level="bpe"):
                 add_prefix_space=True)
         tokenizer.decoder = tokenizers.decoders.ByteLevel()
         trainer = tokenizers.trainers.BpeTrainer(
-            vocab_size=VOCAB_SIZE,
+            vocab_size=PARAMS[lang]["vocab_size"],
             special_tokens=[SOS_TOK, EOS_TOK, PAD_TOK, UNK_TOK],
             show_progress=True
         )
@@ -275,18 +305,18 @@ def get_dataloaders(lang):
 
     collate = get_collate_fn(scr_tokenizer, rom_tokenizer)
     train_loader = torch.utils.data.DataLoader(
-        TransliterationDataset(train_pairs),
-        batch_size=BATCH_SIZE, shuffle=True, collate_fn=collate,
-    )
+            TransliterationDataset(train_pairs),
+            batch_size=PARAMS[lang]["batch_size"], shuffle=True,
+            collate_fn=collate,)
     logger.debug("Collated datasets.")
 
     dev_path = path.join(DATA_ROOT, "source", lang, "dev.csv")
     if path.exists(dev_path):
         dev_pairs = read_langs(lang, "dev")
         dev_loader = torch.utils.data.DataLoader(
-            TransliterationDataset(dev_pairs),
-            batch_size=BATCH_SIZE, shuffle=False, collate_fn=collate,
-        )
+                TransliterationDataset(dev_pairs),
+                batch_size=PARAMS[lang]["batch_size"], shuffle=False,
+                collate_fn=collate,)
     else:
         dev_loader = None
     logger.debug("Set up loaders.")
@@ -509,13 +539,19 @@ class S2S:
         self.dec_dim = len(self.rom_tokenizer.get_vocab())
         self.src_pad_id = self.scr_tokenizer.token_to_id(PAD_TOK)
         self.tgt_pad_id = self.rom_tokenizer.token_to_id(PAD_TOK)
+        self.params = PARAMS[lang]
 
         # Encoder & decoder.
+        # Hidden dimensions must be the same of embedded dimensions.
         encoder = EncoderRNN(
-            self.enc_dim, EMB_DIM, HIDDEN_DIM, N_LAYERS, DROPOUT
+            self.enc_dim, self.params["emb_dim"],
+            self.params['emb_dim'], self.params["n_layers"],
+            self.params["dropout"]
         ).to(DEVICE)
         decoder = DecoderRNN(
-            self.dec_dim, EMB_DIM, HIDDEN_DIM, N_LAYERS, DROPOUT
+            self.dec_dim, self.params["emb_dim"],
+            self.params['emb_dim'], self.params["n_layers"],
+            self.params["dropout"]
         ).to(DEVICE)
 
         # Seq2SeqRNN model.
@@ -545,18 +581,20 @@ class S2S:
         logger.debug("Parameters:")
         logger.debug(f"  Input vocabulary size: {self.enc_dim}")
         logger.debug(f"  Output vocabulary size: {self.dec_dim}")
-        logger.debug(f"  Embedding dimension: {EMB_DIM}")
-        logger.debug(f"  Hidden dimension: {HIDDEN_DIM}")
-        logger.debug(f"  Dropout: {DROPOUT}")
+        logger.debug(f"  Embedding dimension: {PARAMS[lang]['emb_dim']}")
+        logger.debug(f"  Hidden dimension: {PARAMS[lang]['emb_dim']}")
+        logger.debug(f"  Dropout: {PARAMS[lang]['dropout']}")
         logger.debug(f"  Total parameters: {total_params}")
 
-    def train(self, epochs=N_EPOCHS, eval_every=5, patience=5):
+    def train(self, epochs=0, eval_every=5, patience=5):
         """Train with LR-on-plateau and best-checkpoint-on-dev-loss.
 
         eval_every: run dev evaluation every N epochs.
         patience: stop after this many consecutive eval cycles without
             improvement on dev loss. Ignored if no dev set is configured.
         """
+        if epochs == 0:
+            epochs = self.params["n_epochs"]
         logger.info(f"Training for up to {epochs} epochs.")
         if self.trained:
             logger.debug("Backing up existing state file.")
@@ -565,10 +603,11 @@ class S2S:
             makedirs(path.dirname(self.state_fpath), exist_ok=True)
 
         optimizer = optim.AdamW(
-                self.model.parameters(), lr=LR, weight_decay=WEIGHT_DECAY)
+                self.model.parameters(), lr=self.params["lr"],
+                weight_decay=self.params["weight_decay"])
         loss_fn = nn.CrossEntropyLoss(ignore_index=self.tgt_pad_id)
         # Linear warmup for the first epoch, then plateau decay on dev loss.
-        warmup_steps = max(1, len(self.train_loader))
+        warmup_steps = max(self.params["warmup"], len(self.train_loader))
         warmup = optim.lr_scheduler.LinearLR(
                 optimizer, start_factor=0.1, end_factor=1.0,
                 total_iters=warmup_steps)
@@ -591,7 +630,7 @@ class S2S:
                         -1, self.dec_dim), rom_ids[:, 1:].reshape(-1))
                 loss.backward()
                 torch.nn.utils.clip_grad_norm_(
-                        self.model.parameters(), GRAD_CLIP)
+                        self.model.parameters(), self.params["grad_clip"])
                 optimizer.step()
                 if warmup.last_epoch < warmup.total_iters:
                     warmup.step()
@@ -755,7 +794,7 @@ class S2S:
     def transliterate(self, src, beam_size=4):
         # Apply training-time normalization so the tokenizer sees the same
         # form it was trained on (e.g. Arabic yeh → Persian yeh).
-        src = NORMALIZER[self.lang](src)
+        src = normalize_fn[self.lang](src)
         self.model.eval()
         with torch.no_grad():
             if beam_size <= 1:

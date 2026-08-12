@@ -24,7 +24,7 @@ from glob import glob
 from os import makedirs, path
 from string import punctuation, whitespace
 
-from s2s import CP_RANGE
+from scriptshifter.hooks.seq2seq.model import CP_RANGE
 
 
 RAW_DIR = "data/raw"
