@@ -91,7 +91,7 @@ class Transliterator:
         """
         Normalize source text according to rules.
 
-        NOTE: this manipluates the protected source attribute so it may not
+        NOTE: this manipulates the protected source attribute so it may not
         correspond to the originally provided source.
         """
         # Normalize precomposed Unicode characters.
@@ -186,6 +186,8 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
         # Loop through source characters. The increment of each loop depends on
         # the length of the token that eventually matches.
         ctx.cur = 0
+
+        # BEGIN token scan loop.
 
         while ctx.cur < len(ctx.src):
             # Reset cursor position flags.
@@ -300,8 +302,8 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
                 if (
                     (ctx.src_tk.flags & BOW and not ctx.cur_flags & BOW)
                     or (
-                        # Can't rely on EOW flag, we must check on the last
-                        # character of the potential match.
+                        # Can't rely on EOW flag alone, we must check on the
+                        # last character of the potential match.
                         ctx.src_tk.flags & EOW
                         and ctx.cur + step - 1 not in ctx.eow_coords
                     )
@@ -346,6 +348,8 @@ def transliterate(src, lang, t_dir="s2r", capitalize=False, options={}):
             else:
                 delattr(ctx, "match")
             delattr(ctx, "cur_flags")
+
+        # END token scan loop.
 
         delattr(ctx, "cur")
 
