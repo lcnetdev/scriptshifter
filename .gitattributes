@@ -1,0 +1,4 @@
+scriptshifter/hooks/seq2seq/**/*.csv filter=lfs diff=lfs merge=lfs -text
+scriptshifter/hooks/seq2seq/**/*.json filter=lfs diff=lfs merge=lfs -text
+scriptshifter/hooks/seq2seq/**/*.pth filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
