@@ -32,6 +32,12 @@ arabic:
     library.
   marc_code: ara
   name: Arabic
+arabic_test:
+  description: >
+    Arabic-to-Roman transliterator using an in-house built machine learning
+    algorithm.
+  marc_code: ara
+  name: "Arabic (test)"
 argobba_ethiopic:
   alias_of: ethiopic_generic
   marc_code: amh
