@@ -67,7 +67,7 @@ PARAMS = {
         # Encoder and decoder parameters.
         "emb_dim": 384,
         "dropout": 0.1,
-        "n_layers": 2,
+        "n_layers": 1,
         "lr": 2e-4,
         "weight_decay": 1e-5,
         "grad_clip": 1.5,
