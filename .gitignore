@@ -142,3 +142,5 @@ scriptshifter/data/*.db
 VERSION
 .~lock.*
 /data
+# Tokenizer data can be rebuilt deterministically within a few seconds.
+/scriptshifter/hooks/seq2seq/data/tokenizer/**
