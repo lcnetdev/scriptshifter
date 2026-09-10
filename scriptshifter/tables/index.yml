@@ -129,6 +129,8 @@ cyrillic_generic:
 dargwa_cyrillic:
   name: Dargwa (Cyrillic)
   marc_code: dar
+deseret:
+  name: Deseret
 devanagari_generic:
   marc_code: hin, san
   name: Devanagari (Generic)
@@ -538,6 +540,9 @@ urdu:
 uzbek_cyrillic:
   marc_code: uzb
   name: Uzbek (Cyrillic)
+vai:
+  marc_code: vai
+  name: Vai
 yakut_cyrillic:
   marc_code: sah
   name: Yakut (Cyrillic)
