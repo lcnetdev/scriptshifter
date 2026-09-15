@@ -39,7 +39,9 @@ def test_sample(dset, report=True):
             opts = jloads(row[4]) if len(row) > 4 and row[4] else {}
 
             if t_dir:
-                _trans(script, lang, t_dir, opts, rom, deltas)
+                src = rom if t_dir == "r2s" else script
+                dest = script if t_dir == "r2s" else rom
+                _trans(src, lang, t_dir, opts, dest, deltas)
             else:
                 _trans(script, lang, "s2r", opts, rom, deltas)
                 _trans(rom, lang, "r2s", opts, script, deltas)

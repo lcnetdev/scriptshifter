@@ -1,0 +1,340 @@
+# Arabic S2R using the 3rd-party ArabicTransliterator library:
+# https://github.com/MTG/ArabicTransliterator
+
+---
+general:
+  name: Arabic
+  case_sensitive: false
+  description: Experimental Arabic language using in-house ML engine for S2R.
+  version: 2.0.0b1
+  date: 2026-09-04
+  parents:
+    - _ignore_base
+
+# COMMON COMBINING CHARACTERS (always follow a base letter):
+# combining acute \u0301
+# combining macron \u0304
+# combining dot above \u0307
+# combining dot below \u0323
+# prime (spacing) \u02B9
+# double prime (spacing) \u02BA
+# modifier letter turned comma (ayn - spacing) \u02BB
+# modifier letter apostrophe (alif - spacing) \u02BC
+# zero width joiner \u200C
+
+roman_to_script:
+  map:
+
+    # ARABIC PUNCTUATION MARKS:
+    "*": "\u066D"
+    ",": "\u060C"
+    ";": "\u061B"
+    "?": "\u061F"
+
+    # SPECIAL RULES FOR CERTAIN WORDS
+
+    # ALLA[macron]H WITH SHADDAH AND ALIF KHUNJARIYAH
+    "%alla\u0304h%": "\u0627\u0644\u0644\u0651\u0670\u0647"
+
+    # ALLA[macron]H (4-CHARACTER ENCODING)
+    "alla\u0304h": "\u0627\u0644\u0644\u0647"
+
+    # QUR'AN
+    "qur\u02BCa\u0304n": "\u0642\u0631\u0622\u0646"
+
+    # LILLAH
+    "lilla\u0304h": "\u0644\u0644\u0647"
+
+    # BILLAH
+    "billa\u0304h": "\u0628\u0644\u0644\u0647"
+
+    # RAHMAN
+    "rah\u0323ma\u0304n": "\u0631\u062D\u0645\u0646"
+
+    # RUWAT
+    "ruwa\u0304t": "\u0631\u0648\u0627\u0629"
+
+    # HADHA
+    "ha\u0304dha\u0304": "\u0647\u0630\u0627"
+
+    # HADHIHI
+    "ha\u0304dhi\u0304hi": "\u0647\u0630\u0647"
+
+    # DHALIKA
+    "dha\u0304lika": "\u0630\u0644\u0643"
+
+    # SPECIAL CONVERSION FOR NAMES
+    "%t\u0323a\u0304ha\u0304%": "\u0637\u0647"
+    "%ya\u0304si\u0304n%": "\u064A\u0633\u0646"
+    "%\u02BBamr%": "\u0639\u0645\u0631\u0648"
+    "%bahjat%": "\u0628\u0647\u062C\u0629"
+
+    # BIN WHEN IT APPEARS ISOLATED
+    "%bin%": "\u0628\u0646"
+
+    # IBN WHEN IT APPEARS ISOLATED
+    "%ibn%": "\u0627\u0628\u0646"
+
+    # H[dot below]AYAmacron]T
+    "%h\u0323aya\u0304t%": "\u062D\u064A\u0627\u0629"
+
+    # H[dot below]AYA[macron]TI[macron]
+    # "h\u0323aya\u0304ti\u0304": "\u062D\u064A\u0627\u062A\u064A"
+
+    # "SH[dot below] AS IN "ISHAQ"
+    "sh\u0323": "\u0633\u062D"
+
+    # DH[dot below]
+    "th\u0323": "\u062A\u062D"
+
+    # DH[dot below]
+    "dh\u0323": "\u062F\u062D"
+
+    # LA-HU
+    "la-hu": "\u0644\u0647"
+
+    # MI'AH
+    "mi\u02BEah": "\u0645\u0627\u0626\u0629"
+    "mi\u02BCah": "\u0645\u0627\u0626\u0629"
+
+    # MI'AT
+    "mi\u02BEat": "\u0645\u0627\u0626\u0629"
+    "mi\u02BCat": "\u0645\u0627\u0626\u0629"
+
+    # EDITION NUMBERS (INDIC-ARABIC NUMERALS PREFERRED IN ARABIC
+    # PERSIAN AND URDU PREFER TRUE ARABIC NUMERALS \u06F0-06F9
+    "al-t\u0323ab\u02BBah 1": "\u0627\u0644\u0637\u0628\u0639\u0629 1"
+    "al-t\u0323ab\u02BBah 2": "\u0627\u0644\u0637\u0628\u0639\u0629 2"
+    "al-t\u0323ab\u02BBah 3": "\u0627\u0644\u0637\u0628\u0639\u0629 3"
+    "al-t\u0323ab\u02BBah 4": "\u0627\u0644\u0637\u0628\u0639\u0629 4"
+    "al-t\u0323ab\u02BBah 5": "\u0627\u0644\u0637\u0628\u0639\u0629 5"
+    "al-t\u0323ab\u02BBah 6": "\u0627\u0644\u0637\u0628\u0639\u0629 6"
+    "al-t\u0323ab\u02BBah 7": "\u0627\u0644\u0637\u0628\u0639\u0629 7"
+    "al-t\u0323ab\u02BBah 8": "\u0627\u0644\u0637\u0628\u0639\u0629 8"
+    "al-t\u0323ab\u02BBah 9": "\u0627\u0644\u0637\u0628\u0639\u0629 9"
+
+    # OTHER NUMERALS \u0660-0669
+    "0": "\u0660"
+    "1": "\u0661"
+    "2": "\u0662"
+    "3": "\u0663"
+    "4": "\u0664"
+    "5": "\u0665"
+    "6": "\u0666"
+    "7": "\u0667"
+    "8": "\u0668"
+    "9": "\u0669"
+
+    # HYPHENATED PREFIXES:
+    "wa-": "\u0648"
+    "bi-": "\u0628"
+    "al-": "\u0627\u0644"
+    "lil-": "\u0644\u0644"
+    "li-": "\u0644"
+    "la\u0304-": "\u0644"
+    "fi\u0304-": "\u0641\u064A"
+    "ka-": "\u0643"
+
+    # TA-MARBUTAH AT END OF WORD
+    "ah%": "\u0629"
+    "at%": "\u0629"
+
+    # TANWIN AT END OF WORD
+    "an%": "\u0627"
+
+    # AYN-ALIF COMBOS AT END OF WORD
+    "\u02BBa\u0304\u02BE%": "\u0639\u0627\u0621"
+    "\u02BBa\u0304\u02BC%": "\u0639\u0627\u0621"
+
+    "\u02BBa\u0304": "\u0639\u0627"
+
+    "\u02BBi\u0304y": "\u0639\u064A"
+    "\u02BBi\u0304": "\u0639\u064A"
+
+    "\u02BBu\u0304": "\u0639\u0648"
+    "\u02BBu": "\u0639"
+
+    "%\u02BBa": "\u0639"
+    # "\u02BBa%": "\u0639"
+
+    # ALIF AND HAMZA AT END
+    "i\u0304\u02BEah%": "\u064A\u0626\u0629"
+    "i\u0304\u02BCah%": "\u064A\u0626\u0629"
+
+    "i\u0304\u02BEat%": "\u064A\u0626\u0629"
+    "i\u0304\u02BCat%": "\u064A\u0626\u0629"
+
+    "i\u02BEa\u0304%": "\u0626\u0627"
+    "i\u02BCa\u0304%": "\u0626\u0627"
+
+    "i\u02BE%": "\u0626"
+    "i\u02BC%": "\u0626"
+    "a\u0304\u02BEa\u0304": "\u0627\u0621\u0627"
+    "a\u0304\u02BCa\u0304": "\u0627\u0621\u0627"
+
+    "a\u02BE": "\u0623"
+    "a\u02BC": "\u0623"
+    "\u02BEi": "\u0626"
+    "\u02BCi": "\u0626"
+    "\u02BEa\u0304": "\u0622"
+    "\u02BCa\u0304": "\u0622"
+    "\u02BEa": "\u0623"
+    "\u02BCa": "\u0623"
+
+    "y\u02BCah": "\u064A\u0626\u0629"
+    "y\u02BEah": "\u064A\u0626\u0629"
+
+    "y\u02BCat": "\u064A\u0626\u0629"
+    "y\u02BEat": "\u064A\u0626\u0629"
+
+    # A
+    "a\u0304\u02BCi\u0304": "\u0627\u0626\u064A"
+    "a\u0304\u02BEi\u0304": "\u0627\u0626\u064A"
+
+    "a\u0304\u02BCi": "\u0627\u0626"
+    "a\u0304\u02BEi": "\u0627\u0626"
+    "a\u0304\u02BC": "\u0627\u0621"
+    "a\u0304\u02BE": "\u0627\u0621"
+    "%a\u0304": "\u0622"
+    "a\u0304": "\u0627"
+
+    # CONVERSION OF INITIAL A+AYN (i.e., "al-a[ayn]ma[macron]l"
+    "%a\u02BB": "\u0623\u0639"
+    "a\u02BB": "\u0639"
+    "a\u0301": "\u0649"
+
+    "ayy": "\u064A"
+    "%a": "\u0623"
+    "a": ""
+
+    "%i\u0304": "\u064A"
+    "i\u0304y": "\u064A"
+    "iy": "\u064A"
+    "i\u0304": "\u064A"
+    "%\u02BBi": "\u0639"
+
+    # "i\u02BB": "\u0625\u0639"
+    "i\u02BE": "\u0626"
+    "i\u02BC": "\u0627\u0626"
+
+    "%i": "\u0625"
+    "i": ""
+
+    # U
+    "u\u0304\u02BE": "\u0624"
+    "u\u0304\u02BC": "\u0624"
+    "%u\u0304w": "\u0623\u0648"
+    "%u\u0304": "\u0623\u0648"
+    "u\u0304w": "\u0648"
+    "u\u0304": "\u0648"
+    "u\u02BE": "\u0624"
+    "u\u02BC": "\u0624"
+    "%u": "\u0623"
+    "u": ""
+
+    # CONSONANTS WITH TASHDID/SHADDAH (GEMINATION MARK) ARE DOUBLED
+    "bb": "\u0628"
+    "b": "\u0628"
+    "thth": "\u062B"
+    "t\u02B9h": "\u062B\u0647"
+    "th": "\u062B"
+    "t\u0323t\u0323": "\u0637"
+    "t\u0323": "\u0637"
+    "tt": "\u062A"
+    "t": "\u062A"
+    "J": "\u062C"
+    "jj": "\u062C"
+    "j": "\u062C"
+    "h\u0323h\u0323": "\u062D"
+    "h\u0323": "\u062D"
+    "hh": "\u0647"
+    "h": "\u0647"
+    "khkh": "\u062E"
+    "k\u02B9h": "\u0643\u0647"
+    "kh": "\u062E"
+    "kk": "\u0643"
+    "k": "\u0643"
+    "dhdh": "\u0630"
+    "d\u02B9h": "\u062F\u0647"
+    "dh": "\u0630"
+    "d\u0323d\u0323": "\u0636"
+    "d\u0323": "\u0636"
+    "dd": "\u062F"
+    "d": "\u062F"
+    "rr": "\u0631"
+    "r": "\u0631"
+    "z\u0323z\u0323": "\u0638"
+    "z\u0323": "\u0638"
+    "zz": "\u0632"
+    "z": "\u0632"
+    "shsh": "\u0634"
+    "s\u02B9h": "\u0633\u0647"
+    "sh": "\u0634"
+    "s\u0323s\u0323": "\u0635"
+    "s\u0323": "\u0635"
+    "ss": "\u0633"
+    "s": "\u0633"
+    "ghgh": "\u063A"
+    "gh": "\u063A"
+    "ff": "\u0641"
+    "f": "\u0641"
+    "qq": "\u0642"
+    "q": "\u0642"
+    "ll": "\u0644"
+    "l": "\u0644"
+    "mm": "\u0645"
+    "m": "\u0645"
+    "nn": "\u0646"
+    "n": "\u0646"
+    "ww": "\u0648"
+    "w": "\u0648"
+    "yy": "\u064A"
+    "y": "\u064A"
+    "\u0289": "\u200C"
+
+    # NON-ARABIC CONSONANTS:
+    "p": "\u067E"
+    "ch": "\u0686"
+    "v": "\u06A4"
+    "g": "\u06AF"
+
+    # SPECIAL CHARACTERS:
+    # AYN (\u0639) NEVER TRANSLITERATED WHEN ALONE:
+    "\u02BB": "\u0639"
+    # HAMZA ALONE IN FINAL POSITION
+    "\u02BE%": "\u0621"
+    "\u02BC%": "\u0621"
+
+    # ARABOC VOWEL MARKS NOT USUALLY GIVEN
+    # tatweel:
+    # "\u0640"
+    # fathatan:
+    # "\u064B"
+    # dammatan:
+    # "\u064C"
+    # kasratan:
+    # "\u064D"
+    # fatha:
+    # "\u064E"
+    # damma:
+    # "\u064F"
+    # kasra:
+    # "\u0650"
+    # shadda:
+    # "\u0651"
+    # sukun:
+    # "\u0652"
+    # superscript alef:
+    # "\u0670"
+    # alef wasla
+    # "\u0671"
+
+    # PRIME USED TO FORCE FINAL LETTER SHAPE OF PRECEDING CONSONANT
+    "\u02B9": "\u200C"
+
+script_to_roman:
+  hooks:
+    post_config:
+      -
+        - seq2seq.s2r_post_config
+        - src_script: "ara"
