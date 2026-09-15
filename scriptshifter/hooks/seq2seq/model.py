@@ -563,8 +563,8 @@ class S2S:
         # Seq2SeqRNN model.
         self.model = Seq2SeqRNN(encoder, decoder, self.src_pad_id).to(DEVICE)
         state_dir = path.join(DATA_ROOT, "train_state", self.lang)
-        self.state_fpath = path.join(state_dir, "checkpoint.pth")
         self.best_fpath = path.join(state_dir, "best.pth")
+        self.state_fpath = path.join(state_dir, "checkpoint.pth")
         # Prefer the best-on-dev checkpoint when both exist.
         load_path = (
             state_fpath if state_fpath and path.exists(state_fpath)
@@ -831,6 +831,84 @@ class S2S:
                 print(f"Script:     {scr}")
                 print(f"Roman:      {true_rom}")
                 print(f"Predicted:  {pred_rom}")
+
+    def diagnose(self, ct=5, split="train"):
+        """Print teacher-forced vs. greedy predictions on the same pairs.
+
+        Distinguishes three failure modes when generation output looks bad:
+
+          - TF ≈ truth, greedy garbage → autoregressive inference path bug
+            (exposure bias, or a decode-loop bug like state mishandling for
+            n_layers > 1).
+          - TF and greedy both garbage in the same way → the loaded weights
+            don't correspond to the current tokenizer, or the checkpoint is
+            effectively untrained (e.g., early `best.pth` from a stalled run).
+          - TF plausible but wrong → training partially worked; `best.pth` is
+            from an early epoch. Retrain longer / with finer eval cadence.
+
+        Also prints tokenizer vocab sizes and the load path used, so a
+        mismatch between train-time and inference-time tokenizers is visible.
+        """
+        state_dir = path.join(DATA_ROOT, "train_state", self.lang)
+        print("--- config ---")
+        print(f"lang:          {self.lang}")
+        print(f"n_layers:      {self.params['n_layers']}")
+        print(f"emb_dim:       {self.params['emb_dim']}")
+        print(f"scr vocab:     {self.enc_dim}")
+        print(f"rom vocab:     {self.dec_dim}")
+        print(f"state dir:     {state_dir}")
+        print(f"best exists:   {path.exists(self.best_fpath)}")
+        print(f"ckpt exists:   {path.exists(self.state_fpath)}")
+        print(f"trained flag:  {self.trained}")
+
+        pairs = read_langs(self.lang, split)
+        eos_id = self.rom_tokenizer.token_to_id(EOS_TOK)
+        pad_id = self.tgt_pad_id
+
+        self.model.eval()
+        samples = random.sample(pairs, ct)
+        with torch.no_grad():
+            for scr, true_rom in samples:
+                scr_ids = torch.tensor(
+                    self.scr_tokenizer.encode(scr).ids
+                ).unsqueeze(0).to(DEVICE)
+                rom_ids = torch.tensor(
+                    self.rom_tokenizer.encode(true_rom).ids
+                ).unsqueeze(0).to(DEVICE)
+
+                # Teacher-forced forward: model sees the ground-truth prefix
+                # at every step. Isolates weight/tokenizer correctness from
+                # autoregressive drift.
+                tf_out = self.model(scr_ids, rom_ids)  # [1, T-1, V]
+                tf_ids = tf_out.argmax(dim=-1)[0].tolist()
+                if tf_ids and tf_ids[-1] == eos_id:
+                    tf_ids = tf_ids[:-1]
+                tf_ids = [i for i in tf_ids if i != pad_id]
+                tf_pred = self.rom_tokenizer.decode(tf_ids)
+
+                greedy_ids = self._greedy_decode(scr, max_len=60)
+                if greedy_ids and greedy_ids[-1] == eos_id:
+                    greedy_ids = greedy_ids[:-1]
+                greedy_pred = self.rom_tokenizer.decode(greedy_ids)
+
+                # Per-token accuracy of the teacher-forced prediction against
+                # the shifted target. A high number here with garbage greedy
+                # output points squarely at the autoregressive path.
+                tgt = rom_ids[0, 1:]  # skip SOS to align with tf_out
+                pred = tf_out.argmax(dim=-1)[0]
+                mask = tgt != pad_id
+                if mask.any():
+                    correct = (pred[:tgt.size(0)] == tgt).masked_select(mask)
+                    tf_acc = correct.float().mean().item()
+                else:
+                    tf_acc = float("nan")
+
+                print(f"Script:      {scr}")
+                print(f"Roman:       {true_rom}")
+                print(f"TF pred:     {tf_pred}")
+                print(f"TF token acc: {tf_acc:.3f}")
+                print(f"Greedy pred: {greedy_pred}")
+                print()
 
     def evaluate(self, split="test", beam_size=4, max_len=60, limit=None):
         """End-to-end transliteration metrics on a held-out split.
