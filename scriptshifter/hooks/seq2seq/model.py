@@ -79,11 +79,12 @@ PARAMS = {
     "per": {
         "vocab_size": 16000,
         "emb_dim": 256,
-        "dropout": 0.0,  # for debug. Set to 0.2 for real trainig.
+        "dropout": 0.2,
         "n_layers": 1,
         "lr": 4e-4,
         "weight_decay": 1e-5,
         "grad_clip": 0.5,
+        # Training parameters.
         "n_epochs": 50,
         "warmup": 2,
         "batch_size": 32,
@@ -520,7 +521,7 @@ class Seq2SeqRNN(nn.Module):
 
 
 class S2S:
-    def __init__(self, lang, state_fpath=None):
+    def __init__(self, lang, state_fpath=None, n_layers=None):
         """
         Instantiate a Seq2Seq model.
 
@@ -529,6 +530,11 @@ class S2S:
         @param state_fpath (str) State file. Defaults to a predefined state
             file path based on the language selected. If the file is not found,
             the model must be retrained.
+
+        @param n_layers (int) Override number of layers for current model.
+            Normally this is hardcoded in the language configuration, but when
+            loading a bespoke model file, the n_layers must match the one used
+            to train that model.
         """
         self.lang = lang
 
@@ -545,12 +551,12 @@ class S2S:
         # Hidden dimensions must be the same of embedded dimensions.
         encoder = EncoderRNN(
             self.enc_dim, self.params["emb_dim"],
-            self.params['emb_dim'], self.params["n_layers"],
+            self.params['emb_dim'], n_layers or self.params["n_layers"],
             self.params["dropout"]
         ).to(DEVICE)
         decoder = DecoderRNN(
             self.dec_dim, self.params["emb_dim"],
-            self.params['emb_dim'], self.params["n_layers"],
+            self.params['emb_dim'], n_layers or self.params["n_layers"],
             self.params["dropout"]
         ).to(DEVICE)
 
@@ -561,7 +567,7 @@ class S2S:
         self.best_fpath = path.join(state_dir, "best.pth")
         # Prefer the best-on-dev checkpoint when both exist.
         load_path = (
-            state_fpath if state_fpath and path.exists(self.state_fpath)
+            state_fpath if state_fpath and path.exists(state_fpath)
             else self.best_fpath if path.exists(self.best_fpath)
             else self.state_fpath if path.exists(self.state_fpath)
             else None
@@ -586,7 +592,7 @@ class S2S:
         logger.debug(f"  Dropout: {PARAMS[lang]['dropout']}")
         logger.debug(f"  Total parameters: {total_params}")
 
-    def train(self, epochs=0, eval_every=5, patience=5):
+    def train(self, epochs=0, eval_every=2, patience=5):
         """Train with LR-on-plateau and best-checkpoint-on-dev-loss.
 
         eval_every: run dev evaluation every N epochs.
