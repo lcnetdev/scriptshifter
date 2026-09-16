@@ -5,12 +5,12 @@
 general:
   name: Arabic
   case_sensitive: false
-  description: Arabic language R2S using a conversion table; S2R using a 3rd party library.
-  version: 1.0.2
-  date: 2026-01-28
+  description: Arabic language using in-house ML engine for S2R.
+  version: 2.0.0b1
+  date: 2026-09-04
   parents:
     - _ignore_base
-  
+
 # COMMON COMBINING CHARACTERS (always follow a base letter):
 # combining acute \u0301
 # combining macron \u0304
@@ -18,7 +18,7 @@ general:
 # combining dot below \u0323
 # prime (spacing) \u02B9
 # double prime (spacing) \u02BA
-# modifier letter turned comma (ayn - spacing) \u02BB 
+# modifier letter turned comma (ayn - spacing) \u02BB
 # modifier letter apostrophe (alif - spacing) \u02BC
 # zero width joiner \u200C
 
@@ -32,10 +32,10 @@ roman_to_script:
     "?": "\u061F"
 
     # SPECIAL RULES FOR CERTAIN WORDS
-    
+
     # ALLA[macron]H WITH SHADDAH AND ALIF KHUNJARIYAH
     "%alla\u0304h%": "\u0627\u0644\u0644\u0651\u0670\u0647"
-    
+
     # ALLA[macron]H (4-CHARACTER ENCODING)
     "alla\u0304h": "\u0627\u0644\u0644\u0647"
 
@@ -62,7 +62,7 @@ roman_to_script:
 
     # DHALIKA
     "dha\u0304lika": "\u0630\u0644\u0643"
-    
+
     # SPECIAL CONVERSION FOR NAMES
     "%t\u0323a\u0304ha\u0304%": "\u0637\u0647"
     "%ya\u0304si\u0304n%": "\u064A\u0633\u0646"
@@ -71,7 +71,7 @@ roman_to_script:
 
     # BIN WHEN IT APPEARS ISOLATED
     "%bin%": "\u0628\u0646"
-    
+
     # IBN WHEN IT APPEARS ISOLATED
     "%ibn%": "\u0627\u0628\u0646"
 
@@ -80,7 +80,7 @@ roman_to_script:
 
     # H[dot below]AYA[macron]TI[macron]
     # "h\u0323aya\u0304ti\u0304": "\u062D\u064A\u0627\u062A\u064A"
-    
+
     # "SH[dot below] AS IN "ISHAQ"
     "sh\u0323": "\u0633\u062D"
 
@@ -336,4 +336,5 @@ script_to_roman:
   hooks:
     post_config:
       -
-        - arabic.arabic_romanizer.s2r_post_config
+        - seq2seq.s2r_post_config
+        - src_script: "ara"
