@@ -5,6 +5,7 @@ flask-cors>=4.0,<5
 piraye>=1.1,<2
 python-dotenv>=1.0,<2
 pyyaml>=6.0,<7
+regex>=2026.9.10
 shekar>=1.6,<2
 setuptools<81 # For yiddish
 tokenizers>=0.22
