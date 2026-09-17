@@ -75,6 +75,11 @@ PARAMS = {
         "n_epochs": 20,
         "warmup": 4,
         "batch_size": 16,
+        # Guided-attention loss: needed for n_layers > 1 so the decoder
+        # doesn't ignore attention. Anneals off after ga_anneal_epochs.
+        "ga_weight": 1.0,
+        "ga_sigma": 0.2,
+        "ga_anneal_epochs": 6,
     },
     "per": {
         "vocab_size": 16000,
@@ -88,6 +93,11 @@ PARAMS = {
         "n_epochs": 50,
         "warmup": 2,
         "batch_size": 32,
+        # 1-layer decoder learns attention on its own; leave the bias in
+        # for a couple of epochs as a mild monotonicity prior.
+        "ga_weight": 0.5,
+        "ga_sigma": 0.2,
+        "ga_anneal_epochs": 3,
     },
 }
 
@@ -503,11 +513,17 @@ class Seq2SeqRNN(nn.Module):
         self.decoder = decoder
         self.src_pad_id = src_pad_id
 
-    def forward(self, input_seq, target_seq):
-        """Given the partial target sequence, predict the next token"""
+    def forward(self, input_seq, target_seq, return_attn=False):
+        """Given the partial target sequence, predict the next token.
+
+        When return_attn is True, also returns the per-step attention weights
+        stacked into [B, T-1, S] — used by the guided-attention loss during
+        training to bias attention toward a monotonic diagonal.
+        """
         batch_size, target_len = target_seq.shape
         enc_mask = input_seq != self.src_pad_id  # [B, S]
         outputs = []
+        attns = [] if return_attn else None
         enc_out, dec_hidden = self.encoder(input_seq)
         prev_attn = None
         for t in range(target_len - 1):
@@ -516,8 +532,60 @@ class Seq2SeqRNN(nn.Module):
             dec_out, dec_hidden, prev_attn = self.decoder(
                     dec_in, dec_hidden, enc_out, enc_mask, prev_attn)
             outputs.append(dec_out)
+            if return_attn:
+                attns.append(prev_attn)  # [B, 1, S]
         outputs = torch.cat(outputs, dim=1)
+        if return_attn:
+            attns = torch.cat(attns, dim=1)  # [B, T-1, S]
+            return outputs, attns, enc_mask
         return outputs
+
+
+def guided_attention_loss(
+    attn, enc_mask, tgt_mask, sigma=0.2,
+):
+    """Diagonal-prior penalty on attention weights.
+
+    Encourages α_{t,s} to concentrate near s/S ≈ t/T, which is the correct
+    prior for near-monotonic, near-equal-length alignments like
+    transliteration. The penalty is 1 − exp(−(s/S − t/T)² / (2σ²)), so
+    weight placed near the diagonal is cheap and weight placed far off it
+    is expensive.
+
+    Padded source and target positions are excluded from both the penalty
+    and the length normalization, so the diagonal is measured against
+    per-example valid lengths.
+
+    Args:
+        attn: [B, T, S] attention weights (must sum to 1 over S per step).
+        enc_mask: [B, S] bool, True on valid source positions.
+        tgt_mask: [B, T] bool, True on valid target positions.
+        sigma: width of the diagonal band as a fraction of the diagonal.
+            0.2 is a standard choice (Tacotron 2). Lower values narrow the
+            allowed band and are stricter about monotonicity.
+
+    Returns:
+        scalar loss.
+    """
+    B, T, S = attn.shape
+    device = attn.device
+    src_len = enc_mask.sum(dim=-1).clamp(min=1).to(attn.dtype)  # [B]
+    tgt_len = tgt_mask.sum(dim=-1).clamp(min=1).to(attn.dtype)  # [B]
+
+    s_idx = torch.arange(S, device=device, dtype=attn.dtype)
+    t_idx = torch.arange(T, device=device, dtype=attn.dtype)
+    # Normalized positions per example.
+    s_norm = s_idx.unsqueeze(0) / src_len.unsqueeze(1)  # [B, S]
+    t_norm = t_idx.unsqueeze(0) / tgt_len.unsqueeze(1)  # [B, T]
+
+    diff = t_norm.unsqueeze(2) - s_norm.unsqueeze(1)  # [B, T, S]
+    penalty = 1.0 - torch.exp(-(diff ** 2) / (2 * sigma * sigma))
+
+    # Ignore padded source and target positions in the sum + normalization.
+    valid = tgt_mask.unsqueeze(2) & enc_mask.unsqueeze(1)  # [B, T, S]
+    penalty = penalty * valid.to(attn.dtype)
+    loss = (attn * penalty).sum() / valid.to(attn.dtype).sum().clamp(min=1)
+    return loss
 
 
 class S2S:
@@ -623,28 +691,60 @@ class S2S:
         best_dev_loss = float("inf")
         stale_evals = 0
 
+        ga_weight_init = self.params.get("ga_weight", 0.0)
+        ga_sigma = self.params.get("ga_sigma", 0.2)
+        ga_anneal_epochs = self.params.get("ga_anneal_epochs", 0)
+
         for epoch in range(epochs):
             self.model.train()
             epoch_loss = 0
+            epoch_ga_loss = 0
+            # Linear anneal to zero over ga_anneal_epochs. After that the
+            # model must stand on its own — attention should already be
+            # bootstrapped and the prior would just distort refinements.
+            if ga_anneal_epochs > 0 and ga_weight_init > 0:
+                ga_weight = ga_weight_init * max(
+                        0.0, 1.0 - epoch / ga_anneal_epochs)
+            else:
+                ga_weight = 0.0
+            use_ga = ga_weight > 0
             for scr_ids, rom_ids in tqdm.tqdm(
                     self.train_loader, desc="Training"):
                 scr_ids = scr_ids.to(DEVICE)
                 rom_ids = rom_ids.to(DEVICE)
                 optimizer.zero_grad()
-                outputs = self.model(scr_ids, rom_ids)
-                loss = loss_fn(outputs.reshape(
+                if use_ga:
+                    outputs, attn, enc_mask = self.model(
+                            scr_ids, rom_ids, return_attn=True)
+                else:
+                    outputs = self.model(scr_ids, rom_ids)
+                ce = loss_fn(outputs.reshape(
                         -1, self.dec_dim), rom_ids[:, 1:].reshape(-1))
+                if use_ga:
+                    tgt_mask = rom_ids[:, 1:] != self.tgt_pad_id
+                    ga = guided_attention_loss(
+                            attn, enc_mask, tgt_mask, sigma=ga_sigma)
+                    loss = ce + ga_weight * ga
+                    epoch_ga_loss += ga.item()
+                else:
+                    loss = ce
                 loss.backward()
                 torch.nn.utils.clip_grad_norm_(
                         self.model.parameters(), self.params["grad_clip"])
                 optimizer.step()
                 if warmup.last_epoch < warmup.total_iters:
                     warmup.step()
-                epoch_loss += loss.item()
+                epoch_loss += ce.item()
+            n_batches = len(self.train_loader)
+            ga_msg = (
+                f"; GA loss {epoch_ga_loss/n_batches:.4f} (λ={ga_weight:.3f})"
+                if use_ga else ""
+            )
             logger.info(
                 f"Epoch {epoch+1}/{epochs}; "
-                f"Avg loss {epoch_loss/len(self.train_loader)}; "
-                f"Latest loss {loss.item()}"
+                f"Avg loss {epoch_loss/n_batches}; "
+                f"Latest loss {ce.item()}"
+                f"{ga_msg}"
             )
             # Latest snapshot — overwritten every epoch.
             torch.save(self.model.state_dict(), self.state_fpath)
