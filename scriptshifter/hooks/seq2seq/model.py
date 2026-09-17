@@ -910,6 +910,132 @@ class S2S:
                 print(f"Greedy pred: {greedy_pred}")
                 print()
 
+    def inspect_attention(
+        self, src=None, split="train", max_len=60, show_topk=3,
+    ):
+        """Trace attention weights across a greedy decode.
+
+        Prints one row per decoder step:
+            step  out_char  argmax_pos  entropy  entropy_norm  top-k positions
+        where
+            - argmax_pos: source index attention is most peaked on (0-based).
+            - entropy: attention entropy in nats over the valid (non-pad)
+              source positions.
+            - entropy_norm: entropy / log(S_valid). ~1.0 = uniform (attention
+              is doing nothing); low values (<0.3) = sharply peaked.
+            - top-k: the top-k source positions and their weights.
+
+        If `src` is None, one random pair is drawn from `split` for context.
+        Use this to distinguish attention collapse (uniform, non-advancing)
+        from other failure modes.
+        """
+        import math
+
+        self.model.eval()
+        if src is None:
+            pair = random.choice(read_langs(self.lang, split))
+            src, true_rom = pair
+        else:
+            true_rom = None
+
+        # Normalize the source the same way the training pipeline does,
+        # otherwise the tokenizer sees a slightly different string than what
+        # populated the encoder embedding table during training.
+        src_norm = normalize_fn[self.lang](src)
+        scr_enc = self.scr_tokenizer.encode(src_norm)
+        scr_ids = torch.tensor(scr_enc.ids).unsqueeze(0).to(DEVICE)
+        enc_mask = scr_ids != self.src_pad_id
+        s_valid = enc_mask.sum().item()
+
+        with torch.no_grad():
+            enc_out, hidden = self.model.encoder(scr_ids)
+            prev_token = torch.tensor(
+                [[self.rom_tokenizer.token_to_id(SOS_TOK)]]
+            ).to(DEVICE)
+            eos_id = self.rom_tokenizer.token_to_id(EOS_TOK)
+            prev_attn = None
+
+            src_tokens = scr_enc.tokens  # length s (may include specials)
+            print(f"Script:  {src}")
+            if true_rom is not None:
+                print(f"Roman:   {true_rom}")
+            print(f"src tokens (S={len(src_tokens)}, valid={s_valid}):")
+            for i, t in enumerate(src_tokens):
+                print(f"  [{i:3d}] {t!r}")
+            print()
+
+            uniform_ent = math.log(s_valid) if s_valid > 0 else 0.0
+            header = (
+                f"{'step':>4} {'out':<10} {'argmax':>6} "
+                f"{'ent':>7} {'ent/U':>6}   top-k"
+            )
+            print(header)
+            print("-" * len(header))
+
+            rows = []
+            for step in range(max_len):
+                output, hidden, prev_attn = self.model.decoder(
+                    prev_token, hidden, enc_out, enc_mask, prev_attn)
+                # prev_attn is [B=1, 1, S] — attention over source positions.
+                w = prev_attn[0, 0].detach()
+                # Entropy over valid positions only. Padded positions carry
+                # zero weight from the mask so they don't affect it, but we
+                # normalize by log(s_valid) for interpretability.
+                w_safe = w.clamp_min(1e-12)
+                ent = -(w * w_safe.log()).sum().item()
+                ent_norm = ent / uniform_ent if uniform_ent > 0 else 0.0
+                argmax_pos = int(w.argmax().item())
+                topk = torch.topk(w, k=min(show_topk, w.numel()))
+                topk_str = ", ".join(
+                    f"{int(i)}:{float(v):.2f}"
+                    for i, v in zip(topk.indices.tolist(),
+                                    topk.values.tolist())
+                )
+
+                tok_id = int(output.argmax(dim=2).item())
+                tok_str = self.rom_tokenizer.decode(
+                        [tok_id], skip_special_tokens=False)
+                if not tok_str.strip():
+                    # Preserve visibility of whitespace / specials.
+                    tok_str = repr(tok_str)
+
+                print(
+                    f"{step:>4} {tok_str:<10} {argmax_pos:>6} "
+                    f"{ent:>7.3f} {ent_norm:>6.2f}   {topk_str}"
+                )
+                rows.append((step, argmax_pos, ent, ent_norm))
+
+                prev_token = output.argmax(dim=2)
+                if tok_id == eos_id:
+                    break
+
+            if rows:
+                pos_seq = [r[1] for r in rows]
+                ent_norms = [r[3] for r in rows]
+                # Monotonicity: fraction of adjacent steps where argmax
+                # position does not go backwards.
+                if len(pos_seq) > 1:
+                    non_reversals = sum(
+                            1 for a, b in zip(pos_seq[:-1], pos_seq[1:])
+                            if b >= a)
+                    mono = non_reversals / (len(pos_seq) - 1)
+                else:
+                    mono = float("nan")
+                mean_ent_norm = sum(ent_norms) / len(ent_norms)
+                print()
+                print(
+                    f"summary: steps={len(rows)}  "
+                    f"mean ent/U={mean_ent_norm:.2f}  "
+                    f"argmax monotonic={mono:.2f}  "
+                    f"argmax range={min(pos_seq)}..{max(pos_seq)}"
+                )
+                print(
+                    "  ent/U ≈ 1.0 → attention is uniform (collapsed);\n"
+                    "  ent/U ≲ 0.3 → sharply peaked;\n"
+                    "  monotonic ≈ 1.0 and range spanning most of S → "
+                    "attention is sweeping the source."
+                )
+
     def evaluate(self, split="test", beam_size=4, max_len=60, limit=None):
         """End-to-end transliteration metrics on a held-out split.
 
