@@ -76,10 +76,15 @@ PARAMS = {
         "warmup": 4,
         "batch_size": 16,
         # Guided-attention loss: needed for n_layers > 1 so the decoder
-        # doesn't ignore attention. Anneals off after ga_anneal_epochs.
+        # doesn't ignore attention. Schedule: warm up λ from 0 over
+        # ga_warmup_epochs so CE gradient can roughly shape attention first,
+        # then anneal to 0 over ga_anneal_epochs so the prior doesn't
+        # distort refinements. σ=0.25 tolerates BPE-to-char length ratios
+        # of 5-7× common in transliteration.
         "ga_weight": 1.0,
-        "ga_sigma": 0.2,
-        "ga_anneal_epochs": 6,
+        "ga_sigma": 0.25,
+        "ga_warmup_epochs": 2,
+        "ga_anneal_epochs": 4,
     },
     "per": {
         "vocab_size": 16000,
@@ -96,8 +101,9 @@ PARAMS = {
         # 1-layer decoder learns attention on its own; leave the bias in
         # for a couple of epochs as a mild monotonicity prior.
         "ga_weight": 0.5,
-        "ga_sigma": 0.2,
-        "ga_anneal_epochs": 3,
+        "ga_sigma": 0.25,
+        "ga_warmup_epochs": 1,
+        "ga_anneal_epochs": 2,
     },
 }
 
@@ -507,11 +513,28 @@ class DecoderRNN(nn.Module):
 
 
 class Seq2SeqRNN(nn.Module):
-    def __init__(self, encoder, decoder, src_pad_id):
+    def __init__(
+        self, encoder, decoder, src_pad_id, src_sos_id=None, src_eos_id=None,
+    ):
         super().__init__()
         self.encoder = encoder
         self.decoder = decoder
         self.src_pad_id = src_pad_id
+        # Attention should target *content* tokens, not the SOS/EOS wrappers
+        # added by the tokenizer's post-processor. Attending to [start]/[end]
+        # gives attention a free "no signal" hiding place — observed empirically
+        # to cause step-0 lock-on when only pad is excluded.
+        self.src_sos_id = src_sos_id
+        self.src_eos_id = src_eos_id
+
+    def build_enc_mask(self, input_seq):
+        """[B, S] bool: True on valid, content source positions."""
+        mask = input_seq != self.src_pad_id
+        if self.src_sos_id is not None:
+            mask = mask & (input_seq != self.src_sos_id)
+        if self.src_eos_id is not None:
+            mask = mask & (input_seq != self.src_eos_id)
+        return mask
 
     def forward(self, input_seq, target_seq, return_attn=False):
         """Given the partial target sequence, predict the next token.
@@ -521,7 +544,7 @@ class Seq2SeqRNN(nn.Module):
         training to bias attention toward a monotonic diagonal.
         """
         batch_size, target_len = target_seq.shape
-        enc_mask = input_seq != self.src_pad_id  # [B, S]
+        enc_mask = self.build_enc_mask(input_seq)
         outputs = []
         attns = [] if return_attn else None
         enc_out, dec_hidden = self.encoder(input_seq)
@@ -612,6 +635,8 @@ class S2S:
         self.enc_dim = len(self.scr_tokenizer.get_vocab())
         self.dec_dim = len(self.rom_tokenizer.get_vocab())
         self.src_pad_id = self.scr_tokenizer.token_to_id(PAD_TOK)
+        self.src_sos_id = self.scr_tokenizer.token_to_id(SOS_TOK)
+        self.src_eos_id = self.scr_tokenizer.token_to_id(EOS_TOK)
         self.tgt_pad_id = self.rom_tokenizer.token_to_id(PAD_TOK)
         self.params = PARAMS[lang]
 
@@ -629,7 +654,10 @@ class S2S:
         ).to(DEVICE)
 
         # Seq2SeqRNN model.
-        self.model = Seq2SeqRNN(encoder, decoder, self.src_pad_id).to(DEVICE)
+        self.model = Seq2SeqRNN(
+            encoder, decoder,
+            self.src_pad_id, self.src_sos_id, self.src_eos_id,
+        ).to(DEVICE)
         state_dir = path.join(DATA_ROOT, "train_state", self.lang)
         self.best_fpath = path.join(state_dir, "best.pth")
         self.state_fpath = path.join(state_dir, "checkpoint.pth")
@@ -693,20 +721,31 @@ class S2S:
 
         ga_weight_init = self.params.get("ga_weight", 0.0)
         ga_sigma = self.params.get("ga_sigma", 0.2)
+        ga_warmup_epochs = self.params.get("ga_warmup_epochs", 0)
         ga_anneal_epochs = self.params.get("ga_anneal_epochs", 0)
 
         for epoch in range(epochs):
             self.model.train()
             epoch_loss = 0
             epoch_ga_loss = 0
-            # Linear anneal to zero over ga_anneal_epochs. After that the
-            # model must stand on its own — attention should already be
-            # bootstrapped and the prior would just distort refinements.
-            if ga_anneal_epochs > 0 and ga_weight_init > 0:
-                ga_weight = ga_weight_init * max(
-                        0.0, 1.0 - epoch / ga_anneal_epochs)
-            else:
+            # Schedule for λ over epochs:
+            #   [0, ga_warmup_epochs)               → ramp 0 → ga_weight_init
+            #   [ga_warmup_epochs, +ga_anneal)      → ramp ga_weight_init → 0
+            #   after that                          → 0 (loss term disabled)
+            # Warming up avoids a hot diagonal on epoch 0 dominating CE and
+            # locking attention onto whatever it saw first (e.g. [start]).
+            if ga_weight_init <= 0:
                 ga_weight = 0.0
+            elif epoch < ga_warmup_epochs:
+                ga_weight = ga_weight_init * (
+                        (epoch + 1) / max(1, ga_warmup_epochs))
+            else:
+                past_warmup = epoch - ga_warmup_epochs
+                if ga_anneal_epochs > 0:
+                    ga_weight = ga_weight_init * max(
+                            0.0, 1.0 - past_warmup / ga_anneal_epochs)
+                else:
+                    ga_weight = ga_weight_init
             use_ga = ga_weight > 0
             for scr_ids, rom_ids in tqdm.tqdm(
                     self.train_loader, desc="Training"):
@@ -794,7 +833,7 @@ class S2S:
         scr_ids = torch.tensor(
             self.scr_tokenizer.encode(src).ids
         ).unsqueeze(0).to(DEVICE)
-        enc_mask = scr_ids != self.src_pad_id
+        enc_mask = self.model.build_enc_mask(scr_ids)
         enc_out, hidden = self.model.encoder(scr_ids)
         prev_token = torch.tensor(
             [[self.rom_tokenizer.token_to_id(SOS_TOK)]]
@@ -824,7 +863,7 @@ class S2S:
         scr_ids = torch.tensor(
             self.scr_tokenizer.encode(src).ids
         ).unsqueeze(0).to(DEVICE)
-        enc_mask = scr_ids != self.src_pad_id
+        enc_mask = self.model.build_enc_mask(scr_ids)
         enc_out, hidden = self.model.encoder(scr_ids)
 
         # Tile encoder state across the beam dimension.
@@ -1044,7 +1083,7 @@ class S2S:
         src_norm = normalize_fn[self.lang](src)
         scr_enc = self.scr_tokenizer.encode(src_norm)
         scr_ids = torch.tensor(scr_enc.ids).unsqueeze(0).to(DEVICE)
-        enc_mask = scr_ids != self.src_pad_id
+        enc_mask = self.model.build_enc_mask(scr_ids)
         s_valid = enc_mask.sum().item()
 
         with torch.no_grad():
