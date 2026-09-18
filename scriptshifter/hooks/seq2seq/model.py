@@ -1,6 +1,57 @@
-# original code: https://machinelearningmastery.com/building-a-seq2seq-model-
-# with-attention-for-language-translation/
-# Heavily modified by hand & with AI assistant to support S2R transliteration.
+# General-purpose transliteration module based on a sequence-to-sequence (or
+# encoder/decoder) NLP algorithm.
+#
+# This model is well suited for transliterating languages that:
+#
+# 1. Present non-deterministic and heavily context-depending transliteration
+#    rules; or
+# 2. Have implicit vocalization or other marks; and
+# 3. Have a large corpus of ALA-LC transliterated examples available.
+#
+# #3 is especially important for the output quality. The source data have been
+# harvested from open data sets, aggregated, cleaned up, scored by frequency,
+# and split into train, dev, and test sets. The `build_splits.py` script
+# performs the splitting from a clean data set (CSV), in a not idempotent way,
+# i.e, rebuilding the splits from the same source will yield different results.
+#
+# Languages can be added to this module. To do that:
+#
+# 1. Define a codename for the new language or script (e.g. `per` for Persian).
+# 2. Create a data set from your harvested data (note: this repository does not
+#    contain any original data or the tools to transform them) and save it as
+#    `data/raw/extracted-[codename]-agg.csv`.
+# 3. Run `build_splits.py` on the raw file to generate the splits.
+# 4. Based on the language complexity and features, and on the available train
+#    data size, define the model's hyperparameters: copy one of the blocks
+#    under `PARAMS` below, add it to the dict using a key corresponding to your
+#    new codename, and modiify the values.
+# 5. In a Python shell, load the module and train it (see below).
+# 6. Test the model using `S2S.transliterate()` or `S2S.sample_predictions()`.
+# 7. If all is well, wire the new language in the SS interface (see below).
+#
+# To train the model, run:
+# ```
+# from scriptshifter.hooks.seq2seq.model import S2S
+# model = S2S("[codename]")
+# model.train()  # optionally, pass `epochs=[int]` to limit the epochs
+# ```
+#
+# To add the language to Scriptshifter, copy one of the language configurations
+# for existing S2S models (e.g. `arabic.yml`, `persian.yml` and adjust it to
+# match your language codename and other metadata. Then, run
+#
+# ```
+# sscli admin init-db`
+# ```
+#
+# To create the language entries in the database.
+#
+# Note: this module has only been used for script-to-Roman transliteration so
+# far. In fact, the Persian and Arabic languages use this module for S2R and
+# traditional rules for R2S. This module may be used for R2S by using separate
+# source data and models, and considering "roman" as the script, and vice
+# versa. A better solution would be to add bidirectional capabilities to the
+# S2S module, but this hasn't been required yet.
 
 import csv
 import random
@@ -60,17 +111,22 @@ UNK_TOK = "[unk]"
 
 
 # Model parameters, per language.
+# Tags:
+# DR: Delete model data and retrain from scratch if changed.
+# R: Retrain from latest checkpoint if changed. Large changes require more
+#   training.
+# All other paramaters are safe to change without retraining.
 PARAMS = {
     "ara": {
-        # Tokenizer parameters for script only.
-        "vocab_size": 16000,
-        # Encoder and decoder parameters.
-        "emb_dim": 384,
-        "dropout": 0.1,
-        "n_layers": 2,
+        # Shape parameters.
+        "vocab_size": 16000,  # DR
+        "emb_dim": 384,  # DR
+        "n_layers": 2,  # DR
+        # Weighting parameters.
+        "dropout": 0.1,  # R
+        "weight_decay": 1e-5,  # R
+        "grad_clip": 1.5,  # R
         "lr": 2e-4,
-        "weight_decay": 1e-5,
-        "grad_clip": 1.5,
         # Training parameters.
         "n_epochs": 20,
         "warmup": 4,
@@ -87,17 +143,20 @@ PARAMS = {
         "ga_anneal_epochs": 4,
     },
     "per": {
-        "vocab_size": 16000,
-        "emb_dim": 256,
-        "dropout": 0.2,
-        "n_layers": 1,
+        # Shape parameters.
+        "vocab_size": 16000,  # DR
+        "emb_dim": 256,  # DR
+        "n_layers": 1,  # DR
+        # Weighting parameters.
+        "dropout": 0.2,  # R
+        "weight_decay": 1e-5,  # R
+        "grad_clip": 0.5,  # R
         "lr": 4e-4,
-        "weight_decay": 1e-5,
-        "grad_clip": 0.5,
         # Training parameters.
         "n_epochs": 50,
         "warmup": 2,
         "batch_size": 32,
+        # Guided attention parameters.
         # 1-layer decoder learns attention on its own; leave the bias in
         # for a couple of epochs as a mild monotonicity prior.
         "ga_weight": 0.5,
