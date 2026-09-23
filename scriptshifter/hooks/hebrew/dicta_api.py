@@ -6,7 +6,7 @@ from scriptshifter.exceptions import BREAK, UpstreamError
 from scriptshifter.hooks.general import capitalize_post_assembly
 
 EP = environ.get("TXL_DICTA_EP")
-DEFAULT_GENRE = "rabbinic"
+DEFAULT_GENRE = "modern"
 
 
 def s2r_post_config(ctx):

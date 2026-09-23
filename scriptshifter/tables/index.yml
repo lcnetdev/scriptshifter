@@ -28,16 +28,10 @@ amharic:
   name: Amharic
 arabic:
   description: >
-    Arabic-to-Roman transliterator using the ArabicTransliterator external
-    library.
+    Arabic transliterator using an in-house built machine learning
+    algorithm for S2R, and traditional rules table for R2S.
   marc_code: ara
   name: Arabic
-arabic_test:
-  description: >
-    Arabic-to-Roman transliterator using an in-house built machine learning
-    algorithm.
-  marc_code: ara
-  name: "Arabic (test)"
 argobba_ethiopic:
   alias_of: ethiopic_generic
   marc_code: amh
@@ -410,6 +404,9 @@ permyak_cyrillic:
 persian:
   marc_code: per
   name: Persian
+  description: >
+    Persian transliterator using an in-house built machine learning
+    algorithm for S2R, and traditional rules table for R2S.
 prakrit_devanagari:
   marc_code: pra
   name: Prakrit (Devanagari)
