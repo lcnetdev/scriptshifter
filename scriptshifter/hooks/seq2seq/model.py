@@ -63,11 +63,11 @@ UNK_TOK = "[unk]"
 PARAMS = {
     "ara": {
         # Tokenizer parameters for script only.
-        "vocab_size": 16000,
+        "vocab_size": 1000,
         # Encoder and decoder parameters.
-        "emb_dim": 384,
+        "emb_dim": 256,
         "dropout": 0.1,
-        "n_layers": 2,
+        "n_layers": 1,
         "lr": 2e-4,
         "weight_decay": 1e-5,
         "grad_clip": 1.5,
@@ -81,7 +81,7 @@ PARAMS = {
         # then anneal to 0 over ga_anneal_epochs so the prior doesn't
         # distort refinements. σ=0.25 tolerates BPE-to-char length ratios
         # of 5-7× common in transliteration.
-        "ga_weight": 1.0,
+        "ga_weight": .5,
         "ga_sigma": 0.25,
         "ga_warmup_epochs": 2,
         "ga_anneal_epochs": 4,
@@ -676,6 +676,12 @@ class S2S:
         else:
             logger.warn("Model is not trained.")
             self.trained = False
+        logger.info(
+            f"Loaded {load_path}; "
+            f"enc.emb norm={self.model.encoder.embedding.weight.norm().item():.4f}; "
+            f"dec.emb norm={self.model.decoder.embedding.weight.norm().item():.4f}; "
+            f"trained={self.trained}"
+        )
 
         total_params = sum(
                 p.numel() for p in self.model.parameters() if p.requires_grad)
