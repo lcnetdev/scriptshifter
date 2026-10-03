@@ -251,8 +251,9 @@ def read_langs(script, split="train"):
         # Read the file and split into lines
         with open(src_path, newline="") as fh:
             reader = csv.reader(fh)
+            # All combined characters are normalized to their decomposed form.
             pairs = [
-                (normalize_fn[script](row[0]), normalize("NFKC", row[1]))
+                (normalize_fn[script](row[0]), normalize("NFD", row[1]))
                 for row in reader
                 if _in_range(row[0], script)
             ]
