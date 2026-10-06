@@ -1,10 +1,10 @@
 ---
 general:
-  name: Tamashek
+  name: Tamashek      
   case_sensitive: false
   description: Tamashek language in the Tifinagh script.
-  version: 1.0.0
-  date: 2026-04-02
+  version: 1.0.1
+  date: 2026-04-05
   parents:
     - tifinagh_generic
 
@@ -31,7 +31,6 @@ general:
 roman_to_script:
   map:
 
-    "\u002C": "\u2D70"
     "\u00B0": "\u2D6F"
     "\u0259": "\u2D53"
     "\u0263": "\u2D58"
@@ -106,6 +105,5 @@ script_to_roman:
     "\u2D66": "e"
     "\u2D67\u0302": "o\u0302"
     "\u2D6F": "u"
-    "\u2D70": "\u002C"
     "\u2D7F": "\u200D"
     "\u2D7F": "\u02B9"
