@@ -3,8 +3,8 @@ general:
   name: Lepcha
   case_sensitive: false
   description: Lepcha language in the Lepcha (Rong) script.
-  version: 1.0.0
-  date: 2026-01-08
+  version: 1.0.1
+  date: 2026-01-12
   parents:
     - _ignore_base
 
