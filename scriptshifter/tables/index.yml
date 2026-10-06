@@ -307,6 +307,9 @@ malayalam:
 manchu:
   marc_code: mnc
   name: Manchu
+mandekan_nko:
+  marc_code: man
+  name: Mandekan (N'ko)
 manipuri_bengali:
   marc_code: mni
   name: Manipuri (Bengali)
@@ -361,6 +364,9 @@ nivkh_cyrillic:
   alias_of: cyrillic_generic
   marc_code: mis
   name: Nivkh (Cyrillic)
+nko_generic:
+  marc_code: nqo
+  name: N'ko (Generic)
 nogai_cyrillic:
   alias_of: cyrillic_generic
   marc_code: nog
