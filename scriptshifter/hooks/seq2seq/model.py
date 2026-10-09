@@ -54,7 +54,9 @@
 # S2S module, but this hasn't been required yet.
 
 import csv
+import hashlib
 import random
+import re
 from logging import getLogger
 from os import makedirs, path
 from shutil import copy
@@ -66,6 +68,11 @@ import torch.nn.functional as F
 import torch.optim as optim
 import tokenizers
 import tqdm
+from yaml import load as yaml_load
+try:
+    from yaml import CLoader as YamlLoader
+except ImportError:
+    from yaml import Loader as YamlLoader
 
 # Script-specific modules.
 # Arabic
@@ -282,16 +289,36 @@ def read_langs(script, split="train"):
 # Tokenization
 #
 
-def tokenize(lang, code, vocab, level="bpe"):
+def _static_cache_tag(static_map):
+    """Short hash suffix for tokenizer cache files, so changing the static
+    map doesn't silently reuse a tokenizer trained on different data."""
+    if not static_map:
+        return ""
+    payload = "\n".join(f"{k}\t{v}" for k, v in sorted(static_map.items()))
+    return "_" + hashlib.md5(payload.encode("utf-8")).hexdigest()[:8]
+
+
+def _strip_tokens(text, keys):
+    """Remove any occurrence of the given tokens from text (longest-first)."""
+    if not keys:
+        return text
+    pattern = re.compile("|".join(re.escape(k) for k in keys))
+    return pattern.sub("", text)
+
+
+def tokenize(lang, code, vocab, level="bpe", cache_tag=""):
     """Build or load a tokenizer.
 
     level="bpe": byte-level BPE with a 16k vocab — used for the script side.
     level="char": character-level vocab (~40 symbols) — used for the Roman
     output side, where graphemes align directly to characters and a small
     output vocab improves generalization for transliteration.
+
+    cache_tag is appended to the on-disk cache filename, so different static
+    configurations don't collide on the same cached tokenizer.
     """
     tok_datadir = path.join(DATA_ROOT, "tokenizer", lang)
-    fname = path.join(tok_datadir, f"{code}_tokenizer.json")
+    fname = path.join(tok_datadir, f"{code}_tokenizer{cache_tag}.json")
 
     if path.exists(fname):
         logger.debug("Reused token data.")
@@ -369,15 +396,33 @@ def get_collate_fn(scr_tokenizer, rom_tokenizer):
     return collate_fn
 
 
-def get_dataloaders(lang):
+def get_dataloaders(lang, static_map=None):
     train_pairs = read_langs(lang, "train")
     logger.debug("Loaded pairs.")
+
+    if static_map:
+        # Strip static tokens from both sides so they stay out of the
+        # tokenizer vocabulary and the model's learned distribution. They
+        # are re-inserted deterministically at inference time by
+        # S2S.transliterate() via the static map.
+        scr_keys = sorted(static_map.keys(), key=len, reverse=True)
+        rom_keys = sorted(set(static_map.values()), key=len, reverse=True)
+        train_pairs = [
+            (_strip_tokens(s, scr_keys), _strip_tokens(r, rom_keys))
+            for s, r in train_pairs
+        ]
+        # Drop pairs that are now empty on either side.
+        train_pairs = [p for p in train_pairs if p[0].strip() and p[1].strip()]
+
+    cache_tag = _static_cache_tag(static_map)
     # Tokenizers are fit on training data only
-    scr_tokenizer = tokenize(lang, "scr", [x[0] for x in train_pairs])
+    scr_tokenizer = tokenize(
+            lang, "scr", [x[0] for x in train_pairs], cache_tag=cache_tag)
     logger.debug("Tokenized script.")
     # Char-level for the Roman output: ~40-symbol vocab aligns to graphemes
     # and avoids BPE merges that don't correspond to script boundaries.
-    rom_tokenizer = tokenize(lang, "rom", [x[1] for x in train_pairs])
+    rom_tokenizer = tokenize(
+            lang, "rom", [x[1] for x in train_pairs], cache_tag=cache_tag)
     logger.debug("Tokenized Roman.")
 
     collate = get_collate_fn(scr_tokenizer, rom_tokenizer)
@@ -390,6 +435,14 @@ def get_dataloaders(lang):
     dev_path = path.join(DATA_ROOT, "source", lang, "dev.csv")
     if path.exists(dev_path):
         dev_pairs = read_langs(lang, "dev")
+        if static_map:
+            dev_pairs = [
+                (_strip_tokens(s, scr_keys), _strip_tokens(r, rom_keys))
+                for s, r in dev_pairs
+            ]
+            dev_pairs = [
+                p for p in dev_pairs if p[0].strip() and p[1].strip()
+            ]
         dev_loader = torch.utils.data.DataLoader(
                 TransliterationDataset(dev_pairs),
                 batch_size=PARAMS[lang]["batch_size"], shuffle=False,
@@ -672,7 +725,7 @@ def guided_attention_loss(
 
 
 class S2S:
-    def __init__(self, lang, state_fpath=None, n_layers=None):
+    def __init__(self, lang, state_fpath=None, n_layers=None, static=None):
         """
         Instantiate a Seq2Seq model.
 
@@ -686,12 +739,23 @@ class S2S:
             Normally this is hardcoded in the language configuration, but when
             loading a bespoke model file, the n_layers must match the one used
             to train that model.
+
+        @param static (str) Optional path to a YAML file containing fixed
+            script-to-roman token mappings (punctuation, numerals, invariant
+            long tokens). Entries are an ordered mapping: script key → roman
+            value. Tokens listed here are stripped from training pairs so
+            they stay out of the tokenizer vocabulary, and are applied as
+            deterministic substitutions in transliterate() before the neural
+            model runs on the remaining spans. Changing this file produces a
+            new tokenizer cache; the model must be retrained to match.
         """
         self.lang = lang
+        self.static_map = self._load_static(static)
 
         # Data loaders.
         (self.train_loader, self.dev_loader,
-         self.scr_tokenizer, self.rom_tokenizer) = get_dataloaders(self.lang)
+         self.scr_tokenizer, self.rom_tokenizer) = get_dataloaders(
+                self.lang, static_map=self.static_map)
         self.enc_dim = len(self.scr_tokenizer.get_vocab())
         self.dec_dim = len(self.rom_tokenizer.get_vocab())
         self.src_pad_id = self.scr_tokenizer.token_to_id(PAD_TOK)
@@ -1002,21 +1066,66 @@ class S2S:
         # Strip leading SOS; trailing EOS (if present) is fine for the decoder.
         return best[1:]
 
+    def _load_static(self, fpath):
+        """Load a static script→roman map from YAML and normalize both sides
+        to the same form the training pipeline uses."""
+        if not fpath:
+            return {}
+        with open(fpath) as fh:
+            data = yaml_load(fh, Loader=YamlLoader) or {}
+        norm_scr = normalize_fn[self.lang]
+        result = {}
+        for k, v in data.items():
+            k = norm_scr(str(k))
+            v = normalize("NFD", str(v))
+            if k:
+                result[k] = v
+        return result
+
+    def _segment_by_static(self, text):
+        """Split `text` into [(is_static, segment), ...]: static entries are
+        already the mapped roman form; non-static entries are source-script
+        runs still to be fed through the model. Longest-first matching
+        prevents a short key from eating a prefix of a longer one."""
+        if not self.static_map:
+            return [(False, text)]
+        keys = sorted(self.static_map.keys(), key=len, reverse=True)
+        pattern = re.compile("|".join(re.escape(k) for k in keys))
+        segments = []
+        pos = 0
+        for m in pattern.finditer(text):
+            if m.start() > pos:
+                segments.append((False, text[pos:m.start()]))
+            segments.append((True, self.static_map[m.group(0)]))
+            pos = m.end()
+        if pos < len(text):
+            segments.append((False, text[pos:]))
+        return segments
+
     def transliterate(self, src, beam_size=4):
         # Apply training-time normalization so the tokenizer sees the same
         # form it was trained on (e.g. Arabic yeh → Persian yeh).
         src = normalize_fn[self.lang](src)
-        self.model.eval()
-        with torch.no_grad():
-            if beam_size <= 1:
-                pred_ids = self._greedy_decode(src, max_len=MAX_SRC_CHARS)
-            else:
-                pred_ids = self._beam_decode(
-                        src, max_len=MAX_SRC_CHARS, beam_size=beam_size)
+        # Deterministic substitutions from the static map run first; the
+        # model only sees the spans in between.
+        segments = self._segment_by_static(src)
         eos_id = self.rom_tokenizer.token_to_id(EOS_TOK)
-        if pred_ids and pred_ids[-1] == eos_id:
-            pred_ids = pred_ids[:-1]
-        return self.rom_tokenizer.decode(pred_ids)
+        self.model.eval()
+        out_parts = []
+        with torch.no_grad():
+            for is_static, seg in segments:
+                if is_static or not seg.strip():
+                    out_parts.append(seg)
+                    continue
+                if beam_size <= 1:
+                    pred_ids = self._greedy_decode(seg, max_len=MAX_SRC_CHARS)
+                else:
+                    pred_ids = self._beam_decode(
+                            seg, max_len=MAX_SRC_CHARS, beam_size=beam_size)
+                if pred_ids and pred_ids[-1] == eos_id:
+                    pred_ids = pred_ids[:-1]
+                out_parts.append(self.rom_tokenizer.decode(pred_ids))
+        return "".join(out_parts)
 
     def sample_predictions(self, ct=5, beam_size=4, split="dev"):
         """Print a handful of full predictions for visual inspection."""
