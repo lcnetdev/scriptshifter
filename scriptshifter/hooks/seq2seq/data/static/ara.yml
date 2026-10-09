@@ -1,39 +1,49 @@
-# Sample static token map for Arabic (ara).
-#
-# Entries are an ordered mapping: script key → roman value. Tokens listed
-# here are stripped from training pairs (so they stay out of the model
-# vocabulary) and substituted deterministically at transliteration time,
-# before the neural model runs on the surrounding spans.
-#
-# Keep keys in NFD when they involve combining marks; normalization is
-# applied on load but writing them NFD avoids surprises.
-#
-# Suggested contents: numerals, punctuation, and any longer tokens that
-# always transliterate the same way (acronyms, fixed names, etc.).
-#
-# NOTE: each roman value is also stripped from the roman side of every
-# training pair, so avoid values that can appear in roman training text
-# for reasons OTHER than their script key — otherwise the pair alignment
-# breaks. E.g. mapping "۔" → "." will also strip legitimate ASCII periods
-# from English leakage, truncated transliterations, etc.
+map:
+  # Sample static token map for Arabic (ara).
+  #
+  # Entries are an ordered mapping: script key → roman value. Tokens listed
+  # here are stripped from training pairs (so they stay out of the model
+  # vocabulary) and substituted deterministically at transliteration time,
+  # before the neural model runs on the surrounding spans.
+  #
+  # Keep keys in NFD when they involve combining marks; normalization is
+  # applied on load but writing them NFD avoids surprises.
+  #
+  # Suggested contents: numerals, punctuation, and any longer tokens that
+  # always transliterate the same way (acronyms, fixed names, etc.).
+  #
+  # NOTE: each roman value is also stripped from the roman side of every
+  # training pair, so avoid values that can appear in roman training text
+  # for reasons OTHER than their script key — otherwise the pair alignment
+  # breaks. E.g. mapping "۔" → "." will also strip legitimate ASCII periods
+  # from English leakage, truncated transliterations, etc.
 
-# Arabic-Indic numerals
-"٠": "0"
-"١": "1"
-"٢": "2"
-"٣": "3"
-"٤": "4"
-"٥": "5"
-"٦": "6"
-"٧": "7"
-"٨": "8"
-"٩": "9"
+  # Arabic-Indic numerals
+  "٠": "0"
+  "١": "1"
+  "٢": "2"
+  "٣": "3"
+  "٤": "4"
+  "٥": "5"
+  "٦": "6"
+  "٧": "7"
+  "٨": "8"
+  "٩": "9"
 
-# Arabic punctuation
-"،": ","
-"؛": ";"
-"؟": "?"
-"٪": "%"
-"٫": "."
-"٬": ","
-"۔": "."
+  # Arabic punctuation
+  "،": ","
+  "؛": ";"
+  "؟": "?"
+  "٪": "%"
+  "٫": "."
+  "٬": ","
+  "۔": "."
+
+ignore:
+  - "/"
+  - "{"
+  - ")"
+  - "["
+  - "]"
+  - "{"
+  - "}"

@@ -1067,19 +1067,36 @@ class S2S:
         return best[1:]
 
     def _load_static(self, fpath):
-        """Load a static script→roman map from YAML and normalize both sides
-        to the same form the training pipeline uses."""
+        """Load a static token map from YAML and normalize to the same form
+        the training pipeline uses.
+
+        The YAML has two top-level keys:
+            map:    script key → roman value for tokens that always
+                    transliterate the same way.
+            ignore: list of tokens (punctuation, markup, etc.) that should
+                    be copied verbatim through the pipeline. These are
+                    merged into the returned map as identity entries
+                    (token → token) so both groups share the same stripping
+                    and segmentation logic.
+        """
         if not fpath:
             return {}
         with open(fpath) as fh:
             data = yaml_load(fh, Loader=YamlLoader) or {}
         norm_scr = normalize_fn[self.lang]
         result = {}
-        for k, v in data.items():
+        for k, v in (data.get("map") or {}).items():
             k = norm_scr(str(k))
             v = normalize("NFD", str(v))
             if k:
                 result[k] = v
+        for tok in (data.get("ignore") or []):
+            tok = str(tok)
+            # Normalize on each side independently so stripping lines up
+            # whether the token appears on the script or roman side.
+            k = norm_scr(tok)
+            if k:
+                result[k] = normalize("NFD", tok)
         return result
 
     def _segment_by_static(self, text):
