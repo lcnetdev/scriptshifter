@@ -1,3 +1,4 @@
+---
 map:
   # Sample static token map for Arabic (ara).
   #
@@ -39,6 +40,8 @@ map:
   "٬": ","
   "۔": "."
 
+# These rules are different from R2S ones found in regula tables, as they are
+# applied to the source script.
 ignore:
   - "/"
   - "{"
@@ -47,3 +50,4 @@ ignore:
   - "]"
   - "{"
   - "}"
+  - "="
