@@ -267,7 +267,8 @@ def read_langs(script, split="train"):
         pre_filter = len(pairs)
         pairs = [
             (s, r) for s, r in pairs
-            if len(s) <= MAX_SRC_CHARS and len(r) <= MAX_TGT_CHARS
+            if s.strip() and r.strip()
+            and len(s) <= MAX_SRC_CHARS and len(r) <= MAX_TGT_CHARS
         ]
         dropped = pre_filter - len(pairs)
         if dropped:
@@ -566,6 +567,12 @@ class BahdanauAttention(nn.Module):
         scores = scores.transpose(1, 2)  # [B, 1, S]
         if mask is not None:
             scores = scores.masked_fill(~mask.unsqueeze(1), float("-inf"))
+            # If a row has no valid source positions, softmax over all -inf
+            # yields NaN and poisons every subsequent update. Zero the scores
+            # for such rows so softmax returns a (meaningless) uniform
+            # distribution instead; the pair should be filtered upstream.
+            all_masked = (~mask).all(dim=-1, keepdim=True).unsqueeze(1)
+            scores = scores.masked_fill(all_masked, 0.0)
         weights = F.softmax(scores, dim=-1)
         context = torch.bmm(weights, keys)
         return context, weights
