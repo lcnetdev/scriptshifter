@@ -151,7 +151,7 @@ PARAMS = {
     },
     "per": {
         # Shape parameters.
-        "vocab_size": 16000,  # DR
+        "vocab_size": 1000,  # DR
         "emb_dim": 256,  # DR
         "n_layers": 1,  # DR
         # Weighting parameters.
