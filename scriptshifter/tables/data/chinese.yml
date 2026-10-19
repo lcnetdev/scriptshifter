@@ -11,8 +11,8 @@ general:  # Section names and other keywords are all snake_cased.
   description: >
     Chinese transliteration derived and kept in sync with Princeton's OCLC
     Connexion Pinyin converter (https://github.com/pulibrary/oclcpinyin/).
-  version: 1.0.0
-  date: 2025-11-29
+  version: 1.0.1
+  date: 2026-02-09
   parents:
     - _ignore_base
 

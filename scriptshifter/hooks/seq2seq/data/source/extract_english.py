@@ -29,8 +29,22 @@ from os import path
 #   music, world, press, book, world, prophet, caliph, writer, directed,
 #   economic, states, distribution, mahmoud, hussein, hossein,
 #   mohammed, assembly, revolution, strategic, president, mohammed, etc.
-with open(path.join(path.dirname(__file__), "english_word_list.json")) as _fh:
+with open("/tmp/english_word_list.json") as _fh:
     WORDS = set(json.load(_fh))
+
+# Hand-added unambiguous English words / English-spelling names (not ALA-LC).
+WORDS |= {
+    # Pure English words
+    "that", "over", "union", "than", "european", "countries",
+    "organizations", "yearbook", "language", "days", "human", "within",
+    "life", "world", "society", "philosophy", "music",
+    # English-spelling (not ALA-LC) renderings of Persian/Arabic names.
+    # ALA-LC would use diacritics (ʻ, ī, ū, ṣ, ḥ, …), so these forms indicate
+    # a row that was not properly transliterated.
+    "mohammad", "mohammed", "ahmed", "pahlavi", "reza", "mesbah",
+    "morteza", "javad", "taghi", "hossein", "hussein", "mahmoud",
+    "ahmadinejad", "mosaddeq",
+}
 
 # Compile the alternation pattern. `\b` is Unicode-aware; the Roman side is
 # normalized to NFC before matching so composed diacritics (e.g. "ī") are
