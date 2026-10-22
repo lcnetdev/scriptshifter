@@ -1,9 +1,62 @@
-# original code: https://machinelearningmastery.com/building-a-seq2seq-model-
-# with-attention-for-language-translation/
-# Heavily modified by hand & with AI assistant to support S2R transliteration.
+# General-purpose transliteration module based on a sequence-to-sequence (or
+# encoder/decoder) NLP algorithm.
+#
+# This model is well suited for transliterating languages that:
+#
+# 1. Present non-deterministic and heavily context-depending transliteration
+#    rules; or
+# 2. Have implicit vocalization or other marks; and
+# 3. Have a large corpus of ALA-LC transliterated examples available.
+#
+# #3 is especially important for the output quality. The source data have been
+# harvested from open data sets, aggregated, cleaned up, scored by frequency,
+# and split into train, dev, and test sets. The `build_splits.py` script
+# performs the splitting from a clean data set (CSV), in a not idempotent way,
+# i.e, rebuilding the splits from the same source will yield different results.
+#
+# Languages can be added to this module. To do that:
+#
+# 1. Define a codename for the new language or script (e.g. `per` for Persian).
+# 2. Create a data set from your harvested data (note: this repository does not
+#    contain any original data or the tools to transform them) and save it as
+#    `data/raw/extracted-[codename]-agg.csv`.
+# 3. Run `build_splits.py` on the raw file to generate the splits.
+# 4. Based on the language complexity and features, and on the available train
+#    data size, define the model's hyperparameters: copy one of the blocks
+#    under `PARAMS` below, add it to the dict using a key corresponding to your
+#    new codename, and modiify the values.
+# 5. In a Python shell, load the module and train it (see below).
+# 6. Test the model using `S2S.transliterate()` or `S2S.sample_predictions()`.
+# 7. If all is well, wire the new language in the SS interface (see below).
+#
+# To train the model, run:
+# ```
+# from scriptshifter.hooks.seq2seq.model import S2S
+# model = S2S("[codename]")
+# model.train()  # optionally, pass `epochs=[int]` to limit the epochs
+# ```
+#
+# To add the language to Scriptshifter, copy one of the language configurations
+# for existing S2S models (e.g. `arabic.yml`, `persian.yml` and adjust it to
+# match your language codename and other metadata. Then, run
+#
+# ```
+# sscli admin init-db`
+# ```
+#
+# To create the language entries in the database.
+#
+# Note: this module has only been used for script-to-Roman transliteration so
+# far. In fact, the Persian and Arabic languages use this module for S2R and
+# traditional rules for R2S. This module may be used for R2S by using separate
+# source data and models, and considering "roman" as the script, and vice
+# versa. A better solution would be to add bidirectional capabilities to the
+# S2S module, but this hasn't been required yet.
 
 import csv
+import hashlib
 import random
+import re
 from logging import getLogger
 from os import makedirs, path
 from shutil import copy
@@ -15,6 +68,11 @@ import torch.nn.functional as F
 import torch.optim as optim
 import tokenizers
 import tqdm
+from yaml import load as yaml_load
+try:
+    from yaml import CLoader as YamlLoader
+except ImportError:
+    from yaml import Loader as YamlLoader
 
 # Script-specific modules.
 # Arabic
@@ -60,34 +118,58 @@ UNK_TOK = "[unk]"
 
 
 # Model parameters, per language.
+# Tags:
+# DR: Delete model data and retrain from scratch if changed.
+# R: Retrain from latest checkpoint if changed. Large changes require more
+#   training.
+# All other paramaters are safe to change without retraining.
 PARAMS = {
     "ara": {
-        # Tokenizer parameters for script only.
-        "vocab_size": 16000,
-        # Encoder and decoder parameters.
-        "emb_dim": 384,
-        "dropout": 0.1,
-        "n_layers": 1,
+        # Shape parameters.
+        "vocab_size": 1000,  # DR
+        "emb_dim": 256,  # DR
+        "n_layers": 1,  # DR
+        # Weighting parameters.
+        "dropout": 0.1,  # R
+        "weight_decay": 1e-5,  # R
+        "grad_clip": 1.5,  # R
         "lr": 2e-4,
-        "weight_decay": 1e-5,
-        "grad_clip": 1.5,
         # Training parameters.
         "n_epochs": 20,
         "warmup": 4,
         "batch_size": 16,
+        # Guided-attention loss: needed for n_layers > 1 so the decoder
+        # doesn't ignore attention. Schedule: warm up λ from 0 over
+        # ga_warmup_epochs so CE gradient can roughly shape attention first,
+        # then anneal to 0 over ga_anneal_epochs so the prior doesn't
+        # distort refinements. σ=0.25 tolerates BPE-to-char length ratios
+        # of 5-7× common in transliteration.
+        "ga_weight": .5,
+        "ga_sigma": 0.25,
+        "ga_warmup_epochs": 2,
+        "ga_anneal_epochs": 4,
     },
     "per": {
-        "vocab_size": 16000,
-        "emb_dim": 256,
-        "dropout": 0.2,
-        "n_layers": 1,
+        # Shape parameters.
+        "vocab_size": 1000,  # DR
+        "emb_dim": 256,  # DR
+        "n_layers": 1,  # DR
+        # Weighting parameters.
+        "dropout": 0.2,  # R
+        "weight_decay": 1e-5,  # R
+        "grad_clip": 0.5,  # R
         "lr": 4e-4,
-        "weight_decay": 1e-5,
-        "grad_clip": 0.5,
         # Training parameters.
         "n_epochs": 50,
         "warmup": 2,
         "batch_size": 32,
+        # Guided attention parameters.
+        # 1-layer decoder learns attention on its own; leave the bias in
+        # for a couple of epochs as a mild monotonicity prior.
+        "ga_weight": 0.5,
+        "ga_sigma": 0.25,
+        "ga_warmup_epochs": 1,
+        "ga_anneal_epochs": 2,
     },
 }
 
@@ -176,15 +258,17 @@ def read_langs(script, split="train"):
         # Read the file and split into lines
         with open(src_path, newline="") as fh:
             reader = csv.reader(fh)
+            # All combined characters are normalized to their decomposed form.
             pairs = [
-                (normalize_fn[script](row[0]), normalize("NFKC", row[1]))
+                (normalize_fn[script](row[0]), normalize("NFD", row[1]))
                 for row in reader
                 if _in_range(row[0], script)
             ]
         pre_filter = len(pairs)
         pairs = [
             (s, r) for s, r in pairs
-            if len(s) <= MAX_SRC_CHARS and len(r) <= MAX_TGT_CHARS
+            if s.strip() and r.strip()
+            and len(s) <= MAX_SRC_CHARS and len(r) <= MAX_TGT_CHARS
         ]
         dropped = pre_filter - len(pairs)
         if dropped:
@@ -206,16 +290,36 @@ def read_langs(script, split="train"):
 # Tokenization
 #
 
-def tokenize(lang, code, vocab, level="bpe"):
+def _static_cache_tag(static_map):
+    """Short hash suffix for tokenizer cache files, so changing the static
+    map doesn't silently reuse a tokenizer trained on different data."""
+    if not static_map:
+        return ""
+    payload = "\n".join(f"{k}\t{v}" for k, v in sorted(static_map.items()))
+    return "_" + hashlib.md5(payload.encode("utf-8")).hexdigest()[:8]
+
+
+def _strip_tokens(text, keys):
+    """Remove any occurrence of the given tokens from text (longest-first)."""
+    if not keys:
+        return text
+    pattern = re.compile("|".join(re.escape(k) for k in keys))
+    return pattern.sub("", text)
+
+
+def tokenize(lang, code, vocab, level="bpe", cache_tag=""):
     """Build or load a tokenizer.
 
     level="bpe": byte-level BPE with a 16k vocab — used for the script side.
     level="char": character-level vocab (~40 symbols) — used for the Roman
     output side, where graphemes align directly to characters and a small
     output vocab improves generalization for transliteration.
+
+    cache_tag is appended to the on-disk cache filename, so different static
+    configurations don't collide on the same cached tokenizer.
     """
     tok_datadir = path.join(DATA_ROOT, "tokenizer", lang)
-    fname = path.join(tok_datadir, f"{code}_tokenizer.json")
+    fname = path.join(tok_datadir, f"{code}_tokenizer{cache_tag}.json")
 
     if path.exists(fname):
         logger.debug("Reused token data.")
@@ -293,15 +397,33 @@ def get_collate_fn(scr_tokenizer, rom_tokenizer):
     return collate_fn
 
 
-def get_dataloaders(lang):
+def get_dataloaders(lang, static_map=None):
     train_pairs = read_langs(lang, "train")
     logger.debug("Loaded pairs.")
+
+    if static_map:
+        # Strip static tokens from both sides so they stay out of the
+        # tokenizer vocabulary and the model's learned distribution. They
+        # are re-inserted deterministically at inference time by
+        # S2S.transliterate() via the static map.
+        scr_keys = sorted(static_map.keys(), key=len, reverse=True)
+        rom_keys = sorted(set(static_map.values()), key=len, reverse=True)
+        train_pairs = [
+            (_strip_tokens(s, scr_keys), _strip_tokens(r, rom_keys))
+            for s, r in train_pairs
+        ]
+        # Drop pairs that are now empty on either side.
+        train_pairs = [p for p in train_pairs if p[0].strip() and p[1].strip()]
+
+    cache_tag = _static_cache_tag(static_map)
     # Tokenizers are fit on training data only
-    scr_tokenizer = tokenize(lang, "scr", [x[0] for x in train_pairs])
+    scr_tokenizer = tokenize(
+            lang, "scr", [x[0] for x in train_pairs], cache_tag=cache_tag)
     logger.debug("Tokenized script.")
     # Char-level for the Roman output: ~40-symbol vocab aligns to graphemes
     # and avoids BPE merges that don't correspond to script boundaries.
-    rom_tokenizer = tokenize(lang, "rom", [x[1] for x in train_pairs])
+    rom_tokenizer = tokenize(
+            lang, "rom", [x[1] for x in train_pairs], cache_tag=cache_tag)
     logger.debug("Tokenized Roman.")
 
     collate = get_collate_fn(scr_tokenizer, rom_tokenizer)
@@ -314,6 +436,14 @@ def get_dataloaders(lang):
     dev_path = path.join(DATA_ROOT, "source", lang, "dev.csv")
     if path.exists(dev_path):
         dev_pairs = read_langs(lang, "dev")
+        if static_map:
+            dev_pairs = [
+                (_strip_tokens(s, scr_keys), _strip_tokens(r, rom_keys))
+                for s, r in dev_pairs
+            ]
+            dev_pairs = [
+                p for p in dev_pairs if p[0].strip() and p[1].strip()
+            ]
         dev_loader = torch.utils.data.DataLoader(
                 TransliterationDataset(dev_pairs),
                 batch_size=PARAMS[lang]["batch_size"], shuffle=False,
@@ -437,6 +567,12 @@ class BahdanauAttention(nn.Module):
         scores = scores.transpose(1, 2)  # [B, 1, S]
         if mask is not None:
             scores = scores.masked_fill(~mask.unsqueeze(1), float("-inf"))
+            # If a row has no valid source positions, softmax over all -inf
+            # yields NaN and poisons every subsequent update. Zero the scores
+            # for such rows so softmax returns a (meaningless) uniform
+            # distribution instead; the pair should be filtered upstream.
+            all_masked = (~mask).all(dim=-1, keepdim=True).unsqueeze(1)
+            scores = scores.masked_fill(all_masked, 0.0)
         weights = F.softmax(scores, dim=-1)
         context = torch.bmm(weights, keys)
         return context, weights
@@ -497,17 +633,40 @@ class DecoderRNN(nn.Module):
 
 
 class Seq2SeqRNN(nn.Module):
-    def __init__(self, encoder, decoder, src_pad_id):
+    def __init__(
+        self, encoder, decoder, src_pad_id, src_sos_id=None, src_eos_id=None,
+    ):
         super().__init__()
         self.encoder = encoder
         self.decoder = decoder
         self.src_pad_id = src_pad_id
+        # Attention should target *content* tokens, not the SOS/EOS wrappers
+        # added by the tokenizer's post-processor. Attending to [start]/[end]
+        # gives attention a free "no signal" hiding place — observed empirically
+        # to cause step-0 lock-on when only pad is excluded.
+        self.src_sos_id = src_sos_id
+        self.src_eos_id = src_eos_id
 
-    def forward(self, input_seq, target_seq):
-        """Given the partial target sequence, predict the next token"""
+    def build_enc_mask(self, input_seq):
+        """[B, S] bool: True on valid, content source positions."""
+        mask = input_seq != self.src_pad_id
+        if self.src_sos_id is not None:
+            mask = mask & (input_seq != self.src_sos_id)
+        if self.src_eos_id is not None:
+            mask = mask & (input_seq != self.src_eos_id)
+        return mask
+
+    def forward(self, input_seq, target_seq, return_attn=False):
+        """Given the partial target sequence, predict the next token.
+
+        When return_attn is True, also returns the per-step attention weights
+        stacked into [B, T-1, S] — used by the guided-attention loss during
+        training to bias attention toward a monotonic diagonal.
+        """
         batch_size, target_len = target_seq.shape
-        enc_mask = input_seq != self.src_pad_id  # [B, S]
+        enc_mask = self.build_enc_mask(input_seq)
         outputs = []
+        attns = [] if return_attn else None
         enc_out, dec_hidden = self.encoder(input_seq)
         prev_attn = None
         for t in range(target_len - 1):
@@ -516,12 +675,64 @@ class Seq2SeqRNN(nn.Module):
             dec_out, dec_hidden, prev_attn = self.decoder(
                     dec_in, dec_hidden, enc_out, enc_mask, prev_attn)
             outputs.append(dec_out)
+            if return_attn:
+                attns.append(prev_attn)  # [B, 1, S]
         outputs = torch.cat(outputs, dim=1)
+        if return_attn:
+            attns = torch.cat(attns, dim=1)  # [B, T-1, S]
+            return outputs, attns, enc_mask
         return outputs
 
 
+def guided_attention_loss(
+    attn, enc_mask, tgt_mask, sigma=0.2,
+):
+    """Diagonal-prior penalty on attention weights.
+
+    Encourages α_{t,s} to concentrate near s/S ≈ t/T, which is the correct
+    prior for near-monotonic, near-equal-length alignments like
+    transliteration. The penalty is 1 − exp(−(s/S − t/T)² / (2σ²)), so
+    weight placed near the diagonal is cheap and weight placed far off it
+    is expensive.
+
+    Padded source and target positions are excluded from both the penalty
+    and the length normalization, so the diagonal is measured against
+    per-example valid lengths.
+
+    Args:
+        attn: [B, T, S] attention weights (must sum to 1 over S per step).
+        enc_mask: [B, S] bool, True on valid source positions.
+        tgt_mask: [B, T] bool, True on valid target positions.
+        sigma: width of the diagonal band as a fraction of the diagonal.
+            0.2 is a standard choice (Tacotron 2). Lower values narrow the
+            allowed band and are stricter about monotonicity.
+
+    Returns:
+        scalar loss.
+    """
+    B, T, S = attn.shape
+    device = attn.device
+    src_len = enc_mask.sum(dim=-1).clamp(min=1).to(attn.dtype)  # [B]
+    tgt_len = tgt_mask.sum(dim=-1).clamp(min=1).to(attn.dtype)  # [B]
+
+    s_idx = torch.arange(S, device=device, dtype=attn.dtype)
+    t_idx = torch.arange(T, device=device, dtype=attn.dtype)
+    # Normalized positions per example.
+    s_norm = s_idx.unsqueeze(0) / src_len.unsqueeze(1)  # [B, S]
+    t_norm = t_idx.unsqueeze(0) / tgt_len.unsqueeze(1)  # [B, T]
+
+    diff = t_norm.unsqueeze(2) - s_norm.unsqueeze(1)  # [B, T, S]
+    penalty = 1.0 - torch.exp(-(diff ** 2) / (2 * sigma * sigma))
+
+    # Ignore padded source and target positions in the sum + normalization.
+    valid = tgt_mask.unsqueeze(2) & enc_mask.unsqueeze(1)  # [B, T, S]
+    penalty = penalty * valid.to(attn.dtype)
+    loss = (attn * penalty).sum() / valid.to(attn.dtype).sum().clamp(min=1)
+    return loss
+
+
 class S2S:
-    def __init__(self, lang, state_fpath=None, n_layers=None):
+    def __init__(self, lang, state_fpath=None, n_layers=None, static=None):
         """
         Instantiate a Seq2Seq model.
 
@@ -535,15 +746,28 @@ class S2S:
             Normally this is hardcoded in the language configuration, but when
             loading a bespoke model file, the n_layers must match the one used
             to train that model.
+
+        @param static (str) Optional path to a YAML file containing fixed
+            script-to-roman token mappings (punctuation, numerals, invariant
+            long tokens). Entries are an ordered mapping: script key → roman
+            value. Tokens listed here are stripped from training pairs so
+            they stay out of the tokenizer vocabulary, and are applied as
+            deterministic substitutions in transliterate() before the neural
+            model runs on the remaining spans. Changing this file produces a
+            new tokenizer cache; the model must be retrained to match.
         """
         self.lang = lang
+        self.static_map = self._load_static(static)
 
         # Data loaders.
         (self.train_loader, self.dev_loader,
-         self.scr_tokenizer, self.rom_tokenizer) = get_dataloaders(self.lang)
+         self.scr_tokenizer, self.rom_tokenizer) = get_dataloaders(
+                self.lang, static_map=self.static_map)
         self.enc_dim = len(self.scr_tokenizer.get_vocab())
         self.dec_dim = len(self.rom_tokenizer.get_vocab())
         self.src_pad_id = self.scr_tokenizer.token_to_id(PAD_TOK)
+        self.src_sos_id = self.scr_tokenizer.token_to_id(SOS_TOK)
+        self.src_eos_id = self.scr_tokenizer.token_to_id(EOS_TOK)
         self.tgt_pad_id = self.rom_tokenizer.token_to_id(PAD_TOK)
         self.params = PARAMS[lang]
 
@@ -561,7 +785,10 @@ class S2S:
         ).to(DEVICE)
 
         # Seq2SeqRNN model.
-        self.model = Seq2SeqRNN(encoder, decoder, self.src_pad_id).to(DEVICE)
+        self.model = Seq2SeqRNN(
+            encoder, decoder,
+            self.src_pad_id, self.src_sos_id, self.src_eos_id,
+        ).to(DEVICE)
         state_dir = path.join(DATA_ROOT, "train_state", self.lang)
         self.best_fpath = path.join(state_dir, "best.pth")
         self.state_fpath = path.join(state_dir, "checkpoint.pth")
@@ -580,6 +807,12 @@ class S2S:
         else:
             logger.warn("Model is not trained.")
             self.trained = False
+        logger.info(
+            f"Loaded {load_path}; "
+            f"enc.emb norm={self.model.encoder.embedding.weight.norm().item():.4f}; "
+            f"dec.emb norm={self.model.decoder.embedding.weight.norm().item():.4f}; "
+            f"trained={self.trained}"
+        )
 
         total_params = sum(
                 p.numel() for p in self.model.parameters() if p.requires_grad)
@@ -623,28 +856,71 @@ class S2S:
         best_dev_loss = float("inf")
         stale_evals = 0
 
+        ga_weight_init = self.params.get("ga_weight", 0.0)
+        ga_sigma = self.params.get("ga_sigma", 0.2)
+        ga_warmup_epochs = self.params.get("ga_warmup_epochs", 0)
+        ga_anneal_epochs = self.params.get("ga_anneal_epochs", 0)
+
         for epoch in range(epochs):
             self.model.train()
             epoch_loss = 0
+            epoch_ga_loss = 0
+            # Schedule for λ over epochs:
+            #   [0, ga_warmup_epochs)               → ramp 0 → ga_weight_init
+            #   [ga_warmup_epochs, +ga_anneal)      → ramp ga_weight_init → 0
+            #   after that                          → 0 (loss term disabled)
+            # Warming up avoids a hot diagonal on epoch 0 dominating CE and
+            # locking attention onto whatever it saw first (e.g. [start]).
+            if ga_weight_init <= 0:
+                ga_weight = 0.0
+            elif epoch < ga_warmup_epochs:
+                ga_weight = ga_weight_init * (
+                        (epoch + 1) / max(1, ga_warmup_epochs))
+            else:
+                past_warmup = epoch - ga_warmup_epochs
+                if ga_anneal_epochs > 0:
+                    ga_weight = ga_weight_init * max(
+                            0.0, 1.0 - past_warmup / ga_anneal_epochs)
+                else:
+                    ga_weight = ga_weight_init
+            use_ga = ga_weight > 0
             for scr_ids, rom_ids in tqdm.tqdm(
                     self.train_loader, desc="Training"):
                 scr_ids = scr_ids.to(DEVICE)
                 rom_ids = rom_ids.to(DEVICE)
                 optimizer.zero_grad()
-                outputs = self.model(scr_ids, rom_ids)
-                loss = loss_fn(outputs.reshape(
+                if use_ga:
+                    outputs, attn, enc_mask = self.model(
+                            scr_ids, rom_ids, return_attn=True)
+                else:
+                    outputs = self.model(scr_ids, rom_ids)
+                ce = loss_fn(outputs.reshape(
                         -1, self.dec_dim), rom_ids[:, 1:].reshape(-1))
+                if use_ga:
+                    tgt_mask = rom_ids[:, 1:] != self.tgt_pad_id
+                    ga = guided_attention_loss(
+                            attn, enc_mask, tgt_mask, sigma=ga_sigma)
+                    loss = ce + ga_weight * ga
+                    epoch_ga_loss += ga.item()
+                else:
+                    loss = ce
                 loss.backward()
                 torch.nn.utils.clip_grad_norm_(
                         self.model.parameters(), self.params["grad_clip"])
                 optimizer.step()
                 if warmup.last_epoch < warmup.total_iters:
                     warmup.step()
-                epoch_loss += loss.item()
+                epoch_loss += ce.item()
+            n_batches = len(self.train_loader)
+            ga_msg = (
+                f"; GA loss {epoch_ga_loss/n_batches:.4f} (λ={ga_weight:.3f})"
+                if use_ga else ""
+            )
             logger.info(
                 f"Epoch {epoch+1}/{epochs}; "
-                f"Avg loss {epoch_loss/len(self.train_loader)}; "
-                f"Latest loss {loss.item()}"
+                f"Avg loss {epoch_loss/n_batches}; "
+                f"Latest loss {ce.item()}"
+                f"{ga_msg}"
             )
             # Latest snapshot — overwritten every epoch.
             torch.save(self.model.state_dict(), self.state_fpath)
@@ -694,7 +970,7 @@ class S2S:
         scr_ids = torch.tensor(
             self.scr_tokenizer.encode(src).ids
         ).unsqueeze(0).to(DEVICE)
-        enc_mask = scr_ids != self.src_pad_id
+        enc_mask = self.model.build_enc_mask(scr_ids)
         enc_out, hidden = self.model.encoder(scr_ids)
         prev_token = torch.tensor(
             [[self.rom_tokenizer.token_to_id(SOS_TOK)]]
@@ -724,7 +1000,7 @@ class S2S:
         scr_ids = torch.tensor(
             self.scr_tokenizer.encode(src).ids
         ).unsqueeze(0).to(DEVICE)
-        enc_mask = scr_ids != self.src_pad_id
+        enc_mask = self.model.build_enc_mask(scr_ids)
         enc_out, hidden = self.model.encoder(scr_ids)
 
         # Tile encoder state across the beam dimension.
@@ -797,21 +1073,83 @@ class S2S:
         # Strip leading SOS; trailing EOS (if present) is fine for the decoder.
         return best[1:]
 
+    def _load_static(self, fpath):
+        """Load a static token map from YAML and normalize to the same form
+        the training pipeline uses.
+
+        The YAML has two top-level keys:
+            map:    script key → roman value for tokens that always
+                    transliterate the same way.
+            ignore: list of tokens (punctuation, markup, etc.) that should
+                    be copied verbatim through the pipeline. These are
+                    merged into the returned map as identity entries
+                    (token → token) so both groups share the same stripping
+                    and segmentation logic.
+        """
+        if not fpath:
+            return {}
+        with open(fpath) as fh:
+            data = yaml_load(fh, Loader=YamlLoader) or {}
+        norm_scr = normalize_fn[self.lang]
+        result = {}
+        for k, v in (data.get("map") or {}).items():
+            k = norm_scr(str(k))
+            v = normalize("NFD", str(v))
+            if k:
+                result[k] = v
+        for tok in (data.get("ignore") or []):
+            tok = str(tok)
+            # Normalize on each side independently so stripping lines up
+            # whether the token appears on the script or roman side.
+            k = norm_scr(tok)
+            if k:
+                result[k] = normalize("NFD", tok)
+        return result
+
+    def _segment_by_static(self, text):
+        """Split `text` into [(is_static, segment), ...]: static entries are
+        already the mapped roman form; non-static entries are source-script
+        runs still to be fed through the model. Longest-first matching
+        prevents a short key from eating a prefix of a longer one."""
+        if not self.static_map:
+            return [(False, text)]
+        keys = sorted(self.static_map.keys(), key=len, reverse=True)
+        pattern = re.compile("|".join(re.escape(k) for k in keys))
+        segments = []
+        pos = 0
+        for m in pattern.finditer(text):
+            if m.start() > pos:
+                segments.append((False, text[pos:m.start()]))
+            segments.append((True, self.static_map[m.group(0)]))
+            pos = m.end()
+        if pos < len(text):
+            segments.append((False, text[pos:]))
+        return segments
+
     def transliterate(self, src, beam_size=4):
         # Apply training-time normalization so the tokenizer sees the same
         # form it was trained on (e.g. Arabic yeh → Persian yeh).
         src = normalize_fn[self.lang](src)
-        self.model.eval()
-        with torch.no_grad():
-            if beam_size <= 1:
-                pred_ids = self._greedy_decode(src, max_len=MAX_SRC_CHARS)
-            else:
-                pred_ids = self._beam_decode(
-                        src, max_len=MAX_SRC_CHARS, beam_size=beam_size)
+        # Deterministic substitutions from the static map run first; the
+        # model only sees the spans in between.
+        segments = self._segment_by_static(src)
         eos_id = self.rom_tokenizer.token_to_id(EOS_TOK)
-        if pred_ids and pred_ids[-1] == eos_id:
-            pred_ids = pred_ids[:-1]
-        return self.rom_tokenizer.decode(pred_ids)
+        self.model.eval()
+        out_parts = []
+        with torch.no_grad():
+            for is_static, seg in segments:
+                if is_static or not seg.strip():
+                    out_parts.append(seg)
+                    continue
+                if beam_size <= 1:
+                    pred_ids = self._greedy_decode(seg, max_len=MAX_SRC_CHARS)
+                else:
+                    pred_ids = self._beam_decode(
+                            seg, max_len=MAX_SRC_CHARS, beam_size=beam_size)
+                if pred_ids and pred_ids[-1] == eos_id:
+                    pred_ids = pred_ids[:-1]
+                out_parts.append(self.rom_tokenizer.decode(pred_ids))
+        return "".join(out_parts)
 
     def sample_predictions(self, ct=5, beam_size=4, split="dev"):
         """Print a handful of full predictions for visual inspection."""
@@ -909,6 +1247,132 @@ class S2S:
                 print(f"TF token acc: {tf_acc:.3f}")
                 print(f"Greedy pred: {greedy_pred}")
                 print()
+
+    def inspect_attention(
+        self, src=None, split="train", max_len=60, show_topk=3,
+    ):
+        """Trace attention weights across a greedy decode.
+
+        Prints one row per decoder step:
+            step  out_char  argmax_pos  entropy  entropy_norm  top-k positions
+        where
+            - argmax_pos: source index attention is most peaked on (0-based).
+            - entropy: attention entropy in nats over the valid (non-pad)
+              source positions.
+            - entropy_norm: entropy / log(S_valid). ~1.0 = uniform (attention
+              is doing nothing); low values (<0.3) = sharply peaked.
+            - top-k: the top-k source positions and their weights.
+
+        If `src` is None, one random pair is drawn from `split` for context.
+        Use this to distinguish attention collapse (uniform, non-advancing)
+        from other failure modes.
+        """
+        import math
+
+        self.model.eval()
+        if src is None:
+            pair = random.choice(read_langs(self.lang, split))
+            src, true_rom = pair
+        else:
+            true_rom = None
+
+        # Normalize the source the same way the training pipeline does,
+        # otherwise the tokenizer sees a slightly different string than what
+        # populated the encoder embedding table during training.
+        src_norm = normalize_fn[self.lang](src)
+        scr_enc = self.scr_tokenizer.encode(src_norm)
+        scr_ids = torch.tensor(scr_enc.ids).unsqueeze(0).to(DEVICE)
+        enc_mask = self.model.build_enc_mask(scr_ids)
+        s_valid = enc_mask.sum().item()
+
+        with torch.no_grad():
+            enc_out, hidden = self.model.encoder(scr_ids)
+            prev_token = torch.tensor(
+                [[self.rom_tokenizer.token_to_id(SOS_TOK)]]
+            ).to(DEVICE)
+            eos_id = self.rom_tokenizer.token_to_id(EOS_TOK)
+            prev_attn = None
+
+            src_tokens = scr_enc.tokens  # length s (may include specials)
+            print(f"Script:  {src}")
+            if true_rom is not None:
+                print(f"Roman:   {true_rom}")
+            print(f"src tokens (S={len(src_tokens)}, valid={s_valid}):")
+            for i, t in enumerate(src_tokens):
+                print(f"  [{i:3d}] {t!r}")
+            print()
+
+            uniform_ent = math.log(s_valid) if s_valid > 0 else 0.0
+            header = (
+                f"{'step':>4} {'out':<10} {'argmax':>6} "
+                f"{'ent':>7} {'ent/U':>6}   top-k"
+            )
+            print(header)
+            print("-" * len(header))
+
+            rows = []
+            for step in range(max_len):
+                output, hidden, prev_attn = self.model.decoder(
+                    prev_token, hidden, enc_out, enc_mask, prev_attn)
+                # prev_attn is [B=1, 1, S] — attention over source positions.
+                w = prev_attn[0, 0].detach()
+                # Entropy over valid positions only. Padded positions carry
+                # zero weight from the mask so they don't affect it, but we
+                # normalize by log(s_valid) for interpretability.
+                w_safe = w.clamp_min(1e-12)
+                ent = -(w * w_safe.log()).sum().item()
+                ent_norm = ent / uniform_ent if uniform_ent > 0 else 0.0
+                argmax_pos = int(w.argmax().item())
+                topk = torch.topk(w, k=min(show_topk, w.numel()))
+                topk_str = ", ".join(
+                    f"{int(i)}:{float(v):.2f}"
+                    for i, v in zip(topk.indices.tolist(),
+                                    topk.values.tolist())
+                )
+
+                tok_id = int(output.argmax(dim=2).item())
+                tok_str = self.rom_tokenizer.decode(
+                        [tok_id], skip_special_tokens=False)
+                if not tok_str.strip():
+                    # Preserve visibility of whitespace / specials.
+                    tok_str = repr(tok_str)
+
+                print(
+                    f"{step:>4} {tok_str:<10} {argmax_pos:>6} "
+                    f"{ent:>7.3f} {ent_norm:>6.2f}   {topk_str}"
+                )
+                rows.append((step, argmax_pos, ent, ent_norm))
+
+                prev_token = output.argmax(dim=2)
+                if tok_id == eos_id:
+                    break
+
+            if rows:
+                pos_seq = [r[1] for r in rows]
+                ent_norms = [r[3] for r in rows]
+                # Monotonicity: fraction of adjacent steps where argmax
+                # position does not go backwards.
+                if len(pos_seq) > 1:
+                    non_reversals = sum(
+                            1 for a, b in zip(pos_seq[:-1], pos_seq[1:])
+                            if b >= a)
+                    mono = non_reversals / (len(pos_seq) - 1)
+                else:
+                    mono = float("nan")
+                mean_ent_norm = sum(ent_norms) / len(ent_norms)
+                print()
+                print(
+                    f"summary: steps={len(rows)}  "
+                    f"mean ent/U={mean_ent_norm:.2f}  "
+                    f"argmax monotonic={mono:.2f}  "
+                    f"argmax range={min(pos_seq)}..{max(pos_seq)}"
+                )
+                print(
+                    "  ent/U ≈ 1.0 → attention is uniform (collapsed);\n"
+                    "  ent/U ≲ 0.3 → sharply peaked;\n"
+                    "  monotonic ≈ 1.0 and range spanning most of S → "
+                    "attention is sweeping the source."
+                )
 
     def evaluate(self, split="test", beam_size=4, max_len=60, limit=None):
         """End-to-end transliteration metrics on a held-out split.

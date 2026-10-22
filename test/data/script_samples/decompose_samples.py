@@ -14,10 +14,17 @@ is unlikely but possible that some normalization may lead to an invalid CSV.
 """
 
 from os import path
+from sys import argv
 from unicodedata import normalize
 from glob import glob
 
-for fname in glob("*.csv"):
+if len(argv) > 1:
+    src_list = argv[1:]
+else:
+    src_list = glob("*.csv")
+
+
+for fname in src_list:
     dest_fname = path.splitext(fname)[0] + "_norm.csv"
     with open(fname) as fh:
         data = fh.read()
