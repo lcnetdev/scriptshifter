@@ -25,7 +25,7 @@ jobs:
         with:
           submodules: recursive
           lfs: true
-          fetch-tags: true
+          #fetch-tags: true
 
       - name: update version info
         run: |
