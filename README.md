@@ -63,8 +63,14 @@ transliterate("some text", "some language")
 Build container in current dir:
 
 ```
+git submodule update --init --recursive
+git lfs pull
 docker build -t scriptshifter:latest .
 ```
+
+The seq2seq model files under `scriptshifter/hooks/seq2seq/data` are stored in
+[Git LFS](https://git-lfs.com/). The build fails with an explicit error if they
+have not been pulled.
 
 Start container:
 
