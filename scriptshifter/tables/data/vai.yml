@@ -2,10 +2,11 @@
 general:
   name: Vai
   description: Vai language in Vai script.
-  version: 1.0.1
-  date: 2026-10-21
+  version: 1.0.2
+  date: 2026-11-05
   parents:
     - _ignore_base
+  case_sensitive: false
 
 # COMMON SPECIAL AND COMBINING CHARACTERS:
 # exclamation mark \u0021
